@@ -1,12 +1,20 @@
+import * as React from 'react'
 
-import './App.css';
-import * as React from 'react';
-import Button from '@mui/material/Button';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
+import Homepage from './Pages/Homepage'
 function App() {
-  return (
-  <Button variant="contained">Hello World</Button>
-  );
+    return (
+        <>
+            <Router>
+                {/* <Navbar /> */}
+                <Switch>
+                    <Route path="/" exact component={Homepage} />
+                </Switch>
+            </Router>
+        </>
+        // <Button variant="contained">Hello World</Button>
+    )
 }
 
-export default App;
+export default App
