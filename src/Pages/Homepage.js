@@ -6,6 +6,7 @@ function Homepage() {
     return (
         <div className="homepage-container">
             <h1>Beaker</h1>
+            <p> Testing Purposes: please delete this before demo </p>
             <p> LMU's very own hub for research and collaboration </p>
             <p> I am a.... </p>
             <Button
