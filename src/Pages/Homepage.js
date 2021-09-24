@@ -1,22 +1,25 @@
 import React from 'react'
 import '../Styles/Homepage.css'
+// import '../Styles/Homepage.html'
 import Button from '@mui/material/Button'
+import beakerLogo from '../Images/whiteBeakerLogoBgRemoved.png'
 
 function Homepage() {
     return (
         <div className="homepage-container">
-            <h1>Beaker</h1>
-            <p> Testing Purposes: please delete this before demo </p>
-            <p> LMU's very own hub for research and collaboration </p>
+            <img src={beakerLogo} alt="logo" />
+            <h1> LMU's very own hub for research and collaboration </h1>
+            <div></div>
             <p> I am a.... </p>
             <Button
                 className="btn"
                 size="large"
                 variant="outlined"
-                color="primary"
+                color="error"
             >
                 student
             </Button>
+            <br></br>
             <br></br>
             <Button
                 className="btn"
@@ -24,7 +27,7 @@ function Homepage() {
                 variant="outlined"
                 color="primary"
             >
-                professor
+                Faculty/Staff
             </Button>
             <div></div>
         </div>
