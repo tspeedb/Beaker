@@ -7,10 +7,13 @@ import beakerLogo from '../Images/whiteBeakerLogoBgRemoved.png'
 function Homepage() {
     return (
         <div className="homepage-container">
-            <img src={beakerLogo} alt="logo" />
-            <h1> LMU's very own hub for research and collaboration </h1>
-            <div></div>
-            <p> I am a.... </p>
+            <div className="top-homepage">
+                <img src={beakerLogo} alt="logo" />
+                <h1> LMU's very own hub for research and collaboration </h1>
+                <div></div>
+                <p> I am a.... </p>
+            </div>
+
             <Button
                 className="btn"
                 size="large"
