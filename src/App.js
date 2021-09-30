@@ -1,7 +1,12 @@
 import * as React from 'react'
 
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-// import Navbar from './Components/Navbar'
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    useLocation,
+} from 'react-router-dom'
+import Navbar from './Components/Navbar'
 import Homepage from './Pages/Homepage'
 import Lookingpage from './Pages/Lookingpage'
 function App() {

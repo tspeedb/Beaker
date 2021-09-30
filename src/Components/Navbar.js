@@ -1,53 +1,72 @@
-// import React, { useState } from 'react'
-// import { makeStyles } from '@material-ui/core/styles'
-// import AppBar from '@material-ui/core/AppBar'
-// import Toolbar from '@material-ui/core/Toolbar'
-// import Typography from '@material-ui/core/Typography'
-// import IconButton from '@material-ui/core/IconButton'
-// import Button from '@material-ui/core/Button'
-// import MenuIcon from '@material-ui/icons/Menu'
+import React, { useState } from 'react'
+import { makeStyles } from '@material-ui/core/styles'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
+import IconButton from '@material-ui/core/IconButton'
+import Button from '@material-ui/core/Button'
+import HelpIcon from '@mui/icons-material/Help'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 
-// const useStyles = makeStyles((theme) => ({
-//     menuButton: {
-//         marginRight: theme.spacing(2),
-//     },
-//     title: {
-//         flexGrow: 1,
-//     },
-// }))
+const useStyles = makeStyles((theme) => ({
+    helpButton: {
+        marginRight: theme.spacing(2),
 
-// const Navbar = () => {
-//     const classes = useStyles()
-//     const [open, setOpen] = useState(false)
+        justifyContent: 'start',
+    },
 
-//     const handleOpen = () => {
-//         setOpen(true)
-//     }
+    actionButtons: {
+        color: 'grey',
+        textTransform: 'lowercase',
+        fontSize: '18px',
+        justifyContent: 'end',
+    },
+    // theres a better way to have space between help and menu items but this good for now
+    space: {
+        flexGrow: '1',
+    },
+}))
 
-//     const handleClose = () => {
-//         setOpen(false)
-//     }
+const Navbar = () => {
+    const classes = useStyles()
+    const [open, setOpen] = useState(false)
 
-//     return (
-//         <AppBar position="static">
-//             <Toolbar>
-//                 <IconButton
-//                     edge="start"
-//                     color="inherit"
-//                     aria-label="menu"
-//                     className={classes.menuButton}
-//                 >
-//                     <MenuIcon />
-//                 </IconButton>
-//                 <Typography variant="h6" className={classes.title}>
-//                     Title
-//                 </Typography>
-//                 <Button color="inherit" onClick={handleOpen}>
-//                     Signup
-//                 </Button>
-//             </Toolbar>
-//         </AppBar>
-//     )
-// }
+    const handleOpen = () => {
+        setOpen(true)
+    }
 
-// export default Navbar
+    const handleClose = () => {
+        setOpen(false)
+    }
+
+    return (
+        <AppBar position="static">
+            <Toolbar style={{ backgroundColor: 'white' }}>
+                <IconButton
+                    edge="start"
+                    color="black"
+                    aria-label="help"
+                    className={classes.helpButton}
+                >
+                    <HelpIcon />
+                </IconButton>
+                <Typography className={classes.space}></Typography>
+                <div style={{ justifyContent: 'end', position: 'flex' }}>
+                    <Button className={classes.actionButtons}>members</Button>
+                    <Button className={classes.actionButtons}>groups</Button>
+                    <Button className={classes.actionButtons}>saved</Button>
+                    <Button className={classes.actionButtons}>chat</Button>
+                    <IconButton color="black" fontSize="large" edge="end">
+                        <AccountCircleIcon />
+                    </IconButton>
+                </div>
+
+                {/* <Button color="inherit" onClick={handleOpen}>
+                    members
+                </Button> */}
+            </Toolbar>
+        </AppBar>
+    )
+}
+
+export default Navbar
