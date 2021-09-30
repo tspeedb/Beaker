@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+// import React, { useState } from 'react'
+import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -29,15 +30,15 @@ const useStyles = makeStyles((theme) => ({
 
 const Navbar = () => {
     const classes = useStyles()
-    const [open, setOpen] = useState(false)
+    // const [open, setOpen] = useState(false)
 
-    const handleOpen = () => {
-        setOpen(true)
-    }
+    // const handleOpen = () => {
+    //     setOpen(true)
+    // }
 
-    const handleClose = () => {
-        setOpen(false)
-    }
+    // const handleClose = () => {
+    //     setOpen(false)
+    // }
 
     return (
         <AppBar position="static">
