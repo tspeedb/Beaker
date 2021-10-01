@@ -4,6 +4,10 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import Homepage from './Pages/Homepage'
 import Lookingpage from './Pages/Lookingpage'
+import StudentSignIn from './Pages/StudentSignIn'
+import FacultyStaffSignIn from './Pages/FacultyStaffSignIn'
+import NewUserStudent from './Pages/NewUserStudent'
+import NewUserFacultyStaff from './Pages/NewUserFacultyStaff'
 function App() {
     return (
         <>
@@ -12,6 +16,30 @@ function App() {
                     <Route path="/" exact component={Homepage} />
 
                     <Route path="/lookingpage" exact component={Lookingpage} />
+
+                    <Route
+                        path="/studentsignin"
+                        exact
+                        component={StudentSignIn}
+                    />
+
+                    <Route
+                        path="/facultystaffsignin"
+                        exact
+                        component={FacultyStaffSignIn}
+                    />
+
+                    <Route
+                        path="/newuserstudent"
+                        exact
+                        component={NewUserStudent}
+                    />
+
+                    <Route
+                        path="/newuserfacultystaff"
+                        exact
+                        component={NewUserFacultyStaff}
+                    />
                 </Switch>
             </Router>
         </>

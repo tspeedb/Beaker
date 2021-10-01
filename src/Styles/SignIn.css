@@ -1,28 +1,11 @@
-.top-homepage {
-    background-image: url('../Images/lmuCampusRedTint.png');
-    background-position: center;
+.top-signin {
     text-align: center;
-    color: white;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
         Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    padding-bottom: 75px;
 }
 
 h1 {
-    font-size: large;
-}
-
-p {
-    font-size: large;
-    color: black;
-    text-align: center;
-}
-
-img {
-    display: block;
-    padding-top: 10%;
-    margin-left: auto;
-    margin-right: auto;
+    font-size: medium;
 }
 
 .button1 {
@@ -32,6 +15,12 @@ img {
 }
 
 .button2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button3 {
     display: flex;
     justify-content: center;
     align-items: center;
