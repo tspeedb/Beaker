@@ -3,6 +3,7 @@ import * as React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import Homepage from './Pages/Homepage'
+import Projectspage from './Pages/Projectspage'
 import Lookingpage from './Pages/Lookingpage'
 import StudentSignIn from './Pages/StudentSignIn'
 import FacultyStaffSignIn from './Pages/FacultyStaffSignIn'
@@ -14,6 +15,11 @@ function App() {
             <Router>
                 <Switch>
                     <Route path="/" exact component={Homepage} />
+                    <Route
+                        path="/projectspage"
+                        exact
+                        component={Projectspage}
+                    />
 
                     <Route path="/lookingpage" exact component={Lookingpage} />
 
