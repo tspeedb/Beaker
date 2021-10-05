@@ -17,16 +17,14 @@ function ProjectCards() {
                 <Grid item xs={8} sm={8} md={4}>
                     <CardItems
                         title="Project 1"
-                        src="/images/otbCard.png"
+                        // image="/Images/science.jpg"
                         /* path="/onthebloc"*/
-                        description="A React website built with three other classmates called On The Block. Users would plan block parties by choosing from different local small business’s to cater, entertain..etc at their parties."
-                        href="https://ontheblock.vercel.app/"
+                        description="test"
                     />
                 </Grid>
                 <Grid item xs={8} sm={8} md={4}>
                     <CardItems
                         title="Project 2"
-                        src="/images/wya.png"
                         description="An app built with two other members of the CSSI program, implementing HTML, Python, JavaScript, and CSS. This app allowed college students to have easy access to their peers social calendars to make planning social outing events easier.
               "
                     />
@@ -34,7 +32,6 @@ function ProjectCards() {
                 <Grid item xs={8} sm={8} md={4}>
                     <CardItems
                         title="Project 3"
-                        src="/images/wya.png"
                         description="An app built with two other members of the CSSI program, implementing HTML, Python, JavaScript, and CSS. This app allowed college students to have easy access to their peers social calendars to make planning social outing events easier.
               "
                     />

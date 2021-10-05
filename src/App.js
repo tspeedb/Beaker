@@ -9,6 +9,7 @@ import StudentSignIn from './Pages/StudentSignIn'
 import FacultyStaffSignIn from './Pages/FacultyStaffSignIn'
 import NewUserStudent from './Pages/NewUserStudent'
 import NewUserFacultyStaff from './Pages/NewUserFacultyStaff'
+import Loginpage from './Pages/Loginpage'
 function App() {
     return (
         <>
@@ -46,6 +47,7 @@ function App() {
                         exact
                         component={NewUserFacultyStaff}
                     />
+                    <Route path="/loginpage" exact component={Loginpage} />
                 </Switch>
             </Router>
         </>
