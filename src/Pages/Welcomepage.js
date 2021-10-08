@@ -8,7 +8,7 @@ import Box from '@mui/material/Box'
 function Welcomepage() {
     return (
         <div className="welcomepage-container">
-            {/* <video src="/videos/welcomevideo.mov" autoPlay loop muted /> */}
+            <video src="/videos/welcomevideo.mp4" autoPlay loop muted />
             <div className="wrapper"></div>
             <div className="top-welcomepage">
                 <img src={beakerLogo} alt="logo" />
