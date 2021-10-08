@@ -24,6 +24,7 @@ function NewUserStudent() {
                     placeholder="password"
                 />
                 <div></div>
+                <br></br>
                 <div className="button1">
                     <Button
                         className="btn1"

@@ -19,12 +19,52 @@ h1 {
     margin-right: auto;
 }
 
-.why-beaker {
-    padding: 5%;
-    max-width: 100%;
+.welcome-info {
+    text-align: center;
+    font-size: large;
+    padding-top: 20px;
 }
 
+.checkmark {
+    display: block;
+    height: 50px;
+    width: 60px;
+    padding-top: 2.5%;
+}
+
+.lightbulb {
+    display: block;
+    height: 60px;
+    width: 70px;
+    padding: 0%;
+}
+
+.connection {
+    display: block;
+    height: 60px;
+    width: 70px;
+    padding: 0%;
+}
+
+.title {
+    padding: 0%;
+    font-style: normal;
+    font-weight: bold;
+}
+
+.info {
+    padding: 0%;
+    font-style: italic;
+    font-weight: normal;
+}
+
+/* .why-beaker {
+    padding: 5%;
+    max-width: 100%;
+} */
+
 .button1 {
+    padding-top: 0%;
     display: flex;
     justify-content: center;
     align-items: center;

@@ -2,6 +2,9 @@ import React from 'react'
 import '../Styles/Welcomepage.css'
 import Button from '@mui/material/Button'
 import beakerLogo from '../Images/whiteBeakerLogoBgRemoved.png'
+import checkmark from '../Images/checkmark.png'
+import lightbulb from '../Images/lightbulb.png'
+import connection from '../Images/connection.png'
 import { Link } from 'react-router-dom'
 import Box from '@mui/material/Box'
 
@@ -10,15 +13,18 @@ function Welcomepage() {
         <div className="welcomepage-container">
             <div className="top-welcomepage">
                 {/* <video src="/videos/Dust-impact-03.mov" autoPlay loop muted /> */}
-                <img src={beakerLogo} alt="logo" />\
-                <h1> LMU's very own hub for research and collaboration </h1>
+                <img src={beakerLogo} alt="logo" />
+                <h1>
+                    {' '}
+                    LMU's very own hub for research <br></br> and collaboration{' '}
+                </h1>
             </div>
-            <p>
+            <p className="welcome-info">
                 {' '}
                 Scientific beakers can be used to combine entities to produce a
-                solution. Similar to that, LMU's Beaker will bring together
-                people from different departments to produce a succesfull
-                research project
+                solution. <br></br> Similar to that, LMU's Beaker will bring
+                together people from different departments to produce a
+                successful research project
             </p>
             <div>
                 <Box
@@ -27,26 +33,55 @@ function Welcomepage() {
                         gridTemplateColumns: 'repeat(3, 1fr)',
                     }}
                 >
-                    <p>
-                        Find amazing talent <br></br>
-                        Post projects and see who matches your project
-                        qualifications
-                    </p>
-                    <p>
-                        {' '}
-                        Make yourself known <br></br>
-                        Get seen by those who are looking for someone just like
-                        you
-                    </p>
-                    <p>
-                        {' '}
-                        Make connections <br></br>
-                        Get connected with people outside of your major
-                    </p>
+                    <div>
+                        <img
+                            className="checkmark"
+                            src={checkmark}
+                            alt="check"
+                        />
+                        <p className="title">
+                            Find amazing talent
+                            <div className="info">
+                                Post projects and see who <br></br> matches your
+                                project <br></br> qualifications
+                            </div>
+                        </p>
+                    </div>
+                    <div>
+                        <img className="lightbulb" src={lightbulb} alt="bulb" />
+                        <p className="title">
+                            {' '}
+                            Make yourself known
+                            <div className="info">
+                                Get seen by those who are <br></br> looking for
+                                someone just like you
+                            </div>
+                        </p>
+                    </div>
+                    <div>
+                        <img
+                            className="connection"
+                            src={connection}
+                            alt="connect"
+                        />
+                        <p className="title">
+                            {' '}
+                            Make connections
+                            <div className="info">
+                                Get connected with people <br></br> outside of
+                                your major
+                            </div>
+                        </p>
+                    </div>
                 </Box>
                 <div className="button1">
                     <Link className="button-link" to="/homepage">
-                        <Button className="btn1" size="large" color="primary">
+                        <Button
+                            className="btn1"
+                            size="large"
+                            variant="outlined"
+                            color="primary"
+                        >
                             Get started
                         </Button>
                     </Link>
