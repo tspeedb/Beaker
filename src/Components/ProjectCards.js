@@ -9,33 +9,22 @@ const useStyles = makeStyles({
     },
 })
 
-function ProjectCards() {
+function ProjectCards(props) {
     const classes = useStyles()
     return (
         <div>
             <Grid container justify="center" classname={classes.gridContainer}>
-                <Grid item xs={8} sm={8} md={4}>
-                    <CardItems
-                        title="Project 1"
-                        // image="/Images/science.jpg"
-                        /* path="/onthebloc"*/
-                        description="test"
-                    />
-                </Grid>
-                <Grid item xs={8} sm={8} md={4}>
-                    <CardItems
-                        title="Project 2"
-                        description="An app built with two other members of the CSSI program, implementing HTML, Python, JavaScript, and CSS. This app allowed college students to have easy access to their peers social calendars to make planning social outing events easier.
-              "
-                    />
-                </Grid>
-                <Grid item xs={8} sm={8} md={4}>
-                    <CardItems
-                        title="Project 3"
-                        description="An app built with two other members of the CSSI program, implementing HTML, Python, JavaScript, and CSS. This app allowed college students to have easy access to their peers social calendars to make planning social outing events easier.
-              "
-                    />
-                </Grid>
+                {props.projects.map((project, i) => {
+                    return (
+                        <Grid item xs={8} sm={8} md={4} key={i}>
+                            <CardItems
+                                title={project.title}
+                                description={project.description}
+                                image={project.image}
+                            />
+                        </Grid>
+                    )
+                })}
             </Grid>
         </div>
     )
