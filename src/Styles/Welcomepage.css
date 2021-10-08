@@ -1,5 +1,4 @@
 .top-welcomepage {
-    background-image: url('../Images/lmuCampusRedTint.png');
     background-position: center;
     text-align: center;
     color: white;
@@ -17,6 +16,10 @@ h1 {
     padding-top: 10%;
     margin-left: auto;
     margin-right: auto;
+}
+
+.message {
+    color: white;
 }
 
 .welcome-info {
@@ -48,12 +51,14 @@ h1 {
 
 .title {
     padding: 0%;
+    color: white;
     font-style: normal;
     font-weight: bold;
 }
 
 .info {
     padding: 0%;
+    color: white;
     font-style: italic;
     font-weight: normal;
 }
@@ -63,9 +68,19 @@ h1 {
     max-width: 100%;
 } */
 
-.button1 {
-    padding-top: 0%;
+.getstarted {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}
+
+video {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    /*stack order*/
+    z-index: -1;
 }
