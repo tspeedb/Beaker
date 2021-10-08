@@ -9,7 +9,7 @@ function NewUserFacultyStaff() {
             <div className="top-signin">
                 <img src={beaker} alt="logo" />
                 <h1>New User</h1>
-                <p>Login Information</p>
+                <p className="signin">Login Information</p>
                 <div></div>
                 <input
                     type="text"
@@ -24,29 +24,13 @@ function NewUserFacultyStaff() {
                     placeholder="password"
                 />
                 <div></div>
-                <br></br>
                 <div className="button1">
                     <Button
                         className="btn1"
-                        size="large"
+                        size="medium"
                         variant="outlined"
-                        color="primary"
+                        color="secondary"
                     >
-                        Student
-                    </Button>
-                    <Button
-                        className="btn2"
-                        size="large"
-                        variant="outlined"
-                        color="error"
-                    >
-                        Faculty/Staff
-                    </Button>
-                </div>
-                <br></br>
-                <br></br>
-                <div className="button3">
-                    <Button className="btn3" size="medium" color="secondary">
                         Continue to Profile
                     </Button>
                 </div>

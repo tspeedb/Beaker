@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react'
-
-// import '../Styles/Homepage.html'
 import ProjectCards from '../Components/ProjectCards'
 import Layout from '../Components/Layout'
 import { Typography } from '@material-ui/core'

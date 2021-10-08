@@ -1,6 +1,5 @@
 import React from 'react'
 
-// import '../Styles/Homepage.html'
 import Button from '@mui/material/Button'
 import Layout from '../Components/Layout'
 

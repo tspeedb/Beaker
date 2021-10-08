@@ -1,4 +1,4 @@
-.top-homepage {
+.top-welcomepage {
     background-image: url('../Images/lmuCampusRedTint.png');
     background-position: center;
     text-align: center;
@@ -12,34 +12,20 @@ h1 {
     font-size: large;
 }
 
-p {
-    font-size: medium;
-    font-style: italic;
-    color: black;
-    text-align: center;
-    padding-top: 20px;
-    padding-bottom: 10px;
-}
-
-img {
+.welcome-image {
     display: block;
     padding-top: 10%;
     margin-left: auto;
     margin-right: auto;
 }
 
+.why-beaker {
+    padding: 5%;
+    max-width: 100%;
+}
+
 .button1 {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.button2 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.button-link {
-    text-decoration: none;
 }

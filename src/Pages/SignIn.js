@@ -2,18 +2,19 @@ import React from 'react'
 import '../Styles/SignIn.css'
 import Button from '@mui/material/Button'
 import beaker from '../Images/blackLinedBeakerBgRemoved.png'
+import { Link } from 'react-router-dom'
 
-function FacultyStaffSignIn() {
+function SignIn() {
     return (
         <div className="sign-in">
             <div className="top-signin">
                 <img src={beaker} alt="logo" />
-                <p>Faculty/Staff Login</p>
+                <p className="signin">Student Login</p>
                 <div></div>
                 <input
                     type="text"
                     className="email-address"
-                    placeholder="example@lmu.edu"
+                    placeholder="example@lion.lmu.edu"
                 />
                 <div></div>
                 <br></br>
@@ -44,13 +45,15 @@ function FacultyStaffSignIn() {
                 <br></br>
                 <br></br>
                 <div className="button3">
-                    <Button className="btn3" size="medium" color="error">
-                        New Here?
-                    </Button>
+                    <Link className="button-link" to="./newuserstudent">
+                        <Button className="btn3" size="medium" color="error">
+                            New Here?
+                        </Button>
+                    </Link>
                 </div>
             </div>
         </div>
     )
 }
 
-export default FacultyStaffSignIn
+export default SignIn

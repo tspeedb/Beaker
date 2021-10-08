@@ -27,6 +27,19 @@ const projects = [
     },
     {
         title: 'project1',
+        description: 'help us',
+        image: 'test.jpg',
+        type: 'profile',
+    },
+    {
+        title: 'project1',
+        description: 'help us',
+        image: 'test.jpg',
+        type: 'profile',
+    },
+
+    {
+        title: 'project1',
         description: 'saved',
         image: 'test.jpg',
         type: 'bookmarked',
