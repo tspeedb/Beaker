@@ -9,7 +9,7 @@ function SignIn() {
         <div className="sign-in">
             <div className="top-signin">
                 <img src={beaker} alt="logo" />
-                <p className="signin">Student Login</p>
+                <p className="signin">Login</p>
                 <div></div>
                 <input
                     type="text"
