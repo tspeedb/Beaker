@@ -4,6 +4,7 @@ import Layout from '../Components/Layout'
 import { Typography } from '@material-ui/core'
 import projects from '../projectsdata'
 import { makeStyles } from '@material-ui/styles'
+import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles({
     title: { textAlign: 'left' },
@@ -42,19 +43,22 @@ function Projectspage() {
             </div>
             <div>
                 <Typography className={classes.title}>
-                    Based on your profile <br></br> See more
+                    Based on your profile <br></br>{' '}
+                    <Link to="/basedonprofile"> See more </Link>
                 </Typography>
                 <ProjectCards projects={profiles} />
             </div>
             <div>
                 <Typography className={classes.title}>
-                    Browse projects <br></br> See more
+                    Browse projects <br></br>{' '}
+                    <Link to="/browse"> See more </Link>
                 </Typography>
                 <ProjectCards projects={browse} />
             </div>
             <div>
                 <Typography className={classes.title}>
-                    Saved projects <br></br> See more
+                    Saved projects <br></br>{' '}
+                    <Link to="/bookmarked"> See more </Link>
                 </Typography>
                 <ProjectCards projects={bookmarks} />
             </div>

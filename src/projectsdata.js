@@ -4,6 +4,7 @@ const projects = [
         description: 'We need ',
         image: 'test.jpg',
         type: 'browsed',
+        // linktoabout: 'linktoabout'
     },
 
     {

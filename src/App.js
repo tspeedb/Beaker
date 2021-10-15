@@ -9,6 +9,11 @@ import NewUserStudent from './Pages/NewUserStudent'
 import NewUserFacultyStaff from './Pages/NewUserFacultyStaff'
 import Welcomepage from './Pages/Welcomepage'
 import StudentProfile from './Pages/StudentProfile'
+import BasedonProfile from './Pages/BasedonProfile'
+import Browse from './Pages/Browse'
+import Bookmarked from './Pages/Bookmarked'
+import AboutProject from './Pages/AboutProject'
+import MemeberProfiles from './Pages/MemberProfiles'
 
 function App() {
     return (
@@ -38,6 +43,23 @@ function App() {
                     />
 
                     <Route path="/profile" exact component={StudentProfile} />
+                    <Route
+                        path="/basedonprofile"
+                        exact
+                        component={BasedonProfile}
+                    />
+                    <Route path="/browse" exact component={Browse} />
+                    <Route path="/bookmarked" exact component={Bookmarked} />
+                    <Route
+                        path="/aboutproject"
+                        exact
+                        component={AboutProject}
+                    />
+                    <Route
+                        path="/memberprofiles"
+                        exact
+                        component={MemeberProfiles}
+                    />
                 </Switch>
             </Router>
         </>
