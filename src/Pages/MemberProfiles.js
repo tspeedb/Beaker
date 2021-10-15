@@ -11,7 +11,7 @@ const useStyles = makeStyles({
     mainTitle: { textAlign: 'left', fontSize: '55px', fontWeight: 'lighter' },
 })
 
-function MemeberProfiles() {
+function MemberProfiles() {
     const classes = useStyles()
 
     const [profiles, setProfiles] = useState([])
@@ -79,4 +79,4 @@ function MemeberProfiles() {
     )
 }
 
-export default MemeberProfiles
+export default MemberProfiles

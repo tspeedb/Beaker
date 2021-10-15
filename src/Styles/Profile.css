@@ -1,3 +1,8 @@
+.new-profile {
+    /* background-color: #107fb7; */
+    padding-bottom: 20px;
+}
+
 .top-profile {
     text-align: center;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
@@ -18,7 +23,7 @@ h1 {
 }
 
 .profile {
-    font-size: small;
+    font-size: medium;
     font-style: normal;
     color: black;
     text-align: center;
@@ -26,6 +31,17 @@ h1 {
     padding-top: 0px;
     padding-bottom: 0px;
     margin-bottom: 0%;
+}
+
+.self-intro {
+    font-size: small;
+    font-weight: bold;
+    font-style: normal;
+}
+
+.resume {
+    font-size: medium;
+    font-style: normal;
 }
 
 .default-image {
@@ -45,4 +61,10 @@ input {
     width: 250px;
     padding-left: 20px;
     border-radius: 100px;
+}
+
+textarea {
+    margin-top: 10px;
+    height: 150px;
+    width: 270px;
 }
