@@ -5,15 +5,10 @@ import beaker from '../Images/blackLinedBeakerBgRemoved.png'
 import defaultImg from '../Images/profileImageBgRemove.png'
 import { Link } from 'react-router-dom'
 
-function StudentProfile() {
+function FacultyStaffProfile() {
     return (
         <div className="new-profile">
-            <div className="left-screen">
-                <h1 className="text-info">
-                    Create <br></br> Your <br></br> Profile
-                </h1>
-            </div>
-            <div className="right-screen">
+            <div className="top-profile">
                 <img className="profile-image" src={beaker} alt="logo" />
                 <h1>New User</h1>
                 <p className="profile">Profile</p>
@@ -22,14 +17,14 @@ function StudentProfile() {
                 <input
                     type="text"
                     className="legal-name"
-                    placeholder="Please enter your full legal name"
+                    placeholder="Please enter your full name"
                 />
                 <div></div>
                 <br></br>
                 <input
                     type="text"
                     className="preferred-name"
-                    placeholder="Nickname/Preferred Name"
+                    placeholder="Preferred way to be addressed"
                 />
                 <div></div>
                 <br></br>
@@ -40,35 +35,11 @@ function StudentProfile() {
                 />
                 <div></div>
                 <br></br>
-                <input type="text" className="year" placeholder="School Year" />
-                <div></div>
-                <br></br>
                 <input
                     type="text"
-                    className="major"
-                    placeholder="Major(s) (separate by commas)"
+                    className="department"
+                    placeholder="Department"
                 />
-                <div></div>
-                <br></br>
-                <input
-                    type="text"
-                    className="minor"
-                    placeholder="Minor(s) (separate by commas)"
-                />
-                <div></div>
-                <br></br>
-                <input
-                    type="text"
-                    className="skills"
-                    placeholder="Soft Skills (separate by commas)"
-                />
-                <div></div>
-                <br></br>
-                <label className="self-intro">
-                    Tell us a little about yourself:
-                </label>
-                <div></div>
-                <textarea></textarea>
                 <div></div>
                 <br></br>
                 <label className="resume">Upload CV or Resume</label>
@@ -78,9 +49,6 @@ function StudentProfile() {
                 <div></div>
                 <br></br>
                 <label className="resume">Link to Portfolio</label>
-                <div></div>
-                <br></br>
-                <input type="text" className="portfolio" />
                 <div></div>
                 <br></br>
                 <input type="text" className="portfolio" />
@@ -102,4 +70,4 @@ function StudentProfile() {
     )
 }
 
-export default StudentProfile
+export default FacultyStaffProfile

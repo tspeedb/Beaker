@@ -14,7 +14,7 @@ function SignIn() {
                 <input
                     type="text"
                     className="email-address"
-                    placeholder="example@lion.lmu.edu"
+                    placeholder="LMU/LLS email"
                 />
                 <div></div>
                 <br></br>

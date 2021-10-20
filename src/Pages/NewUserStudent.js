@@ -2,6 +2,7 @@ import React from 'react'
 import '../Styles/SignIn.css'
 import Button from '@mui/material/Button'
 import beaker from '../Images/blackLinedBeakerBgRemoved.png'
+import { Link } from 'react-router-dom'
 
 function NewUserStudent() {
     return (
@@ -26,14 +27,16 @@ function NewUserStudent() {
                 <div></div>
                 <br></br>
                 <div className="button1">
-                    <Button
-                        className="btn1"
-                        size="medium"
-                        variant="outlined"
-                        color="secondary"
-                    >
-                        Continue to Profile
-                    </Button>
+                    <Link className="button-link" to="/studentprofile">
+                        <Button
+                            className="btn1"
+                            size="medium"
+                            variant="outlined"
+                            color="secondary"
+                        >
+                            Continue to Profile
+                        </Button>
+                    </Link>
                 </div>
             </div>
         </div>
