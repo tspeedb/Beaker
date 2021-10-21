@@ -10,24 +10,27 @@ import '../Styles/Projectspage.css'
 
 /*passing in properties from Cards*/
 
-function CardItems(props) {
+function CardItemAllMembers(props) {
     return (
-        <Card sx={{ maxWidth: 300 }}>
+        <Card sx={{ width: 200, borderRadius: '50%' }}>
             <CardMedia
-                style={{ paddingTop: 0 }}
+                style={{
+                    paddingTop: '0',
+                    borderRadius: '50%',
+                }}
                 component="img"
-                height="140"
+                height="200"
                 image={`${process.env.PUBLIC_URL}/projectImages/${props.image}`}
                 alt={props.name_year}
             >
                 {/* {props.image} */}
             </CardMedia>
-            <CardContent>
+            {/* <CardContent>
                 <Typography>{props.name_year}</Typography>
                 <Typography>{props.bio}</Typography>
-            </CardContent>
+            </CardContent> */}
         </Card>
     )
 }
 
-export default CardItems
+export default CardItemAllMembers

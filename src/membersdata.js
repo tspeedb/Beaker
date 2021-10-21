@@ -1,11 +1,51 @@
 const members = [
     {
         name_year: 'Margaret Felix, Junior',
-        major: 'Computer Science Major ',
+        major: 'Computer Science',
         minor: 'Studio Arts Minor',
         softskills: 'creative thinking, communication, listening skills',
-        bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate',
-        image: '',
+        bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+        image: 'profile.jpg',
+
+        // linktoabout: 'linktoabout'
+    },
+    {
+        name_year: 'Margaret Felix, Junior',
+        major: 'Computer Science',
+        minor: 'Studio Arts Minor',
+        softskills: 'creative thinking, communication, listening skills',
+        bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+        image: 'profile.jpg',
+
+        // linktoabout: 'linktoabout'
+    },
+    {
+        name_year: 'Margaret Felix, Junior',
+        major: 'Computer Science',
+        minor: 'Studio Arts Minor',
+        softskills: 'creative thinking, communication, listening skills',
+        bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+        image: 'profile.jpg',
+
+        // linktoabout: 'linktoabout'
+    },
+    {
+        name_year: 'Margaret Felix, Junior',
+        major: 'Computer Science',
+        minor: 'Studio Arts Minor',
+        softskills: 'creative thinking, communication, listening skills',
+        bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+        image: 'profile.jpg',
+
+        // linktoabout: 'linktoabout'
+    },
+    {
+        name_year: 'Margaret Felix, Junior',
+        major: 'Computer Science',
+        minor: 'Studio Arts Minor',
+        softskills: 'creative thinking, communication, listening skills',
+        bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+        image: 'profile.jpg',
 
         // linktoabout: 'linktoabout'
     },

@@ -4,8 +4,8 @@ import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/styles'
 const useStyles = makeStyles({
     gridContainer: {
-        paddingLeft: '20px',
-        paddingRight: '20px',
+        // paddingLeft: '10px',
+        // paddingRight: '10px',
     },
 })
 
@@ -16,10 +16,10 @@ function AllMembersCards(props) {
             <Grid container justify="center" classname={classes.gridContainer}>
                 {props.members.map((member, i) => {
                     return (
-                        <Grid item xs={8} sm={8} md={4} key={i}>
+                        <Grid item xs={12} sm={8} md={4} key={i}>
                             <CardItemAllMembers
-                                title={member.name_year}
-                                description={member.description}
+                                name_year={member.name_year}
+                                bio={member.bio}
                                 image={member.image}
                             />
                         </Grid>
