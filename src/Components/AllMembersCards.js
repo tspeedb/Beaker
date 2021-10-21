@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import CardItemAllMembers from './CardItemAllMembers'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/styles'
@@ -11,6 +11,13 @@ const useStyles = makeStyles({
 
 function AllMembersCards(props) {
     const classes = useStyles()
+    const [show, setShow] = useState(false)
+    const [hovered, setHovered] = useState(null)
+
+    const handleMouseEnter = (e) => {
+        setShow(true)
+        setHovered(e.target.id)
+    }
     return (
         <div>
             <Grid container justify="center" classname={classes.gridContainer}>
@@ -21,6 +28,8 @@ function AllMembersCards(props) {
                                 name_year={member.name_year}
                                 bio={member.bio}
                                 image={member.image}
+                                id={i}
+                                handleMouseEnter={handleMouseEnter}
                             />
                         </Grid>
                     )

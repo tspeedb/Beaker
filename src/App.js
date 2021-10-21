@@ -16,6 +16,7 @@ import Bookmarked from './Pages/Bookmarked'
 import AboutProject from './Pages/AboutProject'
 import MemberProfiles from './Pages/MemberProfiles'
 import AllMembers from './Pages/AllMembers'
+import LearnMore from './Pages/LearnMore'
 
 function App() {
     return (
@@ -72,6 +73,11 @@ function App() {
                     />
 
                     <Route path="/allmembers" exact component={AllMembers} />
+                    <Route
+                        path="/learnmore/:projectId"
+                        exact
+                        render={(props) => <LearnMore {...props} />}
+                    />
                 </Switch>
             </Router>
         </>
