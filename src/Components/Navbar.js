@@ -7,7 +7,8 @@ import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
 import Button from '@material-ui/core/Button'
 import HelpIcon from '@mui/icons-material/Help'
-import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+
+import Dropdown from './Dropdown'
 
 const useStyles = makeStyles((theme) => ({
     helpButton: {
@@ -57,14 +58,10 @@ const Navbar = () => {
                     <Button className={classes.actionButtons}>groups</Button>
                     <Button className={classes.actionButtons}>saved</Button>
                     <Button className={classes.actionButtons}>chat</Button>
-                    <IconButton color="black" fontSize="large" edge="end">
-                        <AccountCircleIcon />
-                    </IconButton>
+                    <Button>
+                        <Dropdown className={classes.actionButtons}></Dropdown>
+                    </Button>
                 </div>
-
-                {/* <Button color="inherit" onClick={handleOpen}>
-                    members
-                </Button> */}
             </Toolbar>
         </AppBar>
     )

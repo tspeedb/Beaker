@@ -13,10 +13,10 @@ import FacultyStaffProfile from './Pages/FacultyStaffProfile'
 import BasedonProfile from './Pages/BasedonProfile'
 import Browse from './Pages/Browse'
 import Bookmarked from './Pages/Bookmarked'
-import AboutProject from './Pages/AboutProject'
-import MemberProfiles from './Pages/MemberProfiles'
 import AllMembers from './Pages/AllMembers'
-import LearnMore from './Pages/LearnMore'
+import AboutProject from './Pages/AboutProject'
+import AboutMember from './Pages/AboutMember'
+import MyProjects from './Pages/MyProjects'
 
 function App() {
     return (
@@ -66,18 +66,19 @@ function App() {
                         exact
                         component={AboutProject}
                     />
-                    <Route
-                        path="/memberprofiles"
-                        exact
-                        component={MemberProfiles}
-                    />
 
                     <Route path="/allmembers" exact component={AllMembers} />
                     <Route
-                        path="/learnmore/:projectId"
+                        path="/aboutproject/:projectId"
                         exact
-                        render={(props) => <LearnMore {...props} />}
+                        render={(props) => <AboutProject {...props} />}
                     />
+                    <Route
+                        path="/aboutmember/:memberId"
+                        exact
+                        render={(props) => <AboutMember {...props} />}
+                    />
+                    <Route path="/myprojects" exact component={MyProjects} />
                 </Switch>
             </Router>
         </>

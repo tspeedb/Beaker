@@ -1,5 +1,3 @@
-import React, { useState } from 'react'
-import reactDom from 'react-dom'
 import '../Styles/Homepage.css'
 import Button from '@mui/material/Button'
 import beakerLogo from '../Images/whiteBeakerLogoBgRemoved.png'

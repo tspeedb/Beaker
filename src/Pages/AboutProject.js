@@ -1,79 +1,50 @@
 import React, { useState, useEffect } from 'react'
-import Layout from '../Components/Layout'
-import { Typography } from '@material-ui/core'
+import '../Styles/LearnMore.css'
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
+import FavoriteIcon from '@mui/icons-material/Favorite'
+import HighlightOffIcon from '@mui/icons-material/HighlightOff'
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
+import { Link } from 'react-router-dom'
+//import Button from '@mui/material/Button'
+
 import projects from '../projectsdata'
+import Layout from '../Components/Layout'
+//import { Icon } from '@mui/material'
 
-import { makeStyles } from '@material-ui/styles'
-import { width } from '@mui/system'
-
-const useStyles = makeStyles({
-    title: { textAlign: 'left' },
-    mainTitle: { textAlign: 'left', fontSize: '55px', fontWeight: 'lighter' },
-})
-
-function AboutProject() {
-    const classes = useStyles()
-
-    const [profiles, setProfiles] = useState([])
+function AboutProject({ match }) {
+    const [project, setProject] = useState({})
+    const id = Number(match.params.projectId)
 
     useEffect(() => {
-        //fetch data from server
-
-        const profile = projects.filter((project) => project.type === 'profile')
-
-        setTimeout(() => {
-            setProfiles(profile)
-        }, 500)
-    }, [])
+        //send the network request to retrieve data for this project
+        const selected = projects.filter((project, i) => i === id)[0]
+        setProject(selected)
+    }, [id])
 
     return (
         <Layout>
             <div>
-                <Typography className={classes.mainTitle}>
-                    {' '}
-                    Title of Project{' '}
-                </Typography>
-            </div>
-            <div>
-                {' '}
-                <image> </image>
-            </div>
-            <div
-                style={{
-                    width: '50%',
-                    float: 'right',
-                    padding: '50px',
-                }}
-            >
-                {' '}
-                <Typography style={{ textAlign: 'justify' }}>
-                    {' '}
-                    Sed ut perspiciatis unde omnis iste natus error sit
-                    voluptatem accusantium doloremque laudantium, totam rem
-                    aperiam, eaque ipsa quae ab illo inventore veritatis et
-                    quasi architecto beatae vitae dicta sunt explicabo. Nemo
-                    enim ipsam voluptatem quia voluptas sit aspernatur aut odit
-                    aut fugit, sed quia consequuntur magni dolores eos qui
-                    ratione voluptatem sequi nesciunt. Neque porro quisquam est,
-                    qui dolorem ipsum quia dolor sit amet, consectetur, adipisci
-                    velit, sed quia non numquam eius modi tempora incidunt ut
-                    labore et dolore magnam aliquam quaerat voluptatem. Ut enim
-                    ad minima veniam, quis nostrum exercitationem ullam corporis
-                    suscipit laboriosam, nisi ut aliquid ex ea commodi
-                    consequatur? Quis autem vel eum iure reprehenderit qui in ea
-                    voluptate velit esse quam nihil molestiae consequatur, vel
-                    illum qui dolorem eum fugiat quo voluptas nulla pariatur{' '}
-                </Typography>{' '}
-            </div>
-            <div
-                style={{
-                    position: 'absolute',
-                    left: '45rem',
-                    bottom: '30rem',
-                }}
-            >
-                {' '}
-                Save project, like project, message
+                <div style={{ margin: '20px' }}>
+                    <Link to="/projectspage">
+                        <ArrowBackIosIcon></ArrowBackIosIcon>
+                    </Link>
+                </div>
+                <div className="about-container">
+                    <div className="column-left"> {project.image}</div>
+                    <div className="column-right">
+                        <div style={{ fontSize: '50px' }}>{project.title}</div>
+
+                        <div style={{ fontSize: '15px', maxWidth: '600px' }}>
+                            {project.description}
+                        </div>
+                    </div>
+                </div>
+
+                <div className="action-items">
+                    <HighlightOffIcon></HighlightOffIcon>
+                    <FavoriteIcon> </FavoriteIcon>
+                    <BookmarkBorderIcon></BookmarkBorderIcon>
+                </div>
             </div>
         </Layout>
     )

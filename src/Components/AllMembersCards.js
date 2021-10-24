@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import CardItemAllMembers from './CardItemAllMembers'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/styles'
+import { Link } from 'react-router-dom'
 const useStyles = makeStyles({
     gridContainer: {
         // paddingLeft: '10px',
@@ -24,13 +25,15 @@ function AllMembersCards(props) {
                 {props.members.map((member, i) => {
                     return (
                         <Grid item xs={12} sm={8} md={4} key={i}>
-                            <CardItemAllMembers
-                                name_year={member.name_year}
-                                bio={member.bio}
-                                image={member.image}
-                                id={i}
-                                handleMouseEnter={handleMouseEnter}
-                            />
+                            <Link to={`/aboutmember/${i}`}>
+                                <CardItemAllMembers
+                                    name_year={member.name_year}
+                                    bio={member.bio}
+                                    image={member.image}
+                                    id={i}
+                                    handleMouseEnter={handleMouseEnter}
+                                />
+                            </Link>
                         </Grid>
                     )
                 })}

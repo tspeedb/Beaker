@@ -18,7 +18,7 @@ function ProjectCards(props) {
                 {props.projects.map((project, i) => {
                     return (
                         <Grid item xs={8} sm={8} md={4} key={i}>
-                            <Link to={`/learnmore/${i}`}>
+                            <Link to={`/aboutproject/${i}`}>
                                 <CardItems
                                     title={project.title}
                                     description={project.description}

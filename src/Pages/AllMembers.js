@@ -4,7 +4,7 @@ import Layout from '../Components/Layout'
 import { Typography } from '@material-ui/core'
 import members from '../membersdata'
 import { makeStyles } from '@material-ui/styles'
-import { Link } from 'react-router-dom'
+//import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles({
     title: { textAlign: 'left' },

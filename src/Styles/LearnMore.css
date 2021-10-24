@@ -1,0 +1,19 @@
+.about-container {
+    display: flex;
+    margin-top: 8rem;
+}
+
+.column-right {
+    width: 50%;
+    display: table-cell;
+    padding: 10px;
+}
+
+.column-left {
+    width: 50%;
+    display: table-cell;
+}
+.action-items {
+    position: absolute;
+    bottom: 0;
+}
