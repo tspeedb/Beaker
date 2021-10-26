@@ -5,9 +5,11 @@ import { Typography } from '@material-ui/core'
 import projects from '../projectsdata'
 import { makeStyles } from '@material-ui/styles'
 import { Link } from 'react-router-dom'
-import { collection, query, where, getDocs, doc } from 'firebase/firestore'
+// import { collection, query, where, getDocs, doc } from 'firebase/firestore'
 import firebase from 'firebase/compat/app'
 import 'firebase/firestore'
+// import firebase from '../firebase'
+import SelectInput from '@mui/material/Select/SelectInput'
 
 const useStyles = makeStyles({
     title: { textAlign: 'left' },
@@ -64,7 +66,15 @@ function Projectspage() {
     }, [])
 
     // useEffect(() => {
-    //     fetchprojects()
+    //     const getFromFirebase = firebase.firestore().collection('projects')
+    //     getFromFirebase.onSnapshot((querySnapShot) => {
+    //         const getFirebaseProjects = []
+    //         querySnapShot.forEach((doc) => {
+    //             getFirebaseProjects.push({ ...doc.data(), key: doc.id })
+    //         })
+
+    //         setProjects(getFirebaseProjects)
+    //     })
     // }, [])
 
     // return (

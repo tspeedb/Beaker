@@ -8,17 +8,24 @@ const useStyles = makeStyles({
         paddingLeft: '20px',
         paddingRight: '20px',
     },
+    links: {
+        color: 'black',
+        textDecoration: 'none',
+    },
 })
 
 function ProjectCards(props) {
     const classes = useStyles()
     return (
         <div>
-            <Grid container justify="center" classname={classes.gridContainer}>
+            <Grid container justify="center" className={classes.gridContainer}>
                 {props.projects.map((project, i) => {
                     return (
                         <Grid item xs={8} sm={8} md={4} key={i}>
-                            <Link to={`/aboutproject/${i}`}>
+                            <Link
+                                className={classes.links}
+                                to={`/aboutproject/${i}`}
+                            >
                                 <CardItems
                                     title={project.title}
                                     description={project.description}

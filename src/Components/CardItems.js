@@ -16,15 +16,15 @@ function CardItems(props) {
             <CardMedia
                 style={{ paddingTop: 0 }}
                 component="img"
-                height="140"
+                height="200"
                 image={`${process.env.PUBLIC_URL}/projectImages/${props.image}`}
                 alt={props.title}
             >
                 {/* {props.image} */}
             </CardMedia>
-            <CardContent>
-                <Typography>{props.title}</Typography>
-                <Typography>{props.description}</Typography>
+            <CardContent className="content">
+                <Typography id="title-project">{props.title}</Typography>
+                <Typography className="desc">{props.description}</Typography>
             </CardContent>
         </Card>
     )

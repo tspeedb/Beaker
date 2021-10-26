@@ -30,7 +30,15 @@ function AboutProject({ match }) {
                     </Link>
                 </div>
                 <div className="about-container">
-                    <div className="column-left"> {project.image}</div>
+                    <div className="column-left">
+                        {' '}
+                        <img
+                            src={`${process.env.PUBLIC_URL}/projectImages/${project.image}`}
+                            alt="project.title"
+                        >
+                            {' '}
+                        </img>
+                    </div>
                     <div className="column-right">
                         <div style={{ fontSize: '50px' }}>{project.title}</div>
 

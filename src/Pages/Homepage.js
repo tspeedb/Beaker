@@ -11,7 +11,7 @@ function Homepage() {
                 <h1> LMU's very own hub for research and collaboration </h1>
             </div>
             <div></div>
-            <p> click an option below to begin: </p>
+            <p className="click-option"> click an option below to begin: </p>
 
             <div className="button1">
                 <Link className="button-link" to="./signin">

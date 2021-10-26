@@ -15,7 +15,7 @@ const members = [
         minor: 'Studio Arts Minor',
         softskills: 'creative thinking, communication, listening skills',
         bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-        image: 'profile.jpg',
+        image: 'profile1.jpg',
 
         // linktoabout: 'linktoabout'
     },
@@ -25,7 +25,7 @@ const members = [
         minor: 'Studio Arts Minor',
         softskills: 'creative thinking, communication, listening skills',
         bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-        image: 'profile.jpg',
+        image: 'profile2.jpg',
 
         // linktoabout: 'linktoabout'
     },
@@ -35,7 +35,7 @@ const members = [
         minor: 'Studio Arts Minor',
         softskills: 'creative thinking, communication, listening skills',
         bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-        image: 'profile.jpg',
+        image: 'profile4.jpg',
 
         // linktoabout: 'linktoabout'
     },

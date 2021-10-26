@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
 import Button from '@material-ui/core/Button'
 import HelpIcon from '@mui/icons-material/Help'
+import { Link } from 'react-router-dom'
 
 import Dropdown from './Dropdown'
 
@@ -26,6 +27,11 @@ const useStyles = makeStyles((theme) => ({
     // theres a better way to have space between help and menu items but this good for now
     space: {
         flexGrow: '1',
+    },
+
+    links: {
+        color: 'grey',
+        textDecoration: 'none',
     },
 }))
 
@@ -54,8 +60,19 @@ const Navbar = () => {
                 </IconButton>
                 <Typography className={classes.space}></Typography>
                 <div style={{ justifyContent: 'end', position: 'flex' }}>
-                    <Button className={classes.actionButtons}>members</Button>
-                    <Button className={classes.actionButtons}>groups</Button>
+                    <Button className={classes.actionButtons}>
+                        {' '}
+                        <Link className={classes.links} to="/allmembers">
+                            {' '}
+                            members{' '}
+                        </Link>
+                    </Button>
+                    <Button className={classes.actionButtons}>
+                        {' '}
+                        <Link className={classes.links} to="/projectspage">
+                            projects{' '}
+                        </Link>
+                    </Button>
                     <Button className={classes.actionButtons}>saved</Button>
                     <Button className={classes.actionButtons}>chat</Button>
                     <Button>

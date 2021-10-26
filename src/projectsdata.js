@@ -2,53 +2,53 @@ const projects = [
     {
         title: 'Scientist Beyond',
         description: 'We need ',
-        image: 'test.jpg',
+        image: 'test2.jpeg',
         type: 'browsed',
         // linktoabout: 'linktoabout'
     },
 
     {
-        title: 'project2',
+        title: 'Find Someone Like You',
         description: 'new project',
-        image: 'test2.jpeg',
+        image: 'project2.jpg',
         type: 'browsed',
     },
     {
-        title: 'project2',
+        title: 'Knife Talk',
         description: 'new project',
-        image: 'test2.jpeg',
+        image: 'project2.jpg',
         type: 'browsed',
     },
 
     {
-        title: 'project1',
+        title: 'Roll Some Mo',
         description: 'help us',
-        image: 'test.jpg',
+        image: 'project2.jpg',
         type: 'profile',
     },
     {
-        title: 'project1',
+        title: 'Karma',
         description: 'help us',
-        image: 'test.jpg',
+        image: 'test2.jpeg',
         type: 'profile',
     },
     {
-        title: 'project1',
+        title: 'Energy',
         description: 'help us',
-        image: 'test.jpg',
+        image: 'test2.jpeg',
         type: 'profile',
     },
 
     {
-        title: 'project1',
+        title: 'Brand New',
         description: 'saved',
-        image: 'test.jpg',
+        image: 'project2.jpg',
         type: 'bookmarked',
     },
     {
-        title: 'project2',
+        title: 'Peter Pan',
         description: 'hello',
-        image: 'test.jpg',
+        image: 'project2.jpg',
         type: 'bookmarked',
     },
 ]

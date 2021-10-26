@@ -12,7 +12,7 @@ h1 {
     font-size: large;
 }
 
-p {
+.click-option {
     font-size: medium;
     font-style: italic;
     color: black;

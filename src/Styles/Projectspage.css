@@ -1,3 +1,13 @@
 .makeStyles-img-5 {
     padding-top: 0%;
 }
+image:hover {
+    background-color: black;
+}
+.content {
+    padding: 0;
+}
+#title-project {
+    font-size: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+}
