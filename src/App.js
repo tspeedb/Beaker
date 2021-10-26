@@ -1,5 +1,5 @@
 import * as React from 'react'
-import firebase from './firebase'
+// import firebase from './firebase'
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
@@ -20,8 +20,8 @@ import AboutMember from './Pages/AboutMember'
 import MyProjects from './Pages/MyProjects'
 
 function App() {
-    const ref = firebase.firestore().collection('students')
-    console.log(ref)
+    // const ref = firebase.firestore().collection('students')
+    // console.log(ref)
     return (
         <>
             <Router>

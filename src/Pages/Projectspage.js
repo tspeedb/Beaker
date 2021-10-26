@@ -66,14 +66,15 @@ function Projectspage() {
     }, [])
 
     // useEffect(() => {
-    //     const getFromFirebase = firebase.firestore().collection('projects')
-    //     getFromFirebase.onSnapshot((querySnapShot) => {
+    //     const getFromFirebase = []
+    // const project = firebase.collection('projects).onSnapshot((querySnapShot) => {
     //         const getFirebaseProjects = []
     //         querySnapShot.forEach((doc) => {
     //             getFirebaseProjects.push({ ...doc.data(), key: doc.id })
     //         })
 
     //         setProjects(getFirebaseProjects)
+    //})
     //     })
     // }, [])
 
