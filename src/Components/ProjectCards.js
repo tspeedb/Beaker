@@ -27,6 +27,7 @@ function ProjectCards(props) {
             const data = await getDocs(projectsCollectionRef)
             //loop through documents in collection
             console.log(data)
+            console.log('pasta')
             setProjects(
                 data.docs.map((doc) => ({ ...doc.data(), key: doc.id }))
             )

@@ -36,7 +36,7 @@ function AllMembersCards(props) {
             <Grid container justify="center" classname={classes.gridContainer}>
                 {props.members.map((member, i) => {
                     return (
-                        <Grid item xs={12} sm={8} md={4} key={i}>
+                        <Grid item xs={8} sm={4} md={2} key={i}>
                             <Link to={`/aboutmember/${i}`}>
                                 <CardItemAllMembers
                                     classname="image"

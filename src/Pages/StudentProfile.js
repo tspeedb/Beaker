@@ -1,11 +1,23 @@
 import React from 'react'
+import { makeStyles } from '@material-ui/core/styles'
 import '../Styles/Profile.css'
 import Button from '@mui/material/Button'
 import beaker from '../Images/blackLinedBeakerBgRemoved.png'
 import defaultImg from '../Images/profileImageBgRemove.png'
 import { Link } from 'react-router-dom'
+import DropdownYear from '../Components/dropdownYear'
+
+const useStyles = makeStyles((theme) => ({
+    yearButtons: {
+        color: 'grey',
+        textTransform: 'lowercase',
+        fontSize: '18px',
+        justifyContent: 'end',
+    },
+}))
 
 function StudentProfile() {
+    const classes = useStyles()
     return (
         <div className="new-profile">
             <div className="left-screen">
@@ -21,8 +33,22 @@ function StudentProfile() {
                 <div></div>
                 <input
                     type="text"
-                    className="legal-name"
-                    placeholder="Please enter your full legal name"
+                    className="first-name"
+                    placeholder="First Name"
+                />
+                <div></div>
+                <br></br>
+                <input
+                    type="text"
+                    className="middle-name"
+                    placeholder="Middle Name"
+                />
+                <div></div>
+                <br></br>
+                <input
+                    type="text"
+                    className="last-name"
+                    placeholder="Last Name"
                 />
                 <div></div>
                 <br></br>
@@ -38,9 +64,14 @@ function StudentProfile() {
                     className="pronouns"
                     placeholder="Pronouns"
                 />
-                <div></div>
                 <br></br>
-                <input type="text" className="year" placeholder="School Year" />
+                <div>
+                    <Button className={classes.yearButtons}>
+                        <DropdownYear
+                            className={classes.yearButtons}
+                        ></DropdownYear>
+                    </Button>
+                </div>
                 <div></div>
                 <br></br>
                 <input
