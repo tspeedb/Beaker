@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import ProjectCards from '../Components/ProjectCards'
 import Layout from '../Components/Layout'
 import { Typography } from '@material-ui/core'
-import projects from '../projectsdata'
+// import projects from '../projectsdata'
 import { makeStyles } from '@material-ui/styles'
 import { Link } from 'react-router-dom'
 import '../Styles/Projectspage.css'
@@ -18,29 +18,25 @@ const useStyles = makeStyles({
     mainTitle: { textAlign: 'left', fontSize: '55px', fontWeight: 'lighter' },
 })
 
-function Projectspage() {
+function Projectspage({ projects }) {
     const classes = useStyles()
-    // const [projects, setProjects] = useState([])
-    // const [browse, setBrowse] = useState([])
-    // const [profiles, setProfiles] = useState([])
-    // const [bookmarks, setBookmarks] = useState([])
+    const [browse, setBrowse] = useState([])
+    const [profiles, setProfiles] = useState([])
+    const [bookmarks, setBookmarks] = useState([])
 
-    // useEffect(() => {
-    //     //fetch data from server
-    //     // fetchprojects();
-    //     const projects1 = projects.filter(
-    //         (project) => project.type === 'browsed'
-    //     )
-    //     const profile = projects.filter((project) => project.type === 'profile')
-    //     const bookmarked = projects.filter(
-    //         (project) => project.type === 'bookmarked'
-    //     )
-    //     setTimeout(() => {
-    //         setBrowse(projects1)
-    //         setProfiles(profile)
-    //         setBookmarks(bookmarked)
-    //     }, 500)
-    // }, [])
+    useEffect(() => {
+        //fetch data from server
+        // fetchprojects();
+        const browse = projects.filter((project) => project.type === 'browse')
+        const profile = projects.filter((project) => project.type === 'profile')
+        const bookmarked = projects.filter(
+            (project) => project.type === 'bookmarked'
+        )
+
+        setBrowse(browse)
+        setProfiles(profile)
+        setBookmarks(bookmarked)
+    }, [projects])
 
     return (
         <Layout>
@@ -52,14 +48,14 @@ function Projectspage() {
                     Based on your profile <br></br>{' '}
                     <Link to="/basedonprofile"> See more </Link>
                 </Typography>
-                <ProjectCards />
+                <ProjectCards projects={profiles} />
             </div>
             <div>
                 <Typography className={classes.title}>
                     Browse projects <br></br>{' '}
                     <Link to="/browse"> See more </Link>
                 </Typography>
-                <ProjectCards />
+                <ProjectCards projects={browse} />
             </div>
             <div>
                 <Typography className={classes.title}>
@@ -67,7 +63,7 @@ function Projectspage() {
                     <Link to="/bookmarked"> See more </Link>
                 </Typography>
                 {/* <ProjectCards projects={bookmarks} /> */}
-                <ProjectCards />
+                <ProjectCards projects={bookmarks} />
             </div>
         </Layout>
     )

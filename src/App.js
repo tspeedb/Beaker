@@ -1,4 +1,6 @@
-import * as React from 'react'
+import React, { useState, useEffect } from 'react'
+import { collection, getDocs } from 'firebase/firestore'
+import { db } from './firebase'
 // import firebase from './firebase'
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
@@ -22,6 +24,20 @@ import MyProjects from './Pages/MyProjects'
 function App() {
     // const ref = firebase.firestore().collection('students')
     // console.log(ref)
+    const [projects, setProjects] = useState([])
+    const projectsCollectionRef = collection(db, 'projects')
+    useEffect(() => {
+        const getProjects = async () => {
+            const data = await getDocs(projectsCollectionRef)
+            //loop through documents in collection
+            console.log(data)
+            console.log('pasta')
+            setProjects(
+                data.docs.map((doc) => ({ ...doc.data(), key: doc.id }))
+            )
+        }
+        getProjects()
+    }, [projectsCollectionRef])
     return (
         <>
             <Router>
@@ -31,7 +47,9 @@ function App() {
                     <Route
                         path="/projectspage"
                         exact
-                        component={Projectspage}
+                        render={(props) => (
+                            <Projectspage {...props} projects={projects} />
+                        )}
                     />
 
                     <Route path="/signin" exact component={SignIn} />
@@ -64,17 +82,19 @@ function App() {
                     />
                     <Route path="/browse" exact component={Browse} />
                     <Route path="/bookmarked" exact component={Bookmarked} />
-                    <Route
+                    {/* <Route
                         path="/aboutproject"
                         exact
                         component={AboutProject}
-                    />
+                    /> */}
 
                     <Route path="/allmembers" exact component={AllMembers} />
                     <Route
                         path="/aboutproject/:projectId"
                         exact
-                        render={(props) => <AboutProject {...props} />}
+                        render={(props) => (
+                            <AboutProject {...props} projects={projects} />
+                        )}
                     />
                     <Route
                         path="/aboutmember/:memberId"

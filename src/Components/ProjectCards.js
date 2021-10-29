@@ -18,22 +18,22 @@ const useStyles = makeStyles({
     },
 })
 
-function ProjectCards(props) {
+function ProjectCards({ projects }) {
     const classes = useStyles()
-    const [projects, setProjects] = useState([])
-    const projectsCollectionRef = collection(db, 'projects')
-    useEffect(() => {
-        const getProjects = async () => {
-            const data = await getDocs(projectsCollectionRef)
-            //loop through documents in collection
-            console.log(data)
-            console.log('pasta')
-            setProjects(
-                data.docs.map((doc) => ({ ...doc.data(), key: doc.id }))
-            )
-        }
-        getProjects()
-    }, [])
+    // const [projects, setProjects] = useState([])
+    // const projectsCollectionRef = collection(db, 'projects')
+    // useEffect(() => {
+    //     const getProjects = async () => {
+    //         const data = await getDocs(projectsCollectionRef)
+    //         //loop through documents in collection
+    //         console.log(data)
+    //         console.log('pasta')
+    //         setProjects(
+    //             data.docs.map((doc) => ({ ...doc.data(), key: doc.id }))
+    //         )
+    //     }
+    //     getProjects()
+    // }, [])
     return (
         <div>
             <Grid container justify="center" className={classes.gridContainer}>
