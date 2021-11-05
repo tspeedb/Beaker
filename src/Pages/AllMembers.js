@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import AllMembersCards from '../Components/AllMembersCards'
 import Layout from '../Components/Layout'
 import { Typography } from '@material-ui/core'
-import members from '../membersdata'
+// import members from '../membersdata'
 import { makeStyles } from '@material-ui/styles'
 //import { Link } from 'react-router-dom'
 
@@ -11,20 +11,19 @@ const useStyles = makeStyles({
     mainTitle: { textAlign: 'left', fontSize: '55px', fontWeight: 'lighter' },
 })
 
-function AllMembers() {
+function AllMembers({ members }) {
     const classes = useStyles()
     const [member, setMembers] = useState([])
 
     useEffect(() => {
         //fetch data from server
+
         const memberS = members.filter(
-            (member) => member.major === 'Computer Science'
+            (member) => member.Major === 'Computer Science'
         )
 
-        setTimeout(() => {
-            setMembers(memberS)
-        }, 500)
-    }, [])
+        setMembers(memberS)
+    }, [members])
 
     return (
         <Layout>

@@ -30,14 +30,24 @@ function App() {
         const getProjects = async () => {
             const data = await getDocs(projectsCollectionRef)
             //loop through documents in collection
-            console.log(data)
-            console.log('pasta')
             setProjects(
                 data.docs.map((doc) => ({ ...doc.data(), key: doc.id }))
             )
         }
         getProjects()
     }, [projectsCollectionRef])
+
+    const [members, setMembers] = useState([])
+    const membersCollectionRef = collection(db, 'students')
+    useEffect(() => {
+        const getMembers = async () => {
+            const data = await getDocs(membersCollectionRef)
+            //loop through documents in collection
+            setMembers(data.docs.map((doc) => ({ ...doc.data(), key: doc.id })))
+        }
+        getMembers()
+    }, [membersCollectionRef])
+
     return (
         <>
             <Router>
@@ -88,7 +98,14 @@ function App() {
                         component={AboutProject}
                     /> */}
 
-                    <Route path="/allmembers" exact component={AllMembers} />
+                    <Route
+                        path="/allmembers"
+                        exact
+                        render={(props) => (
+                            <AllMembers {...props} members={members} />
+                        )}
+                    />
+
                     <Route
                         path="/aboutproject/:projectId"
                         exact
@@ -99,7 +116,9 @@ function App() {
                     <Route
                         path="/aboutmember/:memberId"
                         exact
-                        render={(props) => <AboutMember {...props} />}
+                        render={(props) => (
+                            <AboutMember {...props} members={members} />
+                        )}
                     />
                     <Route path="/myprojects" exact component={MyProjects} />
                 </Switch>

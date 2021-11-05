@@ -4,9 +4,9 @@ import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/styles'
 import { Link } from 'react-router-dom'
 import 'firebase/firestore'
-import { db } from '../firebase'
+
 import React, { useState, useEffect } from 'react'
-import { collection, getDocs } from 'firebase/firestore'
+
 const useStyles = makeStyles({
     gridContainer: {
         paddingLeft: '20px',
@@ -28,7 +28,7 @@ function ProjectCards({ projects }) {
     //         //loop through documents in collection
     //         console.log(data)
     //         console.log('pasta')
-    //         setProjects(
+    //         setProjects(s
     //             data.docs.map((doc) => ({ ...doc.data(), key: doc.id }))
     //         )
     //     }
