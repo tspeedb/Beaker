@@ -6,9 +6,23 @@ import beaker from '../Images/blackLinedBeakerBgRemoved.png'
 import defaultImg from '../Images/profileImageBgRemove.png'
 import { Link } from 'react-router-dom'
 import DropdownYear from '../Components/dropdownYear'
+import DropdownMajor from '../Components/dropdownMajor'
+import DropdownMinor from '../Components/dropdownMinor'
 
 const useStyles = makeStyles((theme) => ({
     yearButtons: {
+        color: 'grey',
+        textTransform: 'lowercase',
+        fontSize: '18px',
+        justifyContent: 'end',
+    },
+    majorButtons: {
+        color: 'grey',
+        textTransform: 'lowercase',
+        fontSize: '18px',
+        justifyContent: 'end',
+    },
+    minorButtons: {
         color: 'grey',
         textTransform: 'lowercase',
         fontSize: '18px',
@@ -62,8 +76,9 @@ function StudentProfile() {
                 <input
                     type="text"
                     className="pronouns"
-                    placeholder="Pronouns"
+                    placeholder="Pronouns (Ex: she/her)"
                 />
+                <div></div>
                 <br></br>
                 <div>
                     <Button className={classes.yearButtons}>
@@ -74,18 +89,43 @@ function StudentProfile() {
                 </div>
                 <div></div>
                 <br></br>
-                <input
-                    type="text"
-                    className="major"
-                    placeholder="Major(s) (separate by commas)"
-                />
+                <div>
+                    <Button className={classes.majorButtons}>
+                        <DropdownMajor
+                            className={classes.majorButtons}
+                        ></DropdownMajor>
+                    </Button>
+                </div>
                 <div></div>
                 <br></br>
-                <input
-                    type="text"
-                    className="minor"
-                    placeholder="Minor(s) (separate by commas)"
-                />
+                <div>
+                    <div>Second Major:</div>
+                    <Button className={classes.majorButtons}>
+                        <DropdownMajor
+                            className={classes.majorButtons}
+                        ></DropdownMajor>
+                    </Button>
+                </div>
+                <div></div>
+                <br></br>
+                <div>
+                    <div>First Minor:</div>
+                    <Button className={classes.minorButtons}>
+                        <DropdownMinor
+                            className={classes.minorButtons}
+                        ></DropdownMinor>
+                    </Button>
+                </div>
+                <div></div>
+                <br></br>
+                <div>
+                    <div>Second Minor:</div>
+                    <Button className={classes.minorButtons}>
+                        <DropdownMinor
+                            className={classes.minorButtons}
+                        ></DropdownMinor>
+                    </Button>
+                </div>
                 <div></div>
                 <br></br>
                 <input
@@ -108,10 +148,7 @@ function StudentProfile() {
                 {/* allow users to upload pdf of resume here */}
                 <div></div>
                 <br></br>
-                <label className="resume">Link to Portfolio</label>
-                <div></div>
-                <br></br>
-                <input type="text" className="portfolio" />
+                <label className="portfolio">Link to Portfolio/Website</label>
                 <div></div>
                 <br></br>
                 <input type="text" className="portfolio" />
