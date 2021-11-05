@@ -31,15 +31,14 @@ function AboutMember({ match, members }) {
                         <div className="column-left">
                             <img
                                 style={{
-                                    // width: 'auto',
-                                    // height: '100%',
-
                                     width: 500,
                                     height: 750,
+                                    clipPath: 'circle()',
+                                    paddingTop: '0%',
                                 }}
                                 src={`${process.env.PUBLIC_URL}/projectImages/${member.Image}`}
                                 alt="member.first"
-                                height="200"
+                                // height="200"
                             />
                         </div>
 
@@ -69,13 +68,33 @@ function AboutMember({ match, members }) {
                         </div>
                     </div>
                 )}
-
-                <div className="action-items">
-                    <HighlightOffIcon></HighlightOffIcon>
-                    <FavoriteIcon> </FavoriteIcon>
-                    <BookmarkBorderIcon></BookmarkBorderIcon>
-                </div>
             </div>
+            <HighlightOffIcon
+                style={{
+                    color: 'rgba(16, 127, 183, 1)',
+                    // transform: 'scale(1.8)',
+                    horizontalAlign: 'middle',
+                    transform: 'scale(1.8)',
+                    marginLeft: '20rem',
+                    marginRight: '35px',
+                    display: 'inline-flex',
+                }}
+            ></HighlightOffIcon>
+            <FavoriteIcon
+                style={{
+                    color: 'rgba(172, 12, 48, 1)',
+                    transform: 'scale(1.8)',
+
+                    marginRight: '35px',
+                }}
+            >
+                {' '}
+            </FavoriteIcon>
+            <BookmarkBorderIcon
+                style={{
+                    transform: 'scale(1.8)',
+                }}
+            ></BookmarkBorderIcon>{' '}
         </Layout>
     )
 }
