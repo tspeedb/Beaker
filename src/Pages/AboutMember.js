@@ -7,6 +7,8 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import { Link } from 'react-router-dom'
 //import Button from '@mui/material/Button'
 import Layout from '../Components/Layout'
+import Grid from '@mui/material/Grid'
+import { IconButton } from '@mui/material'
 //import { Icon } from '@mui/material'
 
 function AboutMember({ match, members }) {
@@ -69,32 +71,34 @@ function AboutMember({ match, members }) {
                     </div>
                 )}
             </div>
-            <HighlightOffIcon
-                style={{
-                    color: 'rgba(16, 127, 183, 1)',
-                    // transform: 'scale(1.8)',
-                    horizontalAlign: 'middle',
-                    transform: 'scale(1.8)',
-                    marginLeft: '20rem',
-                    marginRight: '35px',
-                    display: 'inline-flex',
-                }}
-            ></HighlightOffIcon>
-            <FavoriteIcon
-                style={{
-                    color: 'rgba(172, 12, 48, 1)',
-                    transform: 'scale(1.8)',
-
-                    marginRight: '35px',
-                }}
-            >
-                {' '}
-            </FavoriteIcon>
-            <BookmarkBorderIcon
-                style={{
-                    transform: 'scale(1.8)',
-                }}
-            ></BookmarkBorderIcon>{' '}
+            <Grid container direction="row" alignItems="center">
+                <Grid item>
+                    <IconButton>
+                        <HighlightOffIcon
+                            fontSize="large"
+                            style={{
+                                color: 'rgba(16, 127, 183, 1)',
+                            }}
+                        ></HighlightOffIcon>
+                    </IconButton>
+                </Grid>
+                <IconButton>
+                    <FavoriteIcon
+                        fontSize="large"
+                        style={{
+                            color: 'rgba(172, 12, 48, 1)',
+                        }}
+                    >
+                        {' '}
+                    </FavoriteIcon>
+                </IconButton>
+                <IconButton>
+                    <BookmarkBorderIcon
+                        fontSize="large"
+                        style={{}}
+                    ></BookmarkBorderIcon>{' '}
+                </IconButton>
+            </Grid>
         </Layout>
     )
 }
