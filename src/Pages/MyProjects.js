@@ -9,8 +9,9 @@ function MyProjects() {
     useEffect(() => {
         const getProjects = async () => {
             const data = await getDocs(projectsCollectionRef)
-            //loop through documents in collection
-            console.log(data)
+            //loop through documents in collection\
+            // console.log('things show up')
+            // console.log(data)
             setProjects(
                 data.docs.map((doc) => ({ ...doc.data(), key: doc.id }))
             )

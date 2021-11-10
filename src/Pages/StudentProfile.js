@@ -6,6 +6,11 @@ import beaker from '../Images/blackLinedBeakerBgRemoved.png'
 import defaultImg from '../Images/profileImageBgRemove.png'
 import { Link } from 'react-router-dom'
 import DropdownYear from '../Components/dropdownYear'
+import { useState, useEffect } from 'react'
+import 'firebase/firestore'
+import { db } from '../firebase'
+import { collection, getDocs, addDoc } from 'firebase/firestore'
+import { useScrollTrigger } from '@mui/material'
 
 const useStyles = makeStyles((theme) => ({
     yearButtons: {
@@ -17,6 +22,42 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 function StudentProfile() {
+    const [firstName, setFirstName] = useState('')
+    const [lastName, setLastName] = useState(0)
+    const [bio, setBio] = useState(1)
+    const [major, setMajor] = useState(2)
+    const [minor, setMinor] = useState(3)
+    const [link, setPortfolioLink] = useState(4)
+    const [resume, setResume] = useState(5)
+    const [softSkills, setSoftSkills] = useState(6)
+    const [summary, setSummary] = useState(7)
+    const [year, setYear] = useState(8)
+    const [pronouns, setPronoun] = useState(9)
+    const [students, setStudents] = useState([])
+    const studentsCollectionRef = collection(db, 'students')
+
+    const createStudent = async () => {
+        await addDoc(studentsCollectionRef, {
+            First: firstName,
+            Last: lastName,
+            Major: major,
+            Minor: minor,
+            PortfolioLink: link,
+        })
+    }
+
+    useEffect(() => {
+        const getStudents = async () => {
+            const data = await getDocs(studentsCollectionRef)
+            //loop through documents in collection
+            console.log('here')
+            console.log(data)
+            setStudents(
+                data.docs.map((doc) => ({ ...doc.data(), key: doc.id }))
+            )
+        }
+        getStudents()
+    }, [studentsCollectionRef])
     const classes = useStyles()
     return (
         <div className="new-profile">
@@ -33,8 +74,11 @@ function StudentProfile() {
                 <div></div>
                 <input
                     type="text"
-                    className="first-name"
+                    className="first-name "
                     placeholder="First Name"
+                    onChange={(event) => {
+                        setFirstName(event.target.value)
+                    }}
                 />
                 <div></div>
                 <br></br>
@@ -49,6 +93,9 @@ function StudentProfile() {
                     type="text"
                     className="last-name"
                     placeholder="Last Name"
+                    onChange={(event) => {
+                        setLastName(event.target.value)
+                    }}
                 />
                 <div></div>
                 <br></br>
@@ -78,6 +125,9 @@ function StudentProfile() {
                     type="text"
                     className="major"
                     placeholder="Major(s) (separate by commas)"
+                    onChange={(event) => {
+                        setMajor(event.target.value)
+                    }}
                 />
                 <div></div>
                 <br></br>
@@ -85,6 +135,9 @@ function StudentProfile() {
                     type="text"
                     className="minor"
                     placeholder="Minor(s) (separate by commas)"
+                    onChange={(event) => {
+                        setMinor(event.target.value)
+                    }}
                 />
                 <div></div>
                 <br></br>
@@ -92,6 +145,9 @@ function StudentProfile() {
                     type="text"
                     className="skills"
                     placeholder="Soft Skills (separate by commas)"
+                    onChange={(event) => {
+                        setSoftSkills(event.target.value)
+                    }}
                 />
                 <div></div>
                 <br></br>
@@ -123,6 +179,7 @@ function StudentProfile() {
                             className="done-btn1"
                             size="large"
                             color="primary"
+                            onClick={createStudent}
                         >
                             Done
                         </Button>
