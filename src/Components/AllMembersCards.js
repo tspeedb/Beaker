@@ -3,6 +3,7 @@ import CardItemAllMembers from './CardItemAllMembers'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/styles'
 import { Link } from 'react-router-dom'
+import 'firebase/firestore'
 import '../Styles/Projectspage.css'
 const useStyles = makeStyles({
     gridContainer: {
@@ -16,7 +17,7 @@ const useStyles = makeStyles({
     },
 })
 
-function AllMembersCards(props) {
+function AllMembersCards({ members }) {
     const classes = useStyles()
     const [show, setShow] = useState(false)
     const [hovered, setHovered] = useState(null)
@@ -34,16 +35,17 @@ function AllMembersCards(props) {
     return (
         <div>
             <Grid container justify="center" classname={classes.gridContainer}>
-                {props.members.map((member, i) => {
+                {members.map((member) => {
                     return (
-                        <Grid item xs={8} sm={4} md={2} key={i}>
-                            <Link to={`/aboutmember/${i}`}>
+                        <Grid item xs={8} sm={4} md={2} key={member.key}>
+                            <Link to={`/aboutmember/${member.key}`}>
                                 <CardItemAllMembers
                                     classname="image"
-                                    name_year={member.name_year}
-                                    bio={member.bio}
-                                    image={member.image}
-                                    id={i}
+                                    first={member.first}
+                                    year={member.year}
+                                    bio={member.Bio}
+                                    image={member.Image}
+                                    // id={member.key}
                                     handleMouseEnter={handleMouseEnter}
                                     handleMouseLeave={handleMouseLeave}
                                 />

@@ -30,10 +30,12 @@ export default function Dropdown() {
                     onChange={handleChange}
                 >
                     <Link className="dropdown-link" to="../myprojects">
-                        <MenuItem value={'/myprojects'}>Projects</MenuItem>
+                        <MenuItem value={'/myprojects'}>
+                            Projects & Members
+                        </MenuItem>
                     </Link>
                     <Link className="dropdown-link" to="../mymembers">
-                        <MenuItem value={'/mymembers'}> Members </MenuItem>
+                        <MenuItem value={'/mymembers'}> Profile </MenuItem>
                     </Link>
                 </Select>
             </FormControl>
