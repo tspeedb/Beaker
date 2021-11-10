@@ -37,26 +37,36 @@ const useStyles = makeStyles((theme) => ({
 
 function StudentProfile() {
     const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState(0)
-    const [bio, setBio] = useState(1)
-    const [major, setMajor] = useState(2)
-    const [minor, setMinor] = useState(3)
-    const [link, setPortfolioLink] = useState(4)
-    const [resume, setResume] = useState(5)
-    const [softSkills, setSoftSkills] = useState(6)
-    const [summary, setSummary] = useState(7)
-    const [year, setYear] = useState(8)
-    const [pronouns, setPronoun] = useState(9)
+    const [middleName, setMiddleName] = useState(0)
+    const [lastName, setLastName] = useState(1)
+    const [nickname, setNickname] = useState(2)
+    const [bio, setBio] = useState(3)
+    const [major, setMajor] = useState(4)
+    const [minor, setMinor] = useState(5)
+    const [link, setPortfolioLink] = useState(6)
+    const [resume, setResume] = useState(7)
+    const [softskills, setSoftskills] = useState(8)
+    const [summary, setSummary] = useState(9)
+    const [year, setYear] = useState(10)
+    const [pronouns, setPronouns] = useState(11)
     const [students, setStudents] = useState([])
     const studentsCollectionRef = collection(db, 'students')
 
     const createStudent = async () => {
         await addDoc(studentsCollectionRef, {
             First: firstName,
+            Middle: middleName,
             Last: lastName,
+            Nickname: nickname,
+            Year: year,
             Major: major,
             Minor: minor,
             PortfolioLink: link,
+            Pronouns: pronouns,
+            Resume: resume,
+            Softskills: softskills,
+            Summary: summary,
+            Bio: bio,
         })
     }
 
@@ -100,6 +110,9 @@ function StudentProfile() {
                     type="text"
                     className="middle-name"
                     placeholder="Middle Name"
+                    onChange={(event) => {
+                        setMiddleName(event.target.value)
+                    }}
                 />
                 <div></div>
                 <br></br>
@@ -117,6 +130,9 @@ function StudentProfile() {
                     type="text"
                     className="preferred-name"
                     placeholder="Nickname/Preferred Name"
+                    onChange={(event) => {
+                        setNickname(event.target.value)
+                    }}
                 />
                 <div></div>
                 <br></br>
@@ -124,11 +140,19 @@ function StudentProfile() {
                     type="text"
                     className="pronouns"
                     placeholder="Pronouns (Ex: she/her)"
+                    onChange={(event) => {
+                        setPronouns(event.target.value)
+                    }}
                 />
                 <div></div>
                 <br></br>
                 <div>
-                    <Button className={classes.yearButtons}>
+                    <Button
+                        className={classes.yearButtons}
+                        onChange={(event) => {
+                            setYear(event.target.value)
+                        }}
+                    >
                         <DropdownYear
                             className={classes.yearButtons}
                         ></DropdownYear>
@@ -137,7 +161,12 @@ function StudentProfile() {
                 <div></div>
                 <br></br>
                 <div>
-                    <Button className={classes.majorButtons}>
+                    <Button
+                        className={classes.majorButtons}
+                        onChange={(event) => {
+                            setMajor(event.target.value)
+                        }}
+                    >
                         <DropdownMajor
                             className={classes.majorButtons}
                         ></DropdownMajor>
@@ -180,7 +209,7 @@ function StudentProfile() {
                     className="skills"
                     placeholder="Soft Skills (separate by commas)"
                     onChange={(event) => {
-                        setSoftSkills(event.target.value)
+                        setSoftskills(event.target.value)
                     }}
                 />
                 <div></div>
@@ -192,7 +221,14 @@ function StudentProfile() {
                 <textarea></textarea>
                 <div></div>
                 <br></br>
-                <label className="resume">Upload CV or Resume</label>
+                <label
+                    className="resume"
+                    onChange={(event) => {
+                        setResume(event.target.value)
+                    }}
+                >
+                    Upload CV or Resume
+                </label>
                 <div></div>
                 <br></br>
                 {/* allow users to upload pdf of resume here */}
@@ -201,7 +237,13 @@ function StudentProfile() {
                 <label className="portfolio">Link to Portfolio/Website</label>
                 <div></div>
                 <br></br>
-                <input type="text" className="portfolio" />
+                <input
+                    type="text"
+                    className="portfolio"
+                    onChange={(event) => {
+                        setPortfolioLink(event.target.value)
+                    }}
+                />
                 <div></div>
                 <br></br>
                 <div className="done">
