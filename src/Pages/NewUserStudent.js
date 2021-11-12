@@ -5,6 +5,21 @@ import beaker from '../Images/blackLinedBeakerBgRemoved.png'
 import { Link } from 'react-router-dom'
 
 function NewUserStudent() {
+    //     const [, setProjects] = useState([])
+    //     const projectsCollectionRef = collection(db, 'projects')
+    //     useEffect(() => {
+    //         const getProjects = async () => {
+    //             const data = await getDocs(projectsCollectionRef)
+    //             //loop through documents in collection
+    //             console.log(data)
+    //             console.log('things show up')
+    //             setProjects(
+    //                 data.docs.map((doc) => ({ ...doc.data(), key: doc.id }))
+    //             )
+    //         }
+    //         getProjects()
+    //     }, [])
+
     return (
         <div className="sign-in">
             <div className="top-signin">

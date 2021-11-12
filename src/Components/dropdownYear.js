@@ -4,32 +4,22 @@ import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
-import '../Styles/Dropdown.css'
+import { makeStyles } from '@material-ui/styles'
+import '../Styles/dropdownYear.css'
 
 export default function DropdownYear() {
-    const [item, setItem] = React.useState('')
-
-    const handleChange = (event) => {
-        setItem(event.target.value)
-    }
-
     return (
-        <Box id="select-year" sx={{ width: 250 }}>
-            <FormControl fullWidth>
-                <InputLabel id="select-label"> Year </InputLabel>
-                <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={item}
-                    label="Select"
-                    onChange={handleChange}
-                >
+        <div className="select-year">
+            <FormControl sx={{ width: 250 }}>
+                <InputLabel>Year</InputLabel>
+                <Select>
                     <MenuItem value={'freshman'}>Freshman</MenuItem>
                     <MenuItem value={'sophomore'}>Sophomore</MenuItem>
                     <MenuItem value={'junior'}>Junior</MenuItem>
                     <MenuItem value={'senior'}>Senior</MenuItem>
+                    <MenuItem value={'graduate'}>Graduate</MenuItem>
                 </Select>
             </FormControl>
-        </Box>
+        </div>
     )
 }

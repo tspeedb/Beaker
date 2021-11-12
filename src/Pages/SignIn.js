@@ -8,18 +8,18 @@ import { collection, getDocs } from 'firebase/firestore'
 import { db } from '../firebase'
 
 function SignIn() {
-    const [projects, setProjects] = useState([])
-    const projectsCollectionRef = collection(db, 'projects')
-    useEffect(() => {
-        const getProjects = async () => {
-            const data = await getDocs(projectsCollectionRef)
-            //loop through documents in collection
-            setProjects(
-                data.docs.map((doc) => ({ ...doc.data(), key: doc.id }))
-            )
-        }
-        getProjects()
-    }, [projectsCollectionRef])
+    // const [projects, setProjects] = useState([])
+    // const projectsCollectionRef = collection(db, 'projects')
+    // useEffect(() => {
+    //     const getProjects = async () => {
+    //         const data = await getDocs(projectsCollectionRef)
+    //         //loop through documents in collection
+    //         setProjects(
+    //             data.docs.map((doc) => ({ ...doc.data(), key: doc.id }))
+    //         )
+    //     }
+    //     getProjects()
+    // }, [projectsCollectionRef])
 
     return (
         <div className="sign-in">

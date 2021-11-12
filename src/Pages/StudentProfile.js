@@ -37,10 +37,9 @@ const useStyles = makeStyles((theme) => ({
 
 function StudentProfile() {
     const [firstName, setFirstName] = useState('')
-    const [middleName, setMiddleName] = useState(0)
-    const [lastName, setLastName] = useState(1)
-    const [nickname, setNickname] = useState(2)
-    const [bio, setBio] = useState(3)
+    const [middleName, setMiddleName] = useState(1)
+    const [lastName, setLastName] = useState(2)
+    const [nickname, setNickname] = useState(3)
     const [major, setMajor] = useState(4)
     const [minor, setMinor] = useState(5)
     const [link, setPortfolioLink] = useState(6)
@@ -51,6 +50,9 @@ function StudentProfile() {
     const [pronouns, setPronouns] = useState(11)
     const [students, setStudents] = useState([])
     const studentsCollectionRef = collection(db, 'students')
+    function handleClick() {
+        console.log('Click happened')
+    }
 
     const createStudent = async () => {
         await addDoc(studentsCollectionRef, {
@@ -66,7 +68,6 @@ function StudentProfile() {
             Resume: resume,
             Softskills: softskills,
             Summary: summary,
-            Bio: bio,
         })
     }
 
@@ -74,8 +75,6 @@ function StudentProfile() {
         const getStudents = async () => {
             const data = await getDocs(studentsCollectionRef)
             //loop through documents in collection
-            console.log('here')
-            console.log(data)
             setStudents(
                 data.docs.map((doc) => ({ ...doc.data(), key: doc.id }))
             )
@@ -149,24 +148,22 @@ function StudentProfile() {
                 <div>
                     <Button
                         className={classes.yearButtons}
-                        onChange={(event) => {
-                            setYear(event.target.value)
-                        }}
+                        // onClick={() => {
+                        //     alert('clicked')
+                        // }}
                     >
                         <DropdownYear
                             className={classes.yearButtons}
+                            onClick={() => {
+                                alert('clicked')
+                            }}
                         ></DropdownYear>
                     </Button>
                 </div>
                 <div></div>
                 <br></br>
                 <div>
-                    <Button
-                        className={classes.majorButtons}
-                        onChange={(event) => {
-                            setMajor(event.target.value)
-                        }}
-                    >
+                    <Button className={classes.majorButtons}>
                         <DropdownMajor
                             className={classes.majorButtons}
                         ></DropdownMajor>
@@ -221,14 +218,7 @@ function StudentProfile() {
                 <textarea></textarea>
                 <div></div>
                 <br></br>
-                <label
-                    className="resume"
-                    onChange={(event) => {
-                        setResume(event.target.value)
-                    }}
-                >
-                    Upload CV or Resume
-                </label>
+                <label className="resume">Upload CV or Resume</label>
                 <div></div>
                 <br></br>
                 {/* allow users to upload pdf of resume here */}
@@ -249,6 +239,7 @@ function StudentProfile() {
                 <div className="done">
                     <Link className="button-link" to="/projectspage">
                         <Button
+                            type="button"
                             className="done-btn1"
                             size="large"
                             color="primary"
