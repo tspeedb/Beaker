@@ -6,6 +6,7 @@ import { db } from './firebase'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import Homepage from './Pages/Homepage'
+import { AnimatePresence } from 'framer-motion/dist/framer-motion'
 import Projectspage from './Pages/Projectspage'
 import SignIn from './Pages/SignIn'
 import NewUserStudent from './Pages/NewUserStudent'
@@ -19,7 +20,7 @@ import Bookmarked from './Pages/Bookmarked'
 import AllMembers from './Pages/AllMembers'
 import AboutProject from './Pages/AboutProject'
 import AboutMember from './Pages/AboutMember'
-import MyProjects from './Pages/MyProjects'
+import Dashboard from './Pages/Dashboard'
 
 function App() {
     // const ref = firebase.firestore().collection('students')
@@ -51,77 +52,83 @@ function App() {
     return (
         <>
             <Router>
-                <Switch>
-                    <Route path="/" exact component={Welcomepage} />
-                    <Route path="/homepage" exact component={Homepage} />
-                    <Route
-                        path="/projectspage"
-                        exact
-                        render={(props) => (
-                            <Projectspage {...props} projects={projects} />
-                        )}
-                    />
+                <AnimatePresence exitBeforeEnter>
+                    <Switch>
+                        <Route path="/" exact component={Welcomepage} />
+                        <Route path="/homepage" exact component={Homepage} />
+                        <Route
+                            path="/projectspage"
+                            exact
+                            render={(props) => (
+                                <Projectspage {...props} projects={projects} />
+                            )}
+                        />
 
-                    <Route path="/signin" exact component={SignIn} />
+                        <Route path="/signin" exact component={SignIn} />
 
-                    <Route
-                        path="/newuserstudent"
-                        exact
-                        component={NewUserStudent}
-                    />
+                        <Route
+                            path="/newuserstudent"
+                            exact
+                            component={NewUserStudent}
+                        />
 
-                    <Route
-                        path="/newuserfacultystaff"
-                        exact
-                        component={NewUserFacultyStaff}
-                    />
-                    <Route
-                        path="/studentprofile"
-                        exact
-                        component={StudentProfile}
-                    />
-                    <Route
-                        path="/facultystaffprofile"
-                        exact
-                        component={FacultyStaffProfile}
-                    />
-                    <Route
-                        path="/basedonprofile"
-                        exact
-                        component={BasedonProfile}
-                    />
-                    <Route path="/browse" exact component={Browse} />
-                    <Route path="/bookmarked" exact component={Bookmarked} />
-                    {/* <Route
+                        <Route
+                            path="/newuserfacultystaff"
+                            exact
+                            component={NewUserFacultyStaff}
+                        />
+                        <Route
+                            path="/studentprofile"
+                            exact
+                            component={StudentProfile}
+                        />
+                        <Route
+                            path="/facultystaffprofile"
+                            exact
+                            component={FacultyStaffProfile}
+                        />
+                        <Route
+                            path="/basedonprofile"
+                            exact
+                            component={BasedonProfile}
+                        />
+                        <Route path="/browse" exact component={Browse} />
+                        <Route
+                            path="/bookmarked"
+                            exact
+                            component={Bookmarked}
+                        />
+                        {/* <Route
                         path="/aboutproject"
                         exact
                         component={AboutProject}
                     /> */}
 
-                    <Route
-                        path="/allmembers"
-                        exact
-                        render={(props) => (
-                            <AllMembers {...props} members={members} />
-                        )}
-                    />
+                        <Route
+                            path="/allmembers"
+                            exact
+                            render={(props) => (
+                                <AllMembers {...props} members={members} />
+                            )}
+                        />
 
-                    <Route
-                        path="/aboutproject/:projectId"
-                        exact
-                        render={(props) => (
-                            <AboutProject {...props} projects={projects} />
-                        )}
-                    />
-                    <Route
-                        path="/aboutmember/:memberId"
-                        exact
-                        render={(props) => (
-                            <AboutMember {...props} members={members} />
-                        )}
-                    />
-                    <Route path="/myprojects" exact component={MyProjects} />
-                </Switch>
+                        <Route
+                            path="/aboutproject/:projectId"
+                            exact
+                            render={(props) => (
+                                <AboutProject {...props} projects={projects} />
+                            )}
+                        />
+                        <Route
+                            path="/aboutmember/:memberId"
+                            exact
+                            render={(props) => (
+                                <AboutMember {...props} members={members} />
+                            )}
+                        />
+                        <Route path="/dashboard" exact component={Dashboard} />
+                    </Switch>
+                </AnimatePresence>
             </Router>
         </>
         // <Button variant="contained">Hello World</Button>

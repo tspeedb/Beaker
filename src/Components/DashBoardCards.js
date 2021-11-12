@@ -23,6 +23,10 @@ const useStyles = makeStyles({
         color: 'black',
         textDecoration: 'none',
     },
+    gridContainer: {
+        paddingLeft: '20px',
+        paddingRight: '20px',
+    },
 })
 
 function DashboardCards() {

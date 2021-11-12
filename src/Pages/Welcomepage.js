@@ -18,7 +18,13 @@ function Welcomepage() {
 
                 <h1> LMU's very own hub for research and collaboration </h1>
             </div>
-            <div style={{ backgroundColor: 'black', opacity: '85%' }}>
+            <div
+                style={{
+                    backgroundColor: 'black',
+                    opacity: '85%',
+                    paddingTop: '10px',
+                }}
+            >
                 <p className="message">
                     {' '}
                     " Scientific beakers can be used to combine entities to
@@ -30,7 +36,11 @@ function Welcomepage() {
 
                 <hr></hr>
 
-                <div>
+                <div
+                    style={{
+                        paddingTop: '20px',
+                    }}
+                >
                     <Box
                         sx={{
                             display: 'grid',
@@ -39,6 +49,7 @@ function Welcomepage() {
                     >
                         <div>
                             <img
+                                id="check"
                                 className="checkmark"
                                 src={checkmark}
                                 alt="check"
@@ -53,6 +64,7 @@ function Welcomepage() {
                         </div>
                         <div>
                             <img
+                                id="check"
                                 className="lightbulb"
                                 src={lightbulb}
                                 alt="bulb"
@@ -67,6 +79,7 @@ function Welcomepage() {
                         </div>
                         <div>
                             <img
+                                id="check"
                                 className="connection"
                                 src={connection}
                                 alt="connect"

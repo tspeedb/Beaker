@@ -35,7 +35,7 @@ function StudentProfile() {
     return (
         <div className="new-profile">
             <div className="left-screen">
-                <h1 className="text-info">
+                <h1 className="text-info" id="text">
                     Create <br></br> Your <br></br> Profile
                 </h1>
             </div>

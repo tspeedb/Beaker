@@ -82,3 +82,21 @@ textarea {
     height: 150px;
     width: 270px;
 }
+
+#text {
+    text-align: 'left';
+    animation-duration: 1s;
+    font-size: 55px;
+    animation-name: slidein;
+}
+@keyframes slidein {
+    from {
+        margin-left: 100%;
+        width: 300%;
+    }
+
+    to {
+        margin-left: 0%;
+        width: 100%;
+    }
+}

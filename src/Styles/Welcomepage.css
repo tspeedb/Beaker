@@ -87,3 +87,20 @@ video {
     /*stack order*/
     z-index: -1;
 }
+
+/* #check {
+    text-align: 'left';
+    animation-duration: 2s;
+    font-size: 55px;
+    animation-name: slidein;
+}
+@keyframes slidein {
+    from {
+        top: 0;
+        left: 0;
+    }
+    to {
+        top: 100px;
+        left: 100px;
+    }
+} */
