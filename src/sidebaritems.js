@@ -1,7 +1,7 @@
 const sidebaritems = [
     {
         display_name: 'Bookmarked Members',
-        // route:
+        route: './bookmarkedmembers',
         // icon:
     },
     {
