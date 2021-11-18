@@ -25,60 +25,56 @@ export default function DropdownMajor() {
                     onChange={handleChange}
                 >
                     <MenuItem value={'ACCT'}>Accounting</MenuItem>
-                    <MenuItem value={'ASSC'}>
+                    <MenuItem value={'AERO'}>
                         Aeronautics and Space Systems Certificate
                     </MenuItem>
                     <MenuItem value={'AFAM'}>African American Studies</MenuItem>
                     <MenuItem value={'ANIM'}>Animation</MenuItem>
-                    <MenuItem value={'APMT'}>Applied Mathematics</MenuItem>
-                    <MenuItem value={'APPH'}>Applied Physics</MenuItem>
+                    <MenuItem value={''}>Applied Mathematics</MenuItem>
+                    <MenuItem value={''}>Applied Physics</MenuItem>
                     <MenuItem value={'ARHS'}>Art History</MenuItem>
                     <MenuItem value={'ASPA'}>
                         Asian and Pacific Studies
                     </MenuItem>
-                    <MenuItem value={'BTED'}>
+                    <MenuItem value={''}>
                         Bilingual Teacher Education - Chinese or Spanish
                     </MenuItem>
-                    <MenuItem value={'BCHM'}>Biochemistry</MenuItem>
+                    <MenuItem value={''}>Biochemistry</MenuItem>
                     <MenuItem value={'BIOE'}>Bioethics</MenuItem>
                     <MenuItem value={'BIOL'}>Biology</MenuItem>
                     <MenuItem value={'BSAN'}>Business Analytics</MenuItem>
-                    <MenuItem value={'CAST'}>
+                    <MenuItem value={''}>
                         Catholic Archdiocesan School Teacher
                     </MenuItem>
-                    <MenuItem value={'CSAC'}>
+                    <MenuItem value={''}>
                         Catholic School Administration Certificate
                     </MenuItem>
-                    <MenuItem value={'CUTP'}>
+                    <MenuItem value={''}>
                         Center for Undergraduate Teacher Preparation
                     </MenuItem>
-                    <MenuItem value={'CSSL'}>
+                    <MenuItem value={''}>
                         Charter/Small School Leadership
                     </MenuItem>
                     <MenuItem value={'CHEM'}>Chemistry</MenuItem>
                     <MenuItem value={'CLST'}>
                         Chicana/o and Latina/o Studies
                     </MenuItem>
-                    <MenuItem value={'CWAA'}>
+                    <MenuItem value={''}>
                         Child Welfare & Attendance Added Authorization
                     </MenuItem>
                     <MenuItem value={'CIVL'}>Civil Engineering</MenuItem>
                     <MenuItem value={'CLAR'}>Classics and Archaeology</MenuItem>
-                    <MenuItem value={'CCSC'}>
+                    <MenuItem value={''}>
                         Climate Change Solutions Certificate
                     </MenuItem>
                     <MenuItem value={'CMST'}>Communication Studies</MenuItem>
                     <MenuItem value={'CMSI'}>Computer Science</MenuItem>
-                    <MenuItem value={'CONS'}>Counseling</MenuItem>
-                    <MenuItem value={'CSTC'}>
-                        Cybersecurity Certificate
-                    </MenuItem>
+                    <MenuItem value={''}>Counseling</MenuItem>
+                    <MenuItem value={''}>Cybersecurity Certificate</MenuItem>
                     <MenuItem value={'DANC'}>Dance</MenuItem>
-                    <MenuItem value={'DRJS'}>
-                        Doctor of Juridical Science
-                    </MenuItem>
+                    <MenuItem value={''}>Doctor of Juridical Science</MenuItem>
                     <MenuItem value={'ECON'}>Economics</MenuItem>
-                    <MenuItem value={'ELSJ'}>
+                    <MenuItem value={''}>
                         Educational Leadership for Social Justice
                     </MenuItem>
                     <MenuItem value={'EDST'}>Educational Studies</MenuItem>

@@ -27,7 +27,7 @@ export default function DropdownMinor() {
                     <MenuItem value={'ACCT'}>Accounting</MenuItem>
                     <MenuItem value={'AFAM'}>African American Studies</MenuItem>
                     <MenuItem value={'ANIM'}>Animation</MenuItem>
-                    <MenuItem value={'APMT'}>Applied Mathematics</MenuItem>
+                    <MenuItem value={''}>Applied Mathematics</MenuItem>
                     <MenuItem value={'ARHS'}>Art History</MenuItem>
                     <MenuItem value={'ASPA'}>
                         Asian and Pacific Studies
@@ -35,7 +35,7 @@ export default function DropdownMinor() {
                     <MenuItem value={'APAM'}>
                         Asian Pacific American Studies
                     </MenuItem>
-                    <MenuItem value={'BCHM'}>Biochemistry</MenuItem>
+                    <MenuItem value={''}>Biochemistry</MenuItem>
                     <MenuItem value={'BIOL'}>Biology</MenuItem>
                     <MenuItem value={'BADM'}>Business Administration</MenuItem>
                     <MenuItem value={'CATH'}>Catholic Studies</MenuItem>
