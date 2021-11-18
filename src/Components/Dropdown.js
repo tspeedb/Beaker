@@ -29,8 +29,8 @@ export default function Dropdown() {
                     label="Select"
                     onChange={handleChange}
                 >
-                    <Link className="dropdown-link" to="../myprojects">
-                        <MenuItem value={'/myprojects'}>Dashboard</MenuItem>
+                    <Link className="dropdown-link" to="../dashboard">
+                        <MenuItem value={'/dashboard'}>Dashboard</MenuItem>
                     </Link>
                     <Link className="dropdown-link" to="../mymembers">
                         <MenuItem value={'/mymembers'}> Profile </MenuItem>
