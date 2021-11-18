@@ -146,6 +146,7 @@ function StudentProfile() {
                 <div></div>
                 <br></br>
                 <div>
+                    <div>Year:</div>
                     <Button
                         className={classes.yearButtons}
                         // onClick={() => {
@@ -163,6 +164,7 @@ function StudentProfile() {
                 <div></div>
                 <br></br>
                 <div>
+                    <div>First Major:</div>
                     <Button className={classes.majorButtons}>
                         <DropdownMajor
                             className={classes.majorButtons}
