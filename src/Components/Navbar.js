@@ -103,7 +103,7 @@ const Navbar = () => {
                     </div>
                 </Toolbar>
             </AppBar>
-            <Menu
+            {/* <Menu
                 style={{ marginTop: '50px' }}
                 onClose={handleMenuClose}
                 id="menu"
@@ -115,8 +115,11 @@ const Navbar = () => {
                     {' '}
                     <Link to="./userprofile">profile </Link>{' '}
                 </MenuList>
-                <MenuList onClick={handleMenuClose}> logout</MenuList>
-            </Menu>
+                <MenuList onClick={handleMenuClose}>
+                    {' '}
+                    <Link to="./">logout </Link>{' '}
+                </MenuList>
+            </Menu> */}
         </>
     )
 }

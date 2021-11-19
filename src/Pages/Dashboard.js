@@ -34,10 +34,10 @@ function Dashboard() {
         <Layout>
             <Side>
                 <div>
-                    {/* <h1 style={{ textAlign: 'center', fontSize: '100px' }}>
+                    <h1 style={{ textAlign: 'center', fontSize: '40px' }}>
                         {' '}
                         Welcome to your dashboard{' '}
-                    </h1> */}
+                    </h1>
                 </div>
             </Side>
         </Layout>

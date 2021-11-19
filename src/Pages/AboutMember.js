@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom'
 import Layout from '../Components/Layout'
 import Grid from '@mui/material/Grid'
 import { IconButton } from '@mui/material'
+import TelegramIcon from '@mui/icons-material/Telegram'
 //import { Icon } from '@mui/material'
 
 function AboutMember({ match, members }) {
@@ -83,14 +84,14 @@ function AboutMember({ match, members }) {
                     </IconButton>
                 </Grid>
                 <IconButton>
-                    <FavoriteIcon
+                    <TelegramIcon
                         fontSize="large"
                         style={{
                             color: 'rgba(172, 12, 48, 1)',
                         }}
                     >
                         {' '}
-                    </FavoriteIcon>
+                    </TelegramIcon>
                 </IconButton>
                 <IconButton>
                     <BookmarkBorderIcon

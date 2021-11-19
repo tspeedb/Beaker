@@ -24,8 +24,7 @@ const useStyles = makeStyles({
         textDecoration: 'none',
     },
     gridContainer: {
-        paddingLeft: '20px',
-        paddingRight: '20px',
+        paddingLeft: '20rem',
     },
 })
 
@@ -47,7 +46,7 @@ function DashboardCards() {
     // }, [])
     return (
         <div>
-            <Grid container justify="center">
+            <Grid container justify="center" className={classes.gridContainer}>
                 <Grid item xs={12} sm={8} md={4}>
                     <Card className={classes.largeCards}> </Card>
                 </Grid>
