@@ -43,13 +43,11 @@ function Welcomepage() {
                                 src={checkmark}
                                 alt="check"
                             />
-                            <p className="title">
-                                Find amazing talent
-                                <div className="info">
-                                    Post projects and see who <br></br> matches
-                                    your project qualifications
-                                </div>
-                            </p>
+                            <p className="title">Find amazing talent</p>
+                            <div className="info">
+                                Post projects and see who <br></br> matches your
+                                project qualifications
+                            </div>
                         </div>
                         <div>
                             <img
@@ -57,13 +55,11 @@ function Welcomepage() {
                                 src={lightbulb}
                                 alt="bulb"
                             />
-                            <p className="title">
-                                Make yourself known
-                                <div className="info">
-                                    Get seen by those who are <br></br> looking
-                                    for someone just like you
-                                </div>
-                            </p>
+                            <p className="title">Make yourself known</p>
+                            <div className="info">
+                                Get seen by those who are <br></br> looking for
+                                someone just like you
+                            </div>
                         </div>
                         <div>
                             <img
@@ -71,13 +67,11 @@ function Welcomepage() {
                                 src={connection}
                                 alt="connect"
                             />
-                            <p className="title">
-                                Make connections
-                                <div className="info">
-                                    Get connected with people <br></br> outside
-                                    of your major
-                                </div>
-                            </p>
+                            <p className="title">Make connections</p>
+                            <div className="info">
+                                Get connected with people <br></br> outside of
+                                your major
+                            </div>
                         </div>
                     </Box>
                 </div>

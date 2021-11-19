@@ -10,7 +10,6 @@ import { useState, useEffect } from 'react'
 import 'firebase/firestore'
 import { db } from '../firebase'
 import { collection, getDocs, addDoc } from 'firebase/firestore'
-import { useScrollTrigger } from '@mui/material'
 import DropdownMajor from '../Components/dropdownMajor'
 import DropdownMinor from '../Components/dropdownMinor'
 
