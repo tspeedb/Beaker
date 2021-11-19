@@ -23,6 +23,8 @@ import AboutMember from './Pages/AboutMember'
 import Dashboard from './Pages/Dashboard'
 import BookmarkedMembers from './Pages/BookmarkedMembers'
 import BookmarkedProjects from './Pages/BookmarkedProjects'
+import InvitedMembers from './Pages/InvitedMembers'
+import UserProfile from './Pages/UserProfile'
 
 function App() {
     // const ref = firebase.firestore().collection('students')
@@ -138,6 +140,16 @@ function App() {
                             path="/bookmarkedprojects"
                             exact
                             component={BookmarkedProjects}
+                        />
+                        <Route
+                            path="/invitedmembers"
+                            exact
+                            component={InvitedMembers}
+                        />
+                        <Route
+                            path="/userprofile"
+                            exact
+                            component={UserProfile}
                         />
                     </Switch>
                 </AnimatePresence>

@@ -3,7 +3,7 @@ import '../Styles/Sidebar.css'
 import sidebaritems from '../sidebaritems'
 import { Link } from 'react-router-dom'
 
-function Sidebar() {
+const Sidebar = () => {
     // const activeItem = sidebaritems.findIndex(
     //     (item) => item.route === this.props.location
     // )

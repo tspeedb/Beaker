@@ -13,7 +13,7 @@ import ListItemAvatar from '@mui/material/ListItemAvatar'
 import Avatar from '@mui/material/Avatar'
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
 import FavoriteIcon from '@mui/icons-material/Favorite'
-import Sidebar from '../Components/Sidebar'
+import Side from '../Components/Side'
 
 function Dashboard() {
     // const [projects, setProjects] = useState([])
@@ -32,14 +32,14 @@ function Dashboard() {
 
     return (
         <Layout>
-            <Sidebar />
-
-            <div>
-                <h1 style={{ textAlign: 'center', fontSize: '100px' }}>
-                    {' '}
-                    Dashboard{' '}
-                </h1>
-            </div>
+            <Side>
+                <div>
+                    {/* <h1 style={{ textAlign: 'center', fontSize: '100px' }}>
+                        {' '}
+                        Welcome to your dashboard{' '}
+                    </h1> */}
+                </div>
+            </Side>
         </Layout>
     )
 }

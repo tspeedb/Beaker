@@ -1,8 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@1,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@1,300&family=Oswald:wght@200&display=swap');
+
 .sidebar {
     height: 100vh;
     position: fixed;
     left: 0;
-    background-color: rgb(247, 247, 247);
+    background-color: rgb(230, 228, 228);
     box-shadow: 30px;
     z-index: -1;
 }
@@ -18,7 +22,7 @@
 
 .side-text a {
     text-decoration: none;
-    color: black;
+    color: rgb(0, 0, 0);
     font-size: 18px;
     width: 95%;
     height: 100%;
@@ -26,8 +30,13 @@
     align-items: center;
     padding: 0 16px;
     border-radius: 4px;
+    font-family: 'Montserrat', sans-serif;
+    /* font-family: 'Bebas Neue', cursive; */
+    /* font-family: 'Oswald', sans-serif; */
 }
 
 .side-text a:hover {
-    background-color: rgb(186, 71, 71);
+    background-color: rgb(77, 135, 211);
+    color: white;
+    border-radius: 0%;
 }
