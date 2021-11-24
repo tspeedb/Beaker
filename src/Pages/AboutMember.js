@@ -72,17 +72,21 @@ function AboutMember({ match, members }) {
                     </div>
                 )}
             </div>
-            <Grid container direction="row" alignItems="center">
-                <Grid item>
-                    <IconButton>
-                        <HighlightOffIcon
-                            fontSize="large"
-                            style={{
-                                color: 'rgba(16, 127, 183, 1)',
-                            }}
-                        ></HighlightOffIcon>
-                    </IconButton>
-                </Grid>
+            <Grid
+                container
+                direction="row"
+                alignItems="center"
+                justifyContent="center"
+            >
+                <IconButton>
+                    <HighlightOffIcon
+                        fontSize="large"
+                        style={{
+                            color: 'rgba(16, 127, 183, 1)',
+                        }}
+                    ></HighlightOffIcon>
+                </IconButton>
+
                 <IconButton>
                     <TelegramIcon
                         fontSize="large"

@@ -12,7 +12,7 @@ import '../Styles/Navbar.css'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 
 import Dropdown from './Dropdown'
-import { MenuList } from '@mui/material'
+import MenuList from '@material-ui/core/MenuList'
 
 const useStyles = makeStyles((theme) => ({
     helpButton: {
@@ -103,7 +103,7 @@ const Navbar = () => {
                     </div>
                 </Toolbar>
             </AppBar>
-            {/* <Menu
+            <Menu
                 style={{ marginTop: '50px' }}
                 onClose={handleMenuClose}
                 id="menu"
@@ -119,7 +119,7 @@ const Navbar = () => {
                     {' '}
                     <Link to="./">logout </Link>{' '}
                 </MenuList>
-            </Menu> */}
+            </Menu>
         </>
     )
 }
