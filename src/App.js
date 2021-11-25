@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { collection, getDocs } from 'firebase/firestore'
 import { db } from './firebase'
 // import firebase from './firebase'
@@ -25,7 +25,7 @@ function App() {
     // const ref = firebase.firestore().collection('students')
     // console.log(ref)
     const [projects, setProjects] = useState([])
-    const projectsCollectionRef = collection(db, 'projects')
+    const projectsCollectionRef = useMemo(() => collection(db, 'projects'), [])
     useEffect(() => {
         const getProjects = async () => {
             const data = await getDocs(projectsCollectionRef)
@@ -38,7 +38,7 @@ function App() {
     }, [projectsCollectionRef])
 
     const [members, setMembers] = useState([])
-    const membersCollectionRef = collection(db, 'students')
+    const membersCollectionRef = useMemo(() => collection(db, 'students'), [])
     useEffect(() => {
         const getMembers = async () => {
             const data = await getDocs(membersCollectionRef)
@@ -48,6 +48,7 @@ function App() {
         getMembers()
     }, [membersCollectionRef])
 
+    console.log('App file')
     return (
         <>
             <Router>
@@ -124,7 +125,6 @@ function App() {
                 </Switch>
             </Router>
         </>
-        // <Button variant="contained">Hello World</Button>
     )
 }
 

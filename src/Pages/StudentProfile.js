@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import '../Styles/Profile.css'
 import Button from '@mui/material/Button'
@@ -6,7 +6,6 @@ import beaker from '../Images/blackLinedBeakerBgRemoved.png'
 import defaultImg from '../Images/profileImageBgRemove.png'
 import { Link } from 'react-router-dom'
 import DropdownYear from '../Components/dropdownYear'
-import { useState, useEffect } from 'react'
 import 'firebase/firestore'
 import { db } from '../firebase'
 import { collection, getDocs, addDoc } from 'firebase/firestore'
@@ -14,19 +13,19 @@ import DropdownMajor from '../Components/dropdownMajor'
 import DropdownMinor from '../Components/dropdownMinor'
 
 const useStyles = makeStyles((theme) => ({
-    yearButtons: {
+    yearDropdown: {
         color: 'grey',
         textTransform: 'lowercase',
         fontSize: '18px',
         justifyContent: 'end',
     },
-    majorButtons: {
+    majorDropdown: {
         color: 'grey',
         textTransform: 'lowercase',
         fontSize: '18px',
         justifyContent: 'end',
     },
-    minorButtons: {
+    minorDropdown: {
         color: 'grey',
         textTransform: 'lowercase',
         fontSize: '18px',
@@ -48,7 +47,7 @@ function StudentProfile() {
     const [year, setYear] = useState(10)
     const [pronouns, setPronouns] = useState(11)
     const [students, setStudents] = useState([])
-    const studentsCollectionRef = collection(db, 'students')
+    const studentsCollectionRef = useMemo(() => collection(db, 'students'), [])
     function handleClick() {
         console.log('Click happened')
     }
@@ -81,6 +80,7 @@ function StudentProfile() {
         getStudents()
     }, [studentsCollectionRef])
     const classes = useStyles()
+    console.log('student profile')
     return (
         <div className="new-profile">
             <div className="left-screen">
@@ -146,59 +146,44 @@ function StudentProfile() {
                 <br></br>
                 <div>
                     <div>Year:</div>
-                    <Button
-                        className={classes.yearButtons}
-                        // onClick={() => {
-                        //     alert('clicked')
-                        // }}
-                    >
-                        <DropdownYear
-                            className={classes.yearButtons}
-                            onClick={() => {
-                                alert('clicked')
-                            }}
-                        ></DropdownYear>
-                    </Button>
+                    <DropdownYear
+                        className={classes.yearDropdown}
+                        onClick={() => {
+                            alert('clicked')
+                        }}
+                    ></DropdownYear>
                 </div>
                 <div></div>
                 <br></br>
                 <div>
                     <div>First Major:</div>
-                    <Button className={classes.majorButtons}>
-                        <DropdownMajor
-                            className={classes.majorButtons}
-                        ></DropdownMajor>
-                    </Button>
+                    <DropdownMajor
+                        className={classes.majorDropdown}
+                    ></DropdownMajor>
                 </div>
                 <div></div>
                 <br></br>
                 <div>
                     <div>Second Major:</div>
-                    <Button className={classes.majorButtons}>
-                        <DropdownMajor
-                            className={classes.majorButtons}
-                        ></DropdownMajor>
-                    </Button>
+                    <DropdownMajor
+                        className={classes.majorDropdown}
+                    ></DropdownMajor>
                 </div>
                 <div></div>
                 <br></br>
                 <div>
                     <div>First Minor:</div>
-                    <Button className={classes.minorButtons}>
-                        <DropdownMinor
-                            className={classes.minorButtons}
-                        ></DropdownMinor>
-                    </Button>
+                    <DropdownMinor
+                        className={classes.minorDropdown}
+                    ></DropdownMinor>
                 </div>
                 <div></div>
                 <br></br>
                 <div>
                     <div>Second Minor:</div>
-                    <Button className={classes.minorButtons}>
-                        <DropdownMinor
-                            className={classes.minorButtons}
-                        ></DropdownMinor>
-                    </Button>
+                    <DropdownMinor
+                        className={classes.minorDropdown}
+                    ></DropdownMinor>
                 </div>
                 <div></div>
                 <br></br>
