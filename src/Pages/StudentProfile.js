@@ -80,7 +80,6 @@ function StudentProfile() {
         getStudents()
     }, [studentsCollectionRef])
     const classes = useStyles()
-    console.log('student profile')
     return (
         <div className="new-profile">
             <div className="left-screen">

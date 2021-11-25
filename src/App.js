@@ -48,7 +48,6 @@ function App() {
         getMembers()
     }, [membersCollectionRef])
 
-    console.log('App file')
     return (
         <>
             <Router>

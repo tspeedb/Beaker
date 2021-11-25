@@ -19,7 +19,6 @@ class dropdownMajor extends React.Component {
     }
 
     render() {
-        console.log('Major')
         return (
             <form onSubmit={this.handleSubmit}>
                 <label>

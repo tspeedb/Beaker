@@ -19,7 +19,6 @@ class dropdownMinor extends React.Component {
     }
 
     render() {
-        console.log('Minor')
         return (
             <form onSubmit={this.handleSubmit}>
                 <label>
