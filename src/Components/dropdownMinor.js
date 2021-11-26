@@ -37,6 +37,7 @@ class dropdownMinor extends React.Component {
                             Asian Pacific American Studies
                         </option>
                         <option value="">Biochemistry</option>
+                        <option value="BIOE">Bioethics</option>
                         <option value="BIOL">Biology</option>
                         <option value="BADM">Business Administration</option>
                         <option value="CATH">Catholic Studies</option>
@@ -53,14 +54,18 @@ class dropdownMinor extends React.Component {
                         <option value="ENGL">English</option>
                         <option value="ENVS">Environmental Science</option>
                         <option value="EVST">Environmental Studies</option>
-                        <option value="">
+                        <option value="FTVS">
                             Film, Television, and Media Studies
                         </option>
+                        <option value="FNCE">Finance</option>
                         <option value="FREN">French</option>
                         <option value="GRMN">German</option>
                         <option value="HEAS">Health and Society</option>
                         <option value="HIST">History</option>
-                        <option value="">International Business</option>
+                        <option value="IGI">
+                            Interactive, Gaming, and Immersive Media
+                        </option>
+                        <option value="INBA">International Business</option>
                         <option value="">
                             International Documentary Production
                         </option>
@@ -69,6 +74,7 @@ class dropdownMinor extends React.Component {
                         <option value="ITAL">Italian</option>
                         <option value="JWST">Jewish Studies</option>
                         <option value="JOUR">Journalism</option>
+                        <option value="MATH">Math</option>
                         <option value="MDGK">Modern Greek Studies</option>
                         <option value="MUSC">Music</option>
                         <option value="PJST">Peace and Justice Studies</option>
@@ -76,7 +82,7 @@ class dropdownMinor extends React.Component {
                         <option value="PHYS">Physics</option>
                         <option value="POLS">Political Science</option>
                         <option value="PSYC">Psychology</option>
-                        <option value="">Public Relations</option>
+                        <option value="PRCX">Public Relations</option>
                         <option value="SCWR">Screenwriting</option>
                         <option value="SOCL">Sociology</option>
                         <option value="SPAN">Spanish</option>

@@ -30,12 +30,14 @@ class dropdownMajor extends React.Component {
                         <option value="ACCT">Accounting</option>
                         <option value="AFAM">African American Studies</option>
                         <option value="ANIM">Animation</option>
-                        <option value="APMT">Applied Mathematics</option>
-                        <option value="APPH">Applied Physics</option>
+                        <option value="">Applied Mathematics</option>
+                        <option value="">Applied Physics</option>
                         <option value="ARHS">Art History</option>
                         <option value="ASPA">Asian and Pacific Studies</option>
-                        <option value="BCHM">Biochemistry</option>
+                        <option value="">Biochemistry</option>
+                        <option value="BIOE">Bioethics</option>
                         <option value="BIOL">Biology</option>
+                        <option value="BADM">Business Administration</option>
                         <option value="CHEM">Chemistry</option>
                         <option value="CLST">
                             Chicana/o and Latina/o Studies
@@ -61,15 +63,13 @@ class dropdownMajor extends React.Component {
                         <option value="FREN">French</option>
                         <option value="HHSC">Health and Human Sciences</option>
                         <option value="HIST">History</option>
-                        <option value="HUMA">Humanities</option>
+                        <option value="HMNT">Humanities</option>
                         <option value="ISBA">
                             Information Systems and Business Analytics
                         </option>
-                        <option value="INRE">International Relations</option>
+                        <option value="">International Relations</option>
                         <option value="JOUR">Journalism</option>
-                        <option value="LIBS">
-                            Liberal Studies (Elementary Education)
-                        </option>
+                        <option value="LBST">Liberal Studies</option>
                         <option value="MGMT">Management and Leadership</option>
                         <option value="MRKT">Marketing</option>
                         <option value="MATH">Mathematics</option>
@@ -84,10 +84,8 @@ class dropdownMajor extends React.Component {
                         <option value="SCWR">Screenwriting</option>
                         <option value="SOCL">Sociology</option>
                         <option value="SPAN">Spanish</option>
-                        <option value="STDS">
-                            Statistics and Data Science
-                        </option>
-                        <option value="SDAT">Studio Arts</option>
+                        <option value="">Statistics and Data Science</option>
+                        <option value="ART">Studio Arts</option>
                         <option value="THEA">Theatre Arts</option>
                         <option value="THST">Theological Studies</option>
                         <option value="URBN">Urban Studies</option>
