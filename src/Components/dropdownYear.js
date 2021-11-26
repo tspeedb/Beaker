@@ -1,35 +1,42 @@
 import * as React from 'react'
-import Box from '@mui/material/Box'
-import InputLabel from '@mui/material/InputLabel'
-import MenuItem from '@mui/material/MenuItem'
-import FormControl from '@mui/material/FormControl'
-import Select from '@mui/material/Select'
-import '../Styles/Dropdown.css'
+import '../Styles/dropdownYear.css'
 
-export default function DropdownYear() {
-    const [item, setItem] = React.useState('')
+class dropdownYear extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = { value: 'Year' }
 
-    const handleChange = (event) => {
-        setItem(event.target.value)
+        this.handleChange = this.handleChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
     }
 
-    return (
-        <Box id="select-year" sx={{ width: 250 }}>
-            <FormControl fullWidth>
-                <InputLabel id="select-label"> Year </InputLabel>
-                <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={item}
-                    label="Select"
-                    onChange={handleChange}
-                >
-                    <MenuItem value={'freshman'}>Freshman</MenuItem>
-                    <MenuItem value={'sophomore'}>Sophomore</MenuItem>
-                    <MenuItem value={'junior'}>Junior</MenuItem>
-                    <MenuItem value={'senior'}>Senior</MenuItem>
-                </Select>
-            </FormControl>
-        </Box>
-    )
+    handleChange(event) {
+        this.setState({ value: event.target.value })
+    }
+
+    handleSubmit(event) {
+        event.preventDefault()
+    }
+
+    render() {
+        return (
+            <form onSubmit={this.handleSubmit}>
+                <label>
+                    <select
+                        value={this.state.value}
+                        onChange={this.handleChange}
+                    >
+                        <option value="default">Year</option>
+                        <option value="freshman">Freshman</option>
+                        <option value="sophomore">Sophomore</option>
+                        <option value="junior">Junior</option>
+                        <option value="senior">Senior</option>
+                        <option value="graduate">Graduate</option>
+                    </select>
+                </label>
+            </form>
+        )
+    }
 }
+
+export default dropdownYear

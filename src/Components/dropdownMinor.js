@@ -1,98 +1,96 @@
 import * as React from 'react'
-import Box from '@mui/material/Box'
-import InputLabel from '@mui/material/InputLabel'
-import MenuItem from '@mui/material/MenuItem'
-import FormControl from '@mui/material/FormControl'
-import Select from '@mui/material/Select'
 import '../Styles/Dropdown.css'
 
-export default function DropdownMinor() {
-    const [item, setItem] = React.useState('')
+class dropdownMinor extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = { value: 'Minor' }
 
-    const handleChange = (event) => {
-        setItem(event.target.value)
+        this.handleChange = this.handleChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
     }
 
-    return (
-        <Box id="select-year" sx={{ width: 250 }}>
-            <FormControl fullWidth>
-                <InputLabel id="select-label">Minor</InputLabel>
-                <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={item}
-                    label="Select"
-                    onChange={handleChange}
-                >
-                    <MenuItem value={'ACCT'}>Accounting</MenuItem>
-                    <MenuItem value={'AFAM'}>African American Studies</MenuItem>
-                    <MenuItem value={'ANIM'}>Animation</MenuItem>
-                    <MenuItem value={''}>Applied Mathematics</MenuItem>
-                    <MenuItem value={'ARHS'}>Art History</MenuItem>
-                    <MenuItem value={'ASPA'}>
-                        Asian and Pacific Studies
-                    </MenuItem>
-                    <MenuItem value={'APAM'}>
-                        Asian Pacific American Studies
-                    </MenuItem>
-                    <MenuItem value={''}>Biochemistry</MenuItem>
-                    <MenuItem value={'BIOL'}>Biology</MenuItem>
-                    <MenuItem value={'BADM'}>Business Administration</MenuItem>
-                    <MenuItem value={'CATH'}>Catholic Studies</MenuItem>
-                    <MenuItem value={'CHEM'}>Chemistry</MenuItem>
-                    <MenuItem value={'CLST'}>
-                        Chicana/o and Latina/o Studies
-                    </MenuItem>
-                    <MenuItem value={'CHIN'}>Chinese</MenuItem>
-                    <MenuItem value={'CLAR'}>Classics and Archaeology</MenuItem>
-                    <MenuItem value={'CMSI'}>Computer Science</MenuItem>
-                    <MenuItem value={'DANC'}>Dance</MenuItem>
-                    <MenuItem value={'ECON'}>Economics</MenuItem>
-                    <MenuItem value={'EECE'}>Electrical Engineering</MenuItem>
-                    <MenuItem value={'ENGL'}>English</MenuItem>
-                    <MenuItem value={'ENVS'}>Environmental Science</MenuItem>
-                    <MenuItem value={'EVST'}>Environmental Studies</MenuItem>
-                    <MenuItem value={'FTVS'}>
-                        Film, Television, and Media Studies
-                    </MenuItem>
-                    <MenuItem value={'FREN'}>French</MenuItem>
-                    <MenuItem value={'GRMN'}>German</MenuItem>
-                    <MenuItem value={'HEAS'}>Health and Society</MenuItem>
-                    <MenuItem value={'HIST'}>History</MenuItem>
-                    <MenuItem value={'INBA'}>International Business</MenuItem>
-                    <MenuItem value={'INDP'}>
-                        International Documentary Production
-                    </MenuItem>
-                    <MenuItem value={'INRE'}>International Relations</MenuItem>
-                    <MenuItem value={'IRST'}>Irish Studies</MenuItem>
-                    <MenuItem value={'ITAL'}>Italian</MenuItem>
-                    <MenuItem value={'JWST'}>Jewish Studies</MenuItem>
-                    <MenuItem value={'JOUR'}>Journalism</MenuItem>
-                    <MenuItem value={'MDGK'}>Modern Greek Studies</MenuItem>
-                    <MenuItem value={'MUSC'}>Music</MenuItem>
-                    <MenuItem value={'PJST'}>
-                        Peace and Justice Studies
-                    </MenuItem>
-                    <MenuItem value={'PHIL'}>Philosophy</MenuItem>
-                    <MenuItem value={'PHYS'}>Physics</MenuItem>
-                    <MenuItem value={'POLS'}>Political Science</MenuItem>
-                    <MenuItem value={'PSYC'}>Psychology</MenuItem>
-                    <MenuItem value={'PBRL'}>Public Relations</MenuItem>
-                    <MenuItem value={'SCWR'}>Screenwriting</MenuItem>
-                    <MenuItem value={'SOCL'}>Sociology</MenuItem>
-                    <MenuItem value={'SPAN'}>Spanish</MenuItem>
-                    <MenuItem value={'STDS'}>
-                        Statistics and Data Science
-                    </MenuItem>
-                    <MenuItem value={'SDAT'}>Studio Arts</MenuItem>
-                    <MenuItem value={'THEA'}>Theatre Arts</MenuItem>
-                    <MenuItem value={'THST'}>Theological Studies</MenuItem>
-                    <MenuItem value={'URBN'}>Urban Studies</MenuItem>
-                    <MenuItem value={'WGST'}>
-                        Women's and Gender Studies
-                    </MenuItem>
-                </Select>
-            </FormControl>
-        </Box>
-    )
+    handleChange(event) {
+        this.setState({ value: event.target.value })
+    }
+
+    handleSubmit(event) {
+        event.preventDefault()
+    }
+
+    render() {
+        return (
+            <form onSubmit={this.handleSubmit}>
+                <label>
+                    <select
+                        value={this.state.value}
+                        onChange={this.handleChange}
+                    >
+                        <option value="default">Minor</option>
+                        <option value="ACCT">Accounting</option>
+                        <option value="AFAM">African American Studies</option>
+                        <option value="ANIM">Animation</option>
+                        <option value="">Applied Mathematics</option>
+                        <option value="ARHS">Art History</option>
+                        <option value="ASPA">Asian and Pacific Studies</option>
+                        <option value="APAM">
+                            Asian Pacific American Studies
+                        </option>
+                        <option value="">Biochemistry</option>
+                        <option value="BIOL">Biology</option>
+                        <option value="BADM">Business Administration</option>
+                        <option value="CATH">Catholic Studies</option>
+                        <option value="CHEM">Chemistry</option>
+                        <option value="CLST">
+                            Chicana/o and Latina/o Studies
+                        </option>
+                        <option value="CHIN">Chinese</option>
+                        <option value="CLAR">Classics and Archaeology</option>
+                        <option value="CMSI">Computer Science</option>
+                        <option value="DANC">Dance</option>
+                        <option value="ECON">Economics</option>
+                        <option value="EECE">Electrical Engineering</option>
+                        <option value="ENGL">English</option>
+                        <option value="ENVS">Environmental Science</option>
+                        <option value="EVST">Environmental Studies</option>
+                        <option value="">
+                            Film, Television, and Media Studies
+                        </option>
+                        <option value="FREN">French</option>
+                        <option value="GRMN">German</option>
+                        <option value="HEAS">Health and Society</option>
+                        <option value="HIST">History</option>
+                        <option value="">International Business</option>
+                        <option value="">
+                            International Documentary Production
+                        </option>
+                        <option value="">International Relations</option>
+                        <option value="IRST">Irish Studies</option>
+                        <option value="ITAL">Italian</option>
+                        <option value="JWST">Jewish Studies</option>
+                        <option value="JOUR">Journalism</option>
+                        <option value="MDGK">Modern Greek Studies</option>
+                        <option value="MUSC">Music</option>
+                        <option value="PJST">Peace and Justice Studies</option>
+                        <option value="PHIL">Philosophy</option>
+                        <option value="PHYS">Physics</option>
+                        <option value="POLS">Political Science</option>
+                        <option value="PSYC">Psychology</option>
+                        <option value="">Public Relations</option>
+                        <option value="SCWR">Screenwriting</option>
+                        <option value="SOCL">Sociology</option>
+                        <option value="SPAN">Spanish</option>
+                        <option value="">Statistics and Data Science</option>
+                        <option value="ART">Studio Arts</option>
+                        <option value="THEA">Theatre Arts</option>
+                        <option value="THST">Theological Studies</option>
+                        <option value="URBN">Urban Studies</option>
+                        <option value="WGST">Women's and Gender Studies</option>
+                    </select>
+                </label>
+            </form>
+        )
+    }
 }
+
+export default dropdownMinor
