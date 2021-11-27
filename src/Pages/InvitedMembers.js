@@ -1,4 +1,3 @@
-import DashboardCards from '../Components/DashBoardCards'
 import Layout from '../Components/Layout'
 import Side from '../Components/Side'
 
@@ -13,7 +12,6 @@ function InvitedMembers() {
                     </h1>
                 </div>
             </Side>
-            <DashboardCards />
         </Layout>
     )
 }

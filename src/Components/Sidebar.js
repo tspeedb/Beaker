@@ -9,7 +9,7 @@ const Sidebar = () => {
     // )
     return (
         <>
-            <div className="sidebar">
+            <div id="sidebar">
                 {sidebaritems.map((item, index) => {
                     return (
                         <li key={index} className={item.cName}>

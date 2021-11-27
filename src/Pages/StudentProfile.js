@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect, useMemo, Component } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import '../Styles/Profile.css'
 import Button from '@mui/material/Button'
@@ -11,6 +11,8 @@ import { db } from '../firebase'
 import { collection, getDocs, addDoc } from 'firebase/firestore'
 import DropdownMajor from '../Components/dropdownMajor'
 import DropdownMinor from '../Components/dropdownMinor'
+import Uploadfile from '../Components/UploadFile'
+import Profileimage from '../Components/ProfileImageUpload'
 
 const useStyles = makeStyles((theme) => ({
     yearDropdown: {
@@ -44,14 +46,10 @@ function StudentProfile() {
     const [resume, setResume] = useState(7)
     const [softskills, setSoftskills] = useState(8)
     const [summary, setSummary] = useState(9)
-    const [year, setYear] = useState(10)
+    const [year, setYear] = useState('')
     const [pronouns, setPronouns] = useState(11)
     const [students, setStudents] = useState([])
     const studentsCollectionRef = useMemo(() => collection(db, 'students'), [])
-    function handleClick() {
-        console.log('Click happened')
-    }
-
     const createStudent = async () => {
         await addDoc(studentsCollectionRef, {
             First: firstName,
@@ -80,6 +78,7 @@ function StudentProfile() {
         getStudents()
     }, [studentsCollectionRef])
     const classes = useStyles()
+
     return (
         <div className="new-profile">
             <div className="left-screen">
@@ -91,8 +90,11 @@ function StudentProfile() {
                 <img className="profile-image" src={beaker} alt="logo" />
                 <h1>New User</h1>
                 <p className="profile">Profile</p>
-                <img className="default-image" src={defaultImg} alt="default" />
+                {/* <div> */}
+                <Profileimage></Profileimage>
+                {/* </div> */}
                 <div></div>
+                <br></br>
                 <input
                     type="text"
                     className="first-name "
@@ -147,8 +149,9 @@ function StudentProfile() {
                     <div>Year:</div>
                     <DropdownYear
                         className={classes.yearDropdown}
-                        onClick={() => {
-                            alert('clicked')
+                        // onClick={setYear}
+                        onChange={(event) => {
+                            setYear(event.target.value)
                         }}
                     ></DropdownYear>
                 </div>
@@ -206,7 +209,7 @@ function StudentProfile() {
                 <label className="resume">Upload CV or Resume</label>
                 <div></div>
                 <br></br>
-                {/* allow users to upload pdf of resume here */}
+                <Uploadfile></Uploadfile>
                 <div></div>
                 <br></br>
                 <label className="portfolio">Link to Portfolio/Website</label>

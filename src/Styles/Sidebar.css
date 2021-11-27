@@ -2,13 +2,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@1,300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@1,300&family=Oswald:wght@200&display=swap');
 
-.sidebar {
+#sidebar {
     height: 100vh;
     position: fixed;
     left: 0;
     background-color: rgb(230, 228, 228);
     box-shadow: 30px;
-    z-index: -1;
+    /* z-index: -1; */
+    animation-name: slidein;
+}
+@keyframes slidein {
+    from {
+        margin-left: 100%;
+        width: 300%;
+    }
+
+    to {
+        margin-left: 0%;
+        width: 100%;
+    }
 }
 
 .side-text {

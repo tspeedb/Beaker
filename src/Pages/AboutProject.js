@@ -5,6 +5,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite'
 import HighlightOffIcon from '@mui/icons-material/HighlightOff'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import { Link } from 'react-router-dom'
+import Grid from '@mui/material/Grid'
 //import Button from '@mui/material/Button'
 
 import Layout from '../Components/Layout'
@@ -51,11 +52,28 @@ function AboutProject({ match, projects }) {
                     </div>
                 )}
 
-                <div className="action-items">
-                    <HighlightOffIcon></HighlightOffIcon>
-                    <FavoriteIcon> </FavoriteIcon>
-                    <BookmarkBorderIcon></BookmarkBorderIcon>
-                </div>
+                <Grid
+                    className="action-items"
+                    justifyContent="center"
+                    direction="row"
+                    justifyContent="space-evenly"
+                >
+                    <HighlightOffIcon
+                        fontSize="large"
+                        style={{
+                            color: 'rgba(16, 127, 183, 1)',
+                        }}
+                    ></HighlightOffIcon>
+                    <FavoriteIcon
+                        fontSize="large"
+                        style={{
+                            color: 'rgba(172, 12, 48, 1)',
+                        }}
+                    >
+                        {' '}
+                    </FavoriteIcon>
+                    <BookmarkBorderIcon fontSize="large"></BookmarkBorderIcon>
+                </Grid>
             </div>
         </Layout>
     )

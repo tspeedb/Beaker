@@ -139,7 +139,12 @@ function App() {
                         <Route
                             path="/bookmarkedprojects"
                             exact
-                            component={BookmarkedProjects}
+                            render={(props) => (
+                                <BookmarkedProjects
+                                    {...props}
+                                    projects={projects}
+                                />
+                            )}
                         />
                         <Route
                             path="/invitedmembers"

@@ -1,8 +1,32 @@
-import DashboardCards from '../Components/DashBoardCards'
 import Layout from '../Components/Layout'
 import Side from '../Components/Side'
 
-function BookemarkedMembers() {
+import { ListItemButton, ListItemText, Grid } from '@mui/material'
+import Card from '@material-ui/core/Card'
+import { makeStyles } from '@material-ui/styles'
+
+const useStyles = makeStyles({
+    largeCards: {
+        // paddingLeft: '10px',
+        // paddingRight: '10px',
+        height: '10rem',
+        width: '10rem',
+        backgroundColor: 'rgba(196, 196, 196, 0.2)',
+        zIndex: '-1',
+    },
+    smallerCards: {
+        margin: '10px',
+    },
+    links: {
+        color: 'black',
+        textDecoration: 'none',
+    },
+    gridContainer: {
+        // paddingLeft: '20rem',
+    },
+})
+
+function BookmarkedMembers() {
     return (
         <Layout>
             <Side>
@@ -15,14 +39,12 @@ function BookemarkedMembers() {
                         }}
                     >
                         {' '}
-                        bookmarked members{' '}
+                        bookmarked members
                     </h1>
-
-                    <DashboardCards />
                 </div>
             </Side>
         </Layout>
     )
 }
 
-export default BookemarkedMembers
+export default BookmarkedMembers

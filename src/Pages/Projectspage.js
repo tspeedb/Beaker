@@ -57,14 +57,6 @@ function Projectspage({ projects }) {
                 </Typography>
                 <ProjectCards projects={browse} />
             </div>
-            <div>
-                <Typography className={classes.title}>
-                    Saved projects <br></br>{' '}
-                    <Link to="/bookmarked"> See more </Link>
-                </Typography>
-                {/* <ProjectCards projects={bookmarks} /> */}
-                <ProjectCards projects={bookmarks} />
-            </div>
         </Layout>
     )
 }

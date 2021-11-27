@@ -75,8 +75,8 @@ function AboutMember({ match, members }) {
             <Grid
                 container
                 direction="row"
-                alignItems="center"
                 justifyContent="center"
+                justifyContent="space-evenly"
             >
                 <IconButton>
                     <HighlightOffIcon

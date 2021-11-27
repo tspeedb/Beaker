@@ -2,7 +2,6 @@ const sidebaritems = [
     {
         display_name: 'Bookmarked Members',
         route: './bookmarkedmembers',
-        // icon:
         cName: 'side-text',
     },
     {
