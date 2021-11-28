@@ -12,7 +12,7 @@ const Sidebar = () => {
             <div id="sidebar">
                 {sidebaritems.map((item, index) => {
                     return (
-                        <li key={index} className={item.cName}>
+                        <li key={index} id={item.cName}>
                             <Link to={item.route}>
                                 <span> {item.display_name}</span>
                             </Link>

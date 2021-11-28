@@ -6,33 +6,22 @@
     height: 100vh;
     position: fixed;
     left: 0;
-    background-color: rgb(230, 228, 228);
+    background-color: rgb(249, 249, 249);
     box-shadow: 30px;
     /* z-index: -1; */
-    animation-name: slidein;
-}
-@keyframes slidein {
-    from {
-        margin-left: 100%;
-        width: 300%;
-    }
-
-    to {
-        margin-left: 0%;
-        width: 100%;
-    }
 }
 
-.side-text {
+#side-text {
     display: flex;
     justify-content: start;
     align-items: center;
     padding: 100px 0px 8px 16px;
     list-style: none;
     height: 60px;
+    animation-name: slidein;
 }
 
-.side-text a {
+#side-text a {
     text-decoration: none;
     color: rgb(0, 0, 0);
     font-size: 18px;
@@ -47,8 +36,24 @@
     /* font-family: 'Oswald', sans-serif; */
 }
 
-.side-text a:hover {
+#side-text a:hover {
     background-color: rgb(77, 135, 211);
     color: white;
     border-radius: 0%;
+}
+
+#dash-title {
+    animation-name: slidein;
+}
+
+@keyframes slidein {
+    from {
+        margin-left: 100%;
+        width: 300%;
+    }
+
+    to {
+        margin-left: 0%;
+        width: 100%;
+    }
 }

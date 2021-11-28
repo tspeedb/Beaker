@@ -15,6 +15,7 @@ import Popper from '@material-ui/core/Popper'
 import MenuItem from '@material-ui/core/MenuItem'
 import '../Styles/Navbar.css'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import ScienceIcon from '@mui/icons-material/Science'
 
 import Dropdown from './Dropdown'
 import MenuList from '@material-ui/core/MenuList'
@@ -103,11 +104,13 @@ const Navbar = () => {
                 <Toolbar style={{ backgroundColor: 'black' }}>
                     <IconButton
                         edge="start"
-                        color="black"
+                        color="white"
                         aria-label="help"
                         className={classes.helpButton}
                     >
-                        <HelpIcon />
+                        <ScienceIcon
+                            style={{ fontSize: 'larger', color: 'white' }}
+                        />
                     </IconButton>
                     <Typography className={classes.space}></Typography>
                     <div

@@ -46,14 +46,36 @@ function Projectspage({ projects }) {
             <div>
                 <Typography className={classes.title}>
                     Based on your profile <br></br>{' '}
-                    <Link to="/basedonprofile"> See more </Link>
+                    <Link
+                        style={{
+                            color: 'rgba(16, 127, 183, 1)',
+                            textDecoration: 'none',
+                            fontSize: '14px',
+                            fontStyle: 'italic',
+                        }}
+                        to="/basedonprofile"
+                    >
+                        {' '}
+                        See more{' '}
+                    </Link>
                 </Typography>
                 <ProjectCards projects={profiles} />
             </div>
             <div>
                 <Typography className={classes.title}>
                     Browse projects <br></br>{' '}
-                    <Link to="/browse"> See more </Link>
+                    <Link
+                        style={{
+                            color: 'rgba(16, 127, 183, 1)',
+                            textDecoration: 'none',
+                            fontSize: '14px',
+                            fontStyle: 'italic',
+                        }}
+                        to="/browse"
+                    >
+                        {' '}
+                        See more{' '}
+                    </Link>
                 </Typography>
                 <ProjectCards projects={browse} />
             </div>

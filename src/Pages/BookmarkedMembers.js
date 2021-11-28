@@ -33,6 +33,10 @@ function BookmarkedMembers() {
                 <div>
                     <h1
                         style={{
+                            color: 'rgba(16, 127, 183, 1)',
+
+                            fontWeight: 'lighter',
+
                             paddingLeft: '100px',
                             textAlign: 'center',
                             fontSize: '40px',
