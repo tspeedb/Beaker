@@ -1,7 +1,3 @@
-h1 {
-    text-align: center;
-}
-
 .new-profile {
     display: flex;
     flex-direction: row;
@@ -33,6 +29,7 @@ h1 {
 }
 
 h1 {
+    text-align: center;
     margin-top: 0%;
     margin-bottom: 0%;
     font-size: small;
@@ -86,9 +83,13 @@ h1 {
     align-items: center;
 }
 
+.skills {
+    font-size: medium;
+}
+
 input {
     height: 50px;
-    width: 250px;
+    width: 260px;
     padding-left: 20px;
     border-radius: 100px;
 }

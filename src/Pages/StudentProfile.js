@@ -8,8 +8,10 @@ import beaker from '../Images/blackLinedBeakerBgRemoved.png'
 import { Link } from 'react-router-dom'
 // import DropdownYear from '../Components/dropdownYear'
 import 'firebase/firestore'
-import { db } from '../firebase'
-import { collection, getDocs, addDoc /*storage*/ } from 'firebase/firestore'
+import { db, storage } from '../firebase'
+import { collection, getDocs, addDoc } from 'firebase/firestore'
+// import { storage } from 'firebase'
+// import { storage } from './firebase/firebase'
 // import DropdownMajor from '../Components/dropdownMajor'
 // import DropdownMinor from '../Components/dropdownMinor'
 import Uploadfile from '../Components/UploadFile'
@@ -47,13 +49,16 @@ function StudentProfile() {
     const [minor, setMinor] = useState('')
     const [minor2, setMinor2] = useState('')
     const [link, setPortfolioLink] = useState(6)
-    const [resume, setResume] = useState(null)
+    const [resume, setResume] = useState('')
     const [softskills, setSoftskills] = useState(8)
     const [summary, setSummary] = useState(9)
     const [year, setYear] = useState('')
     const [pronouns, setPronouns] = useState('')
     const [url, setURL] = useState('')
     const [students, setStudents] = useState([])
+
+    const [imageAsFile, setImageAsFile] = useState(null)
+    const [imageAsUrl, setImageAsUrl] = useState('')
 
     const handleSelect = (e) => {
         console.log(e)
@@ -79,13 +84,25 @@ function StudentProfile() {
         setMinor2(e)
     }
     // const handleUploads = (f) => {
-    //     // setResume(f.target.files[0])
+    //     setResume(f.target.files[0])
     // }
 
-    // function storeImage() {}
+    console.log(imageAsFile)
+    const handleImageAsFile = (e) => {
+        setImageAsFile(e.target.files[0])
+    }
 
-    // function storeResume() {}
-
+    function handleUpload(e) {
+        e.preventDefault()
+        const ref = storage.ref(`/Images/${imageAsFile.name}`)
+        const uploadTask = ref.put(imageAsFile)
+        uploadTask.on('state_changed', console.log, console.error, () => {
+            ref.getDownloadURL().then((url) => {
+                setImageAsFile(null)
+                setImageAsUrl(url)
+            })
+        })
+    }
     const studentsCollectionRef = useMemo(() => collection(db, 'students'), [])
     const createStudent = async () => {
         await addDoc(studentsCollectionRef, {
@@ -103,6 +120,7 @@ function StudentProfile() {
             Resume: resume,
             Softskills: softskills,
             Summary: summary,
+            Image: imageAsFile || imageAsUrl,
         })
     }
 
@@ -129,7 +147,11 @@ function StudentProfile() {
                 <img className="profile-image" src={beaker} alt="logo" />
                 <h1 className="new-user">New User</h1>
                 <p className="profile">Profile</p>
-                <Profileimage></Profileimage>
+                <Profileimage>
+                    <form onSubmit={handleUpload}>
+                        <input type="file" onChange={handleImageAsFile} />
+                    </form>
+                </Profileimage>
                 <div></div>
                 <br></br>
                 <input
@@ -971,7 +993,7 @@ function StudentProfile() {
                 <label className="resume">Upload CV or Resume</label>
                 <div></div>
                 <br></br>
-                <Uploadfile></Uploadfile>
+                <Uploadfile> </Uploadfile>
                 <div></div>
                 <br></br>
                 <label className="portfolio">Link to Portfolio/Website</label>
