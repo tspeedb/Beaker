@@ -36,7 +36,7 @@ function CardItemAllMembers(props) {
                 }}
                 component="img"
                 height="200"
-                image={`${process.env.PUBLIC_URL}/projectImages/${props.image}`}
+                image={`${process.env.PUBLIC_URL}/projectImages/${props.image}`} //this needs to be changed so its coming from firbase
                 alt={props.name_year}
             >
                 {/* {props.image} */}

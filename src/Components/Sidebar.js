@@ -9,10 +9,10 @@ const Sidebar = () => {
     // )
     return (
         <>
-            <div id="sidebar">
+            <div className="sidebar">
                 {sidebaritems.map((item, index) => {
                     return (
-                        <li key={index} id={item.cName}>
+                        <li key={index} className={item.cName}>
                             <Link to={item.route}>
                                 <span> {item.display_name}</span>
                             </Link>
