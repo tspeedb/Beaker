@@ -1,3 +1,7 @@
+h1 {
+    text-align: center;
+}
+
 .new-profile {
     display: flex;
     flex-direction: row;
@@ -5,6 +9,11 @@
 
 .left-screen {
     background-color: #107fb7;
+    width: 40%;
+}
+
+.left-screen-fs {
+    background-color: #ac0c30;
     width: 40%;
 }
 

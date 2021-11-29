@@ -2,22 +2,54 @@ import React from 'react'
 import '../Styles/Profile.css'
 import Button from '@mui/material/Button'
 import beaker from '../Images/blackLinedBeakerBgRemoved.png'
-import defaultImg from '../Images/profileImageBgRemove.png'
 import { Link } from 'react-router-dom'
+import Profileimage from '../Components/ProfileImageUpload'
 
 function FacultyStaffProfile() {
     return (
         <div className="new-profile">
-            <div className="top-profile">
+            <div className="left-screen-fs">
+                <h1 className="text-info" id="text">
+                    Create <br></br> Your <br></br> Profile
+                </h1>
+            </div>
+            <div className="right-screen">
                 <img className="profile-image" src={beaker} alt="logo" />
-                <h1>New User</h1>
+                <h1 className="new-user">New User</h1>
                 <p className="profile">Profile</p>
-                <img className="default-image" src={defaultImg} alt="default" />
+                <Profileimage></Profileimage>
                 <div></div>
+                <br></br>
+                <div>Title:</div>
+                <div></div>
+                <br></br>
                 <input
                     type="text"
-                    className="legal-name"
-                    placeholder="Please enter your full name"
+                    className="first-name "
+                    placeholder="First Name"
+                    // onChange={(event) => {
+                    //     setFirstName(event.target.value)
+                    // }}
+                />
+                <div></div>
+                <br></br>
+                <input
+                    type="text"
+                    className="middle-name"
+                    placeholder="Middle Name"
+                    // onChange={(event) => {
+                    //     setMiddleName(event.target.value)
+                    // }}
+                />
+                <div></div>
+                <br></br>
+                <input
+                    type="text"
+                    className="last-name"
+                    placeholder="Last Name"
+                    // onChange={(event) => {
+                    //     setLastName(event.target.value)
+                    // }}
                 />
                 <div></div>
                 <br></br>
@@ -31,7 +63,7 @@ function FacultyStaffProfile() {
                 <input
                     type="text"
                     className="pronouns"
-                    placeholder="Pronouns"
+                    placeholder="Pronouns (Ex: she/her)"
                 />
                 <div></div>
                 <br></br>

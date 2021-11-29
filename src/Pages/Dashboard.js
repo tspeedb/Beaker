@@ -30,10 +30,11 @@ function Dashboard() {
                             textAlign: 'center',
                             fontSize: '50px',
                             fontWeight: 'lighter',
+                            paddingTop: '20rem',
                         }}
                     >
                         {' '}
-                        Welcome to your dashboard{' '}
+                        <b>James </b>, welcome to your dashboard{' '}
                     </h1>
                 </div>
             </Side>

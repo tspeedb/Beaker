@@ -24,7 +24,7 @@ function CardItems(props) {
             </CardMedia>
             <CardContent className="content">
                 <Typography id="title-project">{props.title}</Typography>
-                <Typography className="desc">{props.description}</Typography>
+                <Typography id="desc">{props.description}</Typography>
             </CardContent>
         </Card>
     )

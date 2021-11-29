@@ -8,7 +8,7 @@ image:hover {
     padding: 0;
 }
 #title-project {
-    font-size: 30px;
+    font-size: 20px;
     font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -28,4 +28,9 @@ image:hover {
         margin-left: 0%;
         width: 100%;
     }
+}
+
+#desc {
+    font-size: 13px;
+    font-style: italic;
 }
