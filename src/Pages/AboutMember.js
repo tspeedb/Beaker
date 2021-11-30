@@ -24,7 +24,7 @@ function AboutMember({ match, members }) {
 
     return (
         <Layout>
-            <div>
+            <div style={{ margin: '20px' }}>
                 <Link to="/allmembers">
                     <ArrowBackIosIcon></ArrowBackIosIcon>
                 </Link>

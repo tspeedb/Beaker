@@ -413,7 +413,7 @@ function StudentProfile() {
                         </Dropdown.Item>
                     </DropdownButton>
                     <h4 style={{ fontSize: '20px', color: 'black' }}>
-                        selected {major}
+                        {major}
                     </h4>
                     {/* <DropdownMajor
                         className={classes.majorDropdown}
@@ -597,7 +597,7 @@ function StudentProfile() {
                         </Dropdown.Item>
                     </DropdownButton>
                     <h4 style={{ fontSize: '20px', color: 'black' }}>
-                        selected {major2}
+                        {major2}
                     </h4>
                     {/* <DropdownMajor
                         className={classes.majorDropdown}
@@ -781,7 +781,7 @@ function StudentProfile() {
                         </Dropdown.Item>
                     </DropdownButton>
                     <h4 style={{ fontSize: '20px', color: 'black' }}>
-                        selected {minor}
+                        {minor}
                     </h4>
                     {/* <DropdownMinor
                         className={classes.minorDropdown}
@@ -965,7 +965,7 @@ function StudentProfile() {
                         </Dropdown.Item>
                     </DropdownButton>
                     <h4 style={{ fontSize: '20px', color: 'black' }}>
-                        selected {minor2}
+                        {minor2}
                     </h4>
                     {/* <DropdownMinor
                         className={classes.minorDropdown}

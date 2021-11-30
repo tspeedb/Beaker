@@ -19,7 +19,7 @@ function AllMembers({ members }) {
         //fetch data from server
         //how can I get the information without filtering???
         const memberS = members.filter(
-            (member) => member.Major === 'Computer Science'
+            (member) => member.Major === 'Computer Science' && ''
         )
 
         setMembers(memberS)

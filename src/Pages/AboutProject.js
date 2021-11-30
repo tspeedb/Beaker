@@ -39,7 +39,7 @@ function AboutProject({ match, projects }) {
                                 style={{
                                     width: 500,
                                     height: 500,
-
+                                    paddingBottom: '20px',
                                     paddingTop: '0%',
                                 }}
                             />{' '}

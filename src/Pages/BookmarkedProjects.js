@@ -30,6 +30,7 @@ function BookmarkedProjects({ projects }) {
                             fontWeight: 'lighter',
                             textAlign: 'center',
                             fontSize: '40px',
+                            paddingBottom: '20px',
                         }}
                     >
                         {' '}
