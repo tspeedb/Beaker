@@ -43,15 +43,15 @@ function StudentProfile() {
     const [firstName, setFirstName] = useState('')
     const [middleName, setMiddleName] = useState('')
     const [lastName, setLastName] = useState('')
-    const [nickname, setNickname] = useState(3)
+    const [nickname, setNickname] = useState('')
     const [major, setMajor] = useState('')
     const [major2, setMajor2] = useState('')
     const [minor, setMinor] = useState('')
     const [minor2, setMinor2] = useState('')
     const [link, setPortfolioLink] = useState(6)
     const [resume, setResume] = useState('')
-    const [softskills, setSoftskills] = useState(8)
-    const [summary, setSummary] = useState(9)
+    const [softskills, setSoftskills] = useState('')
+    const [bio, setBio] = useState('')
     const [year, setYear] = useState('')
     const [pronouns, setPronouns] = useState('')
     const [url, setURL] = useState('')
@@ -119,7 +119,7 @@ function StudentProfile() {
             Pronouns: pronouns,
             Resume: resume,
             Softskills: softskills,
-            Summary: summary,
+            Bio: bio,
             Image: imageAsFile || imageAsUrl,
         })
     }
@@ -139,7 +139,7 @@ function StudentProfile() {
     return (
         <div className="new-profile">
             <div className="left-screen">
-                <h1 className="text-info" id="text">
+                <h1 className="left-text-info" id="text">
                     Create <br></br> Your <br></br> Profile
                 </h1>
             </div>
@@ -217,13 +217,12 @@ function StudentProfile() {
                     <DropdownButton
                         title="Year"
                         id="dropdown-menu-align-right"
-                        variant="secondary"
                         onSelect={handleSelect}
                     >
                         <Dropdown.Item eventKey="Freshman">
                             Freshman
                         </Dropdown.Item>{' '}
-                        <Dropdown.Item eventKey="Sophmore">
+                        <Dropdown.Item eventKey="Sophomore">
                             Sophomore
                         </Dropdown.Item>
                         <Dropdown.Item eventKey="Junior">Junior</Dropdown.Item>
@@ -233,7 +232,15 @@ function StudentProfile() {
                         </Dropdown.Item>
                     </DropdownButton>
 
-                    <h4 style={{ fontSize: '20px', color: 'black' }}>{year}</h4>
+                    <h4
+                        style={{
+                            paddingTop: '10px',
+                            fontSize: '15px',
+                            color: 'black',
+                        }}
+                    >
+                        {year}
+                    </h4>
                 </div>
                 <div></div>
                 <br></br>
@@ -242,7 +249,6 @@ function StudentProfile() {
                     <DropdownButton
                         title="First Major"
                         id="dropdown-menu-align-right"
-                        variant="secondary"
                         onSelect={handleSelectMajor}
                     >
                         {/* <Dropdown.Item eventKey="default">Major</Dropdown.Item> */}
@@ -412,7 +418,13 @@ function StudentProfile() {
                             Women's and Gender Studies (WGST)
                         </Dropdown.Item>
                     </DropdownButton>
-                    <h4 style={{ fontSize: '20px', color: 'black' }}>
+                    <h4
+                        style={{
+                            paddingTop: '10px',
+                            fontSize: '15px',
+                            color: 'black',
+                        }}
+                    >
                         {major}
                     </h4>
                     {/* <DropdownMajor
@@ -426,7 +438,6 @@ function StudentProfile() {
                     <DropdownButton
                         title="Second Major"
                         id="dropdown-menu-align-right"
-                        variant="secondary"
                         onSelect={handleSelectMajor2}
                     >
                         {/* <Dropdown.Item eventKey="default">Major</Dropdown.Item> */}
@@ -596,7 +607,13 @@ function StudentProfile() {
                             Women's and Gender Studies (WGST)
                         </Dropdown.Item>
                     </DropdownButton>
-                    <h4 style={{ fontSize: '20px', color: 'black' }}>
+                    <h4
+                        style={{
+                            paddingTop: '10px',
+                            fontSize: '15px',
+                            color: 'black',
+                        }}
+                    >
                         {major2}
                     </h4>
                     {/* <DropdownMajor
@@ -610,7 +627,6 @@ function StudentProfile() {
                     <DropdownButton
                         title="First Minor"
                         id="dropdown-menu-align-right"
-                        variant="secondary"
                         onSelect={handleSelectMinor}
                     >
                         {/* <Dropdown.Item eventKey="default">Minor</Dropdown.Item> */}
@@ -780,7 +796,13 @@ function StudentProfile() {
                             Women's and Gender Studies (WGST)
                         </Dropdown.Item>
                     </DropdownButton>
-                    <h4 style={{ fontSize: '20px', color: 'black' }}>
+                    <h4
+                        style={{
+                            paddingTop: '10px',
+                            fontSize: '15px',
+                            color: 'black',
+                        }}
+                    >
                         {minor}
                     </h4>
                     {/* <DropdownMinor
@@ -794,7 +816,6 @@ function StudentProfile() {
                     <DropdownButton
                         title="Second Minor"
                         id="dropdown-menu-align-right"
-                        variant="secondary"
                         onSelect={handleSelectMinor2}
                     >
                         {/* <Dropdown.Item eventKey="default">Minor</Dropdown.Item> */}
@@ -964,7 +985,13 @@ function StudentProfile() {
                             Women's and Gender Studies (WGST)
                         </Dropdown.Item>
                     </DropdownButton>
-                    <h4 style={{ fontSize: '20px', color: 'black' }}>
+                    <h4
+                        style={{
+                            paddingTop: '10px',
+                            fontSize: '15px',
+                            color: 'black',
+                        }}
+                    >
                         {minor2}
                     </h4>
                     {/* <DropdownMinor
@@ -983,11 +1010,17 @@ function StudentProfile() {
                 />
                 <div></div>
                 <br></br>
-                <label className="self-intro">
-                    Tell us a little about yourself:
-                </label>
+                <label>Tell us a little about yourself:</label>
+                <br></br>
+                <textarea
+                    className="self-intro"
+                    onChange={(event) => {
+                        setBio(event.target.value)
+                    }}
+                />
+
                 <div></div>
-                <textarea></textarea>
+
                 <div></div>
                 <br></br>
                 <label className="resume">Upload CV or Resume</label>

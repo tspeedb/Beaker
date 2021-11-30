@@ -35,7 +35,7 @@ h1 {
     font-size: small;
 }
 
-.text-info {
+.left-text-info {
     font-size: xx-large;
     color: white;
     text-align: center;
@@ -53,10 +53,16 @@ h1 {
     margin-bottom: 0%;
 }
 
+#dropdown-menu-align-right {
+    color: white;
+    background-color: #107fb7;
+}
+
 .self-intro {
     font-size: small;
     font-weight: bold;
     font-style: normal;
+    border-color: #107fb7;
 }
 
 .resume {

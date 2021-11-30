@@ -1,7 +1,7 @@
 import React from 'react'
 import '../Styles/Welcomepage.css'
 import Button from '@mui/material/Button'
-import beakerLogo from '../Images/whiteBeakerLogoBgRemoved.png'
+import beakerLogo from '../Images/BeakerLogoWhite-removebg-preview.png'
 import checkmark from '../Images/checkmark.png'
 import lightbulb from '../Images/lightbulb.png'
 import connection from '../Images/connection.png'

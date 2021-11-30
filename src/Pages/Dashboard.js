@@ -34,7 +34,7 @@ function Dashboard() {
                         }}
                     >
                         {' '}
-                        <b>James </b>, welcome to your dashboard{' '}
+                        <b> John </b>, welcome to your dashboard{' '}
                     </h1>
                 </div>
             </Side>

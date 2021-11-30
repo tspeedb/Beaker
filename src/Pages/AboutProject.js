@@ -6,6 +6,7 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import { Link } from 'react-router-dom'
 import Grid from '@mui/material/Grid'
+import TelegramIcon from '@mui/icons-material/Telegram'
 //import Button from '@mui/material/Button'
 
 import Layout from '../Components/Layout'
@@ -70,14 +71,14 @@ function AboutProject({ match, projects }) {
                             color: 'rgba(16, 127, 183, 1)',
                         }}
                     ></HighlightOffIcon>
-                    <FavoriteIcon
+                    <TelegramIcon
                         fontSize="large"
                         style={{
                             color: 'rgba(172, 12, 48, 1)',
                         }}
                     >
                         {' '}
-                    </FavoriteIcon>
+                    </TelegramIcon>
                     <BookmarkBorderIcon fontSize="large"></BookmarkBorderIcon>
                 </Grid>
             </div>

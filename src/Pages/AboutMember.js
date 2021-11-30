@@ -60,7 +60,7 @@ function AboutMember({ match, members }) {
                                 {member.Minor}
                             </div>
                             <div style={{ fontSize: '15px', color: 'grey' }}>
-                                {member.SoftSkills}
+                                {member.Softskills}
                             </div>
                             <div
                                 style={{ fontSize: '15px', maxWidth: '600px' }}

@@ -36,12 +36,7 @@ class Uploadfile extends Component {
                 </div>
             )
         } else {
-            return (
-                <div>
-                    <br />
-                    <h4>Choose before pressing done</h4>
-                </div>
-            )
+            return <div></div>
         }
     }
 
