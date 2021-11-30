@@ -9,8 +9,9 @@ Plese note that this project is currently in its development phase.
 
 2. Clone the repository in the directory of your choice and navigate to that directory
 ```
-git clone 
 cd MY-DIRECTORY
+git clone https://github.com/tspeedb/Beaker.git
+cd Beaker
 ```
 
 3. Switch to the develop branch 
