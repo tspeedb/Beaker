@@ -247,7 +247,7 @@ function StudentProfile() {
                 <br></br>
                 {/* ## Rather than have a dropdown where a single major can be selected multiple times it may be easier from a UI perspective 
                 ## to take a similar approach to how we do for PROWL when registering for classes. It may be best to have a textbox and dropdown based 
-                ## of off user input where you can select at least one and potentially more majors/minors. */}
+                ## of off user input where you can select at least one and potentially more majors/minors. [TB] */}
                 <div>
                     {/* <div>First Major:</div> */}
                     <DropdownButton
@@ -1003,6 +1003,9 @@ function StudentProfile() {
                     ></DropdownMinor> */}
                 </div>
                 <div></div>
+                 {/* ## More of an explanation/purpose to the soft skills and bio should be included. If the self-intro field is being used to create
+                 a relationship between projects and the student user, then they should be sure to include areas of research they are interested in here [TB]
+                 */}
                 <br></br>
                 <input
                     type="text"
