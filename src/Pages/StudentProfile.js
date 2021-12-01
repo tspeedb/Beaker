@@ -204,6 +204,7 @@ function StudentProfile() {
                 />
                 <div></div>
                 <br></br>
+//for the dropdowns, it woud be cleaner if these were seprated into different components so that we dont have over 1000 lines of code (MS)
                 <div>
                     {/* <div>Year:</div> */}
                     {/* <DropdownYear
