@@ -4,6 +4,8 @@ import Layout from '../Components/Layout'
 import Side from '../Components/Side'
 import '../Styles/Sidebar.css'
 
+// SM: If you are not using this commented out code,
+//     it would probably be best to get rid of it to keep the file cleaner
 function Dashboard() {
     // const [projects, setProjects] = useState([])
     // const projectsCollectionRef = collection(db, 'projects')

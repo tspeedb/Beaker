@@ -12,6 +12,9 @@ import 'firebase/firestore'
 import { keyframes } from '@mui/styled-engine'
 // import firebase from '../firebase'
 
+// SM: It looks like some of these imports are not being used, it
+//     would probably be best to delete them to keep the file cleaner
+
 const useStyles = makeStyles({
     title: { textAlign: 'left' },
 
