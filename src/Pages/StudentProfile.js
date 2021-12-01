@@ -245,6 +245,9 @@ function StudentProfile() {
                 </div>
                 <div></div>
                 <br></br>
+                ## Rather than have a dropdown where a single major can be selected multiple times it may be easier from a UI perspective 
+                ## to take a similar approach to how we do for PROWL when registering for classes. It may be best to have a textbox and dropdown based 
+                ## of off user input where you can select at least one and potentially more majors/minors.
                 <div>
                     {/* <div>First Major:</div> */}
                     <DropdownButton
