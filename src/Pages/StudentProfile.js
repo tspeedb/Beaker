@@ -6,12 +6,12 @@ import '../Styles/Profile.css'
 import Button from '@mui/material/Button'
 import beaker from '../Images/blackLinedBeakerBgRemoved.png'
 import { Link } from 'react-router-dom'
-// import DropdownYear from '../Components/dropdownYear'
+// import DropdownYear from '../Components/dropdownYear' 
 import 'firebase/firestore'
 import { db, storage } from '../firebase'
-import { collection, getDocs, addDoc } from 'firebase/firestore'
+import { collection, getDocs, addDoc } from 'firebase/firestore' 
 // import { storage } from 'firebase'
-// import { storage } from './firebase/firebase'
+// import { storage } from './firebase/firebase' // It would be best to remove this import as storage is alreay imported above [AM]
 // import DropdownMajor from '../Components/dropdownMajor'
 // import DropdownMinor from '../Components/dropdownMinor'
 import Uploadfile from '../Components/UploadFile'
@@ -1011,6 +1011,7 @@ function StudentProfile() {
                 />
                 <div></div>
                 <br></br>
+// I think that there is a way to better space out the fields by using bootstrap grid/css rather than having so many div, br (AM)
                 <label>Tell us a little about yourself:</label>
                 <br></br>
                 <textarea
@@ -1021,7 +1022,6 @@ function StudentProfile() {
                 />
 
                 <div></div>
-
                 <div></div>
                 <br></br>
                 <label className="resume">Upload CV or Resume</label>
