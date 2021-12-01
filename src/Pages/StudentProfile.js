@@ -1011,7 +1011,7 @@ function StudentProfile() {
                 />
                 <div></div>
                 <br></br>
-// I think that there is a way to better space out the fields by using bootstrap grid/css rather than having so many div, br (AM)
+// There maybe a better way to space out the fields by using bootstrap grid/css rather than using so many div, br (AM)
                 <label>Tell us a little about yourself:</label>
                 <br></br>
                 <textarea
