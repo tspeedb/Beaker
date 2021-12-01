@@ -6,10 +6,10 @@ import '../Styles/Profile.css'
 import Button from '@mui/material/Button'
 import beaker from '../Images/blackLinedBeakerBgRemoved.png'
 import { Link } from 'react-router-dom'
-// import DropdownYear from '../Components/dropdownYear' 
+// import DropdownYear from '../Components/dropdownYear'
 import 'firebase/firestore'
 import { db, storage } from '../firebase'
-import { collection, getDocs, addDoc } from 'firebase/firestore' 
+import { collection, getDocs, addDoc } from 'firebase/firestore'
 // import { storage } from 'firebase'
 // import { storage } from './firebase/firebase' // It would be best to remove this import as storage is alreay imported above [AM]
 // import DropdownMajor from '../Components/dropdownMajor'
@@ -204,7 +204,7 @@ function StudentProfile() {
                 />
                 <div></div>
                 <br></br>
-//for the dropdowns, it woud be cleaner if these were seprated into different components so that we dont have over 1000 lines of code (MS)
+                {/* //for the dropdowns, it woud be cleaner if these were seprated into different components so that we dont have over 1000 lines of code (MS) */}
                 <div>
                     {/* <div>Year:</div> */}
                     {/* <DropdownYear
@@ -245,9 +245,9 @@ function StudentProfile() {
                 </div>
                 <div></div>
                 <br></br>
-                ## Rather than have a dropdown where a single major can be selected multiple times it may be easier from a UI perspective 
+                {/* ## Rather than have a dropdown where a single major can be selected multiple times it may be easier from a UI perspective 
                 ## to take a similar approach to how we do for PROWL when registering for classes. It may be best to have a textbox and dropdown based 
-                ## of off user input where you can select at least one and potentially more majors/minors.
+                ## of off user input where you can select at least one and potentially more majors/minors. */}
                 <div>
                     {/* <div>First Major:</div> */}
                     <DropdownButton
@@ -1014,7 +1014,8 @@ function StudentProfile() {
                 />
                 <div></div>
                 <br></br>
-// There maybe a better way to space out the fields by using bootstrap grid/css rather than using so many div, br (AM)
+                {/* // There maybe a better way to space out the fields by using
+                bootstrap grid/css rather than using so many div, br (AM) */}
                 <label>Tell us a little about yourself:</label>
                 <br></br>
                 <textarea
@@ -1023,7 +1024,6 @@ function StudentProfile() {
                         setBio(event.target.value)
                     }}
                 />
-
                 <div></div>
                 <div></div>
                 <br></br>
