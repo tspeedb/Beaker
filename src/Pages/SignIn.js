@@ -8,6 +8,7 @@ import { collection, getDocs } from 'firebase/firestore'
 import { db } from '../firebase'
 
 function SignIn() {
+    // This code can be removed. Since we do not need to retreive data from firebase but rather add user login/password to firebase [AM]
     // const [projects, setProjects] = useState([])
     // const projectsCollectionRef = collection(db, 'projects')
     // useEffect(() => {
