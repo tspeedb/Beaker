@@ -24,6 +24,7 @@ function FacultyStaffProfile() {
                 <div></div>
                 <br></br>
                 <input
+//it would probably be best to get rid of any commented out code to keep the code more clean (MS)
                     type="text"
                     className="first-name "
                     placeholder="First Name"
