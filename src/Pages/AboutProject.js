@@ -10,10 +10,14 @@ import TelegramIcon from '@mui/icons-material/Telegram'
 //import Button from '@mui/material/Button'
 
 import Layout from '../Components/Layout'
+import { IconButton } from '@mui/material'
 //import { Icon } from '@mui/material'
 
 function AboutProject({ match, projects }) {
     const [project, setProject] = useState({})
+    const [isShown, setIsShown] = useState(false)
+    const [isShownT, setIsShownT] = useState(false)
+    const [isShownB, setIsShownB] = useState(false)
     const id = match.params.projectId
 
     useEffect(() => {
@@ -55,32 +59,72 @@ function AboutProject({ match, projects }) {
                             >
                                 {project.description}
                             </div>
+
+                            <Grid
+                                className="action-items"
+                                direction="row"
+                                justifyContent="space-evenly"
+                            >
+                                <div>
+                                    <IconButton
+                                        onMouseEnter={() => setIsShown(true)}
+                                        onMouseLeave={() => setIsShown(false)}
+                                    >
+                                        <HighlightOffIcon
+                                            fontSize="large"
+                                            style={{
+                                                color: 'rgba(16, 127, 183, 1)',
+                                            }}
+                                        ></HighlightOffIcon>
+                                        {isShown && (
+                                            <div
+                                                style={{
+                                                    fontSize: '10px',
+                                                    alignContent: 'center',
+                                                }}
+                                            >
+                                                Not a fit
+                                            </div>
+                                        )}
+                                    </IconButton>
+                                </div>
+                                <div>
+                                    <IconButton
+                                        onMouseEnter={() => setIsShownT(true)}
+                                        onMouseLeave={() => setIsShownT(false)}
+                                    >
+                                        <TelegramIcon
+                                            fontSize="large"
+                                            style={{
+                                                color: 'rgba(172, 12, 48, 1)',
+                                            }}
+                                        >
+                                            {' '}
+                                        </TelegramIcon>
+                                        {isShownT && (
+                                            <div style={{ fontSize: '10px' }}>
+                                                Invite to join
+                                            </div>
+                                        )}
+                                    </IconButton>
+                                </div>
+                                <div>
+                                    <IconButton
+                                        onMouseEnter={() => setIsShownB(true)}
+                                        onMouseLeave={() => setIsShownB(false)}
+                                    >
+                                        <BookmarkBorderIcon fontSize="large"></BookmarkBorderIcon>
+                                        {isShownB && (
+                                            <div style={{ fontSize: '10px' }}>
+                                                Bookmark
+                                            </div>
+                                        )}
+                                    </IconButton>
+                                </div>
+                            </Grid>
                         </div>
                     </div>
                 )}
-
-                <Grid
-                    className="action-items"
-                    justifyContent="center"
-                    direction="row"
-                    justifyContent="space-evenly"
-                >
-                    <HighlightOffIcon
-                        fontSize="large"
-                        style={{
-                            color: 'rgba(16, 127, 183, 1)',
-                        }}
-                    ></HighlightOffIcon>
-                    <TelegramIcon
-                        fontSize="large"
-                        style={{
-                            color: 'rgba(172, 12, 48, 1)',
-                        }}
-                    >
-                        {' '}
-                    </TelegramIcon>
-                    <BookmarkBorderIcon fontSize="large"></BookmarkBorderIcon>
-                </Grid>
             </div>
         </Layout>
     )
