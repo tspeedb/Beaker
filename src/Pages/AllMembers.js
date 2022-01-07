@@ -13,17 +13,11 @@ const useStyles = makeStyles({
 
 function AllMembers({ members }) {
     const classes = useStyles()
-    const [member, setMembers] = useState([])
 
     useEffect(() => {
         //fetch data from server
         //how can I get the information without filtering???
-        const memberS = members.filter(
-            (member) => member.Major === 'Computer Science'
-        )
-
-        setMembers(memberS)
-    }, [members])
+    }, [])
 
     return (
         <Layout>
@@ -34,7 +28,7 @@ function AllMembers({ members }) {
                 </Typography>
             </div>
             <div>
-                <AllMembersCards members={member} />
+                <AllMembersCards members={members} />
             </div>
             <div></div>
             <div></div>

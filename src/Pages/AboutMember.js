@@ -42,7 +42,7 @@ function AboutMember({ match, members }) {
                                     clipPath: 'circle()',
                                     paddingTop: '0%',
                                 }}
-                                src={`${process.env.PUBLIC_URL}/projectImages/${member.Image}`}
+                                src={member.image}
                                 alt="member.first"
                                 // height="200"
                             />
@@ -50,26 +50,26 @@ function AboutMember({ match, members }) {
 
                         <div className="column-right">
                             <div style={{ fontSize: '50px' }}>
-                                {member.First} {member.Last}
+                                {member.first} {member.last}
                             </div>
                             <div
                                 style={{ fontSize: '25px', fontWeight: '200' }}
                             >
-                                {member.Major}{' '}
+                                {member.major}{' '}
                             </div>
                             <div
                                 style={{ fontSize: '25px', fontWeight: '200' }}
                             >
-                                {member.Minor}
+                                {member.minor}
                             </div>
                             <div style={{ fontSize: '15px', color: 'grey' }}>
-                                {member.Softskills}
+                                {member.softskills}
                             </div>
                             <div
                                 style={{ fontSize: '15px', maxWidth: '600px' }}
                             >
                                 {' '}
-                                {member.Bio}{' '}
+                                {member.bio}{' '}
                             </div>
                             <Grid
                                 container

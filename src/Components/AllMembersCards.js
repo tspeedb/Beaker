@@ -40,14 +40,14 @@ function AllMembersCards({ members }) {
                         <Grid item xs={8} sm={4} md={2} key={member.key}>
                             <Link to={`/aboutmember/${member.key}`}>
                                 <CardItemAllMembers
-                                    classname="image"
-                                    first={member.first}
-                                    year={member.year}
-                                    bio={member.Bio}
-                                    image={member.Image}
-                                    // id={member.key}
                                     handleMouseEnter={handleMouseEnter}
                                     handleMouseLeave={handleMouseLeave}
+                                    classname={classes.image}
+                                    first={member.first}
+                                    year={member.year}
+                                    bio={member.bio}
+                                    image={member.image}
+                                    id={member.key}
                                 />
                             </Link>
                         </Grid>

@@ -27,7 +27,7 @@ function CardItemAllMembers(props) {
     return (
         <Card sx={{ width: 200, borderRadius: '50%' }}>
             <CardMedia
-                className="member-image"
+                className={classes.hover}
                 onMouseEnter={props.handleMouseEnter}
                 id={props.id}
                 style={{
@@ -36,15 +36,9 @@ function CardItemAllMembers(props) {
                 }}
                 component="img"
                 height="200"
-                image={`${process.env.PUBLIC_URL}/projectImages/${props.image}`} //this needs to be changed so its coming from firbase
-                alt={props.name_year}
-            >
-                {/* {props.image} */}
-            </CardMedia>
-            {/* <CardContent>
-                <Typography>{props.name_year}</Typography>
-                <Typography>{props.bio}</Typography>
-            </CardContent> */}
+                image={props.image}
+                alt={props.year}
+            ></CardMedia>
         </Card>
     )
 }

@@ -1,0 +1,17 @@
+const studentSchema = {
+    first: '',
+    middle: '',
+    last: '',
+    nickname: '',
+    year: '',
+    major: '',
+    major2: '',
+    minor: '',
+    minor2: '',
+    portfolioLink: '',
+    pronouns: '',
+    resume: '',
+    softskills: '',
+    bio: '',
+    image: '',
+}

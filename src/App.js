@@ -84,7 +84,12 @@ function App() {
                         <Route
                             path="/studentprofile"
                             exact
-                            component={StudentProfile}
+                            render={(props) => (
+                                <StudentProfile
+                                    {...props}
+                                    setMembers={setMembers}
+                                />
+                            )}
                         />
                         <Route
                             path="/facultystaffprofile"

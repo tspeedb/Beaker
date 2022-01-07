@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-function StudentProfile() {
+function StudentProfile({ setMembers }) {
     const [firstName, setFirstName] = useState('')
     const [middleName, setMiddleName] = useState('')
     const [lastName, setLastName] = useState('')
@@ -104,37 +104,64 @@ function StudentProfile() {
         })
     }
     const studentsCollectionRef = useMemo(() => collection(db, 'students'), [])
+    const getStudents = async () => {
+        const data = await getDocs(studentsCollectionRef)
+        //loop through documents in collection
+        setMembers(data.docs.map((doc) => ({ ...doc.data(), key: doc.id })))
+    }
     const createStudent = async () => {
         await addDoc(studentsCollectionRef, {
-            First: firstName,
-            Middle: middleName,
-            Last: lastName,
-            Nickname: nickname,
-            Year: year,
-            Major: major,
-            Major2: major2,
-            Minor: minor,
-            Minor2: minor2,
-            PortfolioLink: link,
-            Pronouns: pronouns,
-            Resume: resume,
-            Softskills: softskills,
-            Bio: bio,
-            Image: imageAsFile || imageAsUrl,
+            first: firstName,
+            middle: middleName,
+            last: lastName,
+            nickname: nickname,
+            year: year,
+            major: major,
+            major2: major2,
+            minor: minor,
+            minor2: minor2,
+            portfolioLink: link,
+            pronouns: pronouns,
+            resume: resume,
+            softskills: softskills,
+            bio: bio,
+            image: imageAsUrl,
         })
+
+        getStudents()
     }
 
-    useEffect(() => {
-        const getStudents = async () => {
-            const data = await getDocs(studentsCollectionRef)
-            //loop through documents in collection
-            setStudents(
-                data.docs.map((doc) => ({ ...doc.data(), key: doc.id }))
-            )
-        }
-        getStudents()
-    }, [studentsCollectionRef])
+    // useEffect(() => {
+    //     const getStudents = async () => {
+    //         const data = await getDocs(studentsCollectionRef)
+    //         //loop through documents in collection
+    //         setStudents(
+    //             data.docs.map((doc) => ({ ...doc.data(), key: doc.id }))
+    //         )
+    //     }
+    //     getStudents()
+    // }, [studentsCollectionRef])
     const classes = useStyles()
+
+    const widget = window.cloudinary.createUploadWidget(
+        {
+            cloudName: process.env.REACT_APP_CLOUD_NAME,
+            uploadPreset: process.env.REACT_APP_UPLOAD_PRESET,
+        },
+
+        (error, result) => {
+            console.log('result:', result)
+            if (!error && result && result.event === 'success') {
+                console.log('Done! Here is the image info: ', result.info)
+                setImageAsUrl(result.info.url)
+            }
+        }
+    )
+
+    const openWidget = (e, widget) => {
+        e.preventDefault()
+        widget.open()
+    }
 
     return (
         <div className="new-profile">
@@ -147,11 +174,14 @@ function StudentProfile() {
                 <img className="profile-image" src={beaker} alt="logo" />
                 <h1 className="new-user">New User</h1>
                 <p className="profile">Profile</p>
-                <Profileimage>
-                    <form onSubmit={handleUpload}>
-                        <input type="file" onChange={handleImageAsFile} />
-                    </form>
-                </Profileimage>
+                <div>
+                    <img
+                        style={{ width: '200px' }}
+                        alt="profile"
+                        src={imageAsUrl}
+                        onClick={(e) => openWidget(e, widget)}
+                    />
+                </div>
                 <div></div>
                 <br></br>
                 <input
@@ -1003,7 +1033,7 @@ function StudentProfile() {
                     ></DropdownMinor> */}
                 </div>
                 <div></div>
-                 {/* ## More of an explanation/purpose to the soft skills and bio should be included. If the self-intro field is being used to create
+                {/* ## More of an explanation/purpose to the soft skills and bio should be included. If the self-intro field is being used to create
                  a relationship between projects and the student user, then they should be sure to include areas of research they are interested in here [TB]
                  */}
                 <br></br>
@@ -1067,3 +1097,7 @@ function StudentProfile() {
 }
 
 export default StudentProfile
+
+/* <form onSubmit={handleUpload}>
+                        <input type="file" onChange={handleImageAsFile} />
+                    </form> */
