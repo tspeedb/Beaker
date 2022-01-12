@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import '../Styles/Profile.css'
 import Button from '@mui/material/Button'
 import beaker from '../Images/blackLinedBeakerBgRemoved.png'
+import profileImage from '../Images/user.png'
 import { Link } from 'react-router-dom'
 // import DropdownYear from '../Components/dropdownYear'
 import 'firebase/firestore'
@@ -174,9 +175,16 @@ function StudentProfile({ setMembers }) {
                 <img className="profile-image" src={beaker} alt="logo" />
                 <h1 className="new-user">New User</h1>
                 <p className="profile">Profile</p>
+
                 <div>
                     <img
-                        style={{ width: '200px' }}
+                        style={{
+                            width: 250,
+                            height: 250,
+                            clipPath: 'circle()',
+                            backgroundImage: 'url(../Images/user.png)',
+                            paddingTop: 0,
+                        }}
                         alt="profile"
                         src={imageAsUrl}
                         onClick={(e) => openWidget(e, widget)}
