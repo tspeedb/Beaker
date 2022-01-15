@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import '../Styles/Profile.css'
 import Button from '@mui/material/Button'
 import beaker from '../Images/blackLinedBeakerBgRemoved.png'
-import profileImage from '../Images/user.png'
+
 import { Link } from 'react-router-dom'
 // import DropdownYear from '../Components/dropdownYear'
 import 'firebase/firestore'
@@ -59,7 +59,9 @@ function StudentProfile({ setMembers }) {
     const [students, setStudents] = useState([])
 
     const [imageAsFile, setImageAsFile] = useState(null)
-    const [imageAsUrl, setImageAsUrl] = useState('')
+    const [imageAsUrl, setImageAsUrl] = useState(
+        `${process.env.PUBLIC_URL}/projectImages/user.png`
+    )
 
     const handleSelect = (e) => {
         console.log(e)
@@ -182,7 +184,7 @@ function StudentProfile({ setMembers }) {
                             width: 250,
                             height: 250,
                             clipPath: 'circle()',
-                            backgroundImage: 'url(../Images/user.png)',
+
                             paddingTop: 0,
                         }}
                         alt="profile"

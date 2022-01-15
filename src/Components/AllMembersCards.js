@@ -19,19 +19,7 @@ const useStyles = makeStyles({
 
 function AllMembersCards({ members }) {
     const classes = useStyles()
-    const [show, setShow] = useState(false)
-    const [hovered, setHovered] = useState(null)
 
-    const handleMouseEnter = (e) => {
-        setShow(true)
-        setHovered(e.target.id)
-        console.log(handleMouseEnter)
-    }
-    const handleMouseLeave = (e) => {
-        setShow(false)
-        setHovered(e.target.id)
-        console.log(handleMouseLeave)
-    }
     return (
         <div>
             <Grid container justify="center" classname={classes.gridContainer}>
@@ -40,12 +28,12 @@ function AllMembersCards({ members }) {
                         <Grid item xs={8} sm={4} md={2} key={member.key}>
                             <Link to={`/aboutmember/${member.key}`}>
                                 <CardItemAllMembers
-                                    handleMouseEnter={handleMouseEnter}
-                                    handleMouseLeave={handleMouseLeave}
                                     classname={classes.image}
                                     first={member.first}
+                                    last={member.last}
                                     year={member.year}
-                                    bio={member.bio}
+                                    minor={member.minor}
+                                    major={member.major}
                                     image={member.image}
                                     id={member.key}
                                 />
