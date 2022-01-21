@@ -1,15 +1,24 @@
-import React from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import '../Styles/Profile.css'
 import Button from '@mui/material/Button'
+import { Dropdown, DropdownButton } from 'react-bootstrap'
+import { makeStyles } from '@material-ui/core/styles'
 import beaker from '../Images/blackLinedBeakerBgRemoved.png'
 import { Link } from 'react-router-dom'
 import Profileimage from '../Components/ProfileImageUpload'
 
 function FacultyStaffProfile() {
+    const [title, setTitle] = useState('')
+
+    const handleSelect = (e) => {
+        console.log(e)
+        setTitle(e)
+    }
+
     return (
         <div className="new-profile">
             <div className="left-screen-fs">
-                <h1 className="text-info" id="text">
+                <h1 className="left-text-info" id="text">
                     Create <br></br> Your <br></br> Profile
                 </h1>
             </div>
@@ -20,14 +29,38 @@ function FacultyStaffProfile() {
                 <Profileimage></Profileimage>
                 <div></div>
                 <br></br>
-                <div>Title:</div>
+                <DropdownButton
+                    title="Title"
+                    id="dropdown-menu-align-right"
+                    onSelect={handleSelect}
+                >
+                    <Dropdown.Item eventKey="Professor">
+                        Professor
+                    </Dropdown.Item>
+                    <Dropdown.Item eventKey="Dr.">Dr.</Dropdown.Item>
+                    <Dropdown.Item eventKey="Father">Father</Dropdown.Item>
+                    <Dropdown.Item eventKey="Mr.">Mr.</Dropdown.Item>
+                    <Dropdown.Item eventKey="Sister">Sister</Dropdown.Item>
+                    <Dropdown.Item eventKey="Mrs.">Mrs.</Dropdown.Item>
+                    <Dropdown.Item eventKey="Ms.">Ms.</Dropdown.Item>
+                    <Dropdown.Item eventKey="Miss">Miss</Dropdown.Item>
+                </DropdownButton>
+                <h4
+                    style={{
+                        paddingTop: '10px',
+                        fontSize: '15px',
+                        color: 'black',
+                    }}
+                >
+                    {title}
+                </h4>
                 <div></div>
                 <br></br>
                 <input
-//it would probably be best to get rid of any commented out code to keep the code more clean (MS)
+                    //it would probably be best to get rid of any commented out code to keep the code more clean (MS)
                     type="text"
                     className="first-name "
-                    placeholder="First Name"
+                    placeholder="First Name(s)"
                     // onChange={(event) => {
                     //     setFirstName(event.target.value)
                     // }}
@@ -37,7 +70,7 @@ function FacultyStaffProfile() {
                 <input
                     type="text"
                     className="middle-name"
-                    placeholder="Middle Name"
+                    placeholder="Middle Name(s)"
                     // onChange={(event) => {
                     //     setMiddleName(event.target.value)
                     // }}
@@ -47,7 +80,7 @@ function FacultyStaffProfile() {
                 <input
                     type="text"
                     className="last-name"
-                    placeholder="Last Name"
+                    placeholder="Last Name(s)"
                     // onChange={(event) => {
                     //     setLastName(event.target.value)
                     // }}

@@ -16,7 +16,6 @@ import { collection, getDocs, addDoc } from 'firebase/firestore'
 // import DropdownMajor from '../Components/dropdownMajor'
 // import DropdownMinor from '../Components/dropdownMinor'
 import Uploadfile from '../Components/UploadFile'
-import Profileimage from '../Components/ProfileImageUpload'
 import '../Styles/Dropdown.css'
 
 const useStyles = makeStyles((theme) => ({
@@ -197,7 +196,7 @@ function StudentProfile({ setMembers }) {
                 <input
                     type="text"
                     className="first-name "
-                    placeholder="First Name"
+                    placeholder="First Name(s)"
                     onChange={(event) => {
                         setFirstName(event.target.value)
                     }}
@@ -207,7 +206,7 @@ function StudentProfile({ setMembers }) {
                 <input
                     type="text"
                     className="middle-name"
-                    placeholder="Middle Name"
+                    placeholder="Middle Name(s)"
                     onChange={(event) => {
                         setMiddleName(event.target.value)
                     }}
@@ -217,7 +216,7 @@ function StudentProfile({ setMembers }) {
                 <input
                     type="text"
                     className="last-name"
-                    placeholder="Last Name"
+                    placeholder="Last Name(s)"
                     onChange={(event) => {
                         setLastName(event.target.value)
                     }}
