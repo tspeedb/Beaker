@@ -25,6 +25,7 @@ import BookmarkedMembers from './Pages/BookmarkedMembers'
 import BookmarkedProjects from './Pages/BookmarkedProjects'
 import InvitedMembers from './Pages/InvitedMembers'
 import UserProfile from './Pages/UserProfile'
+import CreateProject from './Pages/CreateProject'
 
 function App() {
     // const ref = firebase.firestore().collection('students')
@@ -90,6 +91,11 @@ function App() {
                                     setMembers={setMembers}
                                 />
                             )}
+                        />
+                        <Route
+                            path="/createproject"
+                            exact
+                            component={CreateProject}
                         />
                         <Route
                             path="/facultystaffprofile"
