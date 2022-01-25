@@ -65,6 +65,13 @@ h1 {
     border-color: #107fb7;
 }
 
+.lab-description {
+    font-size: small;
+    font-weight: bold;
+    font-style: normal;
+    border-color: #ac0c30;
+}
+
 .resume {
     font-size: medium;
     font-style: normal;
@@ -96,8 +103,10 @@ h1 {
 input {
     height: 50px;
     width: 260px;
-    padding-left: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
     border-radius: 100px;
+    text-align: left;
 }
 
 textarea {
@@ -106,12 +115,13 @@ textarea {
     width: 270px;
 }
 
-#text {
+#left-text {
     text-align: 'left';
     animation-duration: 1s;
     font-size: 55px;
     animation-name: slidein;
 }
+
 @keyframes slidein {
     from {
         margin-left: 100%;

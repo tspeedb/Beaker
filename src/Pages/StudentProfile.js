@@ -5,7 +5,6 @@ import { makeStyles } from '@material-ui/core/styles'
 import '../Styles/Profile.css'
 import Button from '@mui/material/Button'
 import beaker from '../Images/blackLinedBeakerBgRemoved.png'
-
 import { Link } from 'react-router-dom'
 // import DropdownYear from '../Components/dropdownYear'
 import 'firebase/firestore'
@@ -168,7 +167,7 @@ function StudentProfile({ setMembers }) {
     return (
         <div className="new-profile">
             <div className="left-screen">
-                <h1 className="left-text-info" id="text">
+                <h1 className="left-text-info" id="left-text">
                     Create <br></br> Your <br></br> Profile
                 </h1>
             </div>
@@ -195,7 +194,7 @@ function StudentProfile({ setMembers }) {
                 <br></br>
                 <input
                     type="text"
-                    className="first-name "
+                    className="first-name"
                     placeholder="First Name(s)"
                     onChange={(event) => {
                         setFirstName(event.target.value)
@@ -1066,7 +1065,6 @@ function StudentProfile({ setMembers }) {
                         setBio(event.target.value)
                     }}
                 />
-                <div></div>
                 <div></div>
                 <br></br>
                 <label className="resume">Upload CV or Resume</label>
