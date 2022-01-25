@@ -40,6 +40,12 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 function CreateProject({ setProjects }) {
+    const [projectName, setProjectName] = useState('')
+    const [desc, setDesc] = useState('')
+    const [reqMajor, setReqMajor] = useState('')
+    const [reqMinor, setReqMinor] = useState('')
+    const [reqYear, setReqYear] = useState('')
+    const [softskills, setSoftskills] = useState('')
     const [imageAsFile, setImageAsFile] = useState(null)
     const [imageAsUrl, setImageAsUrl] = useState(
         `${process.env.PUBLIC_URL}/projectImages/user.png`
@@ -69,6 +75,12 @@ function CreateProject({ setProjects }) {
     }
     const createProject = async () => {
         await addDoc(projectsCollectionRef, {
+            project: projectName,
+            desc: desc,
+            major: reqMajor,
+            minor: reqMinor,
+            year: reqYear,
+            softskills: softskills,
             image: imageAsUrl,
         })
 
@@ -134,7 +146,38 @@ function CreateProject({ setProjects }) {
                 </div>
                 <div></div>
                 <br></br>
-                <input />
+                <input
+                    type="text"
+                    className="project-name "
+                    placeholder="Project Name"
+                    onChange={(event) => {
+                        setProjectName(event.target.value)
+                    }}
+                />
+                <input
+                    type="text"
+                    className="project-desc "
+                    placeholder="Project Description"
+                    onChange={(event) => {
+                        setDesc(event.target.value)
+                    }}
+                />
+                <input
+                    type="text"
+                    className="project-major "
+                    placeholder="Needed Major(s)"
+                    onChange={(event) => {
+                        setReqMajor(event.target.value)
+                    }}
+                />
+                <input
+                    type="text"
+                    className="project-major "
+                    placeholder="Needed Major(s)"
+                    onChange={(event) => {
+                        setReqMajor(event.target.value)
+                    }}
+                />
                 <div></div>
                 <br></br>
             </div>

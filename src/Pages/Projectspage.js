@@ -6,6 +6,8 @@ import { Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { Link } from 'react-router-dom'
 import '../Styles/Projectspage.css'
+import AddCircleIcon from '@mui/icons-material/AddCircle'
+import Button from '@mui/material/Button'
 // import { collection, query, where, getDocs, doc } from 'firebase/firestore'
 
 import 'firebase/firestore'
@@ -82,6 +84,14 @@ function Projectspage({ projects }) {
                 </Typography>
                 <ProjectCards projects={browse} />
             </div>
+            <Button>
+                <AddCircleIcon
+                    style={{
+                        fontSize: 65,
+                        color: 'rgba(16, 127, 183, 1)',
+                    }}
+                ></AddCircleIcon>
+            </Button>
         </Layout>
     )
 }
