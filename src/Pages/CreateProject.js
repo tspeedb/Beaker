@@ -5,51 +5,52 @@ import { makeStyles } from '@material-ui/core/styles'
 import '../Styles/Profile.css'
 import Button from '@mui/material/Button'
 import beaker from '../Images/blackLinedBeakerBgRemoved.png'
-
 import { Link } from 'react-router-dom'
-// import DropdownYear from '../Components/dropdownYear'
 import 'firebase/firestore'
 import { db, storage } from '../firebase'
 import { collection, getDocs, addDoc } from 'firebase/firestore'
-// import { storage } from 'firebase'
-// import { storage } from './firebase/firebase' // It would be best to remove this import as storage is alreay imported above [AM]
-// import DropdownMajor from '../Components/dropdownMajor'
-// import DropdownMinor from '../Components/dropdownMinor'
 import Uploadfile from '../Components/UploadFile'
 import '../Styles/Dropdown.css'
 
-const useStyles = makeStyles((theme) => ({
-    yearDropdown: {
-        color: 'grey',
-        textTransform: 'lowercase',
-        fontSize: '18px',
-        justifyContent: 'end',
-    },
-    majorDropdown: {
-        color: 'grey',
-        textTransform: 'lowercase',
-        fontSize: '18px',
-        justifyContent: 'end',
-    },
-    minorDropdown: {
-        color: 'grey',
-        textTransform: 'lowercase',
-        fontSize: '18px',
-        justifyContent: 'end',
-    },
-}))
+// const useStyles = makeStyles((theme) => ({
+//     yearDropdown: {
+//         color: 'grey',
+//         textTransform: 'lowercase',
+//         fontSize: '18px',
+//         justifyContent: 'end',
+//     },
+//     majorDropdown: {
+//         color: 'grey',
+//         textTransform: 'lowercase',
+//         fontSize: '18px',
+//         justifyContent: 'end',
+//     },
+//     minorDropdown: {
+//         color: 'grey',
+//         textTransform: 'lowercase',
+//         fontSize: '18px',
+//         justifyContent: 'end',
+//     },
+// }))
 
 function CreateProject({ setProjects }) {
     const [projectName, setProjectName] = useState('')
     const [desc, setDesc] = useState('')
+    const [memberAmount, setMemAmount] = useState('')
     const [reqMajor, setReqMajor] = useState('')
     const [reqMinor, setReqMinor] = useState('')
     const [reqYear, setReqYear] = useState('')
-    const [softskills, setSoftskills] = useState('')
+    const [softskills, setSoftSkills] = useState('')
+    const [timeline, setTimeline] = useState('')
+    const [checked, setChecked] = useState(false)
     const [imageAsFile, setImageAsFile] = useState(null)
     const [imageAsUrl, setImageAsUrl] = useState(
         `${process.env.PUBLIC_URL}/projectImages/user.png`
     )
+
+    const handleChange = () => {
+        setChecked(!checked)
+    }
 
     console.log(imageAsFile)
     const handleImageAsFile = (e) => {
@@ -77,10 +78,12 @@ function CreateProject({ setProjects }) {
         await addDoc(projectsCollectionRef, {
             project: projectName,
             desc: desc,
+            members: memberAmount,
             major: reqMajor,
             minor: reqMinor,
             year: reqYear,
             softskills: softskills,
+            timeline: timeline,
             image: imageAsUrl,
         })
 
@@ -97,7 +100,7 @@ function CreateProject({ setProjects }) {
     //     }
     //     getStudents()
     // }, [studentsCollectionRef])
-    const classes = useStyles()
+    // const classes = useStyles()
 
     const widget = window.cloudinary.createUploadWidget(
         {
@@ -122,7 +125,7 @@ function CreateProject({ setProjects }) {
     return (
         <div className="new-profile">
             <div className="left-screen">
-                <h1 className="left-text-info" id="text">
+                <h1 className="left-text-info" id="left-text">
                     Create <br></br> New <br></br> Project!
                 </h1>
             </div>
@@ -154,7 +157,9 @@ function CreateProject({ setProjects }) {
                         setProjectName(event.target.value)
                     }}
                 />
-                <input
+                <div></div>
+                <br></br>
+                <textarea
                     type="text"
                     className="project-desc "
                     placeholder="Project Description"
@@ -162,14 +167,18 @@ function CreateProject({ setProjects }) {
                         setDesc(event.target.value)
                     }}
                 />
+                <div></div>
+                <br></br>
                 <input
                     type="text"
-                    className="project-major "
-                    placeholder="Needed Major(s)"
+                    className="member-amount "
+                    placeholder="Number of Members Needed"
                     onChange={(event) => {
-                        setReqMajor(event.target.value)
+                        setMemAmount(event.target.value)
                     }}
                 />
+                <div></div>
+                <br></br>
                 <input
                     type="text"
                     className="project-major "
@@ -180,6 +189,67 @@ function CreateProject({ setProjects }) {
                 />
                 <div></div>
                 <br></br>
+                <input
+                    type="text"
+                    className="project-minor "
+                    placeholder="Needed Minor(s)"
+                    onChange={(event) => {
+                        setReqMinor(event.target.value)
+                    }}
+                />
+                <div></div>
+                <br></br>
+                <input
+                    type="text"
+                    className="preferred-year "
+                    placeholder="Preferred Year(s)"
+                    onChange={(event) => {
+                        setReqYear(event.target.value)
+                    }}
+                />
+                <div></div>
+                <br></br>
+                <input
+                    type="text"
+                    className="preferred-soft-skill "
+                    placeholder="Preferred Soft Skill(s)"
+                    onChange={(event) => {
+                        setSoftSkills(event.target.value)
+                    }}
+                />
+                <div></div>
+                <br></br>
+                <input
+                    type="text"
+                    className="project-timeline "
+                    placeholder="Project Timeline (Ex: 2 Years)"
+                    onChange={(event) => {
+                        setTimeline(event.target.value)
+                    }}
+                />
+                <div></div>
+                <br></br>
+                <input
+                    className="paid-checkbox"
+                    type="checkbox"
+                    checked={checked}
+                    onChange={handleChange}
+                />
+                <label className="paid-label">Paid</label>
+                <div></div>
+                <br></br>
+                <div className="create-proj">
+                    <Link className="button-link" to="/projectspage">
+                        <Button
+                            className="post-proj-btn1"
+                            size="large"
+                            color="primary"
+                            onClick={createProject}
+                        >
+                            Post
+                        </Button>
+                    </Link>
+                </div>
             </div>
         </div>
     )
