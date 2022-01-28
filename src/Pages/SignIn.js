@@ -2,26 +2,37 @@ import React from 'react'
 import '../Styles/SignIn.css'
 import Button from '@mui/material/Button'
 import beaker from '../Images/blackLinedBeakerBgRemoved.png'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { collection, getDocs } from 'firebase/firestore'
 import { db } from '../firebase'
+import { useAuth } from '../Contexts/userauth.js'
 
-function SignIn() {
-    // This code can be removed. Since we do not need to retreive data from firebase but rather add user login/password to firebase [AM]
-    // const [projects, setProjects] = useState([])
-    // const projectsCollectionRef = collection(db, 'projects')
-    // useEffect(() => {
-    //     const getProjects = async () => {
-    //         const data = await getDocs(projectsCollectionRef)
-    //         //loop through documents in collection
-    //         setProjects(
-    //             data.docs.map((doc) => ({ ...doc.data(), key: doc.id }))
-    //         )
-    //     }
-    //     getProjects()
-    // }, [projectsCollectionRef])
+export default function SignIn() {
+    const emailRef = useRef()
+    const passwordRef = useRef()
+    const passwordConfirmationRef = useRef()
+    const { signup } = useAuth()
+    const [error, setError] = useState('')
+    const [load, setLoading] = useState(false)
 
+    async function handleSubmit(e) {
+        e.preventDefault()
+        if (
+            passwordRef.current.value !== passwordConfirmationRef.current.value
+        ) {
+            return setError('Passwords do not Match')
+        }
+
+        try {
+            setError('')
+            setLoading(true)
+            await signup(emailRef.current.value, passwordRef.current.value)
+        } catch {
+            setError('Failed to Create Account, Please Try again')
+        }
+        setLoading(false)
+    }
     return (
         <div className="sign-in">
             <div className="top-signin">
@@ -32,6 +43,8 @@ function SignIn() {
                     type="text"
                     className="email-address"
                     placeholder="LMU/LLS email"
+                    inputRef={emailRef}
+                    required
                 />
                 <div></div>
                 <br></br>
@@ -39,19 +52,20 @@ function SignIn() {
                     type="text"
                     className="password"
                     placeholder="password"
+                    inputRef={passwordRef}
+                    required
                 />
                 <div></div>
                 <br></br>
-                <div className="button1">
-                    <Button
-                        className="btn1"
-                        size="large"
-                        variant="outlined"
-                        color="primary"
-                    >
-                        Sign In
-                    </Button>
-                </div>
+                <div className="button1"></div>
+                <Button
+                    className="btn1"
+                    size="large"
+                    variant="outlined"
+                    color="primary"
+                >
+                    Sign In
+                </Button>
                 <div></div>
                 <br></br>
                 <div className="button2">
@@ -72,5 +86,3 @@ function SignIn() {
         </div>
     )
 }
-
-export default SignIn
