@@ -244,15 +244,6 @@ function StudentProfile({ setMembers }) {
                 <br></br>
                 {/* //for the dropdowns, it woud be cleaner if these were seprated into different components so that we dont have over 1000 lines of code (MS) */}
                 <div>
-                    {/* <div>Year:</div> */}
-                    {/* <DropdownYear
-                        className={classes.yearDropdown}
-                        // onClick={setYear}
-                        onChange={(event) => {
-                            setYear(event.target.value)
-                        }}
-                    ></DropdownYear> */}
-
                     <DropdownButton
                         title="Year"
                         id="dropdown-menu-align-right"

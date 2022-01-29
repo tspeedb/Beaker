@@ -72,6 +72,10 @@ h1 {
     border-color: #ac0c30;
 }
 
+.department-fsprofile {
+    margin-bottom: 15px;
+}
+
 .resume {
     font-size: medium;
     font-style: normal;
@@ -104,7 +108,27 @@ h1 {
     font-size: x-large;
 }
 
+.funding-label {
+    font-size: x-large;
+}
+
+.internship-label {
+    font-size: x-large;
+}
+
 .paid-checkbox {
+    height: 20px;
+    width: 20px;
+    margin-right: 10px;
+}
+
+.funding-checkbox {
+    height: 20px;
+    width: 20px;
+    margin-right: 10px;
+}
+
+.internship-checkbox {
     height: 20px;
     width: 20px;
     margin-right: 10px;
