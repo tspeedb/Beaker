@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react'
-import { Dropdown, DropdownButton } from 'react-bootstrap'
-import 'bootstrap/dist/css/bootstrap.min.css'
+import Select from 'react-select'
+// import 'bootstrap/dist/css/bootstrap.min.css'
 import { makeStyles } from '@material-ui/core/styles'
 import '../Styles/Profile.css'
 import Button from '@mui/material/Button'
@@ -10,7 +10,6 @@ import 'firebase/firestore'
 import { db, storage } from '../firebase'
 import { collection, getDocs, addDoc } from 'firebase/firestore'
 import Uploadfile from '../Components/UploadFile'
-import '../Styles/Dropdown.css'
 
 // const useStyles = makeStyles((theme) => ({
 //     yearDropdown: {
@@ -42,14 +41,24 @@ function CreateProject({ setProjects }) {
     const [reqYear, setReqYear] = useState('')
     const [softskills, setSoftSkills] = useState('')
     const [timeline, setTimeline] = useState('')
-    const [checked, setChecked] = useState(false)
+    const [checkedPaid, setCheckedPaid] = useState(false)
+    const [checkedFunding, setCheckedFunding] = useState(false)
+    const [checkedInternship, setCheckedIntership] = useState(false)
     const [imageAsFile, setImageAsFile] = useState(null)
     const [imageAsUrl, setImageAsUrl] = useState(
         `${process.env.PUBLIC_URL}/projectImages/user.png`
     )
 
-    const handleChange = () => {
-        setChecked(!checked)
+    const handleChangePaid = () => {
+        setCheckedPaid(!checkedPaid)
+    }
+
+    const handleChangeFunding = () => {
+        setCheckedFunding(!checkedFunding)
+    }
+
+    const handleChangeInternship = () => {
+        setCheckedIntership(!checkedInternship)
     }
 
     console.log(imageAsFile)
@@ -122,6 +131,128 @@ function CreateProject({ setProjects }) {
         widget.open()
     }
 
+    const majorOptions = [
+        { value: 'Accounting', label: 'Accounting (ACCT)' },
+        {
+            value: 'African American Studies',
+            label: 'African American Studies (AFAM)',
+        },
+        { value: 'Animation', label: 'Animation (ANIM)' },
+        { value: 'Applied Mathematics', label: 'Applied Mathematics' },
+
+        { value: 'Applied Physics', label: 'Applied Physics' },
+        {
+            value: 'Art History',
+            label: 'Art History (ARHS)',
+        },
+        {
+            value: 'Asian and Pacific Studies',
+            label: 'Asian and Pacific Studies (ASPA)',
+        },
+        { value: 'Biochemistry', label: 'Biochemistry' },
+        { value: 'Bioethics', label: 'Bioethics (BIOE)' },
+        { value: 'Bioethics', label: 'Bioethics (BIOE)' },
+        { value: 'Biology ', label: 'Biology (BIOL)' },
+        {
+            value: 'Business Administration',
+            label: 'Business Administration (BADM)',
+        },
+        { value: 'Chemistry', label: 'Chemistry (CHEM)' },
+        {
+            value: 'Chicana/o and Latina/o Studies',
+            label: 'Chicana/o and Latina/o Studies (CLST)',
+        },
+        { value: 'Civil Engineering', label: 'Civil Engineering (CIVL)' },
+        {
+            value: 'Classics and Archaeology',
+            label: 'Classics and Archaeology (CLAR)',
+        },
+        {
+            value: 'Communication Studies',
+            label: 'Communication Studies (CMST)',
+        },
+        { value: 'Computer Science', label: 'Computer Science (CMSI)' },
+        { value: 'Dance', label: 'Dance (DANC)' },
+        { value: 'Economics', label: 'Economics (ECON)' },
+        {
+            value: 'Electrical Engineering',
+            label: 'Electrical Engineering (EECE)',
+        },
+        { value: 'English', label: 'English (ENGL)' },
+        { value: 'Entrepreneurship', label: 'Entrepreneurship (ENTR)' },
+        {
+            value: 'Environmental Science',
+            label: 'Environmental Science (ENVS)',
+        },
+        {
+            value: 'Environmental Studies',
+            label: 'Environmental Studies (EVST)',
+        },
+        {
+            value: 'Film and Television Production',
+            label: 'Film and Television Production (PROD)',
+        },
+        {
+            value: 'Film, Television, and Media Studies',
+            label: 'Film, Television, and Media Studies (FTVS)',
+        },
+        { value: 'Finance', label: 'Finance (FNCE)' },
+        { value: 'French', label: 'French (FREN)' },
+        {
+            value: 'Health and Human Sciences',
+            label: 'Health and Human Sciences (HHSC)',
+        },
+        { value: 'History', label: 'History (HIST)' },
+        { value: 'Humanities', label: 'Humanities (HMNT)' },
+        {
+            value: 'Information Systems and Business Analytics',
+            label: 'Information Systems and Business Analytics (ISBA)',
+        },
+        { value: 'International Relations', label: 'International Relations' },
+        { value: 'Journalism', label: 'Journalism (JOUR)' },
+        { value: 'Liberal Studies', label: 'Liberal Studies (LBST)' },
+        {
+            value: 'Management and Leadership',
+            label: 'Management and Leadership (MGMT)',
+        },
+        { value: 'Marketing', label: 'Marketing (MRKT)' },
+        { value: 'Mathematics', label: 'Mathematics (MATH)' },
+        {
+            value: 'Mechanical Engineering',
+            label: 'Mechanical Engineering (MECH)',
+        },
+        { value: 'Modern Languages', label: 'Modern Languages (MDLG)' },
+        { value: 'Music', label: 'Music (MUSC)' },
+        { value: 'Philosophy', label: 'Philosophy (PHIL)' },
+        { value: 'Physics', label: 'Physics (PHYS)' },
+        { value: 'Political Science', label: 'Political Science (POLS)' },
+        { value: 'Psychology', label: 'Psychology (PSYC)' },
+        { value: 'Recording Arts', label: 'Recording Arts (RECA)' },
+        { value: 'Screenwriting', label: 'Screenwriting (SCWR)' },
+        { value: 'Sociology', label: 'Sociology (SOCL)' },
+        { value: 'Spanish', label: 'Spanish (SPAN)' },
+        {
+            value: 'Statistics and Data Science',
+            label: 'Statistics and Data Science',
+        },
+        { value: 'Studio Arts', label: 'Studio Arts (ART)' },
+        { value: 'Theatre Arts', label: 'Theatre Arts (THEA)' },
+        { value: 'Theological Studies', label: 'Theological Studies (THST)' },
+        { value: 'Urban Studies', label: 'Urban Studies (URBN)' },
+        {
+            value: 'Womens and Gender Studies',
+            label: 'Womens and Gender Studies (WGST)',
+        },
+    ]
+
+    const yearOptions = [
+        { value: 'freshman', label: 'Freshman' },
+        { value: 'sophomore', label: 'Sophomore' },
+        { value: 'junior', label: 'Junior' },
+        { value: 'senior', label: 'Senior' },
+        { value: 'graduate', label: 'Graduate' },
+    ]
+
     return (
         <div className="new-profile">
             <div className="left-screen">
@@ -170,21 +301,21 @@ function CreateProject({ setProjects }) {
                 <div></div>
                 <br></br>
                 <form>
-                    <label>
+                    <label className="members-needed">
                         Number of Members Needed:
-                        <select value="Number of members">
-                            <option value="one">1</option>
-                            <option value="two">2</option>
-                            <option value="three">3</option>
-                            <option value="four">4</option>
-                            <option value="five">5</option>
-                            <option value="six">6</option>
-                            <option value="seven">7</option>
-                            <option value="eight">8</option>
-                            <option value="nine">9</option>
-                            <option value="ten">10</option>
-                        </select>
                     </label>
+                    <select>
+                        <option value="one">1</option>
+                        <option value="two">2</option>
+                        <option value="three">3</option>
+                        <option value="four">4</option>
+                        <option value="five">5</option>
+                        <option value="six">6</option>
+                        <option value="seven">7</option>
+                        <option value="eight">8</option>
+                        <option value="nine">9</option>
+                        <option value="ten">10</option>
+                    </select>
                 </form>
                 {/* <input
                     type="text"
@@ -196,146 +327,8 @@ function CreateProject({ setProjects }) {
                 /> */}
                 <div></div>
                 <br></br>
-                <form>
-                    <label>
-                        <select>
-                            <option value="Accounting">
-                                Accounting (ACCT)
-                            </option>
-                            <option value="African American Studies">
-                                African American Studies (AFAM)
-                            </option>
-                            <option value="Animation">Animation (ANIM)</option>
-                            <option value="Applied Mathematics">
-                                Applied Mathematics
-                            </option>
-                            <option value="Applied Physics">
-                                Applied Physics
-                            </option>
-                            <option value="Art History">
-                                Art History (ARHS)
-                            </option>
-                            <option value="Asian and Pacific Studies">
-                                Asian and Pacific Studies (ASPA)
-                            </option>
-                            <option value="Biochemistry">Biochemistry</option>
-                            <option value="Bioethics">Bioethics (BIOE)</option>
-                            <option value="Biology">Biology (BIOL)</option>
-                            <option value="Business Administration">
-                                Business Administration (BADM)
-                            </option>
-                            <option value="Chemistry">Chemistry (CHEM)</option>
-                            <option value="Chicana/o and Latina/o Studies">
-                                Chicana/o and Latina/o Studies (CLST)
-                            </option>
-                            <option value="Civil Engineering">
-                                Civil Engineering (CIVL)
-                            </option>
-                            <option value="Classics and Archaeology">
-                                Classics and Archaeology (CLAR)
-                            </option>
-                            <option value="Communication Studies">
-                                Communication Studies (CMST)
-                            </option>
-                            <option value="Computer Science">
-                                Computer Science (CMSI)
-                            </option>
-                            <option value="Dance">Dance (DANC)</option>
-                            <option value="Economics">Economics (ECON)</option>
-                            <option value="Electrical Engineering">
-                                Electrical Engineering (EECE)
-                            </option>
-                            <option value="English">English (ENGL)</option>
-                            <option value="Entrepreneurship">
-                                Entrepreneurship (ENTR)
-                            </option>
-                            <option value="Environmental Science">
-                                Environmental Science (ENVS)
-                            </option>
-                            <option value="Environmental Studies">
-                                Environmental Studies (EVST)
-                            </option>
-                            <option value="Film and Television Production">
-                                Film and Television Production (PROD)
-                            </option>
-                            <option value="Film, Television, and Media Studies">
-                                Film, Television, and Media Studies (FTVS)
-                            </option>
-                            <option value="Finance">Finance (FNCE)</option>
-                            <option value="French">French (FREN)</option>
-                            <option value="Health and Human Sciences">
-                                Health and Human Sciences (HHSC)
-                            </option>
-                            <option value="History">History (HIST)</option>
-                            <option value="Humanities">
-                                Humanities (HMNT)
-                            </option>
-                            <option value="Information Systems and Business Analytics">
-                                Information Systems and Business Analytics
-                                (ISBA)
-                            </option>
-                            <option value="International Relations">
-                                International Relations
-                            </option>
-                            <option value="Journalism">
-                                Journalism (JOUR)
-                            </option>
-                            <option value="Liberal Studies">
-                                Liberal Studies (LBST)
-                            </option>
-                            <option value="Management and Leadership">
-                                Management and Leadership (MGMT)
-                            </option>
-                            <option value="Marketing">Marketing (MRKT)</option>
-                            <option value="Mathematics">
-                                Mathematics (MATH)
-                            </option>
-                            <option value="Mechanical Engineering">
-                                Mechanical Engineering (MECH)
-                            </option>
-                            <option value="Modern Languages">
-                                Modern Languages (MDLG)
-                            </option>
-                            <option value="Music">Music (MUSC)</option>
-                            <option value="Philosophy">
-                                Philosophy (PHIL)
-                            </option>
-                            <option value="Physics">Physics (PHYS)</option>
-                            <option value="Political Science">
-                                Political Science (POLS)
-                            </option>
-                            <option value="Psychology">
-                                Psychology (PSYC)
-                            </option>
-                            <option value="Recording Arts">
-                                Recording Arts (RECA)
-                            </option>
-                            <option value="Screenwriting">
-                                Screenwriting (SCWR)
-                            </option>
-                            <option value="Sociology">Sociology (SOCL)</option>
-                            <option value="Spanish">Spanish (SPAN)</option>
-                            <option value="Statistics and Data Science">
-                                Statistics and Data Science
-                            </option>
-                            <option value="Studio Arts">
-                                Studio Arts (ART)
-                            </option>
-                            <option value="Theatre Arts">
-                                Theatre Arts (THEA)
-                            </option>
-                            <option value="Theological Studies">
-                                Theological Studies (THST)
-                            </option>
-                            <option value="Urban Studies">
-                                Urban Studies (URBN)
-                            </option>
-                            <option value="Women's and Gender Studies">
-                                Women's and Gender Studies (WGST)
-                            </option>
-                        </select>
-                    </label>
-                </form>
+                <label className="project-major">Preferred Majors:</label>
+                <Select isMulti name="neededMajors" options={majorOptions} />
                 {/* <input
                     type="text"
                     className="project-major "
@@ -346,14 +339,22 @@ function CreateProject({ setProjects }) {
                 /> */}
                 <div></div>
                 <br></br>
-                <input
+                <div>
+                    <label className="preferred-years">Preferred Years:</label>
+                </div>
+                <Select
+                    isMulti
+                    className="preferred-years-options"
+                    options={yearOptions}
+                />
+                {/* <input
                     type="text"
                     className="preferred-year "
                     placeholder="Preferred Year(s)"
                     onChange={(event) => {
                         setReqYear(event.target.value)
                     }}
-                />
+                /> */}
                 <div></div>
                 <br></br>
                 <input
@@ -366,39 +367,50 @@ function CreateProject({ setProjects }) {
                 />
                 <div></div>
                 <br></br>
-                <input
+                <form>
+                    <label className="project-timeline">
+                        Project Timeline:
+                    </label>
+                    <select>
+                        <option value="timeline default"></option>
+                        <option value="one semester">One Semester</option>
+                        <option value="one year">One Year</option>
+                        <option value="two years">Two Years</option>
+                        <option value="three years">Three Years</option>
+                        <option value="four years">Four Years</option>
+                    </select>
+                </form>
+                {/* <input
                     type="text"
                     className="project-timeline "
                     placeholder="Project Timeline (Ex: 2 Years)"
                     onChange={(event) => {
                         setTimeline(event.target.value)
                     }}
-                />
+                /> */}
                 <div></div>
                 <br></br>
                 <input
                     className="paid-checkbox"
                     type="checkbox"
-                    checked={checked}
-                    onChange={handleChange}
+                    checked={checkedPaid}
+                    onChange={handleChangePaid}
                 />
                 <label className="paid-label">Paid</label>
                 <div></div>
-                <br></br>
                 <input
                     className="funding-checkbox"
                     type="checkbox"
-                    checked={checked}
-                    onChange={handleChange}
+                    checked={checkedFunding}
+                    onChange={handleChangeFunding}
                 />
                 <label className="funding-label">Funding Available</label>
                 <div></div>
-                <br></br>
                 <input
                     className="internship-checkbox"
                     type="checkbox"
-                    checked={checked}
-                    onChange={handleChange}
+                    checked={checkedInternship}
+                    onChange={handleChangeInternship}
                 />
                 <label className="internship-label">Internship Credit</label>
                 <div></div>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import { Dropdown, DropdownButton } from 'react-bootstrap'
-import 'bootstrap/dist/css/bootstrap.min.css'
+// import 'bootstrap/dist/css/bootstrap.min.css'
 import { makeStyles } from '@material-ui/core/styles'
 import '../Styles/Profile.css'
 import Button from '@mui/material/Button'

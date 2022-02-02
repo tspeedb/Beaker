@@ -104,33 +104,52 @@ h1 {
     font-size: medium;
 }
 
+.members-needed {
+    font-size: large;
+    margin-right: 10px;
+}
+
+.project-major {
+    font-size: large;
+    margin-bottom: 10px;
+}
+
+.preferred-years {
+    font-size: large;
+}
+
+.project-timeline {
+    font-size: large;
+    margin-right: 10px;
+}
+
 .paid-label {
-    font-size: x-large;
+    font-size: large;
 }
 
 .funding-label {
-    font-size: x-large;
+    font-size: large;
 }
 
 .internship-label {
-    font-size: x-large;
+    font-size: large;
 }
 
 .paid-checkbox {
-    height: 20px;
-    width: 20px;
+    height: 17px;
+    width: 17px;
     margin-right: 10px;
 }
 
 .funding-checkbox {
-    height: 20px;
-    width: 20px;
+    height: 17px;
+    width: 17px;
     margin-right: 10px;
 }
 
 .internship-checkbox {
-    height: 20px;
-    width: 20px;
+    height: 17px;
+    width: 17px;
     margin-right: 10px;
 }
 
