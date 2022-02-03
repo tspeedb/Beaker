@@ -5,7 +5,7 @@ import beaker from '../Images/blackLinedBeakerBgRemoved.png'
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { collection, getDocs } from 'firebase/firestore'
-import { db } from '../firebase'
+// import { db } from '../firebase'
 
 function SignIn() {
     // This code can be removed. Since we do not need to retreive data from firebase but rather add user login/password to firebase [AM]
