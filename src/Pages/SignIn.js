@@ -5,34 +5,50 @@ import beaker from '../Images/blackLinedBeakerBgRemoved.png'
 import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { collection, getDocs } from 'firebase/firestore'
-import { db } from '../firebase'
-import { useAuth } from '../Contexts/userauth.js'
+import firebase from 'firebase/compat/app'
+import 'firebase/firestore'
+import 'firebase/compat/auth'
+import 'firebase/compat/firestore'
+import 'firebase/storage'
+import 'firebase/compat/storage'
+import 'firebase/auth'
+import { auth } from '../firebase'
+import {
+    getAuth,
+    onAuthStateChanged,
+    signOut,
+    signInWithEmailAndPassword,
+} from 'firebase/auth'
+import UserProfile from './UserProfile'
 
 export default function SignIn() {
-    const emailRef = useRef()
-    const passwordRef = useRef()
-    const passwordConfirmationRef = useRef()
-    const { signup } = useAuth()
-    const [error, setError] = useState('')
-    const [load, setLoading] = useState(false)
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [user, setUser] = useState({})
 
-    async function handleSubmit(e) {
-        e.preventDefault()
-        if (
-            passwordRef.current.value !== passwordConfirmationRef.current.value
-        ) {
-            return setError('Passwords do not Match')
-        }
+    onAuthStateChanged(auth, (currentUser) => {
+        setUser(currentUser)
+    })
 
+    // const register = async () => {
+    //     try {
+    //         const user = await createUserWithEmailAndPasword()
+    //         console.log(user)
+    //     } catch (error) {
+    //         console.log(error.message)
+    //     }
+    // }
+    const login = async () => {
         try {
-            setError('')
-            setLoading(true)
-            await signup(emailRef.current.value, passwordRef.current.value)
-        } catch {
-            setError('Failed to Create Account, Please Try again')
+            const user = await signInWithEmailAndPassword(auth, email, password)
+            console.log(user)
+        } catch (error) {
+            console.log(error.message)
         }
-        setLoading(false)
     }
+
+    // const logout = async () => {await signOut(Auth);}
+
     return (
         <div className="sign-in">
             <div className="top-signin">
@@ -43,8 +59,9 @@ export default function SignIn() {
                     type="text"
                     className="email-address"
                     placeholder="LMU/LLS email"
-                    inputRef={emailRef}
-                    required
+                    onChange={(event) => {
+                        setEmail(event.target.value)
+                    }}
                 />
                 <div></div>
                 <br></br>
@@ -52,8 +69,9 @@ export default function SignIn() {
                     type="text"
                     className="password"
                     placeholder="password"
-                    inputRef={passwordRef}
-                    required
+                    onChange={(event) => {
+                        setPassword(event.target.value)
+                    }}
                 />
                 <div></div>
                 <br></br>
@@ -63,6 +81,7 @@ export default function SignIn() {
                     size="large"
                     variant="outlined"
                     color="primary"
+                    onClick={login}
                 >
                     Sign In
                 </Button>

@@ -3,22 +3,37 @@ import '../Styles/SignIn.css'
 import Button from '@mui/material/Button'
 import beaker from '../Images/blackLinedBeakerBgRemoved.png'
 import { Link } from 'react-router-dom'
+import { useState, useEffect, useRef } from 'react'
+import firebase from 'firebase/compat/app'
+import 'firebase/firestore'
+import 'firebase/compat/auth'
+import 'firebase/compat/firestore'
+import 'firebase/storage'
+import 'firebase/compat/storage'
+import 'firebase/auth'
+import { auth } from '../firebase'
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
 
 function NewUserStudent() {
-    //     const [, setProjects] = useState([])
-    //     const projectsCollectionRef = collection(db, 'projects')
-    //     useEffect(() => {
-    //         const getProjects = async () => {
-    //             const data = await getDocs(projectsCollectionRef)
-    //             //loop through documents in collection
-    //             console.log(data)
-    //             console.log('things show up')
-    //             setProjects(
-    //                 data.docs.map((doc) => ({ ...doc.data(), key: doc.id }))
-    //             )
-    //         }
-    //         getProjects()
-    //     }, [])
+    const [newUserEmail, setNewUserEmail] = useState('')
+    const [newUserPassword, setNewUserPassword] = useState('')
+    const [loginEmail, set] = useState('')
+    const [loginPassword, setLoginPassword] = useState('')
+
+    const register = async () => {
+        try {
+            const user = await createUserWithEmailAndPassword(
+                auth,
+                newUserEmail,
+                newUserPassword
+            )
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+    const login = async () => {}
+
+    const logout = async () => {}
 
     return (
         <div className="sign-in">
@@ -31,6 +46,9 @@ function NewUserStudent() {
                     type="text"
                     className="email-address"
                     placeholder="example@lion.lmu.edu"
+                    onChange={(event) => {
+                        setNewUserEmail(event.target.value)
+                    }}
                 />
                 <div></div>
                 <br></br>
@@ -38,6 +56,9 @@ function NewUserStudent() {
                     type="text"
                     className="password"
                     placeholder="password"
+                    onChange={(event) => {
+                        setNewUserPassword(event.target.value)
+                    }}
                 />
                 <div></div>
                 <br></br>
@@ -48,6 +69,7 @@ function NewUserStudent() {
                             size="medium"
                             variant="outlined"
                             color="secondary"
+                            onClick={register}
                         >
                             Continue to Profile
                         </Button>
