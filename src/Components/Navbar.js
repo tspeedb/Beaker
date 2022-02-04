@@ -7,13 +7,15 @@ import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
 import { Button, Menu } from '@material-ui/core'
 import HelpIcon from '@mui/icons-material/Help'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import ClickAwayListener from '@material-ui/core/ClickAwayListener'
 import Grow from '@material-ui/core/Grow'
 import Paper from '@material-ui/core/Paper'
 import Popper from '@material-ui/core/Popper'
 import MenuItem from '@material-ui/core/MenuItem'
 import '../Styles/Navbar.css'
+import { getAuth } from 'firebase/auth'
+import { useAuth } from '../Contexts/authContext'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import ScienceIcon from '@mui/icons-material/Science'
 
@@ -97,6 +99,21 @@ const Navbar = () => {
     // const handleClose = () => {
     //     setOpen(false)
     // }
+
+    const [error, setError] = useState('')
+    const { currentUser, logout } = useAuth()
+    const history = useHistory()
+
+    async function handleLogout() {
+        setError('')
+
+        try {
+            await logout()
+            history.push('./')
+        } catch {
+            setError('Failed to log out')
+        }
+    }
 
     return (
         <>
@@ -221,7 +238,7 @@ const Navbar = () => {
                     {' '}
                     <Link to="./userprofile">profile </Link>{' '}
                 </MenuList>
-                <MenuList onClick={handleMenuClose}>
+                <MenuList onClick={handleLogout}>
                     {' '}
                     <Link to="./">logout </Link>{' '}
                 </MenuList>
