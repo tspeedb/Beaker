@@ -5,6 +5,7 @@ import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 // import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn'
 // import { makeStyles } from '@material-ui/styles'
 import '../Styles/Projectspage.css'
 
@@ -24,6 +25,9 @@ function CardItems(props) {
             </CardMedia>
             <CardContent className="content">
                 <Typography id="title-project">{props.title}</Typography>
+                <MonetizationOnIcon
+                    style={{ color: '#107fb7' }}
+                ></MonetizationOnIcon>
                 <Typography id="desc">{props.description}</Typography>
             </CardContent>
         </Card>

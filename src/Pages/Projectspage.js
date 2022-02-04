@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import ProjectCards from '../Components/ProjectCards'
 import Layout from '../Components/Layout'
 import { Typography } from '@material-ui/core'
+import { IconButton } from '@mui/material'
 // import projects from '../projectsdata'
 import { makeStyles } from '@material-ui/styles'
 import { Link } from 'react-router-dom'
@@ -12,6 +13,7 @@ import Button from '@mui/material/Button'
 
 import 'firebase/firestore'
 import { keyframes } from '@mui/styled-engine'
+import { Add } from '@mui/icons-material'
 // import firebase from '../firebase'
 
 // SM: It looks like some of these imports are not being used, it
@@ -46,8 +48,30 @@ function Projectspage({ projects }) {
     return (
         <Layout>
             <div>
-                <Typography id="Title"> Projects </Typography>
+                <Typography id="Title">
+                    {' '}
+                    Projects{' '}
+                    <Link to="/createproject">
+                        <IconButton
+                            style={{
+                                position: 'absolute',
+                                left: '70rem',
+                                paddingTop: '30px',
+                            }}
+                            aria-label="upload picture"
+                            component="span"
+                        >
+                            <AddCircleIcon
+                                style={{
+                                    color: 'rgba(16, 127, 183, 1)',
+                                    fontSize: '50px',
+                                }}
+                            />
+                        </IconButton>
+                    </Link>
+                </Typography>
             </div>
+
             <div>
                 <Typography className={classes.title}>
                     Based on your profile <br></br>{' '}
@@ -84,14 +108,6 @@ function Projectspage({ projects }) {
                 </Typography>
                 <ProjectCards projects={browse} />
             </div>
-            <Button>
-                <AddCircleIcon
-                    style={{
-                        fontSize: 65,
-                        color: 'rgba(16, 127, 183, 1)',
-                    }}
-                ></AddCircleIcon>
-            </Button>
         </Layout>
     )
 }
