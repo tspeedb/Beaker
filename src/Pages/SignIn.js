@@ -31,14 +31,13 @@ function SignIn() {
 
     async function handleSubmit(e) {
         e.preventDefault()
-
         try {
-            setError('')
             setLoading(true)
             await signin(emailRef.current.value, passwordRef.current.value)
-            // history.push('/dashboard')
+            history.push('/dashboard')
+            console.log('history is dashboard')
         } catch {
-            console.log('failed to signin')
+            setError('Failed to Signin')
         }
         setLoading(false)
         console.log('currentUser logedin' + JSON.stringify({ currentUser }))
@@ -96,6 +95,7 @@ function SignIn() {
             <Card>
                 <CardContent>
                     <h2 className="text-center mb-4">Sign Up</h2>
+                    {JSON.stringify({ currentUser })}
                     {error && <Alert variant="danger">{error}</Alert>}
                     <form onSubmit={handleSubmit}>
                         <FormControl

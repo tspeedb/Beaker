@@ -36,6 +36,7 @@ function NewUserStudent() {
             await signup(emailRef.current.value, passwordRef.current.value)
             console.log('getting here 2')
             console.log('currentUser is' + JSON.stringify({ currentUser }))
+            history.push('/studentprofile')
         } catch {
             console.log('getting here maybe')
             setError('Failed to Create an Account')
@@ -149,19 +150,19 @@ function NewUserStudent() {
                         </div> */}
 
                         <div className="button1">
-                            <Link to="/studentprofile">
-                                <Button
-                                    disabled={loading}
-                                    className="w-100"
-                                    type="submit"
-                                    className="btn1"
-                                    size="medium"
-                                    variant="outlined"
-                                    color="secondary"
-                                >
-                                    Continue to Profile
-                                </Button>
-                            </Link>
+                            {/* <Link to="/studentprofile"> */}
+                            <Button
+                                disabled={loading}
+                                className="w-100"
+                                type="submit"
+                                className="btn1"
+                                size="medium"
+                                variant="outlined"
+                                color="secondary"
+                            >
+                                Continue to Profile
+                            </Button>
+                            {/* </Link> */}
                         </div>
                     </form>
                 </CardContent>
