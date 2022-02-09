@@ -106,61 +106,63 @@ function NewUserStudent() {
                     <form onSubmit={handleSubmit}>
                         <FormControl
                             type="email"
-                            inputRef={emailRef}
-                            required
+                            // inputRef={emailRef}
                         />
                         <TextField
                             type="text"
                             className="email-address"
                             placeholder="example@lion.lmu.edu"
                             inputRef={emailRef}
+                            required
                         />
                         <FormLabel>Password</FormLabel>
                         <FormControl
                             type="password"
-                            inputRef={passwordRef}
-                            required
+                            // inputRef={passwordRef}
                         />
                         <TextField
                             type="text"
                             className="password"
                             placeholder="password"
                             inputRef={passwordRef}
+                            required
                         />
 
                         <FormLabel>Password Confirmation</FormLabel>
                         <FormControl
                             type="password"
-                            ref={passwordConfirmRef}
-                            required
+                            // ref={passwordConfirmRef}
                         />
                         <TextField
                             type="text"
                             className="password-confirm"
                             placeholder="confirm password"
                             inputRef={passwordConfirmRef}
+                            required
                         />
 
                         {/* <div className="button1">
                             <Link to="/studentprofile">
                                 Continue to Profile
                             
+
                         </div> */}
-                        {/* <Link to="/studentprofile"> */}
+
                         <div className="button1">
-                            <Button
-                                disabled={loading}
-                                className="w-100"
-                                type="submit"
-                                className="btn1"
-                                size="medium"
-                                variant="outlined"
-                                color="secondary"
-                            >
-                                Continue to Profile
-                            </Button>
+                            <Link to="/studentprofile">
+                                <Button
+                                    disabled={loading}
+                                    className="w-100"
+                                    type="submit"
+                                    className="btn1"
+                                    size="medium"
+                                    variant="outlined"
+                                    color="secondary"
+                                >
+                                    Continue to Profile
+                                </Button>
+                            </Link>
                         </div>
-                        {/* </Link> */}
                     </form>
                 </CardContent>
             </Card>

@@ -26,6 +26,7 @@ import BookmarkedProjects from './Pages/BookmarkedProjects'
 import InvitedMembers from './Pages/InvitedMembers'
 import UserProfile from './Pages/UserProfile'
 import CreateProject from './Pages/CreateProject'
+import PrivateRoute from './Components/PrivateRoute'
 import { AuthProvider } from './Contexts/authContext'
 
 function App() {
@@ -61,7 +62,12 @@ function App() {
                 <Router>
                     <AnimatePresence exitBeforeEnter>
                         <Switch>
-                            <Route path="/" exact component={Welcomepage} />
+                            <PrivateRoute
+                                Route
+                                path="/"
+                                exact
+                                component={Welcomepage}
+                            />
                             <Route
                                 path="/homepage"
                                 exact
