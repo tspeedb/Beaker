@@ -101,16 +101,15 @@ const Navbar = () => {
     // }
 
     const [error, setError] = useState('')
-    const { currentUser, logout } = useAuth()
+    const { currentUser, signout } = useAuth()
     const history = useHistory()
 
     async function handleLogout() {
-        setError('')
-
         try {
-            await logout()
-            history.push('./')
+            await signout()
+            history.push('/')
         } catch {
+            console.log('I aint loggin out son')
             setError('Failed to log out')
         }
     }
@@ -240,7 +239,7 @@ const Navbar = () => {
                 </MenuList>
                 <MenuList onClick={handleLogout}>
                     {' '}
-                    <Link to="./">logout </Link>{' '}
+                    <Link to="/homepage"> logout </Link>{' '}
                 </MenuList>
             </Menu>
         </>
