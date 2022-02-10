@@ -268,20 +268,20 @@ function EditProject({ match, projects, setProjects }) {
                     onChange={(event) => {
                         setProjectName(event.target.value)
                     }}
+                    
                 />
                 <div></div>
                 <br></br>
                 <textarea
                     type="text"
-                    className="project-desc "
-                    placeholder={project.description}
-                    onfocus="this.value=''"
-                    value={project.description}
+                    className="project-desc"
+                    placeholder='Project Description'
                     onChange={(event) => {
                         setDesc(event.target.value)
                     }}
-                    
-                />
+                >
+                    {project.description}
+                </textarea>
                 <div></div>
                 <br></br>
                 <form>
