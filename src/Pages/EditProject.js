@@ -9,6 +9,7 @@ import 'firebase/firestore'
 import { db, storage } from '../firebase'
 import { collection, getDocs, addDoc } from 'firebase/firestore'
 import Uploadfile from '../Components/UploadFile'
+import Layout from '../Components/Layout'
 
 function EditProject({ match, projects, setProjects }) {
     const [project, setProject] = useState({})
@@ -26,48 +27,23 @@ function EditProject({ match, projects, setProjects }) {
     const [imageAsUrl, setImageAsUrl] = useState(
         `${process.env.PUBLIC_URL}/projectImages/user.png`
     )
-    const id = match.params.projectId
 
-    useEffect(() => {
-        //send the network request to retrieve data for this project
-        const selected = projects.filter((project) => project.key === id)[0]
-        setProject(selected)
-    }, [id, projects])
-
-    const handleChangePaid = () => {
-        setCheckedPaid(!checkedPaid)
-    }
-
-    const handleChangeFunding = () => {
-        setCheckedFunding(!checkedFunding)
-    }
-
-    const handleChangeInternship = () => {
-        setCheckedIntership(!checkedInternship)
-    }
-
-    console.log(imageAsFile)
-    const handleImageAsFile = (e) => {
-        setImageAsFile(e.target.files[0])
-    }
-
-    function handleUpload(e) {
-        e.preventDefault()
-        const ref = storage.ref(`/Images/${imageAsFile.name}`)
-        const uploadTask = ref.put(imageAsFile)
-        uploadTask.on('state_changed', console.log, console.error, () => {
-            ref.getDownloadURL().then((url) => {
-                setImageAsFile(null)
-                setImageAsUrl(url)
-            })
-        })
-    }
     const projectsCollectionRef = useMemo(() => collection(db, 'projects'), [])
     const getProjects = async () => {
         const data = await getDocs(projectsCollectionRef)
         //loop through documents in collection
         setProjects(data.docs.map((doc) => ({ ...doc.data(), key: doc.id })))
     }
+
+    const id = match.params.projectId
+
+    useEffect(() => {
+        console.log(projects)
+        //send the network request to retrieve data for this project
+        const selected = projects.filter((project) => project.key === id)[0]
+        setProject(selected)
+    }, [id, projects])
+
     //need change
     const editProject = async () => {
         await addDoc(projectsCollectionRef, {
@@ -83,6 +59,36 @@ function EditProject({ match, projects, setProjects }) {
         getProjects()
     }
 
+
+    const handleChangePaid = () => {
+        setCheckedPaid(!checkedPaid)
+    }
+
+    const handleChangeFunding = () => {
+        setCheckedFunding(!checkedFunding)
+    }
+
+    const handleChangeInternship = () => {
+        setCheckedIntership(!checkedInternship)
+    }
+
+    // console.log(imageAsFile)
+    const handleImageAsFile = (e) => {
+        setImageAsFile(e.target.files[0])
+    }
+
+    function handleUpload(e) {
+        e.preventDefault()
+        const ref = storage.ref(`/Images/${imageAsFile.name}`)
+        const uploadTask = ref.put(imageAsFile)
+        uploadTask.on('state_changed', console.log, console.error, () => {
+            ref.getDownloadURL().then((url) => {
+                setImageAsFile(null)
+                setImageAsUrl(url)
+            })
+        })
+    }
+    
     const widget = window.cloudinary.createUploadWidget(
         {
             cloudName: process.env.REACT_APP_CLOUD_NAME,
@@ -226,15 +232,17 @@ function EditProject({ match, projects, setProjects }) {
     ]
 
     return (
+        <Layout>
         <div className="new-profile">
             <div className="left-screen">
                 <h1 className="left-text-info" id="left-text">
                     <br></br> Edit <br></br> Project!
                 </h1>
             </div>
+            {project && (
             <div className="right-screen">
                 <img className="profile-image" src={beaker} alt="logo" />
-                <h1 className="new-user">Edit Project</h1>
+                <h1 className="new-user">Edit the {project.title} Project</h1>
                 <p className="profile">Project Image</p>
 
                 <div>
@@ -246,7 +254,7 @@ function EditProject({ match, projects, setProjects }) {
                             paddingTop: 0,
                         }}
                         alt="profile"
-                        src={imageAsUrl}
+                        src={`${process.env.PUBLIC_URL}/projectImages/${project.image}`}
                         onClick={(e) => openWidget(e, widget)}
                     />
                 </div>
@@ -255,7 +263,8 @@ function EditProject({ match, projects, setProjects }) {
                 <input
                     type="text"
                     className="project-name"
-                    placeholder="hello"
+                    placeholder="Project Title"
+                    value={project.title}
                     onChange={(event) => {
                         setProjectName(event.target.value)
                     }}
@@ -265,10 +274,13 @@ function EditProject({ match, projects, setProjects }) {
                 <textarea
                     type="text"
                     className="project-desc "
-                    placeholder="Project Description"
+                    placeholder={project.description}
+                    onfocus="this.value=''"
+                    value={project.description}
                     onChange={(event) => {
                         setDesc(event.target.value)
                     }}
+                    
                 />
                 <div></div>
                 <br></br>
@@ -400,7 +412,11 @@ function EditProject({ match, projects, setProjects }) {
                     </Link>
                 </div>
             </div>
+             )}
         </div>
+        
+   
+        </Layout>
     )
 }
 
