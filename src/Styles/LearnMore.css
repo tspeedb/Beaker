@@ -13,6 +13,17 @@
     width: 50%;
     display: table-cell;
 }
+.column-right.details {
+    width: 60%;
+    display: table-cell;
+    margin-top: 8rem;
+}
+
+.column-left.details {
+    width: 40%;
+    display: table-cell;
+}
+
 .action-items {
     /* position: absolute; */
     /* bottom: 0; */
