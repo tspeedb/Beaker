@@ -1,12 +1,13 @@
 import 'firebase/firestore'
 import React, { useState, useEffect } from 'react'
 import Layout from '../Components/Layout'
+import studsidebaritems from '../studsidebaritems'
 import Side from '../Components/Side'
 import '../Styles/Sidebar.css'
 
 // SM: If you are not using this commented out code,
 //     it would probably be best to get rid of it to keep the file cleaner
-function Dashboard({ sidebaritems }) {
+function StudentDashboard() {
     // const [projects, setProjects] = useState([])
     // const projectsCollectionRef = collection(db, 'projects')
     // useEffect(() => {
@@ -23,7 +24,7 @@ function Dashboard({ sidebaritems }) {
 
     return (
         <Layout>
-            <Side sidebaritems={sidebaritems}>
+            <Side sidebaritems={studsidebaritems}>
                 <div>
                     <h1
                         id="dash-title"
@@ -36,7 +37,7 @@ function Dashboard({ sidebaritems }) {
                         }}
                     >
                         {' '}
-                        <b> John </b>, welcome to your dashboard{' '}
+                        <b> Jake </b>, welcome to your dashboard{' '}
                     </h1>
                 </div>
             </Side>
@@ -44,4 +45,4 @@ function Dashboard({ sidebaritems }) {
     )
 }
 
-export default Dashboard
+export default StudentDashboard

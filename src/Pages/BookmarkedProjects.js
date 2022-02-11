@@ -8,7 +8,7 @@ import Card from '@material-ui/core/Card'
 import React, { useState, useEffect } from 'react'
 import ProjectCards from '../Components/ProjectCards'
 
-function BookmarkedProjects({ projects }) {
+function BookmarkedProjects({ projects, sidebaritems }) {
     const [bookmarks, setBookmarks] = useState([])
 
     useEffect(() => {
@@ -21,7 +21,7 @@ function BookmarkedProjects({ projects }) {
     }, [projects])
     return (
         <Layout>
-            <Side>
+            <Side sidebaritems={sidebaritems}>
                 <div>
                     <h1
                         style={{
