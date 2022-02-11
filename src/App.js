@@ -27,6 +27,7 @@ import InvitedMembers from './Pages/InvitedMembers'
 import UserProfile from './Pages/UserProfile'
 import CreateProject from './Pages/CreateProject'
 import EditProject from './Pages/EditProject'
+import ProjectDetails from './Pages/FacultyProjectDetails'
 
 function App() {
     // const ref = firebase.firestore().collection('students')
@@ -140,6 +141,13 @@ function App() {
                             exact
                             render={(props) => (
                                 <EditProject {...props} projects={projects} />
+                            )}
+                        />
+                        <Route
+                            path="/projectdetails/:projectId"
+                            exact
+                            render={(props) => (
+                                <ProjectDetails {...props} projects={projects} members={members} />
                             )}
                         />
                         <Route
