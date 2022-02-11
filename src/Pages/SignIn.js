@@ -20,7 +20,7 @@ import { getAuth } from 'firebase/auth'
 import { useAuth } from '../Contexts/authContext'
 import { connectStorageEmulator } from 'firebase/storage'
 
-function SignIn() {
+export default function SignIn() {
     const { signin, currentUser } = useAuth()
     const emailRef = useRef()
     const passwordRef = useRef()
@@ -101,29 +101,29 @@ function SignIn() {
                         <FormControl
                             type="email"
                             inputRef={emailRef}
-                            required
+                            // required
                         />
                         <TextField
                             type="text"
                             className="email-address"
                             placeholder="example@lion.lmu.edu"
                             inputRef={emailRef}
+                            required
                         />
                         <FormLabel>Password</FormLabel>
                         <FormControl
                             type="password"
                             inputRef={passwordRef}
-                            required
+                            // required
                         />
                         <TextField
                             type="text"
                             className="password"
                             placeholder="password"
                             inputRef={passwordRef}
+                            required
                         />
                         <div className="button1">
-                            {/* <Link to="/dashboard">Sign In</Link> */}
-
                             <Button
                                 disabled={loading}
                                 className="w-100"

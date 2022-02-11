@@ -26,6 +26,7 @@ import BookmarkedProjects from './Pages/BookmarkedProjects'
 import InvitedMembers from './Pages/InvitedMembers'
 import UserProfile from './Pages/UserProfile'
 import CreateProject from './Pages/CreateProject'
+import ForgotPassword from './Pages/ForgotPassword'
 import PrivateRoute from './Components/PrivateRoute'
 import { AuthProvider } from './Contexts/authContext'
 
@@ -127,6 +128,11 @@ function App() {
                                 path="/bookmarked"
                                 exact
                                 component={Bookmarked}
+                            />
+                            <Route
+                                path="/forgotPassword"
+                                exact
+                                component={ForgotPassword}
                             />
                             {/* <Route
                         path="/aboutproject"
