@@ -4,6 +4,8 @@ import { db } from './firebase'
 // import firebase from './firebase'
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import studsidebaritems from './studsidebaritems'
+import sidebaritems from './sidebaritems'
 
 import Homepage from './Pages/Homepage'
 import { AnimatePresence } from 'framer-motion/dist/framer-motion'
@@ -21,6 +23,7 @@ import AllMembers from './Pages/AllMembers'
 import AboutProject from './Pages/AboutProject'
 import AboutMember from './Pages/AboutMember'
 import Dashboard from './Pages/Dashboard'
+import StudentDashboard from './Pages/StudentDashboard'
 import BookmarkedMembers from './Pages/BookmarkedMembers'
 import BookmarkedProjects from './Pages/BookmarkedProjects'
 import InvitedMembers from './Pages/InvitedMembers'
@@ -32,6 +35,8 @@ import ProjectDetails from './Pages/FacultyProjectDetails'
 function App() {
     // const ref = firebase.firestore().collection('students')
     // console.log(ref)
+    const [isStudent, setIsStudent] = useState(true)
+
     const [projects, setProjects] = useState([])
     const projectsCollectionRef = useMemo(() => collection(db, 'projects'), [])
     useEffect(() => {
@@ -157,7 +162,24 @@ function App() {
                                 <AboutMember {...props} members={members} />
                             )}
                         />
-                        <Route path="/dashboard" exact component={Dashboard} />
+                        <Route
+                            path="/dashboard"
+                            exact
+                            render={(props) => (
+                                <Dashboard
+                                    sidebaritems={
+                                        isStudent
+                                            ? studsidebaritems
+                                            : sidebaritems
+                                    }
+                                />
+                            )}
+                        />
+                        <Route
+                            path="/studentdashboard"
+                            exact
+                            component={StudentDashboard}
+                        />
                         <Route
                             path="/bookmarkedmembers"
                             exact
@@ -170,6 +192,11 @@ function App() {
                                 <BookmarkedProjects
                                     {...props}
                                     projects={projects}
+                                    sidebaritems={
+                                        isStudent
+                                            ? studsidebaritems
+                                            : sidebaritems
+                                    }
                                 />
                             )}
                         />

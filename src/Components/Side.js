@@ -1,15 +1,15 @@
 import React from 'react'
-
+// import sidebaritems from '../sidebaritems'
 import Sidebar from './Sidebar'
 
-const Layout = ({ children }) => {
+const Side = ({ children, sidebaritems }) => {
     return (
         <>
-            <Sidebar />
+            <Sidebar sidebaritems={sidebaritems} />
 
             <div>{children}</div>
         </>
     )
 }
 
-export default Layout
+export default Side

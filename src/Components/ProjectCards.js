@@ -47,10 +47,8 @@ function ProjectCards({ projects }) {
                                 to={`/aboutproject/${project.key}`}
                             >
                                 <CardItems
+                                    project={project}
                                     // key={project.key}
-                                    title={project.title}
-                                    description={project.description}
-                                    image={project.image}
                                 />
                             </Link>
                         </Grid>

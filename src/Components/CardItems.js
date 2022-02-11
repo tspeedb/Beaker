@@ -11,24 +11,26 @@ import '../Styles/Projectspage.css'
 
 /*passing in properties from Cards*/
 
-function CardItems(props) {
+function CardItems({ project }) {
     return (
         <Card sx={{ maxWidth: 300 }}>
             <CardMedia
                 style={{ paddingTop: 0 }}
                 component="img"
                 height="200"
-                image={`${process.env.PUBLIC_URL}/projectImages/${props.image}`}
-                alt={props.title}
+                image={`${process.env.PUBLIC_URL}/projectImages/${project.image}`}
+                alt={project.title}
             >
                 {/* {props.image} */}
             </CardMedia>
             <CardContent className="content">
-                <Typography id="title-project">{props.title}</Typography>
-                <MonetizationOnIcon
-                    style={{ color: '#107fb7' }}
-                ></MonetizationOnIcon>
-                <Typography id="desc">{props.description}</Typography>
+                <Typography id="title-project">{project.title}</Typography>
+                {project.isPaid && (
+                    <MonetizationOnIcon
+                        style={{ color: '#107fb7' }}
+                    ></MonetizationOnIcon>
+                )}
+                <Typography id="desc">{project.description}</Typography>
             </CardContent>
         </Card>
     )

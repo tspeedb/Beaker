@@ -1,9 +1,9 @@
 import React from 'react'
 import '../Styles/Sidebar.css'
-import sidebaritems from '../sidebaritems'
+// import sidebaritems from '../sidebaritems'
 import { Link } from 'react-router-dom'
 
-const Sidebar = () => {
+const Sidebar = ({ sidebaritems }) => {
     // const activeItem = sidebaritems.findIndex(
     //     (item) => item.route === this.props.location
     // )
