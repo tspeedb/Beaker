@@ -1,4 +1,4 @@
-const sidebaritems = [
+const studsidebaritems = [
     {
         display_name: 'Invitations',
         route: './invitations',
@@ -9,11 +9,11 @@ const sidebaritems = [
         route: './bookmarkedprojects',
         cName: 'side-text',
     },
-    {
-        display_name: 'Invited Members',
-        route: './invitedmembers',
-        cName: 'side-text',
-    },
+    // {
+    //     display_name: 'Invited Members',
+    //     route: './invitedmembers',
+    //     cName: 'side-text',
+    // },
 ]
 
-export default sidebaritems
+export default studsidebaritems

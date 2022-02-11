@@ -6,6 +6,7 @@ import CardMedia from '@mui/material/CardMedia'
 // import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn'
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 // import { makeStyles } from '@material-ui/styles'
 import '../Styles/Projectspage.css'
 
@@ -30,6 +31,7 @@ function CardItems({ project }) {
                         style={{ color: '#107fb7' }}
                     ></MonetizationOnIcon>
                 )}
+                {project.year && <KeyboardArrowUpIcon></KeyboardArrowUpIcon>}
                 <Typography id="desc">{project.description}</Typography>
             </CardContent>
         </Card>

@@ -31,6 +31,7 @@ import UserProfile from './Pages/UserProfile'
 import CreateProject from './Pages/CreateProject'
 import EditProject from './Pages/EditProject'
 import ProjectDetails from './Pages/FacultyProjectDetails'
+import Invitations from './Pages/Invitations'
 
 function App() {
     // const ref = firebase.firestore().collection('students')
@@ -152,7 +153,11 @@ function App() {
                             path="/projectdetails/:projectId"
                             exact
                             render={(props) => (
-                                <ProjectDetails {...props} projects={projects} members={members} />
+                                <ProjectDetails
+                                    {...props}
+                                    projects={projects}
+                                    members={members}
+                                />
                             )}
                         />
                         <Route
@@ -178,12 +183,25 @@ function App() {
                         <Route
                             path="/studentdashboard"
                             exact
-                            component={StudentDashboard}
+                            render={(props) => (
+                                <StudentDashboard
+                                    sidebaritems={
+                                        isStudent
+                                            ? studsidebaritems
+                                            : sidebaritems
+                                    }
+                                />
+                            )}
                         />
                         <Route
                             path="/bookmarkedmembers"
                             exact
                             component={BookmarkedMembers}
+                        />
+                        <Route
+                            path="/invitations"
+                            exact
+                            component={Invitations}
                         />
                         <Route
                             path="/bookmarkedprojects"

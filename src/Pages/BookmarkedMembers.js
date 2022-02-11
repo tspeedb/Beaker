@@ -1,5 +1,6 @@
 import Layout from '../Components/Layout'
 import Side from '../Components/Side'
+import sidebaritems from '../sidebaritems'
 
 import { ListItemButton, ListItemText, Grid } from '@mui/material'
 import Card from '@material-ui/core/Card'
@@ -29,7 +30,7 @@ const useStyles = makeStyles({
 function BookmarkedMembers() {
     return (
         <Layout>
-            <Side>
+            <Side sidebaritems={sidebaritems}>
                 <div>
                     <h1
                         style={{

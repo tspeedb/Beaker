@@ -1,5 +1,10 @@
 const sidebaritems = [
     {
+        display_name: 'All My Projects',
+        route: './allownedprojects',
+        cName: 'side-text',
+    },
+    {
         display_name: 'Bookmarked Members',
         route: './bookmarkedmembers',
         cName: 'side-text',
