@@ -10,6 +10,7 @@ import { db, storage } from '../firebase'
 import { collection, getDocs, addDoc } from 'firebase/firestore'
 import Uploadfile from '../Components/UploadFile'
 import Layout from '../Components/Layout'
+import ManageMembers from '../Components/ManageMembers'
 
 function EditProject({ match, projects, setProjects }) {
     const [project, setProject] = useState({})
@@ -238,6 +239,7 @@ function EditProject({ match, projects, setProjects }) {
                 <h1 className="left-text-info" id="left-text">
                     <br></br> Edit <br></br> Project!
                 </h1>
+            {/* <ManageMembers/> */}
             </div>
             {project && (
             <div className="right-screen">

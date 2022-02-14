@@ -35,7 +35,9 @@ export default function ManageMembers() {
   };
 
   return (
-    <div className='memberslist'>
+    <div style={{
+        paddingLeft: 100,
+    }} className='memberslist' >
     <List
       sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
       component="nav"
@@ -60,15 +62,15 @@ export default function ManageMembers() {
             return (
             <ListItem
                 key={value}
-                secondaryAction={
-                <Checkbox
-                    edge="end"
-                    onChange={handleToggle(value)}
-                    checked={checked.indexOf(value) !== -1}
-                    inputProps={{ 'aria-labelledby': labelId }}
-                />
-                }
-                disablePadding
+                //secondaryAction={
+                // <Checkbox
+                //     edge="end"
+                //     onChange={handleToggle(value)}
+                //     checked={checked.indexOf(value) !== -1}
+                //     inputProps={{ 'aria-labelledby': labelId }}
+                // />
+                //}
+                //disablePadding
             >
                 <ListItemButton>
                 <ListItemAvatar>
@@ -98,15 +100,15 @@ export default function ManageMembers() {
             return (
             <ListItem
                 key={value}
-                secondaryAction={
-                <Checkbox
-                    edge="end"
-                    onChange={handleToggle(value)}
-                    checked={checked.indexOf(value) !== -1}
-                    inputProps={{ 'aria-labelledby': labelId }}
-                />
-                }
-                disablePadding
+                // secondaryAction={
+                // <Checkbox
+                //     edge="end"
+                //     onChange={handleToggle(value)}
+                //     checked={checked.indexOf(value) !== -1}
+                //     inputProps={{ 'aria-labelledby': labelId }}
+                // />
+                // }
+                // disablePadding
             >
                 <ListItemButton>
                 <ListItemAvatar>
