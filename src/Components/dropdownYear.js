@@ -2,29 +2,30 @@ import * as React from 'react'
 import '../Styles/dropdownYear.css'
 
 class dropdownYear extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = { value: 'Year' }
+    // constructor(props) {
+    //     super(props)
+    //     this.state = { value: 'Year' }
 
-        this.handleChange = this.handleChange.bind(this)
-        this.handleSubmit = this.handleSubmit.bind(this)
-    }
+    //     this.handleChange = this.handleChange.bind(this)
+    //     this.handleSubmit = this.handleSubmit.bind(this)
+    // }
 
-    handleChange(event) {
-        this.setState({ value: event.target.value })
-    }
+    // handleChange(event) {
+    //     this.setState({ value: event.target.value })
+    // }
 
-    handleSubmit(event) {
-        event.preventDefault()
-    }
+    // handleSubmit(event) {
+    //     event.preventDefault()
+    // }
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
+            <form>
+                {/* onSubmit={this.handleSubmit} in forms tag */}
                 <label>
                     <select
-                        value={this.state.value}
-                        onChange={this.handleChange}
+                    // value={this.state.value}
+                    // onChange={this.handleChange}
                     >
                         <option value="default">Year</option>
                         <option value="freshman">Freshman</option>

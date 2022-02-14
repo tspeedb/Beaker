@@ -7,6 +7,7 @@ import { ListItemButton, ListItemText, Grid } from '@mui/material'
 import Card from '@material-ui/core/Card'
 import React, { useState, useEffect } from 'react'
 import ProjectCards from '../Components/ProjectCards'
+import sidebaritems from '../sidebaritems'
 
 function BookmarkedProjects({ projects, sidebaritems }) {
     const [bookmarks, setBookmarks] = useState([])
@@ -34,7 +35,7 @@ function BookmarkedProjects({ projects, sidebaritems }) {
                         }}
                     >
                         {' '}
-                        bookmarked projects{' '}
+                        Bookmarked Projects{' '}
                     </h1>
                     <ProjectCards projects={bookmarks} />
                 </div>

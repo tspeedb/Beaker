@@ -1,12 +1,11 @@
 import Layout from '../Components/Layout'
 import Side from '../Components/Side'
-import sidebaritems from '../sidebaritems'
-import AllMembersCards from '../Components/AllMembersCards'
+import studsidebaritems from '../studsidebaritems'
 
-function InvitedMembers() {
+function Invitations() {
     return (
         <Layout>
-            <Side sidebaritems={sidebaritems}>
+            <Side sidebaritems={studsidebaritems}>
                 <div>
                     <h1
                         style={{
@@ -18,7 +17,7 @@ function InvitedMembers() {
                         }}
                     >
                         {' '}
-                        invited members{' '}
+                        Invitations{' '}
                     </h1>
                 </div>
             </Side>
@@ -26,4 +25,4 @@ function InvitedMembers() {
     )
 }
 
-export default InvitedMembers
+export default Invitations

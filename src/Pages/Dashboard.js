@@ -7,6 +7,7 @@ import '../Styles/Sidebar.css'
 // SM: If you are not using this commented out code,
 //     it would probably be best to get rid of it to keep the file cleaner
 function Dashboard({ sidebaritems }) {
+    const [isStudent, setIsStudent] = useState(true)
     // const [projects, setProjects] = useState([])
     // const projectsCollectionRef = collection(db, 'projects')
     // useEffect(() => {
