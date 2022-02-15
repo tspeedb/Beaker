@@ -268,7 +268,6 @@ function CreateProject({ setProjects }) {
                         style={{
                             width: 250,
                             height: 250,
-
                             paddingTop: 0,
                         }}
                         alt="profile"

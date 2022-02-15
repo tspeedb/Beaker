@@ -7,7 +7,7 @@ import beaker from '../Images/blackLinedBeakerBgRemoved.png'
 import { Link } from 'react-router-dom'
 import 'firebase/firestore'
 import { db, storage } from '../firebase'
-import { collection, getDocs, addDoc } from 'firebase/firestore'
+import { collection, getDocs, updateDoc } from 'firebase/firestore'
 import Uploadfile from '../Components/UploadFile'
 import Layout from '../Components/Layout'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
@@ -48,7 +48,7 @@ function EditProject({ match, projects, setProjects }) {
 
     //need change
     const editProject = async () => {
-        await addDoc(projectsCollectionRef, {
+        await updateDoc(projectsCollectionRef, {
             project: projectName,
             desc: desc,
             members: memberAmount,
@@ -236,11 +236,10 @@ function EditProject({ match, projects, setProjects }) {
     return (
         <Layout>
         <div className="new-profile">
-            <div className="left-screen">
-                <h1 className="left-text-info" id="left-text">
+            <div className="left-screen edit">
+                <h1 className="left-text-info edit" id="left-text">
                     <br></br> Edit <br></br> Project!
                 </h1>
-            {/* <ManageMembers/> */}
             </div>
             {project && (
             <div className="right-screen">
@@ -248,16 +247,17 @@ function EditProject({ match, projects, setProjects }) {
                     <ArrowBackIosIcon></ArrowBackIosIcon>
                 </Link>
                 <img className="profile-image" src={beaker} alt="logo" />
-                <h1 className="new-user">Edit the {project.title} Project</h1>
-                <p className="profile">Project Image</p>
+                <h1 className="new-user" style={{ fontSize: '30px' }}>Edit the {project.title} Project</h1>
+                <p className="profile" style={{ paddingBottom: '5px' }}>Project Image</p>
 
                 <div>
                     <img
                         style={{
                             width: 250,
                             height: 250,
-
-                            paddingTop: 0,
+                            paddingTop: '10px',
+                            borderRadius: '5px',
+                            textShadow: '2px 2px 5px',
                         }}
                         alt="profile"
                         src={`${process.env.PUBLIC_URL}/projectImages/${project.image}`}
@@ -294,7 +294,12 @@ function EditProject({ match, projects, setProjects }) {
                     <label className="members-needed">
                         Number of Members Needed:
                     </label>
-                    <select>
+                    <select
+                        className="members-dropdown"
+                        onChange={(event) => {
+                            setMemAmount(event.target.value)
+                        }}
+                    >
                         <option value="one">1</option>
                         <option value="two">2</option>
                         <option value="three">3</option>
@@ -304,21 +309,17 @@ function EditProject({ match, projects, setProjects }) {
                         <option value="seven">7</option>
                         <option value="eight">8</option>
                         <option value="nine">9</option>
-                        <option value="ten">10</option>
+                        <option value="ten">10+</option>
                     </select>
                 </form>
-                {/* <input
-                    type="text"
-                    className="member-amount "
-                    placeholder="Number of Members Needed"
-                    onChange={(event) => {
-                        setMemAmount(event.target.value)
-                    }}
-                /> */}
                 <div></div>
                 <br></br>
-                <label className="project-major">Preferred Majors:</label>
-                <Select isMulti name="neededMajors" options={majorOptions} />
+                <Select
+                    isMulti
+                    className="preferred-majors-options"
+                    placeholder="Preferred Majors"
+                    options={majorOptions}
+                />
                 {/* <input
                     type="text"
                     className="project-major "
@@ -329,12 +330,10 @@ function EditProject({ match, projects, setProjects }) {
                 /> */}
                 <div></div>
                 <br></br>
-                <div>
-                    <label className="preferred-years">Preferred Years:</label>
-                </div>
                 <Select
                     isMulti
                     className="preferred-years-options"
+                    placeholder="Preferred Years"
                     options={yearOptions}
                 />
                 {/* <input
@@ -361,48 +360,53 @@ function EditProject({ match, projects, setProjects }) {
                     <label className="project-timeline">
                         Project Timeline:
                     </label>
-                    <select>
+                    <select
+                        className="timeline-dropdown"
+                        onChange={(event) => {
+                            setTimeline(event.target.value)
+                        }}
+                    >
                         <option value="timeline default"></option>
-                        <option value="one semester">One Semester</option>
-                        <option value="one year">One Year</option>
-                        <option value="two years">Two Years</option>
-                        <option value="three years">Three Years</option>
-                        <option value="four years">Four Years</option>
+                        <option value="one semester">1 Semester</option>
+                        <option value="one year">1 Year</option>
+                        <option value="two years">2 Years</option>
+                        <option value="three years">3 Years</option>
+                        <option value="four years">4 Years+</option>
                     </select>
                 </form>
-                {/* <input
-                    type="text"
-                    className="project-timeline "
-                    placeholder="Project Timeline (Ex: 2 Years)"
-                    onChange={(event) => {
-                        setTimeline(event.target.value)
-                    }}
-                /> */}
                 <div></div>
                 <br></br>
-                <input
-                    className="paid-checkbox"
-                    type="checkbox"
-                    checked={checkedPaid}
-                    onChange={handleChangePaid}
-                />
-                <label className="paid-label">Paid</label>
+                <div className="paid-labeled-checkbox">
+                    <label className="paid-label">
+                        <input
+                            className="paid-checkbox"
+                            type="checkbox"
+                            checked={checkedPaid}
+                            onChange={handleChangePaid}
+                        />
+                        Paid
+                    </label>
+                </div>
                 <div></div>
-                <input
-                    className="funding-checkbox"
-                    type="checkbox"
-                    checked={checkedFunding}
-                    onChange={handleChangeFunding}
-                />
-                <label className="funding-label">Funding Available</label>
+                <label className="funding-label">
+                    <input
+                        className="funding-checkbox"
+                        type="checkbox"
+                        checked={checkedFunding}
+                        onChange={handleChangeFunding}
+                    />
+                    Funding Available
+                </label>
                 <div></div>
-                <input
-                    className="internship-checkbox"
-                    type="checkbox"
-                    checked={checkedInternship}
-                    onChange={handleChangeInternship}
-                />
-                <label className="internship-label">Internship Credit</label>
+                <label className="internship-label">
+                    <input
+                        className="internship-checkbox"
+                        type="checkbox"
+                        checked={checkedInternship}
+                        onChange={handleChangeInternship}
+                    />
+                    Internship Credit
+                </label>
                 <div></div>
                 <br></br>
                 <div className="create-proj">
