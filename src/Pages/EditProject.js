@@ -10,6 +10,7 @@ import { db, storage } from '../firebase'
 import { collection, getDocs, addDoc } from 'firebase/firestore'
 import Uploadfile from '../Components/UploadFile'
 import Layout from '../Components/Layout'
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import ManageMembers from '../Components/ManageMembers'
 
 function EditProject({ match, projects, setProjects }) {
@@ -243,6 +244,9 @@ function EditProject({ match, projects, setProjects }) {
             </div>
             {project && (
             <div className="right-screen">
+                <Link to={`/projectdetails/${id}`}>
+                    <ArrowBackIosIcon></ArrowBackIosIcon>
+                </Link>
                 <img className="profile-image" src={beaker} alt="logo" />
                 <h1 className="new-user">Edit the {project.title} Project</h1>
                 <p className="profile">Project Image</p>

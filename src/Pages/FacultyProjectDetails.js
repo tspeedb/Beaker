@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom'
 import Grid from '@mui/material/Grid'
 import TelegramIcon from '@mui/icons-material/Telegram'
 import Button from '@mui/material/Button'
+import EditIcon from '@mui/icons-material/Edit';
 
 import Layout from '../Components/Layout'
 import ManageMembers from '../Components/ManageMembers'
@@ -26,7 +27,7 @@ function ProjectDetails({ match, projects, members }) {
     }, [id, projects])
 
     const checkIncentives = (project) => {
-        if (project.isPaid) return <h2>"Paid"</h2>
+        if (project.isPaid) console.log("is Paid")
     }
 
     return (
@@ -35,6 +36,9 @@ function ProjectDetails({ match, projects, members }) {
                 <div style={{ margin: '20px' }}>
                     <Link to="/projectspage">
                         <ArrowBackIosIcon></ArrowBackIosIcon>
+                    </Link>
+                    <Link to={`/editproject/${id}`}>
+                        <EditIcon></EditIcon>
                     </Link>
                 </div>
                 {project && (
@@ -47,8 +51,9 @@ function ProjectDetails({ match, projects, members }) {
                                 style={{
                                     width: 400,
                                     height: 400,
-                                    paddingBottom: '20px',
                                     paddingTop: '0%',
+                                    borderRadius: '5px',
+                                    textShadow: '2px 2px 5px',
                                 }}
                             />{' '}
                             <ManageMembers/>
@@ -57,38 +62,38 @@ function ProjectDetails({ match, projects, members }) {
                             <div style={{ fontSize: '50px' }}>
                                 {project.title}
                             </div>
-                            <div style={{ fontSize: '15px', maxWidth: '600px' }}>
+                            <div style={{ fontSize: '15px', maxWidth: '600px', paddingTop: '5px' }}>
                                 {project.description}
                             </div>
                             <div style={{ fontSize: '40px', paddingTop: '5%' }}>
                                 Requested Major(s)
                             </div>
-                            <div style={{ fontSize: '15px', maxWidth: '600px' }}>
+                            <div style={{ fontSize: '15px', maxWidth: '600px', paddingTop: '5px' }}>
                                 {project.description}
                             </div>
                             <div style={{ fontSize: '40px', paddingTop: '5%' }}>
                                 Preferred Years
                             </div>
-                            <div style={{ fontSize: '15px', maxWidth: '600px' }}>
+                            <div style={{ fontSize: '15px', maxWidth: '600px', paddingTop: '5px' }}>
                                 <Button variant="contained" size="small">{project.year}</Button>
                             </div>
                             <div style={{ fontSize: '40px', paddingTop: '5%' }}>
                                 Soft Skills
                             </div>
-                            <div style={{ fontSize: '15px', maxWidth: '600px' }}>
+                            <div style={{ fontSize: '15px', maxWidth: '600px', paddingTop: '5px' }}>
                                 Some placeholder soft skills.
                             </div>
                             <div style={{ fontSize: '40px', paddingTop: '5%' }}>
                                 Project Timeline
                             </div>
-                            <div style={{ fontSize: '15px', maxWidth: '600px' }}>
+                            <div style={{ fontSize: '15px', maxWidth: '600px', paddingTop: '5px' }}>
                                 Some placeholder timeline.
                             </div>
                             <div style={{ fontSize: '40px', paddingTop: '5%' }}>
                                 Incentives
                             </div>
-                            <div style={{ fontSize: '15px', maxWidth: '600px' }}>
-                                {checkIncentives(project)}
+                            <div style={{ fontSize: '15px', maxWidth: '600px', paddingTop: '5px' }}>
+                                Hello {checkIncentives(project)}
                             </div>
                         </div>
                     </div>
