@@ -6,6 +6,7 @@ image:hover {
 }
 .content {
     padding: 0;
+    flex: '1 0 auto';
 }
 #title-project {
     font-size: 20px;

@@ -10,7 +10,7 @@ import '../Styles/Projectspage.css'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import Button from '@mui/material/Button'
 // import { collection, query, where, getDocs, doc } from 'firebase/firestore'
-
+import ProjectTable from '../Components/ProjectsTable'
 import 'firebase/firestore'
 import { keyframes } from '@mui/styled-engine'
 import { Add } from '@mui/icons-material'
@@ -73,7 +73,7 @@ function Projectspage({ projects }) {
             </div>
 
             <div>
-                <Typography className={classes.title}>
+                {/* <Typography className={classes.title}>
                     Based on your profile <br></br>{' '}
                     <Link
                         style={{
@@ -87,11 +87,8 @@ function Projectspage({ projects }) {
                         {' '}
                         See more{' '}
                     </Link>
-                </Typography>
-                <ProjectCards projects={profiles} />
-            </div>
-            <div>
-                <Typography className={classes.title}>
+                </Typography> */}
+                {/* <Typography className={classes.title}>
                     Browse projects <br></br>{' '}
                     <Link
                         style={{
@@ -105,8 +102,11 @@ function Projectspage({ projects }) {
                         {' '}
                         See more{' '}
                     </Link>
-                </Typography>
-                <ProjectCards projects={browse} />
+                </Typography> */}
+                {/* <ProjectCards projects={profiles} /> */}
+
+                {/* <ProjectCards projects={browse} /> */}
+                {<ProjectTable projects={browse} />}
             </div>
         </Layout>
     )
