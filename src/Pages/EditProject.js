@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import Select from 'react-select'
-import { makeStyles } from '@material-ui/core/styles'
 import '../Styles/Profile.css'
 import Button from '@mui/material/Button'
 import beaker from '../Images/blackLinedBeakerBgRemoved.png'
@@ -12,6 +11,7 @@ import Uploadfile from '../Components/UploadFile'
 import Layout from '../Components/Layout'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import ManageMembers from '../Components/ManageMembers'
+import Box from '@material-ui/core/Box';
 
 function EditProject({ match, projects, setProjects }) {
     const [project, setProject] = useState({})
@@ -243,9 +243,11 @@ function EditProject({ match, projects, setProjects }) {
             </div>
             {project && (
             <div className="right-screen">
+                <Box display='flex' flexGrow={1} >
                 <Link to={`/projectdetails/${id}`}>
-                    <ArrowBackIosIcon></ArrowBackIosIcon>
+                    <ArrowBackIosIcon style={{ color: 'black', paddingTop: '10', paddingLeft: '10' }}></ArrowBackIosIcon>
                 </Link>
+                </Box>
                 <img className="profile-image" src={beaker} alt="logo" />
                 <h1 className="new-user" style={{ fontSize: '30px' }}>Edit the {project.title} Project</h1>
                 <p className="profile" style={{ paddingBottom: '5px' }}>Project Image</p>

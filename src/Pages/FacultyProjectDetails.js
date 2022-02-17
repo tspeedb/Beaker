@@ -9,6 +9,7 @@ import Grid from '@mui/material/Grid'
 import TelegramIcon from '@mui/icons-material/Telegram'
 import Button from '@mui/material/Button'
 import EditIcon from '@mui/icons-material/Edit';
+import Box from '@material-ui/core/Box';
 
 import Layout from '../Components/Layout'
 import ManageMembers from '../Components/ManageMembers'
@@ -34,11 +35,13 @@ function ProjectDetails({ match, projects, members }) {
         <Layout>
             <div>
                 <div style={{ margin: '20px' }}>
-                    <Link to="/projectspage">
-                        <ArrowBackIosIcon></ArrowBackIosIcon>
-                    </Link>
+                    <Box display='flex' flexGrow={1} >
+                        <Link to="/projectspage">
+                                <ArrowBackIosIcon style={{ color: 'black', paddingLeft: '10'}}></ArrowBackIosIcon>
+                        </Link>
+                    </Box>
                     <Link to={`/editproject/${id}`}>
-                        <EditIcon></EditIcon>
+                        <EditIcon style={{ color: 'black', marginRight: 'auto'}}></EditIcon>
                     </Link>
                 </div>
                 {project && (
