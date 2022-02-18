@@ -5,7 +5,7 @@ export default function ManageMembers() {
 
   return (
     <div style={{
-        paddingLeft: 10, 
+        paddingLeft: 5, 
         paddingTop: 10
     }} className='memberslist' >
         <ManageDropdown group="Members"/>

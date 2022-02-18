@@ -1,19 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import '../Styles/LearnMore.css'
-import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
-import FavoriteIcon from '@mui/icons-material/Favorite'
-import HighlightOffIcon from '@mui/icons-material/HighlightOff'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import { Link } from 'react-router-dom'
-import Grid from '@mui/material/Grid'
-import TelegramIcon from '@mui/icons-material/Telegram'
 import Button from '@mui/material/Button'
 import EditIcon from '@mui/icons-material/Edit';
 import Box from '@material-ui/core/Box';
 
 import Layout from '../Components/Layout'
 import ManageMembers from '../Components/ManageMembers'
-import { IconButton } from '@mui/material'
 //import { Icon } from '@mui/material'
 
 function ProjectDetails({ match, projects, members }) {
@@ -28,7 +22,27 @@ function ProjectDetails({ match, projects, members }) {
     }, [id, projects])
 
     const checkIncentives = (project) => {
-        if (project.isPaid) console.log("is Paid")
+        let comp = ""
+        if (!project.isPaid) comp += "Not Paid \n"
+        return comp;
+    }
+
+    function incentiveComp(project) {
+        let comp = checkIncentives(project)
+        let heading = ""
+        if (comp.length != 0) {
+            heading = 'Incentives'
+            return ( 
+                <div>
+                    <div style={{ fontSize: '40px', paddingTop: '5%' }}>
+                            {heading}
+                    </div>
+                    <div style={{ fontSize: '15px', maxWidth: '600px', paddingTop: '5px', paddingBottom: '5%' }}>
+                        {checkIncentives(project)}
+                    </div>
+                </div>
+            );
+        }
     }
 
     return (
@@ -39,10 +53,11 @@ function ProjectDetails({ match, projects, members }) {
                         <Link to="/projectspage">
                                 <ArrowBackIosIcon style={{ color: 'black', paddingLeft: '10'}}></ArrowBackIosIcon>
                         </Link>
+                        <Link to={`/editproject/${id}`}>
+                            <EditIcon style={{ color: 'black', marginRight: 'auto'}}></EditIcon>
+                        </Link>
                     </Box>
-                    <Link to={`/editproject/${id}`}>
-                        <EditIcon style={{ color: 'black', marginRight: 'auto'}}></EditIcon>
-                    </Link>
+                    
                 </div>
                 {project && (
                     <div className="about-container">
@@ -90,14 +105,9 @@ function ProjectDetails({ match, projects, members }) {
                                 Project Timeline
                             </div>
                             <div style={{ fontSize: '15px', maxWidth: '600px', paddingTop: '5px' }}>
-                                Some placeholder timeline.
+                                1 Semester
                             </div>
-                            <div style={{ fontSize: '40px', paddingTop: '5%' }}>
-                                Incentives
-                            </div>
-                            <div style={{ fontSize: '15px', maxWidth: '600px', paddingTop: '5px' }}>
-                                Hello {checkIncentives(project)}
-                            </div>
+                            { incentiveComp(project) }
                         </div>
                     </div>
                 )}

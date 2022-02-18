@@ -7,11 +7,11 @@ import { Link } from 'react-router-dom'
 import 'firebase/firestore'
 import { db, storage } from '../firebase'
 import { collection, getDocs, updateDoc } from 'firebase/firestore'
-import Uploadfile from '../Components/UploadFile'
 import Layout from '../Components/Layout'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import ManageMembers from '../Components/ManageMembers'
 import Box from '@material-ui/core/Box';
+import Uploadfile from '../Components/UploadFile'
 
 function EditProject({ match, projects, setProjects }) {
     const [project, setProject] = useState({})
@@ -74,7 +74,7 @@ function EditProject({ match, projects, setProjects }) {
         setCheckedIntership(!checkedInternship)
     }
 
-    // console.log(imageAsFile)
+    console.log(imageAsFile)
     const handleImageAsFile = (e) => {
         setImageAsFile(e.target.files[0])
     }
@@ -412,6 +412,15 @@ function EditProject({ match, projects, setProjects }) {
                 <div></div>
                 <br></br>
                 <div className="create-proj">
+                    <Link className="button-link" to={`/projectdetails/${id}`}>
+                        <Button
+                            className="post-proj-btn1"
+                            size="large"
+                            color='warning'
+                        >
+                            Cancel
+                        </Button>
+                    </Link>
                     <Link className="button-link" to="/projectspage">
                         <Button
                             className="post-proj-btn1"
@@ -421,7 +430,7 @@ function EditProject({ match, projects, setProjects }) {
                         >
                             Save
                         </Button>
-                    </Link>
+                    </Link>                    
                 </div>
             </div>
              )}
