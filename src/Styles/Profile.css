@@ -87,36 +87,25 @@ h1 {
 
 .year-dropdown {
     height: 50px;
-    width: 260px;
-    text-indent: 10px;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
     font-size: medium;
 }
 
 .major-dropdown {
     height: 50px;
-    width: 260px;
-    text-indent: 10px;
-    font-size: medium;
-}
-
-.major-two-dropdown {
-    height: 50px;
-    width: 260px;
-    text-indent: 10px;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
     font-size: medium;
 }
 
 .minor-dropdown {
     height: 50px;
-    width: 260px;
-    text-indent: 10px;
-    font-size: medium;
-}
-
-.minor-two-dropdown {
-    height: 50px;
-    width: 260px;
-    text-indent: 10px;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
     font-size: medium;
 }
 
@@ -162,6 +151,11 @@ h1 {
     align-items: center;
 }
 
+.post-proj-btn1 {
+    height: 60px;
+    width: 150px;
+}
+
 .skills {
     font-size: medium;
 }
@@ -176,9 +170,12 @@ h1 {
 }
 
 .members-dropdown {
-    height: 25px;
-    width: 50px;
+    height: 50px;
+    width: 100%;
     font-size: medium;
+    text-align: center;
+    font-size: x-large;
+    color: gray;
 }
 
 .project-majors {
@@ -210,24 +207,30 @@ h1 {
 }
 
 .timeline-dropdown {
-    height: 25px;
-    width: 125px;
+    height: 50px;
+    width: 100%;
     font-size: medium;
+    text-align: center;
+    font-size: x-large;
+    color: gray;
+}
+
+.check-boxes {
+    margin-left: 25%;
+    margin-top: 3%;
+    text-align: left;
 }
 
 .paid-label {
     font-size: x-large;
-    margin-right: 40%;
 }
 
 .funding-label {
     font-size: x-large;
-    margin-right: 18.25%;
 }
 
 .internship-label {
     font-size: x-large;
-    margin-right: 20%;
 }
 
 .paid-checkbox {
