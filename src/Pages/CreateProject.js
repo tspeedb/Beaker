@@ -1,7 +1,4 @@
 import React, { useState, useEffect, useMemo } from 'react'
-import Select from 'react-select'
-// import 'bootstrap/dist/css/bootstrap.min.css'
-import { makeStyles } from '@material-ui/core/styles'
 import '../Styles/Profile.css'
 import Button from '@mui/material/Button'
 import beaker from '../Images/blackLinedBeakerBgRemoved.png'
@@ -10,34 +7,17 @@ import 'firebase/firestore'
 import { db, storage } from '../firebase'
 import { collection, getDocs, addDoc } from 'firebase/firestore'
 import Uploadfile from '../Components/UploadFile'
-
-// const useStyles = makeStyles((theme) => ({
-//     yearDropdown: {
-//         color: 'grey',
-//         textTransform: 'lowercase',
-//         fontSize: '18px',
-//         justifyContent: 'end',
-//     },
-//     majorDropdown: {
-//         color: 'grey',
-//         textTransform: 'lowercase',
-//         fontSize: '18px',
-//         justifyContent: 'end',
-//     },
-//     minorDropdown: {
-//         color: 'grey',
-//         textTransform: 'lowercase',
-//         fontSize: '18px',
-//         justifyContent: 'end',
-//     },
-// }))
+import InputLabel from '@mui/material/InputLabel'
+import MenuItem from '@mui/material/MenuItem'
+import FormControl from '@mui/material/FormControl'
+import Select from '@mui/material/Select'
 
 function CreateProject({ setProjects }) {
     const [projectName, setProjectName] = useState('')
     const [desc, setDesc] = useState('')
     const [memberAmount, setMemAmount] = useState('')
-    const [reqMajor, setReqMajor] = useState('')
-    const [reqYear, setReqYear] = useState('')
+    const [reqMajor, setReqMajor] = useState([])
+    const [reqYear, setReqYear] = useState([])
     const [softskills, setSoftSkills] = useState('')
     const [timeline, setTimeline] = useState('')
     const [checkedPaid, setCheckedPaid] = useState(false)
@@ -47,6 +27,28 @@ function CreateProject({ setProjects }) {
     const [imageAsUrl, setImageAsUrl] = useState(
         `${process.env.PUBLIC_URL}/projectImages/user.png`
     )
+
+    const handleChangeMemAmt = (event) => {
+        setMemAmount(event.target.value)
+    }
+
+    const handleChangeMajor = (event) => {
+        const {
+            target: { value },
+        } = event
+        setReqMajor(typeof value === 'string' ? value.split(',') : value)
+    }
+
+    const handleChangeYear = (event) => {
+        const {
+            target: { value },
+        } = event
+        setReqYear(typeof value === 'string' ? value.split(',') : value)
+    }
+
+    const handleChangeTimeline = (event) => {
+        setTimeline(event.target.value)
+    }
 
     const handleChangePaid = () => {
         setCheckedPaid(!checkedPaid)
@@ -91,6 +93,9 @@ function CreateProject({ setProjects }) {
             year: reqYear,
             softskills: softskills,
             timeline: timeline,
+            paid: checkedPaid,
+            funding: checkedFunding,
+            internship: checkedInternship,
             image: imageAsUrl,
         })
 
@@ -129,126 +134,91 @@ function CreateProject({ setProjects }) {
         widget.open()
     }
 
-    const majorOptions = [
-        { value: 'Accounting', label: 'Accounting (ACCT)' },
-        {
-            value: 'African American Studies',
-            label: 'African American Studies (AFAM)',
-        },
-        { value: 'Animation', label: 'Animation (ANIM)' },
-        { value: 'Applied Mathematics', label: 'Applied Mathematics' },
+    const memberAmtOptions = [
+        '1',
+        '2',
+        '3',
+        '4',
+        '5',
+        '6',
+        '7',
+        '8',
+        '9',
+        '10+',
+    ]
 
-        { value: 'Applied Physics', label: 'Applied Physics' },
-        {
-            value: 'Art History',
-            label: 'Art History (ARHS)',
-        },
-        {
-            value: 'Asian and Pacific Studies',
-            label: 'Asian and Pacific Studies (ASPA)',
-        },
-        { value: 'Biochemistry', label: 'Biochemistry' },
-        { value: 'Bioethics', label: 'Bioethics (BIOE)' },
-        { value: 'Bioethics', label: 'Bioethics (BIOE)' },
-        { value: 'Biology ', label: 'Biology (BIOL)' },
-        {
-            value: 'Business Administration',
-            label: 'Business Administration (BADM)',
-        },
-        { value: 'Chemistry', label: 'Chemistry (CHEM)' },
-        {
-            value: 'Chicana/o and Latina/o Studies',
-            label: 'Chicana/o and Latina/o Studies (CLST)',
-        },
-        { value: 'Civil Engineering', label: 'Civil Engineering (CIVL)' },
-        {
-            value: 'Classics and Archaeology',
-            label: 'Classics and Archaeology (CLAR)',
-        },
-        {
-            value: 'Communication Studies',
-            label: 'Communication Studies (CMST)',
-        },
-        { value: 'Computer Science', label: 'Computer Science (CMSI)' },
-        { value: 'Dance', label: 'Dance (DANC)' },
-        { value: 'Economics', label: 'Economics (ECON)' },
-        {
-            value: 'Electrical Engineering',
-            label: 'Electrical Engineering (EECE)',
-        },
-        { value: 'English', label: 'English (ENGL)' },
-        { value: 'Entrepreneurship', label: 'Entrepreneurship (ENTR)' },
-        {
-            value: 'Environmental Science',
-            label: 'Environmental Science (ENVS)',
-        },
-        {
-            value: 'Environmental Studies',
-            label: 'Environmental Studies (EVST)',
-        },
-        {
-            value: 'Film and Television Production',
-            label: 'Film and Television Production (PROD)',
-        },
-        {
-            value: 'Film, Television, and Media Studies',
-            label: 'Film, Television, and Media Studies (FTVS)',
-        },
-        { value: 'Finance', label: 'Finance (FNCE)' },
-        { value: 'French', label: 'French (FREN)' },
-        {
-            value: 'Health and Human Sciences',
-            label: 'Health and Human Sciences (HHSC)',
-        },
-        { value: 'History', label: 'History (HIST)' },
-        { value: 'Humanities', label: 'Humanities (HMNT)' },
-        {
-            value: 'Information Systems and Business Analytics',
-            label: 'Information Systems and Business Analytics (ISBA)',
-        },
-        { value: 'International Relations', label: 'International Relations' },
-        { value: 'Journalism', label: 'Journalism (JOUR)' },
-        { value: 'Liberal Studies', label: 'Liberal Studies (LBST)' },
-        {
-            value: 'Management and Leadership',
-            label: 'Management and Leadership (MGMT)',
-        },
-        { value: 'Marketing', label: 'Marketing (MRKT)' },
-        { value: 'Mathematics', label: 'Mathematics (MATH)' },
-        {
-            value: 'Mechanical Engineering',
-            label: 'Mechanical Engineering (MECH)',
-        },
-        { value: 'Modern Languages', label: 'Modern Languages (MDLG)' },
-        { value: 'Music', label: 'Music (MUSC)' },
-        { value: 'Philosophy', label: 'Philosophy (PHIL)' },
-        { value: 'Physics', label: 'Physics (PHYS)' },
-        { value: 'Political Science', label: 'Political Science (POLS)' },
-        { value: 'Psychology', label: 'Psychology (PSYC)' },
-        { value: 'Recording Arts', label: 'Recording Arts (RECA)' },
-        { value: 'Screenwriting', label: 'Screenwriting (SCWR)' },
-        { value: 'Sociology', label: 'Sociology (SOCL)' },
-        { value: 'Spanish', label: 'Spanish (SPAN)' },
-        {
-            value: 'Statistics and Data Science',
-            label: 'Statistics and Data Science',
-        },
-        { value: 'Studio Arts', label: 'Studio Arts (ART)' },
-        { value: 'Theatre Arts', label: 'Theatre Arts (THEA)' },
-        { value: 'Theological Studies', label: 'Theological Studies (THST)' },
-        { value: 'Urban Studies', label: 'Urban Studies (URBN)' },
-        {
-            value: 'Womens and Gender Studies',
-            label: 'Womens and Gender Studies (WGST)',
-        },
+    const majorOptions = [
+        'Accounting (ACCT)',
+        'African American Studies (AFAM)',
+        'Animation (ANIM)',
+        'Applied Mathematics',
+        'Applied Physics',
+        'Art History (ARHS)',
+        'Asian and Pacific Studies (ASPA)',
+        'Biochemistry',
+        'Bioethics (BIOE)',
+        'Biology (BIOL)',
+        'Business Administration (BADM)',
+        'Chemistry (CHEM)',
+        'Chicana/o and Latina/o Studies (CLST)',
+        'Civil Engineering (CIVL)',
+        'Classics and Archaeology (CLAR)',
+        'Communication Studies (CMST)',
+        'Computer Science (CMSI)',
+        'Dance (DANC)',
+        'Economics (ECON)',
+        'Electrical Engineering (EECE)',
+        'English (ENGL)',
+        'Entrepreneurship (ENTR)',
+        'Environmental Science (ENVS)',
+        'Environmental Studies (EVST)',
+        'Film and Television Production (PROD)',
+        'Film, Television, and Media Studies (FTVS)',
+        'Finance (FNCE)',
+        'French (FREN)',
+        'Health and Human Sciences (HHSC)',
+        'History (HIST)',
+        'Humanities (HMNT)',
+        'Information Systems and Business Analytics (ISBA)',
+        'International Relations',
+        'Journalism (JOUR)',
+        'Liberal Studies (LBST)',
+        'Management and Leadership (MGMT)',
+        'Marketing (MRKT)',
+        'Mathematics (MATH)',
+        'Mechanical Engineering (MECH)',
+        'Modern Languages (MDLG)',
+        'Music (MUSC)',
+        'Philosophy (PHIL)',
+        'Physics (PHYS)',
+        'Political Science (POLS)',
+        'Psychology (PSYC)',
+        'Recording Arts (RECA)',
+        'Screenwriting (SCWR)',
+        'Sociology (SOCL)',
+        'Spanish (SPAN)',
+        'Statistics and Data Science',
+        'Studio Arts (ART)',
+        'Theatre Arts (THEA)',
+        'Theological Studies (THST)',
+        'Urban Studies (URBN)',
+        'Womens and Gender Studies (WGST)',
     ]
 
     const yearOptions = [
-        { value: 'freshman', label: 'Freshman' },
-        { value: 'sophomore', label: 'Sophomore' },
-        { value: 'junior', label: 'Junior' },
-        { value: 'senior', label: 'Senior' },
-        { value: 'graduate', label: 'Graduate' },
+        'Freshman',
+        'Sophomore',
+        'Junior',
+        'Senior',
+        'Graduate',
+    ]
+
+    const timelineOptions = [
+        '1 Semester',
+        '1 Year',
+        '2 Years',
+        '3 Years',
+        '4 Years+',
     ]
 
     return (
@@ -297,60 +267,60 @@ function CreateProject({ setProjects }) {
                 />
                 <div></div>
                 <br></br>
-                <form>
-                    <label className="members-needed">
-                        Number of Members Needed:
-                    </label>
-                    <select
-                        className="members-dropdown"
-                        onChange={(event) => {
-                            setMemAmount(event.target.value)
-                        }}
-                    >
-                        <option value="one">1</option>
-                        <option value="two">2</option>
-                        <option value="three">3</option>
-                        <option value="four">4</option>
-                        <option value="five">5</option>
-                        <option value="six">6</option>
-                        <option value="seven">7</option>
-                        <option value="eight">8</option>
-                        <option value="nine">9</option>
-                        <option value="ten">10+</option>
-                    </select>
-                </form>
+                <div className="members-dropdown">
+                    <FormControl fullWidth>
+                        <InputLabel>Number Of Members Needed</InputLabel>
+                        <Select
+                            value={memberAmount}
+                            onChange={handleChangeMemAmt}
+                        >
+                            {memberAmtOptions.map((memberAmtOption) => (
+                                <MenuItem
+                                    key={memberAmtOption}
+                                    value={memberAmtOption}
+                                >
+                                    {memberAmtOption}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                </div>
                 <div></div>
                 <br></br>
-                <Select
-                    isMulti
-                    className="preferred-majors-options"
-                    placeholder="Preferred Majors"
-                    options={majorOptions}
-                />
-                {/* <input
-                    type="text"
-                    className="project-major "
-                    placeholder="Needed Major(s)"
-                    onChange={(event) => {
-                        setReqMajor(event.target.value)
-                    }}
-                /> */}
+                <div className="preferred-majors-options">
+                    <FormControl fullWidth>
+                        <InputLabel>Preferred Majors</InputLabel>
+                        <Select
+                            multiple
+                            value={reqMajor}
+                            onChange={handleChangeMajor}
+                        >
+                            {majorOptions.map((majorOption) => (
+                                <MenuItem key={majorOption} value={majorOption}>
+                                    {majorOption}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                </div>
                 <div></div>
                 <br></br>
-                <Select
-                    isMulti
-                    className="preferred-years-options"
-                    placeholder="Preferred Years"
-                    options={yearOptions}
-                />
-                {/* <input
-                    type="text"
-                    className="preferred-year "
-                    placeholder="Preferred Year(s)"
-                    onChange={(event) => {
-                        setReqYear(event.target.value)
-                    }}
-                /> */}
+                <div className="preferred-years-options">
+                    <FormControl fullWidth>
+                        <InputLabel>Preferred Years</InputLabel>
+                        <Select
+                            multiple
+                            value={reqYear}
+                            onChange={handleChangeYear}
+                        >
+                            {yearOptions.map((yearOption) => (
+                                <MenuItem key={yearOption} value={yearOption}>
+                                    {yearOption}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                </div>
                 <div></div>
                 <br></br>
                 <input
@@ -363,65 +333,67 @@ function CreateProject({ setProjects }) {
                 />
                 <div></div>
                 <br></br>
-                <form>
-                    <label className="project-timeline">
-                        Project Timeline:
-                    </label>
-                    <select
-                        className="timeline-dropdown"
-                        onChange={(event) => {
-                            setTimeline(event.target.value)
-                        }}
-                    >
-                        <option value="timeline default"></option>
-                        <option value="one semester">1 Semester</option>
-                        <option value="one year">1 Year</option>
-                        <option value="two years">2 Years</option>
-                        <option value="three years">3 Years</option>
-                        <option value="four years">4 Years+</option>
-                    </select>
-                </form>
-                <div></div>
-                <br></br>
-                <div className="paid-labeled-checkbox">
-                    <label className="paid-label">
-                        <input
-                            className="paid-checkbox"
-                            type="checkbox"
-                            checked={checkedPaid}
-                            onChange={handleChangePaid}
-                        />
-                        Paid
-                    </label>
+                <div className="timeline-dropdown">
+                    <FormControl fullWidth>
+                        <InputLabel>Project Timeline</InputLabel>
+                        <Select
+                            value={timeline}
+                            onChange={handleChangeTimeline}
+                        >
+                            {timelineOptions.map((timelineOption) => (
+                                <MenuItem
+                                    key={timelineOption}
+                                    value={timelineOption}
+                                >
+                                    {timelineOption}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
                 </div>
                 <div></div>
-                <label className="funding-label">
-                    <input
-                        className="funding-checkbox"
-                        type="checkbox"
-                        checked={checkedFunding}
-                        onChange={handleChangeFunding}
-                    />
-                    Funding Available
-                </label>
-                <div></div>
-                <label className="internship-label">
-                    <input
-                        className="internship-checkbox"
-                        type="checkbox"
-                        checked={checkedInternship}
-                        onChange={handleChangeInternship}
-                    />
-                    Internship Credit
-                </label>
+                <br></br>
+                <div className="check-boxes">
+                    <div className="paid-labeled-checkbox">
+                        <label className="paid-label">
+                            <input
+                                className="paid-checkbox"
+                                type="checkbox"
+                                checked={checkedPaid}
+                                onChange={handleChangePaid}
+                            />
+                            Paid
+                        </label>
+                    </div>
+                    <div></div>
+                    <label className="funding-label">
+                        <input
+                            className="funding-checkbox"
+                            type="checkbox"
+                            checked={checkedFunding}
+                            onChange={handleChangeFunding}
+                        />
+                        Funding Available
+                    </label>
+                    <div></div>
+                    <label className="internship-label">
+                        <input
+                            className="internship-checkbox"
+                            type="checkbox"
+                            checked={checkedInternship}
+                            onChange={handleChangeInternship}
+                        />
+                        Internship Credit
+                    </label>
+                </div>
                 <div></div>
                 <br></br>
                 <div className="create-proj">
                     <Link className="button-link" to="/projectspage">
                         <Button
                             className="post-proj-btn1"
+                            variant="contained"
                             size="large"
-                            color="primary"
                             onClick={createProject}
                         >
                             Post

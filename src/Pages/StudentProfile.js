@@ -1,22 +1,18 @@
 import React, { useState, useEffect, useMemo } from 'react'
-import { Dropdown, DropdownButton } from 'react-bootstrap'
-// import 'bootstrap/dist/css/bootstrap.min.css'
 import { makeStyles } from '@material-ui/core/styles'
 import '../Styles/Profile.css'
 import Button from '@mui/material/Button'
 import beaker from '../Images/blackLinedBeakerBgRemoved.png'
 import { Link } from 'react-router-dom'
-import DropdownYear from '../Components/dropdownYear'
 import 'firebase/firestore'
 import { db, storage } from '../firebase'
 import { collection, getDocs, addDoc } from 'firebase/firestore'
-// import { storage } from 'firebase'
-// import { storage } from './firebase/firebase' // It would be best to remove this import as storage is alreay imported above [AM]
-// import DropdownMajor from '../Components/dropdownMajor'
-// import DropdownMinor from '../Components/dropdownMinor'
 import Uploadfile from '../Components/UploadFile'
 import '../Styles/Dropdown.css'
-// import dropdownMajor from '../Components/dropdownMajor'
+import InputLabel from '@mui/material/InputLabel'
+import MenuItem from '@mui/material/MenuItem'
+import FormControl from '@mui/material/FormControl'
+import Select from '@mui/material/Select'
 
 const useStyles = makeStyles((theme) => ({
     yearDropdown: {
@@ -44,10 +40,8 @@ function StudentProfile({ setMembers }) {
     const [middleName, setMiddleName] = useState('')
     const [lastName, setLastName] = useState('')
     const [nickname, setNickname] = useState('')
-    const [major, setMajor] = useState('')
-    const [major2, setMajor2] = useState('')
-    const [minor, setMinor] = useState('')
-    const [minor2, setMinor2] = useState('')
+    const [major, setMajor] = useState([])
+    const [minor, setMinor] = useState([])
     const [link, setPortfolioLink] = useState(6)
     const [resume, setResume] = useState('')
     const [softskills, setSoftskills] = useState('')
@@ -64,27 +58,24 @@ function StudentProfile({ setMembers }) {
 
     const handleSelectYear = (e) => {
         console.log(e)
-        setYear(e)
+        setYear(e.target.value)
     }
     const handleSelectMajor = (e) => {
         console.log(e)
-        setMajor(e)
-    }
-
-    const handleSelectMajor2 = (e) => {
-        console.log(e)
-        setMajor2(e)
+        const {
+            target: { value },
+        } = e
+        setMajor(typeof value === 'string' ? value.split(',') : value)
     }
 
     const handleSelectMinor = (e) => {
         console.log(e)
-        setMinor(e)
+        const {
+            target: { value },
+        } = e
+        setMinor(typeof value === 'string' ? value.split(',') : value)
     }
 
-    const handleSelectMinor2 = (e) => {
-        console.log(e)
-        setMinor2(e)
-    }
     const handleUploads = (f) => {
         setResume(f.target.files[0])
     }
@@ -119,9 +110,7 @@ function StudentProfile({ setMembers }) {
             nickname: nickname,
             year: year,
             major: major,
-            major2: major2,
             minor: minor,
-            minor2: minor2,
             portfolioLink: link,
             pronouns: pronouns,
             resume: resume,
@@ -164,6 +153,130 @@ function StudentProfile({ setMembers }) {
         e.preventDefault()
         widget.open()
     }
+
+    const yearOptionsSP = [
+        'Freshman',
+        'Sophomore',
+        'Junior',
+        'Senior',
+        'Graduate',
+    ]
+
+    const majorOptionsSP = [
+        'Accounting (ACCT)',
+        'African American Studies (AFAM)',
+        'Animation (ANIM)',
+        'Applied Mathematics',
+        'Applied Physics',
+        'Art History (ARHS)',
+        'Asian and Pacific Studies (ASPA)',
+        'Biochemistry',
+        'Bioethics (BIOE)',
+        'Biology (BIOL)',
+        'Business Administration (BADM)',
+        'Chemistry (CHEM)',
+        'Chicana/o and Latina/o Studies (CLST)',
+        'Civil Engineering (CIVL)',
+        'Classics and Archaeology (CLAR)',
+        'Communication Studies (CMST)',
+        'Computer Science (CMSI)',
+        'Dance (DANC)',
+        'Economics (ECON)',
+        'Electrical Engineering (EECE)',
+        'English (ENGL)',
+        'Entrepreneurship (ENTR)',
+        'Environmental Science (ENVS)',
+        'Environmental Studies (EVST)',
+        'Film and Television Production (PROD)',
+        'Film, Television, and Media Studies (FTVS)',
+        'Finance (FNCE)',
+        'French (FREN)',
+        'Health and Human Sciences (HHSC)',
+        'History (HIST)',
+        'Humanities (HMNT)',
+        'Information Systems and Business Analytics (ISBA)',
+        'International Relations',
+        'Journalism (JOUR)',
+        'Liberal Studies (LBST)',
+        'Management and Leadership (MGMT)',
+        'Marketing (MRKT)',
+        'Mathematics (MATH)',
+        'Mechanical Engineering (MECH)',
+        'Modern Languages (MDLG)',
+        'Music (MUSC)',
+        'Philosophy (PHIL)',
+        'Physics (PHYS)',
+        'Political Science (POLS)',
+        'Psychology (PSYC)',
+        'Recording Arts (RECA)',
+        'Screenwriting (SCWR)',
+        'Sociology (SOCL)',
+        'Spanish (SPAN)',
+        'Statistics and Data Science',
+        'Studio Arts (ART)',
+        'Theatre Arts (THEA)',
+        'Theological Studies (THST)',
+        'Urban Studies (URBN)',
+        'Womens and Gender Studies (WGST)',
+    ]
+
+    const minorOptions = [
+        'Accounting (ACCT)',
+        'African American Studies (AFAM)',
+        'Animation (ANIM)',
+        'Applied Mathematics',
+        'Art History (ARHS)',
+        'Asian and Pacific Studies (ASPA)',
+        'Asian Pacific American Studies (APAM)',
+        'Biochemistry',
+        'Bioethics (BIOE)',
+        'Biology (BIOL)',
+        'Business Administration (BADM)',
+        'Catholic Studies (CATH)',
+        'Chemistry (CHEM)',
+        'Chicana/o and Latina/o Studies (CLST)',
+        'Chinese (CHIN)',
+        'Classics and Archaeology (CLAR)',
+        'Computer Science (CMSI)',
+        'Dance (DANC)',
+        'Economics (ECON)',
+        'Electrical Engineering (EECE)',
+        'English (ENGL)',
+        'Environmental Science (ENVS)',
+        'Environmental Studies (EVST)',
+        'Film, Television, and Media Studies (FTVS)',
+        'Finance (FNCE)',
+        'French (FREN)',
+        'German (GRMN)',
+        'Health and Society (HEAS)',
+        'History (HIST)',
+        'Interactive, Gaming, and Immersive Media (IGI)',
+        'International Business (INBA)',
+        'International Documentary Production',
+        'International Relations',
+        'Irish Studies (IRST)',
+        'Italian (ITAL)',
+        'Jewish Studies (JWST)',
+        'Journalism (JOUR)',
+        'Math (MATH)',
+        'Modern Greek Studies (MDGK)',
+        'Music (MUSC)',
+        'Peace and Justice Studies (PJST)',
+        'Philosophy (PHIL)',
+        'Physics (PHYS)',
+        'Political Science (POLS)',
+        'Psychology (PSYC)',
+        'Public Relations (PRCX)',
+        'Screenwriting (SCWR)',
+        'Sociology (SOCL)',
+        'Spanish (SPAN)',
+        'Statistics and Data Science',
+        'Studio Arts (ART)',
+        'Theatre Arts (THEA)',
+        'Theological Studies (THST)',
+        'Urban Studies (URBN)',
+        'Womens and Gender Studies (WGST)',
+    ]
 
     return (
         <div className="new-profile">
@@ -242,403 +355,55 @@ function StudentProfile({ setMembers }) {
                 />
                 <div></div>
                 <br></br>
-                {/* //for the dropdowns, it woud be cleaner if these were seprated into different components so that we dont have over 1000 lines of code (MS) */}
-                <form>
-                    <label>
-                        <select
-                            className="year-dropdown"
-                            onChange={(event) => {
-                                setYear(event.target.value)
-                            }}
-                        >
-                            <option value="default">Year</option>
-                            <option value="freshman">Freshman</option>
-                            <option value="sophomore">Sophomore</option>
-                            <option value="junior">Junior</option>
-                            <option value="senior">Senior</option>
-                            <option value="graduate">Graduate</option>
-                        </select>
-                    </label>
-                </form>
+                <div className="year-dropdown">
+                    <FormControl fullWidth>
+                        <InputLabel>Year</InputLabel>
+                        <Select value={year} onChange={handleSelectYear}>
+                            {yearOptionsSP.map((yearOption) => (
+                                <MenuItem key={yearOption} value={yearOption}>
+                                    {yearOption}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                </div>
                 <div></div>
                 <br></br>
-                {/* ## Rather than have a dropdown where a single major can be selected multiple times it may be easier from a UI perspective 
-                ## to take a similar approach to how we do for PROWL when registering for classes. It may be best to have a textbox and dropdown based 
-                ## of off user input where you can select at least one and potentially more majors/minors. [TB] */}
-                <form>
-                    <label>
-                        <select
-                            className="major-dropdown"
-                            onChange={(event) => {
-                                setMajor(event.target.value)
-                            }}
+                <div className="major-dropdown">
+                    <FormControl fullWidth>
+                        <InputLabel>Majors</InputLabel>
+                        <Select
+                            multiple
+                            value={major}
+                            onChange={handleSelectMajor}
                         >
-                            <option value="default">Major 1</option>
-                            <option value="ACCT">Accounting</option>
-                            <option value="AFAM">
-                                African American Studies
-                            </option>
-                            <option value="ANIM">Animation</option>
-                            <option value="">Applied Mathematics</option>
-                            <option value="">Applied Physics</option>
-                            <option value="ARHS">Art History</option>
-                            <option value="ASPA">
-                                Asian and Pacific Studies
-                            </option>
-                            <option value="">Biochemistry</option>
-                            <option value="BIOE">Bioethics</option>
-                            <option value="BIOL">Biology</option>
-                            <option value="BADM">
-                                Business Administration
-                            </option>
-                            <option value="CHEM">Chemistry</option>
-                            <option value="CLST">
-                                Chicana/o and Latina/o Studies
-                            </option>
-                            <option value="CIVL">Civil Engineering</option>
-                            <option value="CLAR">
-                                Classics and Archaeology
-                            </option>
-                            <option value="CMST">Communication Studies</option>
-                            <option value="CMSI">Computer Science</option>
-                            <option value="DANC">Dance</option>
-                            <option value="ECON">Economics</option>
-                            <option value="EECE">Electrical Engineering</option>
-                            <option value="ENGL">English</option>
-                            <option value="ENTR">Entrepreneurship</option>
-                            <option value="ENVS">Environmental Science</option>
-                            <option value="EVST">Environmental Studies</option>
-                            <option value="PROD">
-                                Film and Television Production
-                            </option>
-                            <option value="FTVS">
-                                Film, Television, and Media Studies
-                            </option>
-                            <option value="FNCE">Finance</option>
-                            <option value="FREN">French</option>
-                            <option value="HHSC">
-                                Health and Human Sciences
-                            </option>
-                            <option value="HIST">History</option>
-                            <option value="HMNT">Humanities</option>
-                            <option value="ISBA">
-                                Information Systems and Business Analytics
-                            </option>
-                            <option value="">International Relations</option>
-                            <option value="JOUR">Journalism</option>
-                            <option value="LBST">Liberal Studies</option>
-                            <option value="MGMT">
-                                Management and Leadership
-                            </option>
-                            <option value="MRKT">Marketing</option>
-                            <option value="MATH">Mathematics</option>
-                            <option value="MECH">Mechanical Engineering</option>
-                            <option value="MDLG">Modern Languages</option>
-                            <option value="MUSC">Music</option>
-                            <option value="PHIL">Philosophy</option>
-                            <option value="PHYS">Physics</option>
-                            <option value="POLS">Political Science</option>
-                            <option value="PSYC">Psychology</option>
-                            <option value="RECA">Recording Arts</option>
-                            <option value="SCWR">Screenwriting</option>
-                            <option value="SOCL">Sociology</option>
-                            <option value="SPAN">Spanish</option>
-                            <option value="">
-                                Statistics and Data Science
-                            </option>
-                            <option value="ART">Studio Arts</option>
-                            <option value="THEA">Theatre Arts</option>
-                            <option value="THST">Theological Studies</option>
-                            <option value="URBN">Urban Studies</option>
-                            <option value="WGST">
-                                Women's and Gender Studies
-                            </option>
-                        </select>
-                    </label>
-                </form>
+                            {majorOptionsSP.map((majorOption) => (
+                                <MenuItem key={majorOption} value={majorOption}>
+                                    {majorOption}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                </div>
                 <div></div>
                 <br></br>
-                <form>
-                    <label>
-                        <select
-                            className="major-two-dropdown"
-                            onChange={(event) => {
-                                setMajor2(event.target.value)
-                            }}
+                <div className="minor-dropdown">
+                    <FormControl fullWidth>
+                        <InputLabel>Minors</InputLabel>
+                        <Select
+                            multiple
+                            value={minor}
+                            onChange={handleSelectMinor}
                         >
-                            <option value="default">Major 2</option>
-                            <option value="ACCT">Accounting</option>
-                            <option value="AFAM">
-                                African American Studies
-                            </option>
-                            <option value="ANIM">Animation</option>
-                            <option value="">Applied Mathematics</option>
-                            <option value="">Applied Physics</option>
-                            <option value="ARHS">Art History</option>
-                            <option value="ASPA">
-                                Asian and Pacific Studies
-                            </option>
-                            <option value="">Biochemistry</option>
-                            <option value="BIOE">Bioethics</option>
-                            <option value="BIOL">Biology</option>
-                            <option value="BADM">
-                                Business Administration
-                            </option>
-                            <option value="CHEM">Chemistry</option>
-                            <option value="CLST">
-                                Chicana/o and Latina/o Studies
-                            </option>
-                            <option value="CIVL">Civil Engineering</option>
-                            <option value="CLAR">
-                                Classics and Archaeology
-                            </option>
-                            <option value="CMST">Communication Studies</option>
-                            <option value="CMSI">Computer Science</option>
-                            <option value="DANC">Dance</option>
-                            <option value="ECON">Economics</option>
-                            <option value="EECE">Electrical Engineering</option>
-                            <option value="ENGL">English</option>
-                            <option value="ENTR">Entrepreneurship</option>
-                            <option value="ENVS">Environmental Science</option>
-                            <option value="EVST">Environmental Studies</option>
-                            <option value="PROD">
-                                Film and Television Production
-                            </option>
-                            <option value="FTVS">
-                                Film, Television, and Media Studies
-                            </option>
-                            <option value="FNCE">Finance</option>
-                            <option value="FREN">French</option>
-                            <option value="HHSC">
-                                Health and Human Sciences
-                            </option>
-                            <option value="HIST">History</option>
-                            <option value="HMNT">Humanities</option>
-                            <option value="ISBA">
-                                Information Systems and Business Analytics
-                            </option>
-                            <option value="">International Relations</option>
-                            <option value="JOUR">Journalism</option>
-                            <option value="LBST">Liberal Studies</option>
-                            <option value="MGMT">
-                                Management and Leadership
-                            </option>
-                            <option value="MRKT">Marketing</option>
-                            <option value="MATH">Mathematics</option>
-                            <option value="MECH">Mechanical Engineering</option>
-                            <option value="MDLG">Modern Languages</option>
-                            <option value="MUSC">Music</option>
-                            <option value="PHIL">Philosophy</option>
-                            <option value="PHYS">Physics</option>
-                            <option value="POLS">Political Science</option>
-                            <option value="PSYC">Psychology</option>
-                            <option value="RECA">Recording Arts</option>
-                            <option value="SCWR">Screenwriting</option>
-                            <option value="SOCL">Sociology</option>
-                            <option value="SPAN">Spanish</option>
-                            <option value="">
-                                Statistics and Data Science
-                            </option>
-                            <option value="ART">Studio Arts</option>
-                            <option value="THEA">Theatre Arts</option>
-                            <option value="THST">Theological Studies</option>
-                            <option value="URBN">Urban Studies</option>
-                            <option value="WGST">
-                                Women's and Gender Studies
-                            </option>
-                        </select>
-                    </label>
-                </form>
+                            {minorOptions.map((minorOption) => (
+                                <MenuItem key={minorOption} value={minorOption}>
+                                    {minorOption}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                </div>
                 <div></div>
-                <br></br>
-                <form>
-                    <label>
-                        <select
-                            className="minor-dropdown"
-                            onChange={(event) => {
-                                setMinor(event.target.value)
-                            }}
-                        >
-                            <option value="default">Minor</option>
-                            <option value="ACCT">Accounting</option>
-                            <option value="AFAM">
-                                African American Studies
-                            </option>
-                            <option value="ANIM">Animation</option>
-                            <option value="">Applied Mathematics</option>
-                            <option value="ARHS">Art History</option>
-                            <option value="ASPA">
-                                Asian and Pacific Studies
-                            </option>
-                            <option value="APAM">
-                                Asian Pacific American Studies
-                            </option>
-                            <option value="">Biochemistry</option>
-                            <option value="BIOE">Bioethics</option>
-                            <option value="BIOL">Biology</option>
-                            <option value="BADM">
-                                Business Administration
-                            </option>
-                            <option value="CATH">Catholic Studies</option>
-                            <option value="CHEM">Chemistry</option>
-                            <option value="CLST">
-                                Chicana/o and Latina/o Studies
-                            </option>
-                            <option value="CHIN">Chinese</option>
-                            <option value="CLAR">
-                                Classics and Archaeology
-                            </option>
-                            <option value="CMSI">Computer Science</option>
-                            <option value="DANC">Dance</option>
-                            <option value="ECON">Economics</option>
-                            <option value="EECE">Electrical Engineering</option>
-                            <option value="ENGL">English</option>
-                            <option value="ENVS">Environmental Science</option>
-                            <option value="EVST">Environmental Studies</option>
-                            <option value="FTVS">
-                                Film, Television, and Media Studies
-                            </option>
-                            <option value="FNCE">Finance</option>
-                            <option value="FREN">French</option>
-                            <option value="GRMN">German</option>
-                            <option value="HEAS">Health and Society</option>
-                            <option value="HIST">History</option>
-                            <option value="IGI">
-                                Interactive, Gaming, and Immersive Media
-                            </option>
-                            <option value="INBA">International Business</option>
-                            <option value="">
-                                International Documentary Production
-                            </option>
-                            <option value="">International Relations</option>
-                            <option value="IRST">Irish Studies</option>
-                            <option value="ITAL">Italian</option>
-                            <option value="JWST">Jewish Studies</option>
-                            <option value="JOUR">Journalism</option>
-                            <option value="MATH">Math</option>
-                            <option value="MDGK">Modern Greek Studies</option>
-                            <option value="MUSC">Music</option>
-                            <option value="PJST">
-                                Peace and Justice Studies
-                            </option>
-                            <option value="PHIL">Philosophy</option>
-                            <option value="PHYS">Physics</option>
-                            <option value="POLS">Political Science</option>
-                            <option value="PSYC">Psychology</option>
-                            <option value="PRCX">Public Relations</option>
-                            <option value="SCWR">Screenwriting</option>
-                            <option value="SOCL">Sociology</option>
-                            <option value="SPAN">Spanish</option>
-                            <option value="">
-                                Statistics and Data Science
-                            </option>
-                            <option value="ART">Studio Arts</option>
-                            <option value="THEA">Theatre Arts</option>
-                            <option value="THST">Theological Studies</option>
-                            <option value="URBN">Urban Studies</option>
-                            <option value="WGST">
-                                Women's and Gender Studies
-                            </option>
-                        </select>
-                    </label>
-                </form>
-                <div></div>
-                <br></br>
-                <form>
-                    <label>
-                        <select
-                            className="minor-two-dropdown"
-                            onChange={(event) => {
-                                setMinor2(event.target.value)
-                            }}
-                        >
-                            <option value="default">Minor 2</option>
-                            <option value="ACCT">Accounting</option>
-                            <option value="AFAM">
-                                African American Studies
-                            </option>
-                            <option value="ANIM">Animation</option>
-                            <option value="">Applied Mathematics</option>
-                            <option value="ARHS">Art History</option>
-                            <option value="ASPA">
-                                Asian and Pacific Studies
-                            </option>
-                            <option value="APAM">
-                                Asian Pacific American Studies
-                            </option>
-                            <option value="">Biochemistry</option>
-                            <option value="BIOE">Bioethics</option>
-                            <option value="BIOL">Biology</option>
-                            <option value="BADM">
-                                Business Administration
-                            </option>
-                            <option value="CATH">Catholic Studies</option>
-                            <option value="CHEM">Chemistry</option>
-                            <option value="CLST">
-                                Chicana/o and Latina/o Studies
-                            </option>
-                            <option value="CHIN">Chinese</option>
-                            <option value="CLAR">
-                                Classics and Archaeology
-                            </option>
-                            <option value="CMSI">Computer Science</option>
-                            <option value="DANC">Dance</option>
-                            <option value="ECON">Economics</option>
-                            <option value="EECE">Electrical Engineering</option>
-                            <option value="ENGL">English</option>
-                            <option value="ENVS">Environmental Science</option>
-                            <option value="EVST">Environmental Studies</option>
-                            <option value="FTVS">
-                                Film, Television, and Media Studies
-                            </option>
-                            <option value="FNCE">Finance</option>
-                            <option value="FREN">French</option>
-                            <option value="GRMN">German</option>
-                            <option value="HEAS">Health and Society</option>
-                            <option value="HIST">History</option>
-                            <option value="IGI">
-                                Interactive, Gaming, and Immersive Media
-                            </option>
-                            <option value="INBA">International Business</option>
-                            <option value="">
-                                International Documentary Production
-                            </option>
-                            <option value="">International Relations</option>
-                            <option value="IRST">Irish Studies</option>
-                            <option value="ITAL">Italian</option>
-                            <option value="JWST">Jewish Studies</option>
-                            <option value="JOUR">Journalism</option>
-                            <option value="MATH">Math</option>
-                            <option value="MDGK">Modern Greek Studies</option>
-                            <option value="MUSC">Music</option>
-                            <option value="PJST">
-                                Peace and Justice Studies
-                            </option>
-                            <option value="PHIL">Philosophy</option>
-                            <option value="PHYS">Physics</option>
-                            <option value="POLS">Political Science</option>
-                            <option value="PSYC">Psychology</option>
-                            <option value="PRCX">Public Relations</option>
-                            <option value="SCWR">Screenwriting</option>
-                            <option value="SOCL">Sociology</option>
-                            <option value="SPAN">Spanish</option>
-                            <option value="">
-                                Statistics and Data Science
-                            </option>
-                            <option value="ART">Studio Arts</option>
-                            <option value="THEA">Theatre Arts</option>
-                            <option value="THST">Theological Studies</option>
-                            <option value="URBN">Urban Studies</option>
-                            <option value="WGST">
-                                Women's and Gender Studies
-                            </option>
-                        </select>
-                    </label>
-                </form>
-                <div></div>
-                {/* ## More of an explanation/purpose to the soft skills and bio should be included. If the self-intro field is being used to create
-                 a relationship between projects and the student user, then they should be sure to include areas of research they are interested in here [TB]
-                 */}
                 <br></br>
                 <input
                     type="text"
@@ -650,8 +415,6 @@ function StudentProfile({ setMembers }) {
                 />
                 <div></div>
                 <br></br>
-                {/* // There maybe a better way to space out the fields by using
-                bootstrap grid/css rather than using so many div, br (AM) */}
                 <label>Tell us a little about yourself:</label>
                 <br></br>
                 <textarea
@@ -686,7 +449,7 @@ function StudentProfile({ setMembers }) {
                             type="button"
                             className="done-btn1"
                             size="large"
-                            color="primary"
+                            variant="contained"
                             onClick={createStudent}
                         >
                             Done
