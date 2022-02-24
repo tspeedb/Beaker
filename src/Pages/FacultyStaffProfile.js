@@ -7,6 +7,10 @@ import { Link } from 'react-router-dom'
 import 'firebase/firestore'
 import { db, storage } from '../firebase'
 import { collection, getDocs, addDoc } from 'firebase/firestore'
+import InputLabel from '@mui/material/InputLabel'
+import MenuItem from '@mui/material/MenuItem'
+import FormControl from '@mui/material/FormControl'
+import Select from '@mui/material/Select'
 
 function FacultyStaffProfile({ setFSMembers }) {
     const [title, setTitle] = useState('')
@@ -24,6 +28,10 @@ function FacultyStaffProfile({ setFSMembers }) {
     const [imageAsUrl, setImageAsUrl] = useState(
         `${process.env.PUBLIC_URL}/projectImages/user.png`
     )
+
+    const handleChangeDepartment = (event) => {
+        setDepartment(event.target.value)
+    }
 
     const handleSelect = (e) => {
         console.log(e)
@@ -92,6 +100,64 @@ function FacultyStaffProfile({ setFSMembers }) {
         e.preventDefault()
         widget.open()
     }
+
+    const departmentOptions = [
+        'Accounting (ACCT)',
+        'African American Studies (AFAM)',
+        'Animation (ANIM)',
+        'Applied Mathematics',
+        'Applied Physics',
+        'Art History (ARHS)',
+        'Asian and Pacific Studies (ASPA)',
+        'Biochemistry',
+        'Bioethics (BIOE)',
+        'Biology (BIOL)',
+        'Business Administration (BADM)',
+        'Chemistry (CHEM)',
+        'Chicana/o and Latina/o Studies (CLST)',
+        'Civil Engineering (CIVL)',
+        'Classics and Archaeology (CLAR)',
+        'Communication Studies (CMST)',
+        'Computer Science (CMSI)',
+        'Dance (DANC)',
+        'Economics (ECON)',
+        'Electrical Engineering (EECE)',
+        'English (ENGL)',
+        'Entrepreneurship (ENTR)',
+        'Environmental Science (ENVS)',
+        'Environmental Studies (EVST)',
+        'Film and Television Production (PROD)',
+        'Film, Television, and Media Studies (FTVS)',
+        'Finance (FNCE)',
+        'French (FREN)',
+        'Health and Human Sciences (HHSC)',
+        'History (HIST)',
+        'Humanities (HMNT)',
+        'Information Systems and Business Analytics (ISBA)',
+        'International Relations',
+        'Journalism (JOUR)',
+        'Liberal Studies (LBST)',
+        'Management and Leadership (MGMT)',
+        'Marketing (MRKT)',
+        'Mathematics (MATH)',
+        'Mechanical Engineering (MECH)',
+        'Modern Languages (MDLG)',
+        'Music (MUSC)',
+        'Philosophy (PHIL)',
+        'Physics (PHYS)',
+        'Political Science (POLS)',
+        'Psychology (PSYC)',
+        'Recording Arts (RECA)',
+        'Screenwriting (SCWR)',
+        'Sociology (SOCL)',
+        'Spanish (SPAN)',
+        'Statistics and Data Science',
+        'Studio Arts (ART)',
+        'Theatre Arts (THEA)',
+        'Theological Studies (THST)',
+        'Urban Studies (URBN)',
+        'Womens and Gender Studies (WGST)',
+    ]
 
     return (
         <div className="new-profile">
@@ -181,139 +247,24 @@ function FacultyStaffProfile({ setFSMembers }) {
                 />
                 <div></div>
                 <br></br>
-                <form>
-                    <div>
-                        <label className="department-fsprofile">
-                            Department:
-                        </label>
-                    </div>
-                    <select>
-                        <option value="Department"></option>
-                        <option value="Accounting">Accounting (ACCT)</option>
-                        <option value="African American Studies">
-                            African American Studies (AFAM)
-                        </option>
-                        <option value="Animation">Animation (ANIM)</option>
-                        <option value="Applied Mathematics">
-                            Applied Mathematics
-                        </option>
-                        <option value="Applied Physics">Applied Physics</option>
-                        <option value="Art History">Art History (ARHS)</option>
-                        <option value="Asian and Pacific Studies">
-                            Asian and Pacific Studies (ASPA)
-                        </option>
-                        <option value="Biochemistry">Biochemistry</option>
-                        <option value="Bioethics">Bioethics (BIOE)</option>
-                        <option value="Biology">Biology (BIOL)</option>
-                        <option value="Business Administration">
-                            Business Administration (BADM)
-                        </option>
-                        <option value="Chemistry">Chemistry (CHEM)</option>
-                        <option value="Chicana/o and Latina/o Studies">
-                            Chicana/o and Latina/o Studies (CLST)
-                        </option>
-                        <option value="Civil Engineering">
-                            Civil Engineering (CIVL)
-                        </option>
-                        <option value="Classics and Archaeology">
-                            Classics and Archaeology (CLAR)
-                        </option>
-                        <option value="Communication Studies">
-                            Communication Studies (CMST)
-                        </option>
-                        <option value="Computer Science">
-                            Computer Science (CMSI)
-                        </option>
-                        <option value="Dance">Dance (DANC)</option>
-                        <option value="Economics">Economics (ECON)</option>
-                        <option value="Electrical Engineering">
-                            Electrical Engineering (EECE)
-                        </option>
-                        <option value="English">English (ENGL)</option>
-                        <option value="Entrepreneurship">
-                            Entrepreneurship (ENTR)
-                        </option>
-                        <option value="Environmental Science">
-                            Environmental Science (ENVS)
-                        </option>
-                        <option value="Environmental Studies">
-                            Environmental Studies (EVST)
-                        </option>
-                        <option value="Film and Television Production">
-                            Film and Television Production (PROD)
-                        </option>
-                        <option value="Film, Television, and Media Studies">
-                            Film, Television, and Media Studies (FTVS)
-                        </option>
-                        <option value="Finance">Finance (FNCE)</option>
-                        <option value="French">French (FREN)</option>
-                        <option value="Health and Human Sciences">
-                            Health and Human Sciences (HHSC)
-                        </option>
-                        <option value="History">History (HIST)</option>
-                        <option value="Humanities">Humanities (HMNT)</option>
-                        <option value="Information Systems and Business Analytics">
-                            Information Systems and Business Analytics (ISBA)
-                        </option>
-                        <option value="International Relations">
-                            International Relations
-                        </option>
-                        <option value="Journalism">Journalism (JOUR)</option>
-                        <option value="Liberal Studies">
-                            Liberal Studies (LBST)
-                        </option>
-                        <option value="Management and Leadership">
-                            Management and Leadership (MGMT)
-                        </option>
-                        <option value="Marketing">Marketing (MRKT)</option>
-                        <option value="Mathematics">Mathematics (MATH)</option>
-                        <option value="Mechanical Engineering">
-                            Mechanical Engineering (MECH)
-                        </option>
-                        <option value="Modern Languages">
-                            Modern Languages (MDLG)
-                        </option>
-                        <option value="Music">Music (MUSC)</option>
-                        <option value="Philosophy">Philosophy (PHIL)</option>
-                        <option value="Physics">Physics (PHYS)</option>
-                        <option value="Political Science">
-                            Political Science (POLS)
-                        </option>
-                        <option value="Psychology">Psychology (PSYC)</option>
-                        <option value="Recording Arts">
-                            Recording Arts (RECA)
-                        </option>
-                        <option value="Screenwriting">
-                            Screenwriting (SCWR)
-                        </option>
-                        <option value="Sociology">Sociology (SOCL)</option>
-                        <option value="Spanish">Spanish (SPAN)</option>
-                        <option value="Statistics and Data Science">
-                            Statistics and Data Science
-                        </option>
-                        <option value="Studio Arts">Studio Arts (ART)</option>
-                        <option value="Theatre Arts">
-                            Theatre Arts (THEA)
-                        </option>
-                        <option value="Theological Studies">
-                            Theological Studies (THST)
-                        </option>
-                        <option value="Urban Studies">
-                            Urban Studies (URBN)
-                        </option>
-                        <option value="Women's and Gender Studies">
-                            Women's and Gender Studies (WGST)
-                        </option>
-                    </select>
-                </form>
-                {/* <input
-                    type="text"
-                    className="department"
-                    placeholder="Department"
-                    onChange={(event) => {
-                        setDepartment(event.target.value)
-                    }}
-                /> */}
+                <div className="department-options">
+                    <FormControl fullWidth>
+                        <InputLabel>Department</InputLabel>
+                        <Select
+                            value={department}
+                            onChange={handleChangeDepartment}
+                        >
+                            {departmentOptions.map((departmentOption) => (
+                                <MenuItem
+                                    key={departmentOption}
+                                    value={departmentOption}
+                                >
+                                    {departmentOption}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                </div>
                 <div></div>
                 <br></br>
                 <label>Lab Description:</label>
@@ -350,6 +301,7 @@ function FacultyStaffProfile({ setFSMembers }) {
                             className="done-btn1"
                             size="large"
                             color="primary"
+                            variant="contained"
                             onClick={createFacultyStaff}
                         >
                             Done

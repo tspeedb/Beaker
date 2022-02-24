@@ -127,6 +127,14 @@ h1 {
     margin-bottom: 15px;
 }
 
+.department-options {
+    height: 50px;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    font-size: medium;
+}
+
 .resume {
     font-size: medium;
     font-style: normal;
@@ -215,42 +223,10 @@ h1 {
     color: gray;
 }
 
-.check-boxes {
-    margin-left: 25%;
-    margin-top: 3%;
-    text-align: left;
-}
-
-.paid-label {
-    font-size: x-large;
-}
-
-.funding-label {
-    font-size: x-large;
-}
-
-.internship-label {
-    font-size: x-large;
-}
-
-.paid-checkbox {
-    height: 20px;
-    width: 20px;
-    margin-right: 10px;
-    margin-bottom: 15px;
-}
-
-.funding-checkbox {
-    height: 20px;
-    width: 20px;
-    margin-right: 10px;
-    margin-bottom: 15px;
-}
-
-.internship-checkbox {
-    height: 20px;
-    width: 20px;
-    margin-right: 10px;
+.incentive-options {
+    height: 50px;
+    width: 100%;
+    font-size: medium;
 }
 
 input {

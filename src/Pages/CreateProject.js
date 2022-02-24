@@ -20,6 +20,7 @@ function CreateProject({ setProjects }) {
     const [reqYear, setReqYear] = useState([])
     const [softskills, setSoftSkills] = useState('')
     const [timeline, setTimeline] = useState('')
+    const [incentives, setIncentives] = useState([])
     const [checkedPaid, setCheckedPaid] = useState(false)
     const [checkedFunding, setCheckedFunding] = useState(false)
     const [checkedInternship, setCheckedIntership] = useState(false)
@@ -48,6 +49,10 @@ function CreateProject({ setProjects }) {
 
     const handleChangeTimeline = (event) => {
         setTimeline(event.target.value)
+    }
+
+    const handleChangeIncentives = (event) => {
+        setIncentives(event.target.value)
     }
 
     const handleChangePaid = () => {
@@ -221,6 +226,8 @@ function CreateProject({ setProjects }) {
         '4 Years+',
     ]
 
+    const incentiveOptions = ['Paid', 'Funding Available', 'Internship Credit']
+
     return (
         <div className="new-profile">
             <div className="left-screen">
@@ -353,38 +360,24 @@ function CreateProject({ setProjects }) {
                 </div>
                 <div></div>
                 <br></br>
-                <div className="check-boxes">
-                    <div className="paid-labeled-checkbox">
-                        <label className="paid-label">
-                            <input
-                                className="paid-checkbox"
-                                type="checkbox"
-                                checked={checkedPaid}
-                                onChange={handleChangePaid}
-                            />
-                            Paid
-                        </label>
-                    </div>
-                    <div></div>
-                    <label className="funding-label">
-                        <input
-                            className="funding-checkbox"
-                            type="checkbox"
-                            checked={checkedFunding}
-                            onChange={handleChangeFunding}
-                        />
-                        Funding Available
-                    </label>
-                    <div></div>
-                    <label className="internship-label">
-                        <input
-                            className="internship-checkbox"
-                            type="checkbox"
-                            checked={checkedInternship}
-                            onChange={handleChangeInternship}
-                        />
-                        Internship Credit
-                    </label>
+                <div className="incentive-options">
+                    <FormControl fullWidth>
+                        <InputLabel>Incentives</InputLabel>
+                        <Select
+                            multiple
+                            value={incentives}
+                            onChange={handleChangeIncentives}
+                        >
+                            {incentiveOptions.map((incentiveOption) => (
+                                <MenuItem
+                                    key={incentiveOption}
+                                    value={incentiveOption}
+                                >
+                                    {incentiveOption}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
                 </div>
                 <div></div>
                 <br></br>
