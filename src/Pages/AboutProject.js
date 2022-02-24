@@ -39,7 +39,7 @@ function AboutProject({ match, projects }) {
                         <div className="column-left">
                             {' '}
                             <img
-                                src={`${process.env.PUBLIC_URL}/projectImages/${project.image}`}
+                                src={project.image}
                                 alt="project.title"
                                 style={{
                                     width: 500,

@@ -120,7 +120,7 @@ function ProjectTable({ projects }) {
                                                 <Avatar
                                                     alt={project.title}
                                                     // src="."
-                                                    src={`${process.env.PUBLIC_URL}/projectImages/${project.image}`}
+                                                    src={project.image}
                                                     className={classes.avatar}
                                                 />
                                             </Grid>
@@ -140,7 +140,7 @@ function ProjectTable({ projects }) {
                                                     color="textSecondary"
                                                     variant="body2"
                                                 >
-                                                    {project.phone}
+                                                    {project.incentives}
                                                 </Typography>
                                             </Grid>
                                         </Grid>

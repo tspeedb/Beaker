@@ -21,9 +21,6 @@ function CreateProject({ setProjects }) {
     const [softskills, setSoftSkills] = useState('')
     const [timeline, setTimeline] = useState('')
     const [incentives, setIncentives] = useState([])
-    const [checkedPaid, setCheckedPaid] = useState(false)
-    const [checkedFunding, setCheckedFunding] = useState(false)
-    const [checkedInternship, setCheckedIntership] = useState(false)
     const [imageAsFile, setImageAsFile] = useState(null)
     const [imageAsUrl, setImageAsUrl] = useState(
         `${process.env.PUBLIC_URL}/projectImages/user.png`
@@ -55,18 +52,6 @@ function CreateProject({ setProjects }) {
         setIncentives(event.target.value)
     }
 
-    const handleChangePaid = () => {
-        setCheckedPaid(!checkedPaid)
-    }
-
-    const handleChangeFunding = () => {
-        setCheckedFunding(!checkedFunding)
-    }
-
-    const handleChangeInternship = () => {
-        setCheckedIntership(!checkedInternship)
-    }
-
     console.log(imageAsFile)
     const handleImageAsFile = (e) => {
         setImageAsFile(e.target.files[0])
@@ -91,16 +76,14 @@ function CreateProject({ setProjects }) {
     }
     const createProject = async () => {
         await addDoc(projectsCollectionRef, {
-            project: projectName,
-            desc: desc,
+            title: projectName,
+            description: desc,
             members: memberAmount,
             major: reqMajor,
             year: reqYear,
             softskills: softskills,
             timeline: timeline,
-            paid: checkedPaid,
-            funding: checkedFunding,
-            internship: checkedInternship,
+            incentives: incentives,
             image: imageAsUrl,
         })
 
