@@ -16,6 +16,8 @@ import {
     TablePagination,
     TableFooter,
 } from '@material-ui/core'
+import { AirlineSeatLegroomReducedRounded } from '@mui/icons-material'
+import { TableSortLabel } from '@mui/material'
 
 const useStyles = makeStyles((theme) => ({
     table: {
@@ -33,8 +35,8 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.getContrastText(theme.palette.primary.dark),
     },
     avatar: {
-        backgroundColor: theme.palette.primary.light,
-        color: theme.palette.getContrastText(theme.palette.primary.light),
+        height: '50px',
+        width: '50px',
     },
     name: {
         fontWeight: 'bold',
@@ -92,13 +94,16 @@ function ProjectTable({ projects }) {
                             Title & Description
                         </TableCell>
                         <TableCell className={classes.tableHeaderCell}>
-                            Description
+                            Desired Major(s)
                         </TableCell>
                         <TableCell className={classes.tableHeaderCell}>
-                            Attributes
+                            Desired Years
                         </TableCell>
                         <TableCell className={classes.tableHeaderCell}>
-                            Status
+                            Incentives
+                        </TableCell>
+                        <TableCell className={classes.tableHeaderCell}>
+                            Owner
                         </TableCell>
                     </TableRow>
                 </TableHead>
@@ -136,22 +141,17 @@ function ProjectTable({ projects }) {
                                                 >
                                                     {project.description}
                                                 </Typography>
-                                                <Typography
-                                                    color="textSecondary"
-                                                    variant="body2"
-                                                >
-                                                    {project.incentives}
-                                                </Typography>
                                             </Grid>
                                         </Grid>
                                     </Link>
                                 </TableCell>
+                                <TableCell>{project.major}</TableCell>
                                 <TableCell>
                                     <Typography
                                         color="primary"
                                         variant="subtitle2"
                                     >
-                                        {project.jobTitle}
+                                        {project.year}
                                     </Typography>
                                     <Typography
                                         color="textSecondary"
@@ -160,7 +160,9 @@ function ProjectTable({ projects }) {
                                         {project.company}
                                     </Typography>
                                 </TableCell>
-                                <TableCell>{project.joinDate}</TableCell>
+
+                                <TableCell>{project.incentives}</TableCell>
+
                                 <TableCell>
                                     <Typography
                                         className={classes.status}
