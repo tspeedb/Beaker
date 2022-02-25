@@ -106,7 +106,7 @@ function Projectspage({ projects }) {
                 {/* <ProjectCards projects={profiles} /> */}
 
                 {/* <ProjectCards projects={browse} /> */}
-                {<ProjectTable projects={browse} />}
+                {<ProjectTable projects={projects} />}
             </div>
         </Layout>
     )
