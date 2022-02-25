@@ -8,12 +8,6 @@
     width: 40%;
 }
 
-/* .left-screen.edit {
-    background-color: #107fb7;
-    width: 40%;
-    height: 10%
-} */
-
 .left-screen-fs {
     background-color: #ac0c30;
     width: 40%;
@@ -63,11 +57,6 @@ h1 {
     text-align: center;
     padding-top: 50%;
 }
-
-/* .left-text-info.edit {
-    padding-top: 0%;
-    padding-bottom: 10%
-} */
 
 .profile {
     font-size: medium;

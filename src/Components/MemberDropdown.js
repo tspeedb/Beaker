@@ -11,12 +11,10 @@ import ListItemText from '@mui/material/ListItemText';
 import Collapse from '@mui/material/Collapse';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import MemberDropdown from "./MemberDropdown"
 
-export default function ManageDropdown({ members, group }) {
+export default function Member({ member, group }) {
   const [checked, setChecked] = React.useState([1]);
   const [open, setOpen] = React.useState(false);
-  const [selectedValue, setSelectedValue] = React.useState("");
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -35,13 +33,20 @@ export default function ManageDropdown({ members, group }) {
     setOpen(!open);
   };
 
-  const handleClickAway = () => {
-    setOpen(false);
-  };
+  const applicantOptions = (group) => {
+      if (group == "Applicants") {
+        return (
+            <div>
+                <ListItem key='View Profile' style={{paddingLeft: 30}}>Reject Application</ListItem>
+                <ListItem key='View Profile' style={{paddingLeft: 30}}>Accept Application</ListItem>
+            </div>
+          )
+      }
+  }
 
   return (
     <div style={{
-        paddingLeft: 100,
+        paddingLeft: 50,
     }} className='memberslist' >
     <List
       sx={{ width: '100%', maxWidth: 400, bgcolor: 'background.paper' }}
@@ -52,43 +57,13 @@ export default function ManageDropdown({ members, group }) {
         {/* <ListItemIcon> */}
           {/* <InboxIcon /> */}
         {/* </ListItemIcon> */}
-        <ListItemText primary={`Manage ${group}`} />
+        <ListItemText primary={'Member ' + member} />
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List dense sx={{ width: '100%', maxWidth: 400, bgcolor: 'background.paper' }}>
-        {[0, 1, 2, 3].map((value) => {
-          return(
-          <MemberDropdown member={value} group={group}/>
-          )
-        })}
-            {/* // const labelId = `checkbox-list-secondary-label-${value}`;
-            // return (
-            
-            // <ListItem
-            //     key={value}
-            //     //secondaryAction={
-            //     // <Checkbox
-            //     //     edge="end"
-            //     //     onChange={handleToggle(value)}
-            //     //     checked={checked.indexOf(value) !== -1}
-            //     //     inputProps={{ 'aria-labelledby': labelId }}
-            //     // />
-            //     //}
-            //     //disablePadding
-            // >
-            //     <ListItemButton>
-            //     <ListItemAvatar>
-            //         <Avatar
-            //         alt={`Avatar n°${value + 1}`}
-            //         src={`/static/images/avatar/${value + 1}.jpg`}
-            //         />
-            //     </ListItemAvatar>
-            //     <ListItemText id={labelId} primary={`Sample ${group} ${value + 1}`} />
-            //     </ListItemButton>
-                
-
-            // </ListItem> */}
+            <ListItem key='View Profile' style={{paddingLeft: 30}}>View Profile</ListItem>
+            {applicantOptions(group)}
         </List>
       </Collapse>
     </List>

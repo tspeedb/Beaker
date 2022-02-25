@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import '../Styles/LearnMore.css'
+import Layout from '../Components/Layout'
+import ManageMembers from '../Components/ManageMembers'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import { Link } from 'react-router-dom'
 import Button from '@mui/material/Button'
 import EditIcon from '@mui/icons-material/Edit';
-import Box from '@material-ui/core/Box';
+import Box from '@material-ui/core/Box'
+import Chip from '@material-ui/core/Chip';;
 
-import Layout from '../Components/Layout'
-import ManageMembers from '../Components/ManageMembers'
+
 //import { Icon } from '@mui/material'
 
 function ProjectDetails({ match, projects, members }) {
@@ -21,24 +23,17 @@ function ProjectDetails({ match, projects, members }) {
         console.log(selected)
     }, [id, projects])
 
-    const checkIncentives = (project) => {
-        let comp = ""
-        if (!project.isPaid) comp += "Not Paid \n"
-        return comp;
-    }
-
     function incentiveComp(project) {
-        let comp = checkIncentives(project)
         let heading = ""
-        if (comp.length != 0) {
+        if (project?.incentives?.length > 0) {
             heading = 'Incentives'
             return ( 
                 <div>
                     <div style={{ fontSize: '40px', paddingTop: '5%' }}>
                             {heading}
                     </div>
-                    <div style={{ fontSize: '15px', maxWidth: '600px', paddingTop: '5px', paddingBottom: '5%' }}>
-                        {checkIncentives(project)}
+                    <div style={{ maxWidth: '600px', paddingTop: '5px', paddingBottom: '5%' }}>
+                        {project.incentives?.map((major) => ( <Chip label={major} style={{margin: '1px', fontSize: '15px'}}/>))}
                     </div>
                 </div>
             );
@@ -64,7 +59,7 @@ function ProjectDetails({ match, projects, members }) {
                         <div className="column-left details">
                             {' '}
                             <img
-                                src={`${process.env.PUBLIC_URL}/projectImages/${project.image}`}
+                                src={project.image}
                                 alt="project.title"
                                 style={{
                                     width: 400,
@@ -87,25 +82,25 @@ function ProjectDetails({ match, projects, members }) {
                                 Requested Major(s)
                             </div>
                             <div style={{ fontSize: '15px', maxWidth: '600px', paddingTop: '5px' }}>
-                                {project.description}
+                                {project.major?.map((major) => ( <Chip label={major} style={{margin: '1px', fontSize: '15px'}}/>))}
                             </div>
                             <div style={{ fontSize: '40px', paddingTop: '5%' }}>
                                 Preferred Years
                             </div>
                             <div style={{ fontSize: '15px', maxWidth: '600px', paddingTop: '5px' }}>
-                                <Button variant="contained" size="small">{project.year}</Button>
+                            {project.year?.map((major) => ( <Chip label={major} style={{margin: '1px', fontSize: '15px'}}/>))}
                             </div>
                             <div style={{ fontSize: '40px', paddingTop: '5%' }}>
                                 Soft Skills
                             </div>
                             <div style={{ fontSize: '15px', maxWidth: '600px', paddingTop: '5px' }}>
-                                Some placeholder soft skills.
+                                {project.softskills}
                             </div>
                             <div style={{ fontSize: '40px', paddingTop: '5%' }}>
                                 Project Timeline
                             </div>
                             <div style={{ fontSize: '15px', maxWidth: '600px', paddingTop: '5px' }}>
-                                1 Semester
+                                {project.timeline}
                             </div>
                             { incentiveComp(project) }
                         </div>
