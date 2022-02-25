@@ -36,10 +36,12 @@ export default function Member({ member, group }) {
   const applicantOptions = (group) => {
       if (group == "Applicants") {
         return (
-            <div>
+            <Collapse in={open} timeout="auto" unmountOnExit>
+                <List dense sx={{ width: '100%', maxWidth: 400, bgcolor: 'background.paper' }}>
                 <ListItem key='View Profile' style={{paddingLeft: 30}}>Reject Application</ListItem>
                 <ListItem key='View Profile' style={{paddingLeft: 30}}>Accept Application</ListItem>
-            </div>
+                </List>
+            </Collapse>
           )
       }
   }
@@ -58,14 +60,8 @@ export default function Member({ member, group }) {
           {/* <InboxIcon /> */}
         {/* </ListItemIcon> */}
         <ListItemText primary={'Member ' + member} />
-        {open ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
-      <Collapse in={open} timeout="auto" unmountOnExit>
-        <List dense sx={{ width: '100%', maxWidth: 400, bgcolor: 'background.paper' }}>
-            <ListItem key='View Profile' style={{paddingLeft: 30}}>View Profile</ListItem>
-            {applicantOptions(group)}
-        </List>
-      </Collapse>
+      {applicantOptions(group)}
     </List>
     </div>
   );
