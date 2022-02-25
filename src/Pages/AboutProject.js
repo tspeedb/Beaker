@@ -53,11 +53,41 @@ function AboutProject({ match, projects }) {
                             <div style={{ fontSize: '50px' }}>
                                 {project.title}
                             </div>
+                            <div style={{ fontSize: '20px' }}>Created by:</div>
 
                             <div
                                 style={{ fontSize: '15px', maxWidth: '600px' }}
                             >
                                 {project.description}
+                            </div>
+                            <br></br>
+                            <div
+                                style={{ fontSize: '15px', maxWidth: '600px' }}
+                            >
+                                <strong> Desired Major(s): </strong>{' '}
+                                {project.major}
+                            </div>
+                            <div
+                                style={{ fontSize: '15px', maxWidth: '600px' }}
+                            >
+                                {project.softskills}
+                            </div>
+                            <div
+                                style={{ fontSize: '15px', maxWidth: '600px' }}
+                            >
+                                <strong> Project Timeline: </strong>{' '}
+                                {project.timeline}
+                            </div>
+                            <div
+                                style={{ fontSize: '15px', maxWidth: '600px' }}
+                            >
+                                {project.incentives}
+                            </div>
+                            <div
+                                style={{ fontSize: '15px', maxWidth: '600px' }}
+                            >
+                                <strong> Desired Year(s):</strong>{' '}
+                                {project.year}
                             </div>
 
                             <Grid
