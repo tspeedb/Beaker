@@ -11,7 +11,6 @@ import {
     Card,
     Input,
     FormControl,
-    FormLabel,
     CardContent,
     Alert,
     TextField,
@@ -19,6 +18,7 @@ import {
 import { getAuth } from 'firebase/auth'
 import { useAuth } from '../Contexts/authContext'
 import { connectStorageEmulator } from 'firebase/storage'
+import { Box } from '@mui/system'
 
 export default function SignIn() {
     const { signin, currentUser } = useAuth()
@@ -91,64 +91,134 @@ export default function SignIn() {
         //         </div>
         //     </div>
         // </div>
-        <>
-            <Card>
-                <CardContent>
-                    <h2 className="text-center mb-4">Sign Up</h2>
-                    {JSON.stringify({ currentUser })}
-                    {error && <Alert variant="danger">{error}</Alert>}
-                    <form onSubmit={handleSubmit}>
-                        <FormControl
-                            type="email"
-                            inputRef={emailRef}
-                            // required
-                        />
-                        <TextField
-                            type="text"
-                            className="email-address"
-                            placeholder="example@lion.lmu.edu"
-                            inputRef={emailRef}
-                            required
-                        />
-                        <FormLabel>Password</FormLabel>
-                        <FormControl
-                            type="password"
-                            inputRef={passwordRef}
-                            // required
-                        />
-                        <TextField
-                            type="text"
-                            className="password"
-                            placeholder="password"
-                            inputRef={passwordRef}
-                            required
-                        />
-                        <div className="button1">
-                            <Button
-                                disabled={loading}
-                                className="w-100"
-                                type="submit"
-                                className="btn1"
-                                size="medium"
-                                variant="outlined"
-                                color="secondary"
-                            >
-                                Sign In
-                            </Button>
-                        </div>
-                        <div className="button3">
-                            <Link to="./newuserstudent">New Here? </Link>
-                        </div>
-                        {/* <Button
-                                    className="btn3"
-                                    size="medium"
-                                    color="error"
-                                >
-                                    Sign Up?
-                                </Button> */}
-                    </form>
-                </CardContent>
-            </Card>
-        </>
+
+        <div className="top-signin">
+            <Box
+                component="img"
+                sx={{
+                    height: 60,
+                    width: 60,
+                }}
+                alt="logo"
+                src={beaker}
+            />
+            <h2 className="sign-in">Sign In</h2>
+            {/* {JSON.stringify({ currentUser })} */}
+            {error && <Alert variant="danger">{error}</Alert>}
+            <form onSubmit={handleSubmit}>
+                <FormControl
+                    type="email"
+                    inputRef={emailRef}
+                    // required
+                />
+                <div className="email-text-field">
+                    <TextField
+                        type="text"
+                        className="email-address"
+                        placeholder="Email (example@lion.lmu.edu)"
+                        inputRef={emailRef}
+                        required
+                        style={{ width: '20em', marginBottom: '1em' }}
+                    />
+                </div>
+                <FormControl
+                    type="password"
+                    inputRef={passwordRef}
+                    // required
+                />
+                <div className="password-text-field">
+                    <TextField
+                        type="text"
+                        className="password"
+                        placeholder="Password"
+                        inputRef={passwordRef}
+                        required
+                        style={{
+                            width: '20em',
+                            marginBottom: '2em',
+                        }}
+                    />
+                </div>
+                <div className="sign-in-button">
+                    <Button
+                        disabled={loading}
+                        className="signin-button"
+                        type="submit"
+                        size="large"
+                        variant="contained"
+                        color="primary"
+                        style={{ marginBottom: '3em' }}
+                    >
+                        Sign In
+                    </Button>
+                </div>
+                <div className="forgot-password">
+                    <Link to="">Forgot Password </Link>
+                </div>
+                <div className="new-here">
+                    <Link to="./newuserstudent">New Here? </Link>
+                </div>
+            </form>
+        </div>
+
+        // <>
+        //     <Card>
+        //         <CardContent>
+        //             <h2 className="sign-in">Sign In</h2>
+        //             {JSON.stringify({ currentUser })}
+        //             {error && <Alert variant="danger">{error}</Alert>}
+        //             <form onSubmit={handleSubmit}>
+        //                 <FormControl
+        //                     type="email"
+        //                     inputRef={emailRef}
+        //                     // required
+        //                 />
+        //                 <TextField
+        //                     type="text"
+        //                     className="email-address"
+        //                     placeholder="example@lion.lmu.edu"
+        //                     inputRef={emailRef}
+        //                     required
+        //                 />
+        //                 <FormLabel>Password</FormLabel>
+        //                 <FormControl
+        //                     type="password"
+        //                     inputRef={passwordRef}
+        //                     // required
+        //                 />
+        //                 <TextField
+        //                     type="text"
+        //                     className="password"
+        //                     placeholder="password"
+        //                     inputRef={passwordRef}
+        //                     required
+        //                 />
+        //                 <div className="button1">
+        //                     <Button
+        //                         disabled={loading}
+        //                         className="w-100"
+        //                         type="submit"
+        //                         className="btn1"
+        //                         size="medium"
+        //                         variant="outlined"
+        //                         color="secondary"
+        //                     >
+        //                         Sign In
+        //                     </Button>
+        //                 </div>
+        //                 <div className="button3">
+        //                     <Link to="./newuserstudent">New Here? </Link>
+        //                 </div>
+        //                 {/* <Button
+        //                             className="btn3"
+        //                             size="medium"
+        //                             color="error"
+        //                         >
+        //                             Sign Up?
+        //                         </Button> */}
+        //             </form>
+        //         </CardContent>
+        //     </Card>
+        // </>
     )
 }

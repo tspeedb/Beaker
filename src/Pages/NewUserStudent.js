@@ -1,7 +1,14 @@
 import React from 'react'
 import '../Styles/SignIn.css'
 import Button from '@mui/material/Button'
-import { Card, Input, FormControl, FormLabel, CardContent } from '@mui/material'
+import {
+    Card,
+    Input,
+    FormControl,
+    FormLabel,
+    CardContent,
+    Box,
+} from '@mui/material'
 import beaker from '../Images/blackLinedBeakerBgRemoved.png'
 import { Alert } from '@mui/material'
 import { useState, useEffect, useRef } from 'react'
@@ -98,76 +105,158 @@ function NewUserStudent() {
         //         </div>
         //     </div>
         // </form>
-        <>
-            <Card>
-                <CardContent>
-                    <h2 className="text-center mb-4">Sign Up</h2>
-                    {JSON.stringify({ currentUser })}
-                    {error && <Alert variant="danger">{error}</Alert>}
-                    <form onSubmit={handleSubmit}>
-                        <FormControl
-                            type="email"
-                            // inputRef={emailRef}
-                        />
-                        <TextField
-                            type="text"
-                            className="email-address"
-                            placeholder="example@lion.lmu.edu"
-                            inputRef={emailRef}
-                            required
-                        />
-                        <FormLabel>Password</FormLabel>
-                        <FormControl
-                            type="password"
-                            // inputRef={passwordRef}
-                        />
-                        <TextField
-                            type="text"
-                            className="password"
-                            placeholder="password"
-                            inputRef={passwordRef}
-                            required
-                        />
 
-                        <FormLabel>Password Confirmation</FormLabel>
-                        <FormControl
-                            type="password"
-                            // ref={passwordConfirmRef}
-                        />
-                        <TextField
-                            type="text"
-                            className="password-confirm"
-                            placeholder="confirm password"
-                            inputRef={passwordConfirmRef}
-                            required
-                        />
+        <div className="top-signin">
+            <Box
+                component="img"
+                sx={{
+                    height: 60,
+                    width: 60,
+                }}
+                alt="logo"
+                src={beaker}
+            />
+            <h2 className="sign-up">Sign Up</h2>
+            {/* {JSON.stringify({ currentUser })} */}
+            {error && <Alert variant="danger">{error}</Alert>}
+            <form onSubmit={handleSubmit}>
+                <FormControl
+                    type="email"
+                    // inputRef={emailRef}
+                />
+                <div className="email-text-field">
+                    <TextField
+                        type="text"
+                        className="email-address"
+                        placeholder="Email (example@lion.lmu.edu)"
+                        inputRef={emailRef}
+                        required
+                        style={{
+                            width: '20em',
+                            marginBottom: '1em',
+                        }}
+                    />
+                </div>
+                <FormControl
+                    type="password"
+                    // inputRef={passwordRef}
+                />
+                <div className="password-text-field">
+                    <TextField
+                        type="text"
+                        className="password"
+                        placeholder="Password"
+                        inputRef={passwordRef}
+                        required
+                        style={{
+                            width: '20em',
+                            marginBottom: '1em',
+                        }}
+                    />
+                </div>
+                <FormControl
+                    type="password"
+                    // ref={passwordConfirmRef}
+                />
+                <div className="confirm-password-text-field">
+                    <TextField
+                        type="text"
+                        className="password-confirm"
+                        placeholder="Confirm Password"
+                        inputRef={passwordConfirmRef}
+                        required
+                        style={{
+                            width: '20em',
+                            marginBottom: '3em',
+                        }}
+                    />
+                </div>
+                <div className="continue-to-profile-button">
+                    {/* <Link to="/studentprofile"> */}
+                    <Button
+                        disabled={loading}
+                        type="submit"
+                        className="continue-to-profile-btn"
+                        size="large"
+                        variant="contained"
+                        color="primary"
+                    >
+                        Continue to Profile
+                    </Button>
+                    {/* </Link> */}
+                </div>
+            </form>
+        </div>
 
-                        {/* <div className="button1">
-                            <Link to="/studentprofile">
-                                Continue to Profile
-                            
+        // <>
+        //     <Card>
+        //         <CardContent>
+        //             <h2 className="text-center mb-4">Sign Up</h2>
+        //             {JSON.stringify({ currentUser })}
+        //             {error && <Alert variant="danger">{error}</Alert>}
+        //             <form onSubmit={handleSubmit}>
+        //                 <FormControl
+        //                     type="email"
+        //                     // inputRef={emailRef}
+        //                 />
+        //                 <TextField
+        //                     type="text"
+        //                     className="email-address"
+        //                     placeholder="example@lion.lmu.edu"
+        //                     inputRef={emailRef}
+        //                     required
+        //                 />
+        //                 <FormLabel>Password</FormLabel>
+        //                 <FormControl
+        //                     type="password"
+        //                     // inputRef={passwordRef}
+        //                 />
+        //                 <TextField
+        //                     type="text"
+        //                     className="password"
+        //                     placeholder="password"
+        //                     inputRef={passwordRef}
+        //                     required
+        //                 />
 
-                        </div> */}
+        //                 <FormLabel>Password Confirmation</FormLabel>
+        //                 <FormControl
+        //                     type="password"
+        //                     // ref={passwordConfirmRef}
+        //                 />
+        //                 <TextField
+        //                     type="text"
+        //                     className="password-confirm"
+        //                     placeholder="confirm password"
+        //                     inputRef={passwordConfirmRef}
+        //                     required
+        //                 />
 
-                        <div className="button1">
-                            {/* <Link to="/studentprofile"> */}
-                            <Button
-                                disabled={loading}
-                                className="w-100"
-                                type="submit"
-                                className="btn1"
-                                size="medium"
-                                variant="outlined"
-                                color="secondary"
-                            >
-                                Continue to Profile
-                            </Button>
-                            {/* </Link> */}
-                        </div>
-                    </form>
-                </CardContent>
-            </Card>
-        </>
+        //                 {/* <div className="button1">
+        //                     <Link to="/studentprofile">
+        //                         Continue to Profile
+
+        //                 </div> */}
+
+        //                 <div className="button1">
+        //                     {/* <Link to="/studentprofile"> */}
+        //                     <Button
+        //                         disabled={loading}
+        //                         className="w-100"
+        //                         type="submit"
+        //                         className="btn1"
+        //                         size="medium"
+        //                         variant="outlined"
+        //                         color="secondary"
+        //                     >
+        //                         Continue to Profile
+        //                     </Button>
+        //                     {/* </Link> */}
+        //                 </div>
+        //             </form>
+        //         </CardContent>
+        //     </Card>
+        // </>
     )
 }
 
