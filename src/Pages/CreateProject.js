@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect, useMemo, useRef } from 'react'
 import '../Styles/Profile.css'
 import Button from '@mui/material/Button'
 import beaker from '../Images/blackLinedBeakerBgRemoved.png'
@@ -11,6 +11,7 @@ import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
+import TextField from '@mui/material/TextField'
 
 function CreateProject({ setProjects }) {
     const [projectName, setProjectName] = useState('')
@@ -25,6 +26,9 @@ function CreateProject({ setProjects }) {
     const [imageAsUrl, setImageAsUrl] = useState(
         `${process.env.PUBLIC_URL}/projectImages/user.png`
     )
+    const projNameRef = useRef()
+    const projDescRef = useRef()
+    const projPrefSoftSkillsRef = useRef()
 
     const handleChangeMemAmt = (event) => {
         setMemAmount(event.target.value)
@@ -235,28 +239,32 @@ function CreateProject({ setProjects }) {
                         onClick={(e) => openWidget(e, widget)}
                     />
                 </div>
-                <div></div>
-                <br></br>
-                <input
-                    type="text"
-                    className="project-name "
-                    placeholder="Project Name"
-                    onChange={(event) => {
-                        setProjectName(event.target.value)
-                    }}
-                />
-                <div></div>
-                <br></br>
-                <textarea
-                    type="text"
-                    className="project-desc "
-                    placeholder="Project Description"
-                    onChange={(event) => {
-                        setDesc(event.target.value)
-                    }}
-                />
-                <div></div>
-                <br></br>
+                <FormControl inputRef={projNameRef} />
+                <div className="project-name">
+                    <TextField
+                        type="text"
+                        className="proj-name"
+                        placeholder="Project Name"
+                        inputRef={projNameRef}
+                        style={{ width: '20em', marginBottom: '1em' }}
+                        onChange={(event) => {
+                            setProjectName(event.target.value)
+                        }}
+                    />
+                </div>
+                <FormControl inputRef={projDescRef} />
+                <div className="project-desc">
+                    <TextField
+                        multiline
+                        rows={6}
+                        placeholder="Project Description"
+                        inputRef={projDescRef}
+                        style={{ width: '20em', marginBottom: '2em' }}
+                        onChange={(event) => {
+                            setDesc(event.target.value)
+                        }}
+                    />
+                </div>
                 <div className="members-dropdown">
                     <FormControl fullWidth>
                         <InputLabel>Number Of Members Needed</InputLabel>
@@ -275,8 +283,6 @@ function CreateProject({ setProjects }) {
                         </Select>
                     </FormControl>
                 </div>
-                <div></div>
-                <br></br>
                 <div className="preferred-majors-options">
                     <FormControl fullWidth>
                         <InputLabel>Preferred Majors</InputLabel>
@@ -293,8 +299,6 @@ function CreateProject({ setProjects }) {
                         </Select>
                     </FormControl>
                 </div>
-                <div></div>
-                <br></br>
                 <div className="preferred-years-options">
                     <FormControl fullWidth>
                         <InputLabel>Preferred Years</InputLabel>
@@ -311,18 +315,21 @@ function CreateProject({ setProjects }) {
                         </Select>
                     </FormControl>
                 </div>
-                <div></div>
-                <br></br>
-                <input
-                    type="text"
-                    className="preferred-soft-skill "
-                    placeholder="Preferred Soft Skill(s)"
-                    onChange={(event) => {
-                        setSoftSkills(event.target.value)
-                    }}
-                />
-                <div></div>
-                <br></br>
+                <FormControl inputRef={projPrefSoftSkillsRef} />
+                <div className="preferred-soft-skill">
+                    <TextField
+                        type="text"
+                        className="soft-skills"
+                        placeholder="Preferred Soft Skill(s)"
+                        inputRef={projPrefSoftSkillsRef}
+                        style={{
+                            width: '20em',
+                        }}
+                        onChange={(event) => {
+                            setSoftSkills(event.target.value)
+                        }}
+                    />
+                </div>
                 <div className="timeline-dropdown">
                     <FormControl fullWidth>
                         <InputLabel>Project Timeline</InputLabel>
@@ -341,8 +348,6 @@ function CreateProject({ setProjects }) {
                         </Select>
                     </FormControl>
                 </div>
-                <div></div>
-                <br></br>
                 <div className="incentive-options">
                     <FormControl fullWidth>
                         <InputLabel>Incentives</InputLabel>
@@ -362,8 +367,6 @@ function CreateProject({ setProjects }) {
                         </Select>
                     </FormControl>
                 </div>
-                <div></div>
-                <br></br>
                 <div className="create-proj">
                     <Link className="button-link" to="/projectspage">
                         <Button
