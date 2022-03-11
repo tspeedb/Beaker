@@ -55,6 +55,9 @@ const useStyles = makeStyles((theme) => ({
         color: 'black',
         textDecoration: 'none',
     },
+    sorter: {
+        margin: 0,
+    },
 }))
 
 // let USERS = [],
@@ -73,8 +76,24 @@ const useStyles = makeStyles((theme) => ({
 
 function ProjectTable({ projects }) {
     const classes = useStyles()
+    const [order, setOrder] = React.useState()
+    const [orderBy, setOrderBy] = React.useState()
+    const [filter, setFilter] = React.useState(true)
     const [page, setPage] = React.useState(0)
     const [rowsPerPage, setRowsPerPage] = React.useState(5)
+
+    const recordsAfterPagingAndSorting = () => {
+        return stableSort(getComparator(order, orderBy)).slice(
+            page * rowsPerPage,
+            (page + 1) * rowsPerPage
+        )
+    }
+
+    const handleSort = (cellId) => {
+        const isAsc = orderBy === cellId && order === 'asc'
+        setOrder(isAsc ? 'desc' : 'asc')
+        setOrderBy(cellId)
+    }
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage)
@@ -88,25 +107,56 @@ function ProjectTable({ projects }) {
     return (
         <TableContainer component={Paper} className={classes.tableContainer}>
             <Table className={classes.table} aria-label="simple table">
-                <TableHead>
-                    <TableRow>
-                        <TableCell className={classes.tableHeaderCell}>
-                            Title & Description
-                        </TableCell>
-                        <TableCell className={classes.tableHeaderCell}>
-                            Desired Major(s)
-                        </TableCell>
-                        <TableCell className={classes.tableHeaderCell}>
-                            Desired Years
-                        </TableCell>
-                        <TableCell className={classes.tableHeaderCell}>
-                            Incentives
-                        </TableCell>
-                        <TableCell className={classes.tableHeaderCell}>
-                            Owner
-                        </TableCell>
-                    </TableRow>
-                </TableHead>
+                {projects.map((project) => (
+                    <TableHead>
+                        <TableRow>
+                            <TableCell
+                                key={project.id}
+                                className={classes.tableHeaderCell}
+                            >
+                                <TableSortLabel
+                                    active={orderBy === project.id}
+                                    direction={
+                                        orderBy === project.id ? order : 'asc'
+                                    }
+                                    onClick={() => {
+                                        handleSort(project.title)
+                                    }}
+                                >
+                                    Title & Description
+                                </TableSortLabel>
+                            </TableCell>
+
+                            <TableCell className={classes.tableHeaderCell}>
+                                <TableSortLabel
+                                    direction={
+                                        orderBy === project.major
+                                            ? order
+                                            : 'asc'
+                                    }
+                                    onClick={() => {
+                                        handleSort(project.major)
+                                    }}
+                                >
+                                    Desired Major(s)
+                                </TableSortLabel>
+                            </TableCell>
+
+                            <TableCell className={classes.tableHeaderCell}>
+                                Desired Years
+                            </TableCell>
+
+                            <TableCell className={classes.tableHeaderCell}>
+                                Incentives
+                            </TableCell>
+
+                            <TableCell className={classes.tableHeaderCell}>
+                                Owner
+                            </TableCell>
+                        </TableRow>
+                    </TableHead>
+                ))}
+
                 <TableBody>
                     {projects
                         .slice(
@@ -182,6 +232,7 @@ function ProjectTable({ projects }) {
                             </TableRow>
                         ))}
                 </TableBody>
+
                 <TableFooter>
                     <TablePagination
                         rowsPerPageOptions={[5, 10, 15]}
@@ -196,6 +247,34 @@ function ProjectTable({ projects }) {
             </Table>
         </TableContainer>
     )
+    function stableSort(array, comparator) {
+        const stabilizedThis = array.map((el, index) => [el, index])
+        stabilizedThis.sort((a, b) => {
+            const order = comparator(a[0], b[0])
+            if (order !== 0) return order
+            return a[1] - b[1]
+        })
+        return stabilizedThis.map((el) => el[0])
+    }
+
+    function getComparator(order, orderBy) {
+        return order === 'desc'
+            ? (a, b) => descendingComparator(a, b, orderBy)
+            : (a, b) => -descendingComparator(a, b, orderBy)
+    }
+
+    function descendingComparator(a, b, orderBy) {
+        if (b[orderBy] < a[orderBy]) {
+            return -1
+        }
+        if (b[orderBy] > a[orderBy]) {
+            return 1
+        }
+        return 0
+    }
+    return {
+        recordsAfterPagingAndSorting,
+    }
 }
 
 export default ProjectTable
