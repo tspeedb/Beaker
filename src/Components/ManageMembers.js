@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import ManageDropdown from './ManageDropdown';
 
 export default function ManageMembers() {
-
   return (
     <div style={{
         paddingLeft: 5, 

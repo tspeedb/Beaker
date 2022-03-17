@@ -5,7 +5,7 @@ import beaker from '../Images/blackLinedBeakerBgRemoved.png'
 import { Link } from 'react-router-dom'
 import 'firebase/firestore'
 import { db, storage } from '../firebase'
-import { collection, getDocs, updateDoc } from 'firebase/firestore'
+import { doc, collection, getDocs, updateDoc } from 'firebase/firestore'
 import Layout from '../Components/Layout'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import Box from '@material-ui/core/Box';
@@ -16,9 +16,10 @@ import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
 import Autocomplete from '@mui/material/Autocomplete'
 
-function EditProject({ match, projects, setProjects }) {
+function EditProject({ match, projects }) {
     const [project, setProject] = useState({})
     const [projectName, setProjectName] = useState('')
+    const [projectStatus, setStatus] = useState('')
     const [desc, setDesc] = useState('')
     const [memberAmount, setMemAmount] = useState('')
     const [reqMajor, setReqMajor] = useState([])
@@ -57,29 +58,72 @@ function EditProject({ match, projects, setProjects }) {
         setIncentives(event.target.value)
     }
 
+    const handleChangeStatus = (event) => {
+        setStatus(event.target.value)
+    }
+
     const projectsCollectionRef = useMemo(() => collection(db, 'projects'), [])
+
     const getProjects = async () => {
         const data = await getDocs(projectsCollectionRef)
-        setProjects(data.docs.map((doc) => ({ ...doc.data(), key: doc.id })))
+        projects = (data.docs.map((doc) => ({ ...doc.data(), key: doc.id })))
     }
 
     const id = match.params.projectId
+    const projectCollectionRef = doc(db, 'projects', id)
+    
+    const [projectState, setProjectState] = useState({})
+    // const [editedProjectStatus, setEditedStatus] = useState('')
+    // const [editedMemberAmount, setEditedMemAmount] = useState('')
+    // const [editedEeqMajor, setEditedReqMajor] = useState([])
+    // const [editedReqYear, setEditedReqYear] = useState([])
+    // const [editedTimeline, setEditedTimeline] = useState('')
+    // const [editedIncentives, setEditedIncentives] = useState([])
+    // const [editedImageAsUrl, setEditedImageAsUrl] = useState('')
+
+    const [editedProjectName, setEditedProjectName] = useState('')
+    const [editedDesc, setEditedDesc] = useState('')
+    const [editedSoftSkills, setEditedSoftSkills] = useState('')
     
     useEffect(() => {
-        console.log(projects)
-        const selected = projects.filter((project) => project.key === id)[0]
+        const selected = projects?.filter((project) => project.key === id)[0]
         setProject(selected)
-        console.log(selected)
+        setProjectState(selected)
+        setEditedProjectName(selected?.title)
+        setEditedDesc(selected?.description)
+        setEditedSoftSkills(selected?.softskills)
     }, [id, projects])
-    
+
+    const compareValues = () => {
+        let updatedProjectName, updatedDesc, updatedSoftSkills
+
+        updatedProjectName = (projectState.title !== editedProjectName) ? editedProjectName : projectState.title
+        setProjectName(updatedProjectName) 
+
+        updatedDesc = (projectState.description !== editedDesc) ? editedDesc: projectState.description
+        setDesc(updatedDesc) 
+
+        updatedSoftSkills = (projectState.softskills !== editedSoftSkills) ? editedSoftSkills: projectState.softskills
+        setSoftSkills(updatedSoftSkills) 
+
+        return { updatedProjectName, updatedDesc, updatedSoftSkills }
+    }
+
     const editProject = async () => {
-        await updateDoc(projectsCollectionRef, {
-            title: projectName,
-            description: desc,
+        let { 
+            updatedProjectName, 
+            updatedDesc, 
+            updatedSoftSkills 
+        } = compareValues()
+
+        await updateDoc(projectCollectionRef, {
+            title: updatedProjectName,
+            status: projectStatus,
+            description: updatedDesc,
             members: memberAmount,
             major: reqMajor,
             year: reqYear,
-            softskills: softskills,
+            softskills: updatedSoftSkills,
             timeline: timeline,
             incentives: incentives,
             image: imageAsUrl,
@@ -110,7 +154,7 @@ function EditProject({ match, projects, setProjects }) {
         },
 
         (error, result) => {
-            console.log('result:', result)
+            // console.log('result:', result)
             if (!error && result && result.event === 'success') {
                 console.log('Done! Here is the image info: ', result.info)
                 setImageAsUrl(result.info.url)
@@ -214,6 +258,12 @@ function EditProject({ match, projects, setProjects }) {
         '4 Years+',
     ]
 
+    const status = [
+        'Open', 
+        'Closed', 
+        'Completed'
+    ]
+
     const incentiveOptions = ['Paid', 'Funding Available', 'Internship Credit']
 
     return (
@@ -254,9 +304,10 @@ function EditProject({ match, projects, setProjects }) {
                 <input
                     type="text"
                     className="project-name "
-                    placeholder={project.title}
+                    placeholder="Project Name"
+                    defaultValue={project.title}
                     onChange={(event) => {
-                        setProjectName(event.target.value)
+                        setEditedProjectName(event.target.value)
                     }}
                 />
                 <div></div>
@@ -265,12 +316,31 @@ function EditProject({ match, projects, setProjects }) {
                     type="text"
                     className="project-desc "
                     placeholder="Project Description"
+                    defaultValue={project.description}
                     onChange={(event) => {
-                        setDesc(event.target.value)
+                        setEditedDesc(event.target.value)
                     }}
-                >
-                {project.description}
-                </textarea>
+                />
+                <div></div>
+                <br></br>
+                <div className="project-status">
+                    <FormControl fullWidth>
+                        <InputLabel>Project Status</InputLabel>
+                        <Select
+                            value={projectStatus}
+                            onChange={handleChangeStatus}
+                        >
+                            {status.map((s) => (
+                                <MenuItem
+                                    key={s}
+                                    value={s}
+                                >
+                                    {s}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                </div>
                 <div></div>
                 <br></br>
                 <div className="members-dropdown">
@@ -333,8 +403,9 @@ function EditProject({ match, projects, setProjects }) {
                     type="text"
                     className="preferred-soft-skill "
                     placeholder="Preferred Soft Skill(s)"
+                    defaultValue={project.softskills}
                     onChange={(event) => {
-                        setSoftSkills(event.target.value)
+                        setEditedSoftSkills(event.target.value)
                     }}
                 />
                 <div></div>
@@ -381,16 +452,17 @@ function EditProject({ match, projects, setProjects }) {
                 <div></div>
                 <br></br>
                 <div className="create-proj">
-                    <Link className="button-link" to={`/projectdetails/${id}`}>
+                    {/* <Link className="button-link" to={`/projectdetails/${id}`}> */}
                         <Button
                             className="post-proj-btn1"
                             size="large"
                             color='warning'
+                            onClick={editProject}
                         >
                             Cancel
                         </Button>
-                    </Link>
-                    <Link className="button-link" to="/projectspage">
+                    {/* </Link> */}
+                    <Link className="button-link" to={`/projectdetails/${id}`}>
                         <Button
                             className="post-proj-btn1"
                             size="large"

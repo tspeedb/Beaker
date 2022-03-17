@@ -156,7 +156,6 @@ function App() {
                                 <ProjectDetails
                                     {...props}
                                     projects={projects}
-                                    members={members}
                                 />
                             )}
                         />
