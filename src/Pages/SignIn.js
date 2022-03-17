@@ -35,7 +35,6 @@ export default function SignIn() {
             setLoading(true)
             await signin(emailRef.current.value, passwordRef.current.value)
             history.push('/dashboard')
-            console.log('history is dashboard')
         } catch {
             setError('Failed to Signin')
         }

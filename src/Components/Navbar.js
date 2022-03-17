@@ -16,6 +16,8 @@ import MenuItem from '@material-ui/core/MenuItem'
 import '../Styles/Navbar.css'
 import { getAuth } from 'firebase/auth'
 import { useAuth } from '../Contexts/authContext'
+import { auth } from '../firebase'
+import 'firebase/compat/auth'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import ScienceIcon from '@mui/icons-material/Science'
 
@@ -101,15 +103,15 @@ const Navbar = () => {
     // }
 
     const [error, setError] = useState('')
-    const { currentUser, signout } = useAuth()
+    const { currentUser, signOut } = useAuth()
     const history = useHistory()
 
     async function handleLogout() {
         try {
-            await signout()
+            await signOut()
             history.push('/')
+            console.log('you are logged out')
         } catch {
-            console.log('I aint loggin out son')
             setError('Failed to log out')
         }
     }

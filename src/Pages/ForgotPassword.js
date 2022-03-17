@@ -27,16 +27,14 @@ export default function ForgotPassword() {
         e.preventDefault()
 
         try {
-            console.log('gets here 1')
             setMessage('')
             setError('')
             setLoading(true)
-            console.log('gets here 2')
+
             await resetPassword(emailRef.current.value)
-            console.log('gets here 3')
+
             setMessage('Link to password Reset sent to Email')
         } catch {
-            console.log('gets here ee')
             setError('Failed to reset password')
         }
 
