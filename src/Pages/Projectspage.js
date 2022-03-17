@@ -11,6 +11,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle'
 import Button from '@mui/material/Button'
 // import { collection, query, where, getDocs, doc } from 'firebase/firestore'
 import ProjectTable from '../Components/ProjectsTable'
+import ProjectTableNew from '../Components/ProjectTableNew'
 import 'firebase/firestore'
 import { keyframes } from '@mui/styled-engine'
 import { Add } from '@mui/icons-material'
@@ -106,7 +107,7 @@ function Projectspage({ projects }) {
                 {/* <ProjectCards projects={profiles} /> */}
 
                 {/* <ProjectCards projects={browse} /> */}
-                {<ProjectTable projects={projects} />}
+                {<ProjectTableNew projects={projects} />}
             </div>
         </Layout>
     )

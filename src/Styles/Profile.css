@@ -161,6 +161,10 @@ h1 {
     font-size: medium;
 }
 
+.project-name fieldset {
+    border-radius: 100px;
+}
+
 .members-needed {
     font-size: x-large;
     margin-right: 10px;
@@ -173,6 +177,7 @@ h1 {
     text-align: center;
     font-size: x-large;
     color: gray;
+    margin-bottom: 1.5em;
 }
 
 .project-majors {
@@ -182,6 +187,7 @@ h1 {
 
 .preferred-majors-options {
     font-size: x-large;
+    margin-bottom: 1.5em;
 }
 
 .preferred-years {
@@ -190,12 +196,17 @@ h1 {
 }
 
 .preferred-years-options {
-    margin-top: 5px;
     font-size: x-large;
+    margin-bottom: 0.5em;
+}
+
+.preferred-soft-skill fieldset {
+    border-radius: 100px;
 }
 
 .preferred-soft-skill {
     font-size: medium;
+    margin-bottom: 1.5em;
 }
 
 .project-timeline {
@@ -210,12 +221,14 @@ h1 {
     text-align: center;
     font-size: x-large;
     color: gray;
+    margin-bottom: 1.5em;
 }
 
 .incentive-options {
     height: 50px;
     width: 100%;
     font-size: medium;
+    margin-bottom: 1.5em;
 }
 
 input {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect, useMemo, useRef } from 'react'
 // import 'bootstrap/dist/css/bootstrap.min.css'
 import '../Styles/Profile.css'
 import Button from '@mui/material/Button'
@@ -11,6 +11,7 @@ import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
+import TextField from '@mui/material/TextField'
 
 function FacultyStaffProfile({ setFSMembers }) {
     const [title, setTitle] = useState('')
