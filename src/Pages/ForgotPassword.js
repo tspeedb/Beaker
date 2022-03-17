@@ -15,6 +15,7 @@ import { Link } from 'react-router-dom'
 import { connectStorageEmulator } from 'firebase/storage'
 import { Box } from '@mui/system'
 import beaker from '../Images/blackLinedBeakerBgRemoved.png'
+import '../Styles/SignIn.css'
 
 export default function ForgotPassword() {
     const emailRef = useRef()
@@ -64,7 +65,7 @@ export default function ForgotPassword() {
                         placeholder="Email (example@lion.lmu.edu)"
                         inputRef={emailRef}
                         required
-                        style={{ width: '20em', marginBottom: '1em' }}
+                        style={{ width: '20em', marginBottom: '2em' }}
                     />
                 </div>
                 <div className="sign-in-button">
