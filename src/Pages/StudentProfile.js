@@ -13,6 +13,7 @@ import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
+import TextField from '@mui/material/TextField'
 
 const useStyles = makeStyles((theme) => ({
     yearDropdown: {
@@ -303,60 +304,63 @@ function StudentProfile({ setMembers }) {
                         onClick={(e) => openWidget(e, widget)}
                     />
                 </div>
-                <div></div>
-                <br></br>
-                <input
-                    type="text"
-                    className="first-name"
-                    placeholder="First Name(s)"
-                    onChange={(event) => {
-                        setFirstName(event.target.value)
-                    }}
-                />
-                <div></div>
-                <br></br>
-                <input
-                    type="text"
-                    className="middle-name"
-                    placeholder="Middle Name(s)"
-                    onChange={(event) => {
-                        setMiddleName(event.target.value)
-                    }}
-                />
-                <div></div>
-                <br></br>
-                <input
-                    type="text"
-                    className="last-name"
-                    placeholder="Last Name(s)"
-                    onChange={(event) => {
-                        setLastName(event.target.value)
-                    }}
-                />
-                <div></div>
-                <br></br>
-                <input
-                    type="text"
-                    className="preferred-name"
-                    placeholder="Nickname/Preferred Name"
-                    onChange={(event) => {
-                        setNickname(event.target.value)
-                    }}
-                />
-                <div></div>
-                <br></br>
-                <input
-                    type="text"
-                    className="pronouns"
-                    placeholder="Pronouns (Ex: she/her)"
-                    onChange={(event) => {
-                        setPronouns(event.target.value)
-                    }}
-                />
-                <div></div>
-                <br></br>
+                <FormControl />
+                <div className="first-name">
+                    <TextField
+                        type="text"
+                        placeholder="First Name(s)"
+                        style={{ width: '50%' }}
+                        onChange={(event) => {
+                            setFirstName(event.target.value)
+                        }}
+                    />
+                </div>
+                <FormControl />
+                <div className="middle-name">
+                    <TextField
+                        type="text"
+                        placeholder="Middle Name(s)"
+                        style={{ width: '50%' }}
+                        onChange={(event) => {
+                            setMiddleName(event.target.value)
+                        }}
+                    />
+                </div>
+                <FormControl />
+                <div className="last-name">
+                    <TextField
+                        type="text"
+                        placeholder="Last Name(s)"
+                        style={{ width: '50%' }}
+                        onChange={(event) => {
+                            setLastName(event.target.value)
+                        }}
+                    />
+                </div>
+                <FormControl />
+                <div className="preferred-name">
+                    <TextField
+                        type="text"
+                        placeholder="Nickname/Preferred Name"
+                        style={{ width: '50%' }}
+                        onChange={(event) => {
+                            setNickname(event.target.value)
+                        }}
+                    />
+                </div>
+                <FormControl />
+                <div className="pronouns">
+                    <TextField
+                        type="text"
+                        placeholder="Pronouns (Ex: she/her)"
+                        style={{ width: '50%' }}
+                        onChange={(event) => {
+                            setPronouns(event.target.value)
+                        }}
+                    />
+                </div>
                 <div className="year-dropdown">
-                    <FormControl fullWidth>
+                    <FormControl style={{ width: '55%' }}>
                         <InputLabel>Year</InputLabel>
                         <Select value={year} onChange={handleSelectYear}>
                             {yearOptionsSP.map((yearOption) => (
@@ -367,10 +371,8 @@ function StudentProfile({ setMembers }) {
                         </Select>
                     </FormControl>
                 </div>
-                <div></div>
-                <br></br>
                 <div className="major-dropdown">
-                    <FormControl fullWidth>
+                    <FormControl style={{ width: '55%' }}>
                         <InputLabel>Majors</InputLabel>
                         <Select
                             multiple
@@ -385,10 +387,8 @@ function StudentProfile({ setMembers }) {
                         </Select>
                     </FormControl>
                 </div>
-                <div></div>
-                <br></br>
                 <div className="minor-dropdown">
-                    <FormControl fullWidth>
+                    <FormControl style={{ width: '55%' }}>
                         <InputLabel>Minors</InputLabel>
                         <Select
                             multiple
@@ -403,46 +403,46 @@ function StudentProfile({ setMembers }) {
                         </Select>
                     </FormControl>
                 </div>
-                <div></div>
-                <br></br>
-                <input
-                    type="text"
-                    className="skills"
-                    placeholder="Soft Skills (separate by commas)"
-                    onChange={(event) => {
-                        setSoftskills(event.target.value)
-                    }}
-                />
-                <div></div>
-                <br></br>
-                <label>Tell us a little about yourself:</label>
-                <br></br>
-                <textarea
-                    className="self-intro"
-                    onChange={(event) => {
-                        setBio(event.target.value)
-                    }}
-                />
-                <div></div>
-                <br></br>
-                <label className="resume">Upload CV or Resume</label>
+                <FormControl />
+                <div className="skills">
+                    <TextField
+                        type="text"
+                        placeholder="Soft Skills (separate by commas)"
+                        style={{ width: '50%' }}
+                        onChange={(event) => {
+                            setSoftskills(event.target.value)
+                        }}
+                    />
+                </div>
+                <FormControl />
+                <div className="self-intro">
+                    <TextField
+                        multiline
+                        rows={6}
+                        placeholder="Tell us about yourself"
+                        style={{ width: '50%' }}
+                        onChange={(event) => {
+                            setBio(event.target.value)
+                        }}
+                    />
+                </div>
+                {/* <label className="resume">Upload CV or Resume</label>
                 <div></div>
                 <br></br>
                 <Uploadfile> </Uploadfile>
                 <div></div>
-                <br></br>
-                <label className="portfolio">Link to Portfolio/Website</label>
-                <div></div>
-                <br></br>
-                <input
-                    type="text"
-                    className="portfolio"
-                    onChange={(event) => {
-                        setPortfolioLink(event.target.value)
-                    }}
-                />
-                <div></div>
-                <br></br>
+                <br></br> */}
+                <FormControl />
+                <div className="portfolio">
+                    <TextField
+                        type="text"
+                        placeholder="Link to Portfolio/Website"
+                        style={{ width: '50%' }}
+                        onChange={(event) => {
+                            setPortfolioLink(event.target.value)
+                        }}
+                    />
+                </div>
                 <div className="done">
                     <Link className="button-link" to="/projectspage">
                         <Button

@@ -246,7 +246,7 @@ function CreateProject({ setProjects }) {
                         className="proj-name"
                         placeholder="Project Name"
                         inputRef={projNameRef}
-                        style={{ width: '20em', marginBottom: '1em' }}
+                        style={{ width: '55%' }}
                         onChange={(event) => {
                             setProjectName(event.target.value)
                         }}
@@ -259,14 +259,14 @@ function CreateProject({ setProjects }) {
                         rows={6}
                         placeholder="Project Description"
                         inputRef={projDescRef}
-                        style={{ width: '20em', marginBottom: '2em' }}
+                        style={{ width: '55%' }}
                         onChange={(event) => {
                             setDesc(event.target.value)
                         }}
                     />
                 </div>
                 <div className="members-dropdown">
-                    <FormControl fullWidth>
+                    <FormControl style={{ width: '55%' }}>
                         <InputLabel>Number Of Members Needed</InputLabel>
                         <Select
                             value={memberAmount}
@@ -284,7 +284,7 @@ function CreateProject({ setProjects }) {
                     </FormControl>
                 </div>
                 <div className="preferred-majors-options">
-                    <FormControl fullWidth>
+                    <FormControl style={{ width: '55%' }}>
                         <InputLabel>Preferred Majors</InputLabel>
                         <Select
                             multiple
@@ -300,7 +300,7 @@ function CreateProject({ setProjects }) {
                     </FormControl>
                 </div>
                 <div className="preferred-years-options">
-                    <FormControl fullWidth>
+                    <FormControl style={{ width: '55%' }}>
                         <InputLabel>Preferred Years</InputLabel>
                         <Select
                             multiple
@@ -322,16 +322,14 @@ function CreateProject({ setProjects }) {
                         className="soft-skills"
                         placeholder="Preferred Soft Skill(s)"
                         inputRef={projPrefSoftSkillsRef}
-                        style={{
-                            width: '20em',
-                        }}
+                        style={{ width: '55%' }}
                         onChange={(event) => {
                             setSoftSkills(event.target.value)
                         }}
                     />
                 </div>
                 <div className="timeline-dropdown">
-                    <FormControl fullWidth>
+                    <FormControl style={{ width: '55%' }}>
                         <InputLabel>Project Timeline</InputLabel>
                         <Select
                             value={timeline}
@@ -349,7 +347,7 @@ function CreateProject({ setProjects }) {
                     </FormControl>
                 </div>
                 <div className="incentive-options">
-                    <FormControl fullWidth>
+                    <FormControl style={{ width: '55%' }}>
                         <InputLabel>Incentives</InputLabel>
                         <Select
                             multiple

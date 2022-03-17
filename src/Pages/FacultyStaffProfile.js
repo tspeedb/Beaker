@@ -185,71 +185,74 @@ function FacultyStaffProfile({ setFSMembers }) {
                         onClick={(e) => openWidget(e, widget)}
                     />
                 </div>
-                <div></div>
-                <br></br>
-                <input
-                    type="text"
-                    className="fs-title"
-                    placeholder="Title (Ex: Professor)"
-                    onChange={(event) => {
-                        setTitle(event.target.value)
-                    }}
-                />
-                <div></div>
-                <br></br>
-                <input
-                    //it would probably be best to get rid of any commented out code to keep the code more clean (MS)
-                    type="text"
-                    className="first-name"
-                    placeholder="First Name(s)"
-                    onChange={(event) => {
-                        setFirstName(event.target.value)
-                    }}
-                />
-                <div></div>
-                <br></br>
-                <input
-                    type="text"
-                    className="middle-name"
-                    placeholder="Middle Name(s)"
-                    onChange={(event) => {
-                        setMiddleName(event.target.value)
-                    }}
-                />
-                <div></div>
-                <br></br>
-                <input
-                    type="text"
-                    className="last-name"
-                    placeholder="Last Name(s)"
-                    onChange={(event) => {
-                        setLastName(event.target.value)
-                    }}
-                />
-                <div></div>
-                <br></br>
-                <input
-                    type="text"
-                    className="preferred-name"
-                    placeholder="Preferred way to be addressed"
-                    onChange={(event) => {
-                        setNickname(event.target.value)
-                    }}
-                />
-                <div></div>
-                <br></br>
-                <input
-                    type="text"
-                    className="pronouns"
-                    placeholder="Pronouns (Ex: she/her)"
-                    onChange={(event) => {
-                        setPronouns(event.target.value)
-                    }}
-                />
-                <div></div>
-                <br></br>
+                <FormControl />
+                <div className="fs-title">
+                    <TextField
+                        type="text"
+                        placeholder="Title (Ex: Professor)"
+                        style={{ width: '50%' }}
+                        onChange={(event) => {
+                            setTitle(event.target.value)
+                        }}
+                    />
+                </div>
+                <FormControl />
+                <div className="fs-first-name">
+                    <TextField
+                        type="text"
+                        placeholder="First Name(s)"
+                        style={{ width: '50%' }}
+                        onChange={(event) => {
+                            setFirstName(event.target.value)
+                        }}
+                    />
+                </div>
+                <FormControl />
+                <div className="fs-middle-name">
+                    <TextField
+                        type="text"
+                        placeholder="Middle Name(s)"
+                        style={{ width: '50%' }}
+                        onChange={(event) => {
+                            setMiddleName(event.target.value)
+                        }}
+                    />
+                </div>
+                <FormControl />
+                <div className="fs-last-name">
+                    <TextField
+                        type="text"
+                        placeholder="Last Name(s)"
+                        style={{ width: '50%' }}
+                        onChange={(event) => {
+                            setLastName(event.target.value)
+                        }}
+                    />
+                </div>
+                <FormControl />
+                <div className="fs-preferred-name">
+                    <TextField
+                        type="text"
+                        placeholder="Preferred way to be addressed"
+                        style={{ width: '50%' }}
+                        onChange={(event) => {
+                            setNickname(event.target.value)
+                        }}
+                    />
+                </div>
+                <FormControl />
+                <div className="fs-pronouns">
+                    <TextField
+                        type="text"
+                        placeholder="Pronouns (Ex: she/her)"
+                        style={{ width: '50%' }}
+                        onChange={(event) => {
+                            setPronouns(event.target.value)
+                        }}
+                    />
+                </div>
                 <div className="department-options">
-                    <FormControl fullWidth>
+                    <FormControl style={{ width: '55%' }}>
                         <InputLabel>Department</InputLabel>
                         <Select
                             value={department}
@@ -266,36 +269,30 @@ function FacultyStaffProfile({ setFSMembers }) {
                         </Select>
                     </FormControl>
                 </div>
-                <div></div>
-                <br></br>
-                <label>Lab Description:</label>
-                <br></br>
-                <textarea
-                    className="lab-description"
-                    onChange={(event) => {
-                        setLabDesc(event.target.value)
-                    }}
-                />
-                <div></div>
-                <br></br>
-                <label className="resume">Upload CV or Resume</label>
-                <div></div>
-                <br></br>
-                {/* allow users to upload pdf of resume here */}
-                <div></div>
-                <br></br>
-                <label className="resume">Link to Portfolio/Website</label>
-                <div></div>
-                <br></br>
-                <input
-                    type="text"
-                    className="portfolio"
-                    onChange={(event) => {
-                        setPortfolioLink(event.target.value)
-                    }}
-                />
-                <div></div>
-                <br></br>
+                <FormControl />
+                <div className="lab-description">
+                    <TextField
+                        multiline
+                        rows={6}
+                        placeholder="Lab Description"
+                        style={{ width: '50%' }}
+                        onChange={(event) => {
+                            setLabDesc(event.target.value)
+                        }}
+                    />
+                </div>
+                {/* <label className="resume">Upload CV or Resume</label> */}
+                <FormControl />
+                <div className="fs-portfolio">
+                    <TextField
+                        type="text"
+                        placeholder="Link to Portfolio/Website"
+                        style={{ width: '50%' }}
+                        onChange={(event) => {
+                            setPortfolioLink(event.target.value)
+                        }}
+                    />
+                </div>
                 <div className="done">
                     <Link className="button-link" to="/projectspage">
                         <Button
