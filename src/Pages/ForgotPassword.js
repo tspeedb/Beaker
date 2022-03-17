@@ -12,6 +12,9 @@ import {
     Button,
 } from '@mui/material'
 import { Link } from 'react-router-dom'
+import { connectStorageEmulator } from 'firebase/storage'
+import { Box } from '@mui/system'
+import beaker from '../Images/blackLinedBeakerBgRemoved.png'
 
 export default function ForgotPassword() {
     const emailRef = useRef()
@@ -24,11 +27,16 @@ export default function ForgotPassword() {
         e.preventDefault()
 
         try {
+            console.log('gets here 1')
             setMessage('')
             setError('')
             setLoading(true)
+            console.log('gets here 2')
             await resetPassword(emailRef.current.value)
+            console.log('gets here 3')
+            setMessage('Link to password Reset sent to Email')
         } catch {
+            console.log('gets here ee')
             setError('Failed to reset password')
         }
 
@@ -36,90 +44,48 @@ export default function ForgotPassword() {
     }
 
     return (
-        // <>
-        //   <Card>
-        //     <CardBody>
-        //       <h2 className="text-center mb-4">Password Reset</h2>
-        //       {error && <Alert variant="danger">{error}</Alert>}
-        //       {message && <Alert variant="success">{message}</Alert>}
-        //       <Form onSubmit={handleSubmit}>
-        //         <Form.Group id="email">
-        //           <Form.Label>Email</Form.Label>
-        //           <Form.Control type="email" ref={emailRef} required />
-        //         </Form.Group>
-        //         <Button disabled={loading} className="w-100" type="submit">
-        //           Reset Password
-        //         </Button>
-        //       </Form>
-        //       <div className="w-100 text-center mt-3">
-        //         <Link to="/login">Login</Link>
-        //       </div>
-        //     </CardBody>
-        //   </Card>
-        //   <div className="w-100 text-center mt-2">
-        //     Need an account? <Link to="/signup">Sign Up</Link>
-        //   </div>
-        // </>
-        <>
-            <Card>
-                <CardContent>
-                    <h2 className="text-center mb-4">Sign Up</h2>
-                    {/* {JSON.stringify({ currentUser })} */}
-                    {error && <Alert variant="danger">{error}</Alert>}
-                    <form onSubmit={handleSubmit}>
-                        <FormControl
-                            type="email"
-                            // inputRef={emailRef}
-                        />
-                        <TextField
-                            type="text"
-                            className="email-address"
-                            placeholder="example@lion.lmu.edu"
-                            inputRef={emailRef}
-                            required
-                        />
-                        <FormLabel>Password</FormLabel>
-                        <FormControl
-                            type="password"
-                            // inputRef={passwordRef}
-                        />
-                        <TextField
-                            type="text"
-                            className="password"
-                            placeholder="password"
-                            // inputRef={passwordRef}
-                            required
-                        />
-
-                        <FormLabel>Password Confirmation</FormLabel>
-                        <FormControl
-                            type="password"
-                            // ref={passwordConfirmRef}
-                        />
-                        <TextField
-                            type="text"
-                            className="password-confirm"
-                            placeholder="confirm password"
-                            // inputRef={passwordConfirmRef}
-                            required
-                        />
-
-                        <div className="button1">
-                            <Button
-                                disabled={loading}
-                                className="w-100"
-                                type="submit"
-                                className="btn1"
-                                size="medium"
-                                variant="outlined"
-                                color="secondary"
-                            >
-                                Continue to Profile
-                            </Button>
-                        </div>
-                    </form>
-                </CardContent>
-            </Card>
-        </>
+        <div className="forgot-password">
+            <Box
+                component="img"
+                sx={{
+                    height: 60,
+                    width: 60,
+                }}
+                alt="logo"
+                src={beaker}
+            />
+            <h2 className="sign-in">Password Reset</h2>
+            {/* {JSON.stringify({ currentUser })} */}
+            {error && <Alert variant="danger">{error}</Alert>}
+            <form onSubmit={handleSubmit}>
+                <FormControl type="email" />
+                <div className="email-text-field">
+                    <TextField
+                        type="text"
+                        className="email-address"
+                        placeholder="Email (example@lion.lmu.edu)"
+                        inputRef={emailRef}
+                        required
+                        style={{ width: '20em', marginBottom: '1em' }}
+                    />
+                </div>
+                <div className="sign-in-button">
+                    <Button
+                        disabled={loading}
+                        className="signin-button"
+                        type="submit"
+                        size="large"
+                        variant="contained"
+                        color="primary"
+                        style={{ marginBottom: '3em' }}
+                    >
+                        Reset Password
+                    </Button>
+                </div>
+                <div className="new-here">
+                    <Link to="./newuserstudent">New Here? </Link>
+                </div>
+            </form>
+        </div>
     )
 }

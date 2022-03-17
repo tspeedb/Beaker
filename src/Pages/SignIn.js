@@ -128,7 +128,7 @@ export default function SignIn() {
                 />
                 <div className="password-text-field">
                     <TextField
-                        type="text"
+                        type="password"
                         className="password"
                         placeholder="Password"
                         inputRef={passwordRef}
@@ -153,7 +153,7 @@ export default function SignIn() {
                     </Button>
                 </div>
                 <div className="forgot-password">
-                    <Link to="">Forgot Password </Link>
+                    <Link to="./forgotpassword">Forgot Password </Link>
                 </div>
                 <div className="new-here">
                     <Link to="./newuserstudent">New Here? </Link>
