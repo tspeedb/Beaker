@@ -156,101 +156,105 @@ function App() {
                                 )}
                             />
 
-                        <Route
-                            path="/aboutproject/:projectId"
-                            exact
-                            render={(props) => (
-                                <AboutProject {...props} projects={projects} />
-                            )}
-                        />
-                        <Route
-                            path="/editproject/:projectId"
-                            exact
-                            render={(props) => (
-                                <EditProject {...props} projects={projects} />
-                            )}
-                        />
-                        <Route
-                            path="/projectdetails/:projectId"
-                            exact
-                            render={(props) => (
-                                <ProjectDetails
-                                    {...props}
-                                    projects={projects}
-                                />
-                            )}
-                        />
-                        <Route
-                            path="/aboutmember/:memberId"
-                            exact
-                            render={(props) => (
-                                <AboutMember {...props} members={members} />
-                            )}
-                        />
-                        <Route
-                            path="/dashboard"
-                            exact
-                            render={(props) => (
-                                <Dashboard
-                                    sidebaritems={
-                                        isStudent
-                                            ? studsidebaritems
-                                            : sidebaritems
-                                    }
-                                />
-                            )}
-                        />
-                        <Route
-                            path="/studentdashboard"
-                            exact
-                            render={(props) => (
-                                <StudentDashboard
-                                    sidebaritems={
-                                        isStudent
-                                            ? studsidebaritems
-                                            : sidebaritems
-                                    }
-                                />
-                            )}
-                        />
-                        <Route
-                            path="/bookmarkedmembers"
-                            exact
-                            component={BookmarkedMembers}
-                        />
-                        <Route
-                            path="/invitations"
-                            exact
-                            component={Invitations}
-                        />
-                        <Route
-                            path="/bookmarkedprojects"
-                            exact
-                            render={(props) => (
-                                <BookmarkedProjects
-                                    {...props}
-                                    projects={projects}
-                                    sidebaritems={
-                                        isStudent
-                                            ? studsidebaritems
-                                            : sidebaritems
-                                    }
-                                />
-                            )}
-                        />
-                        <Route
-                            path="/invitedmembers"
-                            exact
-                            component={InvitedMembers}
-                        />
-                        <Route
-                            path="/userprofile"
-                            exact
-                            component={UserProfile}
-                        />
-                    </Switch>
-                </AnimatePresence>
-            </Router>
+                            <Route
+                                path="/aboutproject/:projectId"
+                                exact
+                                render={(props) => (
+                                    <AboutProject
+                                        {...props}
+                                        projects={projects}
+                                    />
+                                )}
+                            />
+                            <Route
+                                path="/editproject/:projectId"
+                                exact
+                                render={(props) => (
+                                    <EditProject
+                                        {...props}
+                                        projects={projects}
+                                    />
+                                )}
+                            />
+                            <Route
+                                path="/projectdetails/:projectId"
+                                exact
+                                render={(props) => (
+                                    <ProjectDetails
+                                        {...props}
+                                        projects={projects}
+                                    />
+                                )}
+                            />
+                            <Route
+                                path="/aboutmember/:memberId"
+                                exact
+                                render={(props) => (
+                                    <AboutMember {...props} members={members} />
+                                )}
+                            />
+                            <Route
+                                path="/dashboard"
+                                exact
+                                render={(props) => (
+                                    <Dashboard
+                                        sidebaritems={
+                                            isStudent
+                                                ? studsidebaritems
+                                                : sidebaritems
+                                        }
+                                    />
+                                )}
+                            />
+                            <Route
+                                path="/studentdashboard"
+                                exact
+                                render={(props) => (
+                                    <StudentDashboard
+                                        sidebaritems={
+                                            isStudent
+                                                ? studsidebaritems
+                                                : sidebaritems
+                                        }
+                                    />
+                                )}
+                            />
+                            <Route
+                                path="/bookmarkedmembers"
+                                exact
+                                component={BookmarkedMembers}
+                            />
+                            <Route
+                                path="/invitations"
+                                exact
+                                component={Invitations}
+                            />
+                            <Route
+                                path="/bookmarkedprojects"
+                                exact
+                                render={(props) => (
+                                    <BookmarkedProjects
+                                        {...props}
+                                        projects={projects}
+                                        sidebaritems={
+                                            isStudent
+                                                ? studsidebaritems
+                                                : sidebaritems
+                                        }
+                                    />
+                                )}
+                            />
+                            <Route
+                                path="/invitedmembers"
+                                exact
+                                component={InvitedMembers}
+                            />
+                            <Route
+                                path="/userprofile"
+                                exact
+                                component={UserProfile}
+                            />
+
                             <Route
                                 path="/aboutproject/:projectId"
                                 exact
