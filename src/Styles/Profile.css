@@ -288,7 +288,7 @@ h1 {
     margin-right: 10px;
 }
 
-.members-dropdown {
+.members-dropdown, .project-status {
     height: 50px;
     width: 100%;
     font-size: medium;

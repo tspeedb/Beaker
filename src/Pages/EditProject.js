@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect, useMemo, useRef } from 'react'
 import '../Styles/Profile.css'
 import Button from '@mui/material/Button'
 import beaker from '../Images/blackLinedBeakerBgRemoved.png'
@@ -14,7 +14,7 @@ import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
-import Autocomplete from '@mui/material/Autocomplete'
+import { TextField } from '@mui/material'
 
 function EditProject({ match, projects }) {
     const [project, setProject] = useState({})
@@ -31,6 +31,10 @@ function EditProject({ match, projects }) {
     const [imageAsUrl, setImageAsUrl] = useState(
         `${process.env.PUBLIC_URL}/projectImages/user.png`
     )
+
+    const projNameRef = useRef()
+    const projDescRef = useRef()
+    const projPrefSoftSkillsRef = useRef()
 
     const projectsCollectionRef = useMemo(() => collection(db, 'projects'), [])
 
@@ -320,32 +324,38 @@ function EditProject({ match, projects }) {
                         onClick={(e) => openWidget(e, widget)}
                     />
                 </div>
-                <div></div>
-                <br></br>
-                <input
+                <FormControl inputRef={projNameRef} />
+                <div className='proj-name'>
+                <TextField
                     type="text"
-                    className="project-name "
+                    className="project-name"
                     placeholder="Project Name"
-                    defaultValue={project.title}
+                    inputRef={projNameRef}
+                    value={editedProjectName}
+                    style={{ width: '55%' }}
                     onChange={(event) => {
                         setEditedProjectName(event.target.value)
                     }}
                 />
-                <div></div>
-                <br></br>
-                <textarea
+                </div>
+                <FormControl inputRef={projDescRef}/>
+                <div className='project-desc'>
+                <TextField
+                    multiline
+                    rows={6}
                     type="text"
-                    className="project-desc "
+                    className="project-desc"
                     placeholder="Project Description"
-                    defaultValue={project.description}
+                    inputRef={projDescRef}
+                    value={editedDesc}
+                    style={{ width: '55%' }}
                     onChange={(event) => {
                         setEditedDesc(event.target.value)
                     }}
                 />
-                <div></div>
-                <br></br>
+                </div>
                 <div className="project-status">
-                    <FormControl fullWidth>
+                    <FormControl style={{ width: '55%' }}>
                         <InputLabel>Project Status</InputLabel>
                         <Select
                             value={editedProjectStatus}
@@ -362,10 +372,8 @@ function EditProject({ match, projects }) {
                         </Select>
                     </FormControl>
                 </div>
-                <div></div>
-                <br></br>
                 <div className="members-dropdown">
-                    <FormControl fullWidth>
+                    <FormControl style={{ width: '55%' }}>
                         <InputLabel>Number Of Members Needed</InputLabel>
                         <Select
                             value={editedMemberAmount}
@@ -383,10 +391,8 @@ function EditProject({ match, projects }) {
                         </Select>
                     </FormControl>
                 </div>
-                <div></div>
-                <br></br>
                 <div className="preferred-majors-options">
-                    <FormControl fullWidth>
+                    <FormControl style={{ width: '55%' }}>
                         <InputLabel>Preferred Majors</InputLabel>
                         <Select
                             multiple
@@ -401,10 +407,8 @@ function EditProject({ match, projects }) {
                         </Select>
                     </FormControl>
                 </div>
-                <div></div>
-                <br></br>
                 <div className="preferred-years-options">
-                    <FormControl fullWidth>
+                    <FormControl style={{ width: '55%' }}>
                         <InputLabel>Preferred Years</InputLabel>
                         <Select
                             multiple
@@ -419,21 +423,22 @@ function EditProject({ match, projects }) {
                         </Select>
                     </FormControl>
                 </div>
-                <div></div>
-                <br></br>
-                <input
+                <FormControl inputRef={projPrefSoftSkillsRef}/>
+                <div className='preferred-soft-skill'>
+                <TextField
                     type="text"
                     className="preferred-soft-skill "
                     placeholder="Preferred Soft Skill(s)"
-                    defaultValue={project.softskills}
+                    inputRef={projPrefSoftSkillsRef}
+                    value={editedSoftSkills}
+                    style={{ width: '55%' }}
                     onChange={(event) => {
                         setEditedSoftSkills(event.target.value)
                     }}
                 />
-                <div></div>
-                <br></br>
+                </div>
                 <div className="timeline-dropdown">
-                    <FormControl fullWidth>
+                    <FormControl style={{ width: '55%' }}>
                         <InputLabel>Project Timeline</InputLabel>
                         <Select
                             value={timeline}
@@ -450,10 +455,8 @@ function EditProject({ match, projects }) {
                         </Select>
                     </FormControl>
                 </div>
-                <div></div>
-                <br></br>
                 <div className="incentive-options">
-                    <FormControl fullWidth>
+                    <FormControl style={{ width: '55%' }}>
                         <InputLabel>Incentives</InputLabel>
                         <Select
                             multiple
