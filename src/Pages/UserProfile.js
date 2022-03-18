@@ -49,7 +49,7 @@ function UserProfile() {
 
         Promise.all(promises)
             .then(() => {
-                history.push('/')
+                history.push('/dashboard')
             })
             .catch(() => {
                 setError('Failed to update account')
@@ -59,62 +59,7 @@ function UserProfile() {
             })
     }
     return (
-        // <form onSubmit={handleSubmit}>
-        //     <div className="sign-in">
-        //         <div className="top-signin">
-        //             <img src={beaker} alt="logo" />
-        //             <h1>New User</h1>
-        //             <p className="signin">Login Information</p>
-        //             <div></div>
-        //             <Form.Group id="email">
-        //                 <Form.Label>Email</Form.Label>
-        //                 <Form.Control type="email" ref={emailRef} required />
-        //             </Form.Group>
-        //             {JSON.stringify({ currentUser })}
-        //             <TextField
-        //                 type="text"
-        //                 className="email-address"
-        //                 placeholder="example@lion.lmu.edu"
-        //                 inputRef={emailRef}
-        //             />
-        //             <div></div>
-        //             <br></br>
-        //             <TextField
-        //                 type="text"
-        //                 className="password"
-        //                 placeholder="password"
-        //                 inputRef={passwordRef}
-        //             />
-        //             <div></div>
-        //             <br></br>
-        //             <TextField
-        //                 type="text"
-        //                 className="password-confirm"
-        //                 placeholder="confirm password"
-        //                 inputRef={passwordConfirmRef}
-        //             />
-        //             <div></div>
-        //             <br></br>
-        //             <div className="button1">
-        //                 {/* {error && <Alert severity="error">{error}</Alert>} */}
-        //                 {/* <Link className="button-link" to="/studentprofile"> */}
-        //                 <Button
-        //                     disabled={loading}
-        //                     className="btn1"
-        //                     size="medium"
-        //                     variant="outlined"
-        //                     color="secondary"
-        //                     // onSubmit={handleSubmit}
-        //                 >
-        //                     Continue to Profile
-        //                 </Button>
-        //                 {/* </Link> */}
-        //             </div>
-        //         </div>
-        //     </div>
-        // </form>
-
-        <div className="top-signin">
+        <div className="top-update-profile">
             <Box
                 component="img"
                 sx={{
@@ -124,7 +69,7 @@ function UserProfile() {
                 alt="logo"
                 src={beaker}
             />
-            <h2 className="sign-up">Sign Up</h2>
+            <h2 className="profile">Profile</h2>
             {/* {JSON.stringify({ currentUser })} */}
             {error && <Alert variant="danger">{error}</Alert>}
             <form onSubmit={handleSubmit}>
@@ -151,11 +96,10 @@ function UserProfile() {
                 />
                 <div className="update-password-text-field">
                     <TextField
-                        type="text"
+                        type="password"
                         className="password"
                         placeholder="Password"
                         inputRef={passwordRef}
-                        required
                         style={{
                             width: '20em',
                             marginBottom: '1em',
@@ -168,11 +112,10 @@ function UserProfile() {
                 />
                 <div className="confirm-password-text-field">
                     <TextField
-                        type="text"
+                        type="password"
                         className="password-confirm"
                         placeholder="Confirm Password"
                         inputRef={passwordConfirmRef}
-                        required
                         style={{
                             width: '20em',
                             marginBottom: '3em',
@@ -190,6 +133,9 @@ function UserProfile() {
                     >
                         Update
                     </Button>
+                </div>
+                <div className="cancel">
+                    <Link to="./dashboard">Cancel</Link>
                 </div>
             </form>
         </div>

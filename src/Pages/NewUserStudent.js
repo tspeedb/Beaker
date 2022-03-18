@@ -143,7 +143,7 @@ function NewUserStudent() {
                 />
                 <div className="password-text-field">
                     <TextField
-                        type="text"
+                        type="password"
                         className="password"
                         placeholder="Password"
                         inputRef={passwordRef}
@@ -160,7 +160,7 @@ function NewUserStudent() {
                 />
                 <div className="confirm-password-text-field">
                     <TextField
-                        type="text"
+                        type="password"
                         className="password-confirm"
                         placeholder="Confirm Password"
                         inputRef={passwordConfirmRef}

@@ -92,6 +92,13 @@ const Navbar = () => {
     const handleMenuClose = () => {
         setItem(null)
     }
+
+    // const [error, setError] = useState('')
+    // const { currentUser, signOut } = useAuth()
+
+    const handleToProfile = () => {
+        console.log('Profile')
+    }
     // const [open, setOpen] = useState(false)
 
     // const handleOpen = () => {
@@ -207,7 +214,10 @@ const Navbar = () => {
                                                     <MenuItem
                                                         onClick={handleClose}
                                                     >
-                                                        Profile
+                                                        <Link to="/userprofile">
+                                                            {' '}
+                                                            Profile{' '}
+                                                        </Link>
                                                     </MenuItem>
                                                     <MenuItem
                                                         onClick={handleClose}
@@ -237,11 +247,11 @@ const Navbar = () => {
                 {' '}
                 <MenuList onClick={handleMenuClose}>
                     {' '}
-                    <Link to="./userprofile">profile </Link>{' '}
+                    <Link to="./userprofile">profile</Link>{' '}
                 </MenuList>
                 <MenuList onClick={handleLogout}>
                     {' '}
-                    <Link to="/homepage"> logout </Link>{' '}
+                    <Link to="./homepage"> logout </Link>{' '}
                 </MenuList>
             </Menu>
         </>

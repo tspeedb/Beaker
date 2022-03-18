@@ -44,6 +44,8 @@ export function AuthProvider({ children }) {
         signout,
         signup,
         resetPassword,
+        updateEmail,
+        updatePassword,
     }
     return (
         <AuthContext.Provider value={value}>
