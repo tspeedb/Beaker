@@ -1,11 +1,23 @@
-import React from 'react'
+import React, { useState, useEffect, useMemo, useRef } from 'react'
+import { doc, collection, getDoc, getDocs, updateDoc } from 'firebase/firestore'
 import MaterialTable from 'material-table'
 import 'firebase/firestore'
+import { db, storage } from '../firebase'
 import { Link } from 'react-router-dom'
 import { TablePagination } from '@material-ui/core'
 
 function ProjectTableNew({ projects }) {
-    const [firstLoad, setFirstLoad] = React.useState()
+    const projectsCollectionRef = useMemo(() => collection(db, 'projects'), [])
+    const getProjects = async () => {
+        const data = await getDocs(projectsCollectionRef)
+        projects = data.docs.map((doc) => ({ ...doc.data(), key: doc.id }))
+    }
+
+    useEffect(() => {
+        getProjects()
+    }, [projects])
+
+    //const [firstLoad, setFirstLoad] = React.useState()
     const columns = [
         {
             field: 'image',
