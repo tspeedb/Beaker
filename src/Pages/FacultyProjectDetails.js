@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo} from 'react'
 import { db } from '../firebase'
-import { doc, getDoc} from 'firebase/firestore'
+import { doc, getDoc } from 'firebase/firestore'
 import '../Styles/LearnMore.css'
 import Layout from '../Components/Layout'
 import ManageMembers from '../Components/ManageMembers'

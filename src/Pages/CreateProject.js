@@ -81,6 +81,7 @@ function CreateProject({ setProjects }) {
     const createProject = async () => {
         await addDoc(projectsCollectionRef, {
             title: projectName,
+            status: 'Open',
             description: desc,
             members: memberAmount,
             major: reqMajor,

@@ -5,7 +5,7 @@ import beaker from '../Images/blackLinedBeakerBgRemoved.png'
 import { Link } from 'react-router-dom'
 import 'firebase/firestore'
 import { db, storage } from '../firebase'
-import { doc, collection, getDocs, updateDoc } from 'firebase/firestore'
+import { doc, collection, getDoc, getDocs, updateDoc } from 'firebase/firestore'
 import Layout from '../Components/Layout'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import Box from '@material-ui/core/Box';
@@ -32,70 +32,47 @@ function EditProject({ match, projects }) {
         `${process.env.PUBLIC_URL}/projectImages/user.png`
     )
 
-    const handleChangeMemAmt = (event) => {
-        setMemAmount(event.target.value)
-    }
-
-    const handleChangeMajor = (event) => {
-        const {
-            target: { value },
-        } = event
-        setReqMajor(typeof value === 'string' ? value.split(',') : value)
-    }
-
-    const handleChangeYear = (event) => {
-        const {
-            target: { value },
-        } = event
-        setReqYear(typeof value === 'string' ? value.split(',') : value)
-    }
-
-    const handleChangeTimeline = (event) => {
-        setTimeline(event.target.value)
-    }
-
-    const handleChangeIncentives = (event) => {
-        setIncentives(event.target.value)
-    }
-
-    const handleChangeStatus = (event) => {
-        setStatus(event.target.value)
-    }
-
     const projectsCollectionRef = useMemo(() => collection(db, 'projects'), [])
+
+    const id = match.params.projectId
+    const projectCollectionRef = doc(db, 'projects', id)
 
     const getProjects = async () => {
         const data = await getDocs(projectsCollectionRef)
         projects = (data.docs.map((doc) => ({ ...doc.data(), key: doc.id })))
     }
 
-    const id = match.params.projectId
-    const projectCollectionRef = doc(db, 'projects', id)
-    
     const [projectState, setProjectState] = useState({})
-    // const [editedProjectStatus, setEditedStatus] = useState('')
-    // const [editedMemberAmount, setEditedMemAmount] = useState('')
-    // const [editedEeqMajor, setEditedReqMajor] = useState([])
-    // const [editedReqYear, setEditedReqYear] = useState([])
-    // const [editedTimeline, setEditedTimeline] = useState('')
-    // const [editedIncentives, setEditedIncentives] = useState([])
-    // const [editedImageAsUrl, setEditedImageAsUrl] = useState('')
 
-    const [editedProjectName, setEditedProjectName] = useState('')
-    const [editedDesc, setEditedDesc] = useState('')
-    const [editedSoftSkills, setEditedSoftSkills] = useState('')
-    
-    useEffect(() => {
-        const selected = projects?.filter((project) => project.key === id)[0]
+    const getProject = async () => {
+        const data = await getDoc(projectCollectionRef)
+        const selected = data.data()
         setProject(selected)
         setProjectState(selected)
         setEditedProjectName(selected?.title)
         setEditedDesc(selected?.description)
         setEditedSoftSkills(selected?.softskills)
+        setEditedProjectStatus(selected?.status)
+        setEditedMemAmount(selected?.members)
+    }
+
+    // const [editedReqMajor, setEditedReqMajor] = useState([])
+    // const [editedReqYear, setEditedReqYear] = useState([])
+    // const [editedTimeline, setEditedTimeline] = useState('')
+    // const [editedIncentives, setEditedIncentives] = useState([])
+    // const [editedImageAsUrl, setEditedImageAsUrl] = useState('')
+    const [editedProjectName, setEditedProjectName] = useState('')
+    const [editedDesc, setEditedDesc] = useState('')
+    const [editedSoftSkills, setEditedSoftSkills] = useState('')
+    const [editedProjectStatus, setEditedProjectStatus] = useState('')
+    const [editedMemberAmount, setEditedMemAmount] = useState('')
+    
+    useEffect(() => {
+        getProject()
     }, [id, projects])
 
     const compareValues = () => {
-        let updatedProjectName, updatedDesc, updatedSoftSkills
+        let updatedProjectName, updatedDesc, updatedSoftSkills, updatedStatus, updatedMemAmount
 
         updatedProjectName = (projectState.title !== editedProjectName) ? editedProjectName : projectState.title
         setProjectName(updatedProjectName) 
@@ -106,21 +83,29 @@ function EditProject({ match, projects }) {
         updatedSoftSkills = (projectState.softskills !== editedSoftSkills) ? editedSoftSkills: projectState.softskills
         setSoftSkills(updatedSoftSkills) 
 
-        return { updatedProjectName, updatedDesc, updatedSoftSkills }
+        updatedStatus = (projectState.status !== editedProjectStatus) ? editedProjectStatus: projectState.status
+        setStatus(updatedStatus)
+
+        updatedMemAmount = (projectState.members !== editedMemberAmount) ? editedMemberAmount: projectState.members
+        setMemAmount(updatedMemAmount)
+
+        return { updatedProjectName, updatedDesc, updatedSoftSkills, updatedStatus, updatedMemAmount }
     }
 
     const editProject = async () => {
         let { 
             updatedProjectName, 
             updatedDesc, 
-            updatedSoftSkills 
+            updatedSoftSkills, 
+            updatedStatus, 
+            updatedMemAmount
         } = compareValues()
 
         await updateDoc(projectCollectionRef, {
             title: updatedProjectName,
-            status: projectStatus,
+            status: updatedStatus,
             description: updatedDesc,
-            members: memberAmount,
+            members: updatedMemAmount,
             major: reqMajor,
             year: reqYear,
             softskills: updatedSoftSkills,
@@ -179,10 +164,6 @@ function EditProject({ match, projects }) {
         '9',
         '10+',
     ]
-
-    const getMembers = (members) => {
-        return memberAmtOptions[memberAmtOptions.indexOf(members)]
-    }
 
     const majorOptions = [
         'Accounting (ACCT)',
@@ -263,8 +244,48 @@ function EditProject({ match, projects }) {
         'Closed', 
         'Completed'
     ]
+    
+    const getDefaultStatus = () => {
+        // console.log(projectState.status)
+        // console.log(status[status.indexOf(projectState.status)])
+        return status[status.indexOf(projectState.status)]
+    }
 
-    const incentiveOptions = ['Paid', 'Funding Available', 'Internship Credit']
+    const incentiveOptions = [
+        'Paid', 
+        'Funding Available', 
+        'Internship Credit'
+    ]
+
+    const handleChangeMemAmt = (event) => {
+        setEditedMemAmount(event.target.value)
+    }
+
+    const handleChangeMajor = (event) => {
+        const {
+            target: { value },
+        } = event
+        setReqMajor(typeof value === 'string' ? value.split(',') : value)
+    }
+
+    const handleChangeYear = (event) => {
+        const {
+            target: { value },
+        } = event
+        setReqYear(typeof value === 'string' ? value.split(',') : value)
+    }
+
+    const handleChangeTimeline = (event) => {
+        setTimeline(event.target.value)
+    }
+
+    const handleChangeIncentives = (event) => {
+        setIncentives(event.target.value)
+    }
+
+    const handleChangeStatus = (event) => {
+        setEditedProjectStatus(event.target.value)
+    }
 
     return (
         <Layout>
@@ -327,7 +348,7 @@ function EditProject({ match, projects }) {
                     <FormControl fullWidth>
                         <InputLabel>Project Status</InputLabel>
                         <Select
-                            value={projectStatus}
+                            value={editedProjectStatus}
                             onChange={handleChangeStatus}
                         >
                             {status.map((s) => (
@@ -347,7 +368,8 @@ function EditProject({ match, projects }) {
                     <FormControl fullWidth>
                         <InputLabel>Number Of Members Needed</InputLabel>
                         <Select
-                            value={memberAmount}
+                            value={editedMemberAmount}
+                            // defaultValue={getDefaultMembers}
                             onChange={handleChangeMemAmt}
                         >
                             {memberAmtOptions.map((memberAmtOption) => (
@@ -452,16 +474,15 @@ function EditProject({ match, projects }) {
                 <div></div>
                 <br></br>
                 <div className="create-proj">
-                    {/* <Link className="button-link" to={`/projectdetails/${id}`}> */}
+                    <Link className="button-link" to={`/projectdetails/${id}`}>
                         <Button
                             className="post-proj-btn1"
                             size="large"
                             color='warning'
-                            onClick={editProject}
                         >
                             Cancel
                         </Button>
-                    {/* </Link> */}
+                    </Link>
                     <Link className="button-link" to={`/projectdetails/${id}`}>
                         <Button
                             className="post-proj-btn1"
