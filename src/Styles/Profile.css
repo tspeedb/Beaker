@@ -1,3 +1,4 @@
+/* Main Tags for all profile pages */
 .new-profile {
     display: flex;
     flex-direction: row;
@@ -69,66 +70,6 @@ h1 {
     margin-bottom: 0%;
 }
 
-#dropdown-menu-align-right {
-    color: white;
-    background-color: #107fb7;
-}
-
-.year-dropdown {
-    height: 50px;
-    width: 90%;
-    margin-left: 5%;
-    margin-right: 5%;
-    font-size: medium;
-}
-
-.major-dropdown {
-    height: 50px;
-    width: 90%;
-    margin-left: 5%;
-    margin-right: 5%;
-    font-size: medium;
-}
-
-.minor-dropdown {
-    height: 50px;
-    width: 90%;
-    margin-left: 5%;
-    margin-right: 5%;
-    font-size: medium;
-}
-
-.self-intro {
-    font-size: small;
-    font-weight: bold;
-    font-style: normal;
-    border-color: #107fb7;
-}
-
-.lab-description {
-    font-size: small;
-    font-weight: bold;
-    font-style: normal;
-    border-color: #ac0c30;
-}
-
-.department-fsprofile {
-    margin-bottom: 15px;
-}
-
-.department-options {
-    height: 50px;
-    width: 90%;
-    margin-left: 5%;
-    margin-right: 5%;
-    font-size: medium;
-}
-
-.resume {
-    font-size: medium;
-    font-style: normal;
-}
-
 .profile-pic-position {
     display: 'flex';
     flex-direction: 'column';
@@ -142,27 +83,204 @@ h1 {
     padding-top: 0%;
 }
 
+/* StudentProfile Tags */
+.first-name {
+    margin-bottom: 1%;
+}
+
+.first-name fieldset {
+    border-radius: 100px;
+}
+
+.middle-name {
+    margin-bottom: 1%;
+}
+
+.middle-name fieldset {
+    border-radius: 100px;
+}
+
+.last-name {
+    margin-bottom: 1%;
+}
+
+.last-name fieldset {
+    border-radius: 100px;
+}
+
+.preferred-name {
+    margin-bottom: 1%;
+}
+
+.preferred-name fieldset {
+    border-radius: 100px;
+}
+
+.pronouns {
+    margin-bottom: 4%;
+}
+
+.pronouns fieldset {
+    border-radius: 100px;
+}
+
+.year-dropdown {
+    height: 50px;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 4%;
+    font-size: medium;
+}
+
+.major-dropdown {
+    height: 50px;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 4%;
+    font-size: medium;
+}
+
+.minor-dropdown {
+    height: 50px;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 2%;
+    font-size: medium;
+}
+
+.skills {
+    font-size: medium;
+    margin-bottom: 1%;
+}
+
+.skills fieldset {
+    border-radius: 100px;
+}
+
+.self-intro {
+    font-size: small;
+    font-weight: bold;
+    font-style: normal;
+    border-color: #107fb7;
+}
+
+.portfolio {
+    margin-bottom: 4%;
+}
+
+.portfolio fieldset {
+    border-radius: 100px;
+}
+
+/* FacultyStaffProfile Tags */
+.fs-title {
+    margin-bottom: 1%;
+}
+
+.fs-title fieldset {
+    border-radius: 100px;
+}
+
+.fs-first-name {
+    margin-bottom: 1%;
+}
+
+.fs-first-name fieldset {
+    border-radius: 100px;
+}
+
+.fs-middle-name {
+    margin-bottom: 1%;
+}
+
+.fs-middle-name fieldset {
+    border-radius: 100px;
+}
+
+.fs-last-name {
+    margin-bottom: 1%;
+}
+
+.fs-last-name fieldset {
+    border-radius: 100px;
+}
+
+.fs-preferred-name {
+    margin-bottom: 1%;
+}
+
+.fs-preferred-name fieldset {
+    border-radius: 100px;
+}
+
+.fs-pronouns {
+    margin-bottom: 4%;
+}
+
+.fs-pronouns fieldset {
+    border-radius: 100px;
+}
+
+.department-fsprofile {
+    margin-bottom: 15px;
+}
+
+.department-options {
+    height: 50px;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 2%;
+    font-size: medium;
+}
+
+.lab-description {
+    font-size: small;
+    font-weight: bold;
+    font-style: normal;
+    border-color: #ac0c30;
+    margin-bottom: 1%;
+}
+
+.fs-portfolio {
+    margin-bottom: 4%;
+}
+
+.fs-portfolio fieldset {
+    border-radius: 100px;
+}
+
+.resume {
+    font-size: medium;
+    font-style: normal;
+}
+
 .button1 {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+/* CreateProject Tags */
 .post-proj-btn1 {
     height: 60px;
     width: 150px;
 }
 
-.skills {
-    font-size: medium;
-}
-
 .project-name {
     font-size: medium;
+    margin-bottom: 1%;
 }
 
 .project-name fieldset {
     border-radius: 100px;
+}
+
+.project-desc {
+    margin-bottom: 4%;
 }
 
 .members-needed {
@@ -177,7 +295,7 @@ h1 {
     text-align: center;
     font-size: x-large;
     color: gray;
-    margin-bottom: 1.5em;
+    margin-bottom: 5%;
 }
 
 .project-majors {
@@ -187,7 +305,7 @@ h1 {
 
 .preferred-majors-options {
     font-size: x-large;
-    margin-bottom: 1.5em;
+    margin-bottom: 4%;
 }
 
 .preferred-years {
@@ -197,16 +315,16 @@ h1 {
 
 .preferred-years-options {
     font-size: x-large;
-    margin-bottom: 0.5em;
-}
-
-.preferred-soft-skill fieldset {
-    border-radius: 100px;
+    margin-bottom: 1%;
 }
 
 .preferred-soft-skill {
     font-size: medium;
-    margin-bottom: 1.5em;
+    margin-bottom: 4%;
+}
+
+.preferred-soft-skill fieldset {
+    border-radius: 100px;
 }
 
 .project-timeline {
@@ -221,14 +339,14 @@ h1 {
     text-align: center;
     font-size: x-large;
     color: gray;
-    margin-bottom: 1.5em;
+    margin-bottom: 5%;
 }
 
 .incentive-options {
     height: 50px;
     width: 100%;
     font-size: medium;
-    margin-bottom: 1.5em;
+    margin-bottom: 6%;
 }
 
 input {
@@ -246,6 +364,7 @@ textarea {
     width: 270px;
 }
 
+/* Opening animation of profile pages */
 #left-text {
     text-align: 'left';
     animation-duration: 1s;

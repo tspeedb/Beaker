@@ -21,6 +21,7 @@ function AllMembersCards({ members }) {
     const classes = useStyles()
 
     return (
+        //add a slider option using react-slick
         <div>
             <Grid container justify="center" classname={classes.gridContainer}>
                 {members.map((member) => {
