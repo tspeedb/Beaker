@@ -2,8 +2,10 @@ import React from 'react'
 import MaterialTable from 'material-table'
 import 'firebase/firestore'
 import { Link } from 'react-router-dom'
+import { TablePagination } from '@material-ui/core'
 
 function ProjectTableNew({ projects }) {
+    const [firstLoad, setFirstLoad] = React.useState()
     const columns = [
         {
             field: 'image',
@@ -17,8 +19,7 @@ function ProjectTableNew({ projects }) {
                 </Link>
             ),
         },
-        { title: 'Project Title', field: 'title' },
-        { title: 'Description', field: 'desc' },
+        { title: 'Title', field: 'title' },
         { title: 'Desired Major', field: 'major' },
         { title: 'Desired Year', field: 'year' },
         { title: 'Incentives', field: 'incentives' },
@@ -32,6 +33,40 @@ function ProjectTableNew({ projects }) {
                 title="Find your match!"
                 data={projects}
                 columns={columns}
+                components={{
+                    Pagination: (props) => (
+                        <TablePagination
+                            {...props}
+                            rowsPerPageOptions={[5, 10, 30, 40, 50]}
+                        />
+                    ),
+                }}
+                options={{
+                    headerStyle: {
+                        fontWeight: 'bold',
+                        backgroundColor: '#01579b',
+                        color: '#FFF',
+                    },
+                    rowStyle: {
+                        backgroundColor: '#EEE',
+                    },
+                    exportButton: true,
+                }}
+                detailPanel={(project) => {
+                    return (
+                        <div
+                            style={{
+                                padding: 10,
+                                fontSize: 17,
+                                textAlign: 'center',
+                                color: 'grey',
+                                backgroundColor: 'white',
+                            }}
+                        >
+                            {project.description}
+                        </div>
+                    )
+                }}
             />
         </div>
     )

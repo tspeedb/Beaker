@@ -71,7 +71,7 @@ function App() {
                 <Router>
                     <AnimatePresence exitBeforeEnter>
                         <Switch>
-                            <PrivateRoute
+                            <Route
                                 Route
                                 path="/"
                                 exact

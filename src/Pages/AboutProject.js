@@ -133,7 +133,7 @@ function AboutProject({ match, projects }) {
                                         </TelegramIcon>
                                         {isShownT && (
                                             <div style={{ fontSize: '10px' }}>
-                                                Invite to join
+                                                I'm Interested!
                                             </div>
                                         )}
                                     </IconButton>
