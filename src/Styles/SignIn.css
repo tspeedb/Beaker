@@ -4,28 +4,69 @@
         Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-h1 {
-    font-size: medium;
-}
-
-.signin {
-    font-size: large;
-    font-style: normal;
-    color: black;
+/* SignIn css labels */
+.sign-in {
     text-align: center;
-    padding-top: 0px;
-    padding-bottom: 0px;
 }
 
-.button1 {
+.email-text-field fieldset {
+    border-radius: 100px;
+}
+
+.password-text-field fieldset {
+    border-radius: 100px;
+}
+
+.sign-in-button {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-input {
+.signin-button {
+    width: 150px;
     height: 50px;
-    width: 250px;
-    padding-left: 20px;
+}
+
+.forgot-password {
+    margin-bottom: 3em;
+}
+
+.new-here {
+    align-items: center;
+}
+
+/* NewUserStudent css labels */
+.sign-up {
+    text-align: center;
+}
+
+.confirm-password-text-field fieldset {
+    border-radius: 100px;
+}
+
+.continue-to-profile-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.continue-to-profile-btn {
+    width: 210px;
+    height: 50px;
+}
+
+.forgot-password {
+    text-align: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+        Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* UserProfile labels */
+.update-email-text-field fieldset {
+    border-radius: 100px;
+}
+
+.update-password-text-field fieldset {
     border-radius: 100px;
 }

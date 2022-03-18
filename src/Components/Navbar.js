@@ -7,13 +7,17 @@ import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
 import { Button, Menu } from '@material-ui/core'
 import HelpIcon from '@mui/icons-material/Help'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import ClickAwayListener from '@material-ui/core/ClickAwayListener'
 import Grow from '@material-ui/core/Grow'
 import Paper from '@material-ui/core/Paper'
 import Popper from '@material-ui/core/Popper'
 import MenuItem from '@material-ui/core/MenuItem'
 import '../Styles/Navbar.css'
+import { getAuth } from 'firebase/auth'
+import { useAuth } from '../Contexts/authContext'
+import { auth } from '../firebase'
+import 'firebase/compat/auth'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import ScienceIcon from '@mui/icons-material/Science'
 
@@ -88,6 +92,13 @@ const Navbar = () => {
     const handleMenuClose = () => {
         setItem(null)
     }
+
+    // const [error, setError] = useState('')
+    // const { currentUser, signOut } = useAuth()
+
+    const handleToProfile = () => {
+        console.log('Profile')
+    }
     // const [open, setOpen] = useState(false)
 
     // const handleOpen = () => {
@@ -97,6 +108,20 @@ const Navbar = () => {
     // const handleClose = () => {
     //     setOpen(false)
     // }
+
+    const [error, setError] = useState('')
+    const { currentUser, signOut } = useAuth()
+    const history = useHistory()
+
+    async function handleLogout() {
+        try {
+            await signOut()
+            history.push('/')
+            console.log('you are logged out')
+        } catch {
+            setError('Failed to log out')
+        }
+    }
 
     return (
         <>
@@ -189,7 +214,10 @@ const Navbar = () => {
                                                     <MenuItem
                                                         onClick={handleClose}
                                                     >
-                                                        Profile
+                                                        <Link to="/userprofile">
+                                                            {' '}
+                                                            Profile{' '}
+                                                        </Link>
                                                     </MenuItem>
                                                     <MenuItem
                                                         onClick={handleClose}
@@ -219,11 +247,11 @@ const Navbar = () => {
                 {' '}
                 <MenuList onClick={handleMenuClose}>
                     {' '}
-                    <Link to="./userprofile">profile </Link>{' '}
+                    <Link to="./userprofile">profile</Link>{' '}
                 </MenuList>
-                <MenuList onClick={handleMenuClose}>
+                <MenuList onClick={handleLogout}>
                     {' '}
-                    <Link to="./">logout </Link>{' '}
+                    <Link to="./homepage"> logout </Link>{' '}
                 </MenuList>
             </Menu>
         </>
