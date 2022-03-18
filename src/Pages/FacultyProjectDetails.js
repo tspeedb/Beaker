@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo} from 'react'
+import React, { useState, useEffect } from 'react'
 import { db } from '../firebase'
 import { doc, getDoc } from 'firebase/firestore'
 import '../Styles/LearnMore.css'
@@ -48,6 +48,7 @@ function ProjectDetails({ match, projects }) {
             case 'Open': color = 'primary'; break;
             case 'Closed': color = 'secondary'; break;
             case 'Completed': color = 'default'; break;
+            default: color = 'primary'; break;
         }
         return (
             <div>
@@ -62,7 +63,7 @@ function ProjectDetails({ match, projects }) {
                 <div style={{ margin: '20px' }}>
                     <Box display='flex' flexGrow={1} >
                         <Link to="/projectspage">
-                                <ArrowBackIosIcon style={{ color: 'black', paddingLeft: '10'}}></ArrowBackIosIcon>
+                            <ArrowBackIosIcon style={{ color: 'black', paddingLeft: '10'}}></ArrowBackIosIcon>
                         </Link>
                         <Link to={`/editproject/${id}`}>
                             <EditIcon style={{ color: 'black', marginRight: 'auto'}}></EditIcon>
@@ -94,7 +95,7 @@ function ProjectDetails({ match, projects }) {
                                 {statusComp(project)}
                                 </Box>
                             </div>
-                            <div style={{ fontSize: '15px', maxWidth: '600px', paddingTop: '5px' }}>
+                            <div style={{ fontSize: '15px', maxWidth: '600px', paddingTop: '5px', marginLeft: '5px' }}>
                                 {project.description}
                             </div>
                             <div style={{ fontSize: '40px', paddingTop: '5%' }}>

@@ -31,22 +31,30 @@ function EditProject({ match, projects }) {
     const [imageAsUrl, setImageAsUrl] = useState(
         `${process.env.PUBLIC_URL}/projectImages/user.png`
     )
-
     const projNameRef = useRef()
     const projDescRef = useRef()
     const projPrefSoftSkillsRef = useRef()
 
     const projectsCollectionRef = useMemo(() => collection(db, 'projects'), [])
-
     const id = match.params.projectId
     const projectCollectionRef = doc(db, 'projects', id)
+    const [projectState, setProjectState] = useState({})
 
     const getProjects = async () => {
         const data = await getDocs(projectsCollectionRef)
         projects = (data.docs.map((doc) => ({ ...doc.data(), key: doc.id })))
     }
 
-    const [projectState, setProjectState] = useState({})
+    const [editedProjectName, setEditedProjectName] = useState('')
+    const [editedDesc, setEditedDesc] = useState('')
+    const [editedSoftSkills, setEditedSoftSkills] = useState('')
+    const [editedProjectStatus, setEditedProjectStatus] = useState('')
+    const [editedMemberAmount, setEditedMemAmount] = useState('')
+    const [editedReqMajor, setEditedReqMajor] = useState([])
+    const [editedReqYear, setEditedReqYear] = useState([])
+    const [editedTimeline, setEditedTimeline] = useState('')
+    const [editedIncentives, setEditedIncentives] = useState([])
+    const [editedImageAsUrl, setEditedImageAsUrl] = useState('')
 
     const getProject = async () => {
         const data = await getDoc(projectCollectionRef)
@@ -54,55 +62,78 @@ function EditProject({ match, projects }) {
         setProject(selected)
         setProjectState(selected)
         setEditedProjectName(selected?.title)
-        setEditedDesc(selected?.description)
-        setEditedSoftSkills(selected?.softskills)
         setEditedProjectStatus(selected?.status)
+        setEditedDesc(selected?.description)
         setEditedMemAmount(selected?.members)
+        setEditedReqMajor(selected?.major)
+        setEditedReqYear(selected?.year)
+        setEditedSoftSkills(selected?.softskills)
+        setEditedTimeline(selected?.timeline)
+        setEditedIncentives(selected?.incentives)
+        setEditedImageAsUrl(selected?.image)
     }
 
-    // const [editedReqMajor, setEditedReqMajor] = useState([])
-    // const [editedReqYear, setEditedReqYear] = useState([])
-    // const [editedTimeline, setEditedTimeline] = useState('')
-    // const [editedIncentives, setEditedIncentives] = useState([])
-    // const [editedImageAsUrl, setEditedImageAsUrl] = useState('')
-    const [editedProjectName, setEditedProjectName] = useState('')
-    const [editedDesc, setEditedDesc] = useState('')
-    const [editedSoftSkills, setEditedSoftSkills] = useState('')
-    const [editedProjectStatus, setEditedProjectStatus] = useState('')
-    const [editedMemberAmount, setEditedMemAmount] = useState('')
-    
     useEffect(() => {
         getProject()
     }, [id, projects])
 
     const compareValues = () => {
-        let updatedProjectName, updatedDesc, updatedSoftSkills, updatedStatus, updatedMemAmount
-
-        updatedProjectName = (projectState.title !== editedProjectName) ? editedProjectName : projectState.title
+        let updatedProjectName = (projectState.title !== editedProjectName) ? editedProjectName : projectState.title
         setProjectName(updatedProjectName) 
 
-        updatedDesc = (projectState.description !== editedDesc) ? editedDesc: projectState.description
-        setDesc(updatedDesc) 
-
-        updatedSoftSkills = (projectState.softskills !== editedSoftSkills) ? editedSoftSkills: projectState.softskills
-        setSoftSkills(updatedSoftSkills) 
-
-        updatedStatus = (projectState.status !== editedProjectStatus) ? editedProjectStatus: projectState.status
+        let updatedStatus = (projectState.status !== editedProjectStatus) ? editedProjectStatus : projectState.status
         setStatus(updatedStatus)
 
-        updatedMemAmount = (projectState.members !== editedMemberAmount) ? editedMemberAmount: projectState.members
+        let updatedDesc = (projectState.description !== editedDesc) ? editedDesc : projectState.description
+        setDesc(updatedDesc) 
+
+        let updatedMemAmount = (projectState.members !== editedMemberAmount) ? editedMemberAmount : projectState.members
         setMemAmount(updatedMemAmount)
 
-        return { updatedProjectName, updatedDesc, updatedSoftSkills, updatedStatus, updatedMemAmount }
+        let updatedReqMajor = (!checkArrEquality(projectState.major, editedReqMajor)) ? [...editedReqMajor] : [...projectState.major]
+        setReqMajor(updatedReqMajor)
+
+        let updatedReqYear = (!checkArrEquality(projectState.year, editedReqYear)) ? [...editedReqYear] : [...projectState.year]
+        setReqYear(updatedReqYear)
+
+        let updatedSoftSkills = (projectState.softskills !== editedSoftSkills) ? editedSoftSkills : projectState.softskills
+        setSoftSkills(updatedSoftSkills) 
+
+        let updatedTimeline = (projectState.timeline !== editedTimeline) ? editedTimeline : projectState.timeline
+        setTimeline(updatedTimeline)
+
+        let updatedIncentives = (!checkArrEquality(projectState.incentives, editedIncentives)) ? [...editedIncentives] : [...projectState.incentives]
+        setIncentives(updatedIncentives)
+
+        let updatedImageAsUrl = (projectState.image !== editedImageAsUrl) ? editedImageAsUrl : projectState.image
+        setImageAsUrl(updatedTimeline)
+
+        return { 
+            updatedProjectName, 
+            updatedStatus, 
+            updatedDesc, 
+            updatedMemAmount,
+            updatedReqMajor, 
+            updatedReqYear, 
+            updatedSoftSkills,  
+            updatedTimeline,
+            updatedIncentives,
+            updatedImageAsUrl
+        }
     }
 
     const editProject = async () => {
         let { 
             updatedProjectName, 
-            updatedDesc, 
-            updatedSoftSkills, 
             updatedStatus, 
-            updatedMemAmount
+            updatedDesc, 
+            updatedMemAmount,
+            updatedReqMajor, 
+            updatedReqYear, 
+            updatedSoftSkills,  
+            updatedTimeline,
+            updatedIncentives,
+            updatedImageAsUrl
         } = compareValues()
 
         await updateDoc(projectCollectionRef, {
@@ -110,12 +141,12 @@ function EditProject({ match, projects }) {
             status: updatedStatus,
             description: updatedDesc,
             members: updatedMemAmount,
-            major: reqMajor,
-            year: reqYear,
+            major: updatedReqMajor,
+            year: updatedReqYear,
             softskills: updatedSoftSkills,
-            timeline: timeline,
-            incentives: incentives,
-            image: imageAsUrl,
+            timeline: updatedTimeline,
+            incentives: updatedIncentives,
+            image: updatedImageAsUrl,
         })
         getProjects()
     }
@@ -146,7 +177,7 @@ function EditProject({ match, projects }) {
             // console.log('result:', result)
             if (!error && result && result.event === 'success') {
                 console.log('Done! Here is the image info: ', result.info)
-                setImageAsUrl(result.info.url)
+                setEditedImageAsUrl(result.info.url)
             }
         }
     )
@@ -154,6 +185,17 @@ function EditProject({ match, projects }) {
     const openWidget = (e, widget) => {
         e.preventDefault()
         widget.open()
+    }
+
+    const checkArrEquality = (a, b) => {
+        if (a === b) return true
+        if (a == null || b == null) return false
+        if (a.length !== b.length) return false
+
+        for (let i = 0; i < a.length; i++) {
+            if (!a.includes(b[i]) || !b.include(a[i])) return false
+        }
+        return true
     }
 
     const memberAmtOptions = [
@@ -168,6 +210,10 @@ function EditProject({ match, projects }) {
         '9',
         '10+',
     ]
+
+    const handleChangeMemAmt = (event) => {
+        setEditedMemAmount(event.target.value)
+    }
 
     const majorOptions = [
         'Accounting (ACCT)',
@@ -227,6 +273,13 @@ function EditProject({ match, projects }) {
         'Womens and Gender Studies (WGST)',
     ]
 
+    const handleChangeMajor = (event) => {
+        const {
+            target: { value },
+        } = event
+        setEditedReqMajor(typeof value === 'string' ? value.split(',') : value)
+    }
+
     const yearOptions = [
         'Freshman',
         'Sophomore',
@@ -234,6 +287,13 @@ function EditProject({ match, projects }) {
         'Senior',
         'Graduate',
     ]
+
+    const handleChangeYear = (event) => {
+        const {
+            target: { value },
+        } = event
+        setEditedReqYear(typeof value === 'string' ? value.split(',') : value)
+    }
 
     const timelineOptions = [
         '1 Semester',
@@ -243,16 +303,18 @@ function EditProject({ match, projects }) {
         '4 Years+',
     ]
 
+    const handleChangeTimeline = (event) => {
+        setEditedTimeline(event.target.value)
+    }
+
     const status = [
         'Open', 
         'Closed', 
         'Completed'
     ]
-    
-    const getDefaultStatus = () => {
-        // console.log(projectState.status)
-        // console.log(status[status.indexOf(projectState.status)])
-        return status[status.indexOf(projectState.status)]
+
+    const handleChangeStatus = (event) => {
+        setEditedProjectStatus(event.target.value)
     }
 
     const incentiveOptions = [
@@ -261,34 +323,8 @@ function EditProject({ match, projects }) {
         'Internship Credit'
     ]
 
-    const handleChangeMemAmt = (event) => {
-        setEditedMemAmount(event.target.value)
-    }
-
-    const handleChangeMajor = (event) => {
-        const {
-            target: { value },
-        } = event
-        setReqMajor(typeof value === 'string' ? value.split(',') : value)
-    }
-
-    const handleChangeYear = (event) => {
-        const {
-            target: { value },
-        } = event
-        setReqYear(typeof value === 'string' ? value.split(',') : value)
-    }
-
-    const handleChangeTimeline = (event) => {
-        setTimeline(event.target.value)
-    }
-
     const handleChangeIncentives = (event) => {
-        setIncentives(event.target.value)
-    }
-
-    const handleChangeStatus = (event) => {
-        setEditedProjectStatus(event.target.value)
+        setEditedIncentives(event.target.value)
     }
 
     return (
@@ -318,9 +354,12 @@ function EditProject({ match, projects }) {
                             width: 250,
                             height: 250,
                             paddingTop: 0,
+                            paddingTop: '0%',
+                            borderRadius: '5px',
+                            textShadow: '2px 2px 5px',
                         }}
                         alt="profile"
-                        src={project.image}
+                        src={editedImageAsUrl}
                         onClick={(e) => openWidget(e, widget)}
                     />
                 </div>
@@ -377,7 +416,6 @@ function EditProject({ match, projects }) {
                         <InputLabel>Number Of Members Needed</InputLabel>
                         <Select
                             value={editedMemberAmount}
-                            // defaultValue={getDefaultMembers}
                             onChange={handleChangeMemAmt}
                         >
                             {memberAmtOptions.map((memberAmtOption) => (
@@ -396,7 +434,7 @@ function EditProject({ match, projects }) {
                         <InputLabel>Preferred Majors</InputLabel>
                         <Select
                             multiple
-                            value={reqMajor}
+                            value={editedReqMajor}
                             onChange={handleChangeMajor}
                         >
                             {majorOptions.map((majorOption) => (
@@ -412,7 +450,7 @@ function EditProject({ match, projects }) {
                         <InputLabel>Preferred Years</InputLabel>
                         <Select
                             multiple
-                            value={reqYear}
+                            value={editedReqYear}
                             onChange={handleChangeYear}
                         >
                             {yearOptions.map((yearOption) => (
@@ -441,7 +479,7 @@ function EditProject({ match, projects }) {
                     <FormControl style={{ width: '55%' }}>
                         <InputLabel>Project Timeline</InputLabel>
                         <Select
-                            value={timeline}
+                            value={editedTimeline}
                             onChange={handleChangeTimeline}
                         >
                             {timelineOptions.map((timelineOption) => (
@@ -460,7 +498,7 @@ function EditProject({ match, projects }) {
                         <InputLabel>Incentives</InputLabel>
                         <Select
                             multiple
-                            value={incentives}
+                            value={editedIncentives}
                             onChange={handleChangeIncentives}
                         >
                             {incentiveOptions.map((incentiveOption) => (
