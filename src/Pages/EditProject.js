@@ -174,7 +174,7 @@ function EditProject({ match, projects }) {
         },
 
         (error, result) => {
-            // console.log('result:', result)
+            console.log('result:', result)
             if (!error && result && result.event === 'success') {
                 console.log('Done! Here is the image info: ', result.info)
                 setEditedImageAsUrl(result.info.url)
@@ -193,7 +193,7 @@ function EditProject({ match, projects }) {
         if (a.length !== b.length) return false
 
         for (let i = 0; i < a.length; i++) {
-            if (!a.includes(b[i]) || !b.include(a[i])) return false
+            if (!a.includes(b[i]) || !b.includes(a[i])) return false
         }
         return true
     }
@@ -369,6 +369,7 @@ function EditProject({ match, projects }) {
                     type="text"
                     className="project-name"
                     placeholder="Project Name"
+                    label="Project Name"
                     inputRef={projNameRef}
                     value={editedProjectName}
                     style={{ width: '55%' }}
@@ -383,6 +384,7 @@ function EditProject({ match, projects }) {
                     multiline
                     rows={6}
                     type="text"
+                    label="Project Description"
                     className="project-desc"
                     placeholder="Project Description"
                     inputRef={projDescRef}
@@ -465,7 +467,8 @@ function EditProject({ match, projects }) {
                 <div className='preferred-soft-skill'>
                 <TextField
                     type="text"
-                    className="preferred-soft-skill "
+                    className="preferred-soft-skill"
+                    label="Preferred Soft Skill(s)"
                     placeholder="Preferred Soft Skill(s)"
                     inputRef={projPrefSoftSkillsRef}
                     value={editedSoftSkills}

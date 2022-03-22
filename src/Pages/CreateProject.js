@@ -247,6 +247,7 @@ function CreateProject({ setProjects }) {
                     <TextField
                         type="text"
                         className="proj-name"
+                        label="Project Name"
                         placeholder="Project Name"
                         inputRef={projNameRef}
                         style={{ width: '55%' }}
@@ -260,6 +261,7 @@ function CreateProject({ setProjects }) {
                     <TextField
                         multiline
                         rows={6}
+                        label="Project Description"
                         placeholder="Project Description"
                         inputRef={projDescRef}
                         style={{ width: '55%' }}
@@ -323,6 +325,7 @@ function CreateProject({ setProjects }) {
                     <TextField
                         type="text"
                         className="soft-skills"
+                        label="Preferred Soft Skill(s)"
                         placeholder="Preferred Soft Skill(s)"
                         inputRef={projPrefSoftSkillsRef}
                         style={{ width: '55%' }}
