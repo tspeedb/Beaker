@@ -9,6 +9,7 @@ export default function ManageMembers() {
     }} className='memberslist' >
         <ManageDropdown group="Members"/>
         <ManageDropdown group="Applicants"/>
+        <ManageDropdown group="Past Applicants"/>
     </div>
   );
 }

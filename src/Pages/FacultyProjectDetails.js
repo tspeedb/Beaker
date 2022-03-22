@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom'
 import EditIcon from '@mui/icons-material/Edit'
 import Box from '@material-ui/core/Box'
 import Chip from '@material-ui/core/Chip'
+import { Typography } from '@mui/material';
 
 function ProjectDetails({ match, projects }) {
     const [project, setProject] = useState({})
@@ -61,19 +62,26 @@ function ProjectDetails({ match, projects }) {
         <Layout>
             <div>
                 <div style={{ margin: '20px' }}>
-                    <Box display='flex' flexGrow={1} >
-                        <Link to="/projectspage">
-                            <ArrowBackIosIcon style={{ color: 'black', paddingLeft: '10'}}></ArrowBackIosIcon>
-                        </Link>
-                        <Link to={`/editproject/${id}`}>
-                            <EditIcon style={{ color: 'black', marginRight: 'auto'}}></EditIcon>
-                        </Link>
-                    </Box>
-                    
+                    <Link to="/projectspage">
+                        <ArrowBackIosIcon style={{ color: 'black', paddingLeft: '10'}}></ArrowBackIosIcon>
+                    </Link>
+                    <div
+                        style={{
+                            justifyContent: 'end',
+                            display: 'flex',
+                            alignItems: 'center',
+                            marginTop: '-30px'
+                        }}
+                        >
+                            <Link to={`/editproject/${id}`}>
+                                <EditIcon style={{ color: 'black', marginRight: 'auto'}}></EditIcon>
+                            </Link>
+                        </div>
                 </div>
                 {project && (
                     <div className="about-container">
                         <div className="column-left details">
+                        
                             {' '}
                             <img
                                 src={project.image}

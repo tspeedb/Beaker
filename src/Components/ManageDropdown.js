@@ -43,9 +43,6 @@ export default function ManageDropdown({ members, group }) {
       aria-labelledby="nested-list-subheader"
     >
       <ListItemButton onClick={handleClick}>
-        {/* <ListItemIcon> */}
-          {/* <InboxIcon /> */}
-        {/* </ListItemIcon> */}
         <ListItemText primary={`Manage ${group}`} />
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
@@ -58,33 +55,6 @@ export default function ManageDropdown({ members, group }) {
             </div>
           )
         })}
-            {/* // const labelId = `checkbox-list-secondary-label-${value}`;
-            // return (
-            
-            // <ListItem
-            //     key={value}
-            //     //secondaryAction={
-            //     // <Checkbox
-            //     //     edge="end"
-            //     //     onChange={handleToggle(value)}
-            //     //     checked={checked.indexOf(value) !== -1}
-            //     //     inputProps={{ 'aria-labelledby': labelId }}
-            //     // />
-            //     //}
-            //     //disablePadding
-            // >
-            //     <ListItemButton>
-            //     <ListItemAvatar>
-            //         <Avatar
-            //         alt={`Avatar n°${value + 1}`}
-            //         src={`/static/images/avatar/${value + 1}.jpg`}
-            //         />
-            //     </ListItemAvatar>
-            //     <ListItemText id={labelId} primary={`Sample ${group} ${value + 1}`} />
-            //     </ListItemButton>
-                
-
-            // </ListItem> */}
         </List>
       </Collapse>
     </List>

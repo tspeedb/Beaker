@@ -1,9 +1,16 @@
 import React, { useState } from 'react'
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
-import Collapse from '@mui/material/Collapse';
+import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
+import ListItemButton from '@mui/material/ListItemButton'
+import ListItemText from '@mui/material/ListItemText'
+import Avatar from '@mui/material/Avatar'
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import { ListItemSecondaryAction } from '@material-ui/core'
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from '@mui/icons-material/Close';
+import IconButton from "@material-ui/core/IconButton";
+import SendIcon from '@mui/icons-material/Send';
 
 export default function Member({ member, group }) {
   const [checked, setChecked] = useState([1]);
@@ -29,14 +36,43 @@ export default function Member({ member, group }) {
   const applicantOptions = (group) => {
       if (group == "Applicants") {
         return (
-            <Collapse in={open} timeout="auto" unmountOnExit>
-                <List dense sx={{ width: '100%', maxWidth: 400, bgcolor: 'background.paper' }}>
-                  <ListItem key='Reject' style={{paddingLeft: 30}}>Reject Application</ListItem>
-                  <ListItem key='Accept' style={{paddingLeft: 30}}>Accept Application</ListItem>
-                </List>
-            </Collapse>
+            <ListItemSecondaryAction>
+              <IconButton>
+                <AccountBoxIcon/>
+              </IconButton>
+              <IconButton>
+                <CheckIcon color='success'/>
+              </IconButton>
+              <IconButton>
+                <CloseIcon color='warning'/>
+              </IconButton>
+            </ListItemSecondaryAction>
+
           )
       }
+      if (group == "Past Applicants") {
+        return (
+            <ListItemSecondaryAction>
+              <IconButton>
+                <AccountBoxIcon/>
+              </IconButton>
+              <IconButton>
+                <CheckIcon color='success'/>
+              </IconButton>
+            </ListItemSecondaryAction>
+
+          )
+      }
+      return (
+        <ListItemSecondaryAction>
+            <IconButton>
+                <AccountBoxIcon/>
+            </IconButton>
+            <IconButton>
+                <SendIcon color='primary'/>
+            </IconButton>
+        </ListItemSecondaryAction>
+      )
   }
 
   return (
@@ -48,13 +84,14 @@ export default function Member({ member, group }) {
       component="nav"
       aria-labelledby="nested-list-subheader"
     >
-      <ListItemButton onClick={handleClick}>
-        {/* <ListItemIcon> */}
-          {/* <InboxIcon /> */}
-        {/* </ListItemIcon> */}
-        <ListItemText primary={'Member ' + member} />
-      </ListItemButton>
-      {applicantOptions(group)}
+      <ListItem alignItems='flex-start'>
+        <ListItemAvatar>
+          <Avatar src={`${process.env.PUBLIC_URL}/projectImages/user.png`} />
+        </ListItemAvatar>
+        <ListItemText primary={'Member ' + member} secondary={'Pronouns'} style={{ marginTop: '30' }}/>
+        {applicantOptions(group)}
+      </ListItem>
+      
     </List>
     </div>
   );
