@@ -189,6 +189,7 @@ function FacultyStaffProfile({ setFSMembers }) {
                 <div className="fs-title">
                     <TextField
                         type="text"
+                        label="Title (Ex: Professor)"
                         placeholder="Title (Ex: Professor)"
                         style={{ width: '50%' }}
                         onChange={(event) => {
@@ -200,6 +201,7 @@ function FacultyStaffProfile({ setFSMembers }) {
                 <div className="fs-first-name">
                     <TextField
                         type="text"
+                        label="First Name(s)"
                         placeholder="First Name(s)"
                         style={{ width: '50%' }}
                         onChange={(event) => {
@@ -211,6 +213,7 @@ function FacultyStaffProfile({ setFSMembers }) {
                 <div className="fs-middle-name">
                     <TextField
                         type="text"
+                        label="Middle Name(s)"
                         placeholder="Middle Name(s)"
                         style={{ width: '50%' }}
                         onChange={(event) => {
@@ -222,6 +225,7 @@ function FacultyStaffProfile({ setFSMembers }) {
                 <div className="fs-last-name">
                     <TextField
                         type="text"
+                        label="Last Name(s)"
                         placeholder="Last Name(s)"
                         style={{ width: '50%' }}
                         onChange={(event) => {
@@ -233,6 +237,7 @@ function FacultyStaffProfile({ setFSMembers }) {
                 <div className="fs-preferred-name">
                     <TextField
                         type="text"
+                        label="Preferred way to be addressed"
                         placeholder="Preferred way to be addressed"
                         style={{ width: '50%' }}
                         onChange={(event) => {
@@ -244,6 +249,7 @@ function FacultyStaffProfile({ setFSMembers }) {
                 <div className="fs-pronouns">
                     <TextField
                         type="text"
+                        label="Pronouns (Ex: she/her)"
                         placeholder="Pronouns (Ex: she/her)"
                         style={{ width: '50%' }}
                         onChange={(event) => {
@@ -274,6 +280,7 @@ function FacultyStaffProfile({ setFSMembers }) {
                     <TextField
                         multiline
                         rows={6}
+                        label="Lab Description"
                         placeholder="Lab Description"
                         style={{ width: '50%' }}
                         onChange={(event) => {
@@ -286,6 +293,7 @@ function FacultyStaffProfile({ setFSMembers }) {
                 <div className="fs-portfolio">
                     <TextField
                         type="text"
+                        label="Link to Portfolio/Website"
                         placeholder="Link to Portfolio/Website"
                         style={{ width: '50%' }}
                         onChange={(event) => {
