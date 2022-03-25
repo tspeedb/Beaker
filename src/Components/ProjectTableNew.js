@@ -26,7 +26,14 @@ function ProjectTableNew({ projects }) {
                     <img
                         alt="project"
                         src={project.image}
-                        style={{ width: 50 }}
+                        style={{
+                            display: 'inline-block',
+                            position: 'relative',
+                            width: 50,
+                            height: 50,
+                            overflow: 'hidden',
+                            borderRadius: 50,
+                        }}
                     />{' '}
                 </Link>
             ),
