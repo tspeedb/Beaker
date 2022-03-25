@@ -4,6 +4,8 @@ import { db } from './firebase'
 // import firebase from './firebase'
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+// import studsidebaritems from './studsidebaritems'
+// import sidebaritems from './sidebaritems'
 
 import Homepage from './Pages/Homepage'
 import { AnimatePresence } from 'framer-motion/dist/framer-motion'
@@ -21,11 +23,15 @@ import AllMembers from './Pages/AllMembers'
 import AboutProject from './Pages/AboutProject'
 import AboutMember from './Pages/AboutMember'
 import Dashboard from './Pages/Dashboard'
+// import StudentDashboard from './Pages/StudentDashboard'
 import BookmarkedMembers from './Pages/BookmarkedMembers'
 import BookmarkedProjects from './Pages/BookmarkedProjects'
 import InvitedMembers from './Pages/InvitedMembers'
 import UserProfile from './Pages/UserProfile'
 import CreateProject from './Pages/CreateProject'
+// import EditProject from './Pages/EditProject'
+// import ProjectDetails from './Pages/FacultyProjectDetails'
+// import Invitations from './Pages/Invitations'
 import ForgotPassword from './Pages/ForgotPassword'
 import PrivateRoute from './Components/PrivateRoute'
 import { AuthProvider } from './Contexts/authContext'
@@ -33,6 +39,8 @@ import { AuthProvider } from './Contexts/authContext'
 function App() {
     // const ref = firebase.firestore().collection('students')
     // console.log(ref)
+    const [isStudent, setIsStudent] = useState(true)
+
     const [projects, setProjects] = useState([])
     const projectsCollectionRef = useMemo(() => collection(db, 'projects'), [])
     useEffect(() => {
@@ -63,7 +71,7 @@ function App() {
                 <Router>
                     <AnimatePresence exitBeforeEnter>
                         <Switch>
-                            <PrivateRoute
+                            <Route
                                 Route
                                 path="/"
                                 exact
@@ -146,6 +154,105 @@ function App() {
                                 render={(props) => (
                                     <AllMembers {...props} members={members} />
                                 )}
+                            />
+
+                            <Route
+                                path="/aboutproject/:projectId"
+                                exact
+                                render={(props) => (
+                                    <AboutProject
+                                        {...props}
+                                        projects={projects}
+                                    />
+                                )}
+                            />
+                            {/* <Route
+                                path="/editproject/:projectId"
+                                exact
+                                render={(props) => (
+                                    <EditProject
+                                        {...props}
+                                        projects={projects}
+                                    />
+                                )}
+                            /> */}
+                            {/* <Route
+                                path="/projectdetails/:projectId"
+                                exact
+                                render={(props) => (
+                                    <ProjectDetails
+                                        {...props}
+                                        projects={projects}
+                                    />
+                                )}
+                            /> */}
+                            <Route
+                                path="/aboutmember/:memberId"
+                                exact
+                                render={(props) => (
+                                    <AboutMember {...props} members={members} />
+                                )}
+                            />
+                            <Route
+                                path="/dashboard"
+                                exact
+                                render={(props) => (
+                                    <Dashboard
+                                    // sidebaritems={
+                                    //     isStudent
+                                    //         ? studsidebaritems
+                                    //         : sidebaritems
+                                    // }
+                                    />
+                                )}
+                            />
+                            {/* <Route
+                                path="/studentdashboard"
+                                exact
+                                render={(props) => (
+                                    <StudentDashboard
+                                        sidebaritems={
+                                            isStudent
+                                                ? studsidebaritems
+                                                : sidebaritems
+                                        }
+                                    />
+                                )}
+                            /> */}
+                            <Route
+                                path="/bookmarkedmembers"
+                                exact
+                                component={BookmarkedMembers}
+                            />
+                            {/* <Route
+                                path="/invitations"
+                                exact
+                                component={Invitations}
+                            /> */}
+                            <Route
+                                path="/bookmarkedprojects"
+                                exact
+                                render={(props) => (
+                                    <BookmarkedProjects
+                                        {...props}
+                                        projects={projects}
+                                        // sidebaritems={
+                                        //     isStudent
+                                        //         ? studsidebaritems
+                                        //         : sidebaritems
+                                        // }
+                                    />
+                                )}
+                            />
+                            <Route
+                                path="/invitedmembers"
+                                exact
+                                component={InvitedMembers}
+                            />
+                            <Route
+                                path="/userprofile"
+                                exact
+                                component={UserProfile}
                             />
 
                             <Route

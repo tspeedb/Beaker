@@ -58,6 +58,10 @@ function UserProfile() {
                 setLoading(false)
             })
     }
+    /*Acknowelgment for setting Promises
+      Author:WebDevSimplified
+    */
+
     return (
         <div className="top-update-profile">
             <Box
@@ -90,10 +94,7 @@ function UserProfile() {
                         }}
                     />
                 </div>
-                <FormControl
-                    type="password"
-                    // inputRef={passwordRef}
-                />
+                <FormControl type="password" />
                 <div className="update-password-text-field">
                     <TextField
                         type="password"
@@ -106,10 +107,7 @@ function UserProfile() {
                         }}
                     />
                 </div>
-                <FormControl
-                    type="password"
-                    // ref={passwordConfirmRef}
-                />
+                <FormControl type="password" />
                 <div className="confirm-password-text-field">
                     <TextField
                         type="password"
