@@ -11,11 +11,35 @@
     /* z-index: -1; */
 }
 
+.side-text-title {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding: 20px 0px 0px 10px;
+    list-style: none;
+    height: 60px;
+    animation-name: slidein;
+}
+
+.side-text-title a {
+    text-decoration: none;
+    color: rgb(74, 149, 240);
+    font-size: 20px;
+    width: 95%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    border-radius: 4px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+}
+
 .side-text {
     display: flex;
     justify-content: start;
     align-items: center;
-    padding: 100px 0px 8px 16px;
+    padding: 45px 0px 8px 16px;
     list-style: none;
     height: 60px;
     animation-name: slidein;

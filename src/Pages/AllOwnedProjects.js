@@ -1,10 +1,9 @@
 import Layout from '../Components/Layout'
 import Side from '../Components/Side'
-import sidebaritems from '../sidebaritems'
 import studsidebaritems from '../studsidebaritems'
-import AllMembersCards from '../Components/AllMembersCards'
+import sidebaritems from '../sidebaritems'
 
-function InvitedMembers() {
+function AllOwnedProjects() {
     return (
         <Layout>
             <Side
@@ -22,7 +21,7 @@ function InvitedMembers() {
                         }}
                     >
                         {' '}
-                        invited members{' '}
+                        All My Projects{' '}
                     </h1>
                 </div>
             </Side>
@@ -30,4 +29,4 @@ function InvitedMembers() {
     )
 }
 
-export default InvitedMembers
+export default AllOwnedProjects

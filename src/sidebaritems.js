@@ -1,5 +1,9 @@
 const sidebaritems = [
     {
+        display_name: 'Faculty Dashboard',
+        cName: 'side-text-title',
+    },
+    {
         display_name: 'All My Projects',
         route: './allownedprojects',
         cName: 'side-text',
