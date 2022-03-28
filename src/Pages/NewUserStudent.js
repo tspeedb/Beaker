@@ -19,14 +19,17 @@ import 'firebase/compat/auth'
 import { getAuth } from 'firebase/auth'
 import { useAuth } from '../Contexts/authContext'
 import { TextField } from '@mui/material'
+
 import { connectStorageEmulator } from 'firebase/storage'
 
 function NewUserStudent() {
-    const { signup, currentUser } = useAuth()
+    const { signup } = useAuth()
     const emailRef = useRef()
     const passwordRef = useRef()
     const passwordConfirmRef = useRef()
     const history = useHistory()
+    const [currentUser, setCurrentUser] = useState(null)
+    // const [user, loading, error] = useAuthState(auth)
 
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
@@ -39,10 +42,12 @@ function NewUserStudent() {
         try {
             setLoading(true)
             await signup(emailRef.current.value, passwordRef.current.value)
-            history.push('/studentprofile')
+            setCurrentUser(true)
         } catch {
-            console.log('getting here maybe')
             setError('Failed to Create an Account')
+        }
+        if (currentUser) {
+            history.push('/studentprofile')
         }
         setLoading(false)
     }

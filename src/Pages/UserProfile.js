@@ -61,7 +61,6 @@ function UserProfile() {
     /*Acknowelgment for setting Promises
       Author:WebDevSimplified
     */
-
     return (
         <div className="top-update-profile">
             <Box

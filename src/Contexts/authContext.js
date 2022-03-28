@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
+import { Link, useHistory } from 'react-router-dom'
 import { auth } from '../firebase'
 const AuthContext = React.createContext()
 
@@ -9,6 +10,8 @@ export function AuthProvider({ children }) {
     const [currentUser, setCurrentUser] = useState()
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState('')
+    const [message, setMessage] = useState('')
+    const history = useHistory()
 
     function signup(email, password) {
         auth.createUserWithEmailAndPassword(email, password)
@@ -19,12 +22,9 @@ export function AuthProvider({ children }) {
                     alert('Email already in Use')
                 }
                 if (e.code === 'auth/weak-password')
-                    console.log(
+                    alert(
                         'Password must be at least 7 characters long and contain special characters'
                     )
-                alert(
-                    'Password must be at least 7 characters long and contain special characters'
-                )
             })
     }
     function signin(email, password) {
