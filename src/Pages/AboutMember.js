@@ -71,6 +71,12 @@ function AboutMember({ match, members }) {
                                 {' '}
                                 {member.bio}{' '}
                             </div>
+                            <div
+                                style={{ fontSize: '15px', maxWidth: '600px' }}
+                            >
+                                {' '}
+                                {member.portfolioLink}{' '}
+                            </div>
                             <Grid
                                 container
                                 direction="row"

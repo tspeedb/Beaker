@@ -35,6 +35,7 @@ import Invitations from './Pages/Invitations'
 import ForgotPassword from './Pages/ForgotPassword'
 import PrivateRoute from './Components/PrivateRoute'
 import { AuthProvider } from './Contexts/authContext'
+import AllOwnedProjects from './Pages/AllOwnedProjects'
 
 function App() {
     // const ref = firebase.firestore().collection('students')
@@ -228,6 +229,11 @@ function App() {
                                 path="/invitations"
                                 exact
                                 component={Invitations}
+                            />
+                            <Route
+                                path="/allownedprojects"
+                                exact
+                                component={AllOwnedProjects}
                             />
                             <Route
                                 path="/bookmarkedprojects"

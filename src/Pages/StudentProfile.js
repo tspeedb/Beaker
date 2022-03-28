@@ -309,6 +309,7 @@ function StudentProfile({ setMembers }) {
                 <div className="first-name">
                     <TextField
                         type="text"
+                        label="First Name(s)"
                         placeholder="First Name(s)"
                         style={{ width: '50%' }}
                         onChange={(event) => {
@@ -320,6 +321,7 @@ function StudentProfile({ setMembers }) {
                 <div className="middle-name">
                     <TextField
                         type="text"
+                        label="Middle Name(s)"
                         placeholder="Middle Name(s)"
                         style={{ width: '50%' }}
                         onChange={(event) => {
@@ -331,6 +333,7 @@ function StudentProfile({ setMembers }) {
                 <div className="last-name">
                     <TextField
                         type="text"
+                        label="Last Name(s)"
                         placeholder="Last Name(s)"
                         style={{ width: '50%' }}
                         onChange={(event) => {
@@ -342,6 +345,7 @@ function StudentProfile({ setMembers }) {
                 <div className="preferred-name">
                     <TextField
                         type="text"
+                        label="Nickname/Preferred Name"
                         placeholder="Nickname/Preferred Name"
                         style={{ width: '50%' }}
                         onChange={(event) => {
@@ -353,6 +357,7 @@ function StudentProfile({ setMembers }) {
                 <div className="pronouns">
                     <TextField
                         type="text"
+                        label="Pronouns (Ex: she/her)"
                         placeholder="Pronouns (Ex: she/her)"
                         style={{ width: '50%' }}
                         onChange={(event) => {
@@ -408,6 +413,7 @@ function StudentProfile({ setMembers }) {
                 <div className="skills">
                     <TextField
                         type="text"
+                        label="Soft Skills (separate by commas)"
                         placeholder="Soft Skills (separate by commas)"
                         style={{ width: '50%' }}
                         onChange={(event) => {
@@ -420,6 +426,7 @@ function StudentProfile({ setMembers }) {
                     <TextField
                         multiline
                         rows={6}
+                        label="Tell us about yourself"
                         placeholder="Tell us about yourself"
                         style={{ width: '50%' }}
                         onChange={(event) => {
@@ -437,6 +444,7 @@ function StudentProfile({ setMembers }) {
                 <div className="portfolio">
                     <TextField
                         type="text"
+                        label="Link to Portfolio/Website"
                         placeholder="Link to Portfolio/Website"
                         style={{ width: '50%' }}
                         onChange={(event) => {

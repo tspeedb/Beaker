@@ -7,6 +7,7 @@ import { ListItemButton, ListItemText, Grid } from '@mui/material'
 import Card from '@material-ui/core/Card'
 import React, { useState, useEffect } from 'react'
 import ProjectCards from '../Components/ProjectCards'
+import studsidebaritems from '../studsidebaritems'
 import sidebaritems from '../sidebaritems'
 
 function BookmarkedProjects({ projects, sidebaritems }) {
@@ -22,7 +23,7 @@ function BookmarkedProjects({ projects, sidebaritems }) {
     }, [projects])
     return (
         <Layout>
-            <Side sidebaritems={sidebaritems}>
+            <Side sidebaritems={studsidebaritems}>
                 <div>
                     <h1
                         style={{
