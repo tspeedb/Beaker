@@ -11,6 +11,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from "@material-ui/core/IconButton";
 import SendIcon from '@mui/icons-material/Send';
+import { Link } from 'react-router-dom'
 
 export default function Member({ member, group }) {
   const [checked, setChecked] = useState([1]);
@@ -37,8 +38,11 @@ export default function Member({ member, group }) {
       if (group == "Applicants") {
         return (
             <ListItemSecondaryAction>
-              <IconButton>
+              {/* <IconButton>
                 <AccountBoxIcon/>
+              </IconButton> */}
+              <IconButton>
+                <SendIcon color='primary'/>
               </IconButton>
               <IconButton>
                 <CheckIcon color='success'/>
@@ -53,8 +57,11 @@ export default function Member({ member, group }) {
       if (group == "Past Applicants") {
         return (
             <ListItemSecondaryAction>
-              <IconButton>
+              {/* <IconButton>
                 <AccountBoxIcon/>
+              </IconButton> */}
+              <IconButton>
+                <SendIcon color='primary'/>
               </IconButton>
               <IconButton>
                 <CheckIcon color='success'/>
@@ -65,9 +72,9 @@ export default function Member({ member, group }) {
       }
       return (
         <ListItemSecondaryAction>
-            <IconButton>
+            {/* <IconButton>
                 <AccountBoxIcon/>
-            </IconButton>
+            </IconButton> */}
             <IconButton>
                 <SendIcon color='primary'/>
             </IconButton>
@@ -85,13 +92,14 @@ export default function Member({ member, group }) {
       aria-labelledby="nested-list-subheader"
     >
       <ListItem alignItems='flex-start'>
-        <ListItemAvatar>
-          <Avatar src={`${process.env.PUBLIC_URL}/projectImages/user.png`} />
-        </ListItemAvatar>
+        <Link to={`/editproject/KUHje5dmmEPylm9RPeKM`}>
+          <ListItemAvatar>
+            <Avatar src={`${process.env.PUBLIC_URL}/projectImages/user.png`} />
+          </ListItemAvatar>
+        </Link>
         <ListItemText primary={'Member ' + member} secondary={'Pronouns'} style={{ marginTop: '30' }}/>
         {applicantOptions(group)}
       </ListItem>
-      
     </List>
     </div>
   );
