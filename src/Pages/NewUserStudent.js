@@ -46,7 +46,7 @@ function NewUserStudent() {
         } catch {
             setError('Failed to Create an Account')
         }
-        if (currentUser) {
+        if (currentUser === true) {
             history.push('/studentprofile')
         }
         setLoading(false)

@@ -40,9 +40,6 @@ function UserProfile() {
         setLoading(true)
         setError('')
 
-        if (emailRef.current.value !== currentUser.email) {
-            promises.push(updateEmail(emailRef.current.value))
-        }
         if (passwordRef.current.value) {
             promises.push(updatePassword(passwordRef.current.value))
         }
@@ -76,23 +73,6 @@ function UserProfile() {
             {/* {JSON.stringify({ currentUser })} */}
             {error && <Alert variant="danger">{error}</Alert>}
             <form onSubmit={handleSubmit}>
-                <FormControl
-                    type="email"
-                    // inputRef={emailRef}
-                />
-                <div className="update-email-text-field">
-                    <TextField
-                        type="text"
-                        className="email-address"
-                        placeholder="Email (example@lion.lmu.edu)"
-                        inputRef={emailRef}
-                        required
-                        style={{
-                            width: '20em',
-                            marginBottom: '1em',
-                        }}
-                    />
-                </div>
                 <FormControl type="password" />
                 <div className="update-password-text-field">
                     <TextField

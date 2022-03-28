@@ -1,3 +1,4 @@
+import { Alert } from 'bootstrap'
 import React, { useContext, useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { auth } from '../firebase'
@@ -19,7 +20,9 @@ export function AuthProvider({ children }) {
             .catch((e) => {
                 if (e.code === 'auth/email-already-in-use') {
                     console.log('Email already in Use')
-                    alert('Email already in Use')
+                    alert('Email already in use')
+                    setCurrentUser(false)
+                    // throw new alert('Email already in Use')
                 }
                 if (e.code === 'auth/weak-password')
                     alert(
