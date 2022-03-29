@@ -19,7 +19,7 @@ import 'firebase/compat/auth'
 import { getAuth } from 'firebase/auth'
 import { useAuth } from '../Contexts/authContext'
 import { TextField } from '@mui/material'
-
+import { onAuthStateChanged } from 'firebase/auth'
 import { connectStorageEmulator } from 'firebase/storage'
 
 function NewUserStudent() {
@@ -33,23 +33,35 @@ function NewUserStudent() {
 
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
+    // const user = auth.currentUser
 
     async function handleSubmit(e) {
         console.log('getting here 1')
         e.preventDefault()
-        if (passwordRef.current.value !== passwordConfirmRef.current.value)
-            return setError('Passwords do not Match')
+        validatePassword()
         try {
+            // setError('')
             setLoading(true)
             await signup(emailRef.current.value, passwordRef.current.value)
-            setCurrentUser(true)
+            history.push('/studentprofile')
+            console.log('created User' + currentUser.uid)
+            // auth().onAuthStateChanged(function (user) {
+            //     if (user === null) {
+            //         console.log('gets here to nav')
+            //         const uid = user.uid
+            //         console.log('created User' + user.uid)
+            //         history.push('/studentprofile')
+            //     }
+            // })
         } catch {
             setError('Failed to Create an Account')
         }
-        if (currentUser === true) {
-            history.push('/studentprofile')
-        }
+
         setLoading(false)
+    }
+    function validatePassword() {
+        if (passwordRef.current.value !== passwordConfirmRef.current.value)
+            return setError('Passwords do not Match')
     }
     return (
         <div className="top-signin">

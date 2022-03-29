@@ -1,7 +1,7 @@
 import { Alert } from 'bootstrap'
 import React, { useContext, useState, useEffect } from 'react'
-import { Link, useHistory } from 'react-router-dom'
-import { auth } from '../firebase'
+import { useHistory } from 'react-router-dom'
+import { auth, db } from '../firebase'
 const AuthContext = React.createContext()
 
 export function useAuth() {
@@ -16,13 +16,13 @@ export function AuthProvider({ children }) {
 
     function signup(email, password) {
         auth.createUserWithEmailAndPassword(email, password)
-            .then((response) => {})
+            .then((cred) => {
+                return db.collection('students').doc(cred.user.uid).set()
+            })
             .catch((e) => {
                 if (e.code === 'auth/email-already-in-use') {
                     console.log('Email already in Use')
                     alert('Email already in use')
-                    setCurrentUser(false)
-                    // throw new alert('Email already in Use')
                 }
                 if (e.code === 'auth/weak-password')
                     alert(
@@ -56,18 +56,16 @@ export function AuthProvider({ children }) {
         return auth.sendPasswordResetEmail(email)
     }
 
-    function updateEmail(email) {
-        return currentUser.updateEmail(email)
-    }
-
     function updatePassword(password) {
         return currentUser.updatePassword(password)
     }
+
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
             setCurrentUser(user)
             setLoading(false)
         })
+
         return unsubscribe
     }, [])
 
@@ -77,7 +75,6 @@ export function AuthProvider({ children }) {
         signout,
         signup,
         resetPassword,
-        updateEmail,
         updatePassword,
     }
     return (

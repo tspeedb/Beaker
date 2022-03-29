@@ -14,7 +14,6 @@ import { Alert } from '@mui/material'
 import { useState, useEffect, useRef } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { auth } from '../firebase'
-// import { Form, Button, Card, Alert } from 'react-bootstrap'
 import 'firebase/compat/auth'
 import { getAuth } from 'firebase/auth'
 import { useAuth } from '../Contexts/authContext'
@@ -22,10 +21,9 @@ import { TextField } from '@mui/material'
 import { connectStorageEmulator } from 'firebase/storage'
 
 function UserProfile() {
-    const emailRef = useRef()
     const passwordRef = useRef()
     const passwordConfirmRef = useRef()
-    const { currentUser, updatePassword, updateEmail } = useAuth()
+    const { currentUser, updatePassword, signout } = useAuth()
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
     const history = useHistory()
@@ -58,6 +56,20 @@ function UserProfile() {
     /*Acknowelgment for setting Promises
       Author:WebDevSimplified
     */
+
+    async function tempLogout(f) {
+        f.preventDefault()
+        try {
+            console.log(currentUser)
+            console.log('gets to logout beg ye')
+            await signout()
+            history.push('/')
+            console.log('you are logged out')
+            console.log(currentUser + ' I should be null')
+        } catch {
+            setError('Failed to log out')
+        }
+    }
     return (
         <div className="top-update-profile">
             <Box
@@ -111,10 +123,24 @@ function UserProfile() {
                         Update
                     </Button>
                 </div>
+
                 <div className="cancel">
                     <Link to="./dashboard">Cancel</Link>
                 </div>
             </form>
+            <div className="continue-to-profile-button">
+                <Button
+                    disabled={loading}
+                    type="submit"
+                    className="continue-to-profile-btn"
+                    size="large"
+                    variant="contained"
+                    color="primary"
+                    onClick={tempLogout}
+                >
+                    TempLogout
+                </Button>
+            </div>
         </div>
     )
 }
