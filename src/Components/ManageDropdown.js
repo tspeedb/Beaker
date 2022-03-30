@@ -7,31 +7,12 @@ import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import MemberDropdown from "./MemberDropdown"
 
-export default function ManageDropdown({ members, group }) {
-  const [checked, setChecked] = React.useState([1]);
+export default function ManageDropdown({ match, group }) {
   const [open, setOpen] = React.useState(false);
-  // const [selectedValue, setSelectedValue] = React.useState("");
-
-  // const handleToggle = (value) => () => {
-  //   const currentIndex = checked.indexOf(value);
-  //   const newChecked = [...checked];
-
-  //   if (currentIndex === -1) {
-  //     newChecked.push(value);
-  //   } else {
-  //     newChecked.splice(currentIndex, 1);
-  //   }
-
-  //   setChecked(newChecked);
-  // };
 
   const handleClick = () => {
     setOpen(!open);
   };
-
-  // const handleClickAway = () => {
-  //   setOpen(false);
-  // };
 
   return (
     <div style={{

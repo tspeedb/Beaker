@@ -12,23 +12,10 @@ import CloseIcon from '@mui/icons-material/Close';
 import IconButton from "@material-ui/core/IconButton";
 import SendIcon from '@mui/icons-material/Send';
 import { Link } from 'react-router-dom'
+import Tooltip from '@mui/material/Tooltip';
 
 export default function Member({ member, group }) {
-  const [checked, setChecked] = useState([1]);
   const [open, setOpen] = useState(false);
-
-  // const handleToggle = (value) => () => {
-  //   const currentIndex = checked.indexOf(value);
-  //   const newChecked = [...checked];
-
-  //   if (currentIndex === -1) {
-  //     newChecked.push(value);
-  //   } else {
-  //     newChecked.splice(currentIndex, 1);
-  //   }
-
-  //   setChecked(newChecked);
-  // };
 
   const handleClick = () => {
     setOpen(!open);
@@ -38,18 +25,21 @@ export default function Member({ member, group }) {
       if (group == "Applicants") {
         return (
             <ListItemSecondaryAction>
-              {/* <IconButton>
-                <AccountBoxIcon/>
-              </IconButton> */}
-              <IconButton>
-                <SendIcon color='primary'/>
-              </IconButton>
-              <IconButton>
-                <CheckIcon color='success'/>
-              </IconButton>
+              <Tooltip title="Contact">
+                <IconButton>
+                  <SendIcon color='primary'/>
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Accept Applicant">
+                <IconButton>
+                  <CheckIcon color='success'/>
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Reject Applicant">
               <IconButton>
                 <CloseIcon color='warning'/>
               </IconButton>
+              </Tooltip>
             </ListItemSecondaryAction>
 
           )
@@ -57,27 +47,27 @@ export default function Member({ member, group }) {
       if (group == "Past Applicants") {
         return (
             <ListItemSecondaryAction>
-              {/* <IconButton>
-                <AccountBoxIcon/>
-              </IconButton> */}
-              <IconButton>
-                <SendIcon color='primary'/>
-              </IconButton>
-              <IconButton>
-                <CheckIcon color='success'/>
-              </IconButton>
+              <Tooltip title="Contact">
+                <IconButton>
+                  <SendIcon color='primary'/>
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Accept Applicant">
+                <IconButton>
+                  <CheckIcon color='success'/>
+                </IconButton>
+              </Tooltip>
             </ListItemSecondaryAction>
 
           )
       }
       return (
         <ListItemSecondaryAction>
-            {/* <IconButton>
-                <AccountBoxIcon/>
-            </IconButton> */}
-            <IconButton>
-                <SendIcon color='primary'/>
-            </IconButton>
+            <Tooltip title="Contact">
+                <IconButton>
+                  <SendIcon color='primary'/>
+                </IconButton>
+            </Tooltip>
         </ListItemSecondaryAction>
       )
   }
@@ -92,11 +82,13 @@ export default function Member({ member, group }) {
       aria-labelledby="nested-list-subheader"
     >
       <ListItem alignItems='flex-start'>
-        <Link to={`/editproject/KUHje5dmmEPylm9RPeKM`}>
-          <ListItemAvatar>
-            <Avatar src={`${process.env.PUBLIC_URL}/projectImages/user.png`} />
-          </ListItemAvatar>
-        </Link>
+      <Tooltip title="Visit profile">    
+          <Link to={`/editproject/KUHje5dmmEPylm9RPeKM`}>
+            <ListItemAvatar>
+              <Avatar src={`${process.env.PUBLIC_URL}/projectImages/user.png`} />
+            </ListItemAvatar>
+          </Link>
+        </Tooltip>
         <ListItemText primary={'Member ' + member} secondary={'Pronouns'} style={{ marginTop: '30' }}/>
         {applicantOptions(group)}
       </ListItem>

@@ -92,6 +92,10 @@ function CreateProject({ setProjects }) {
             timeline: timeline,
             incentives: incentives,
             image: imageAsUrl,
+            creator: '',
+            members: [], 
+            applicants: [], 
+            rejected: []
         })
 
         getProjects()
