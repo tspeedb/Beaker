@@ -33,7 +33,11 @@ export default function SignIn() {
         e.preventDefault()
         try {
             setLoading(true)
-            await signin(emailRef.current.value, passwordRef.current.value)
+            const signInResponse = await signin(
+                emailRef.current.value,
+                passwordRef.current.value
+            )
+            console.log(signInResponse)
             history.push('/dashboard')
         } catch {
             setError('Failed to Signin')
