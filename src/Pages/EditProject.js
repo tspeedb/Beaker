@@ -31,6 +31,11 @@ function EditProject({ match, projects }) {
     const [imageAsUrl, setImageAsUrl] = useState(
         `${process.env.PUBLIC_URL}/projectImages/user.png`
     )
+    const [creator, setCreator] = useState('')
+    const [groupMembers, setGroupMembers] = useState([])
+    const [applicants, setApplicants] = useState([])
+    const [rejected, setRejected] = useState([])
+
     const projNameRef = useRef()
     const projDescRef = useRef()
     const projPrefSoftSkillsRef = useRef()
@@ -71,6 +76,10 @@ function EditProject({ match, projects }) {
         setEditedTimeline(selected?.timeline)
         setEditedIncentives(selected?.incentives)
         setEditedImageAsUrl(selected?.image)
+        setCreator(selected?.creator)
+        setGroupMembers(selected?.groupMembers)
+        setApplicants(selected?.applicants)
+        setRejected(selected?.rejected)
     }
 
     useEffect(() => {
@@ -147,6 +156,10 @@ function EditProject({ match, projects }) {
             timeline: updatedTimeline,
             incentives: updatedIncentives,
             image: updatedImageAsUrl,
+            creator: creator,
+            groupMembers: groupMembers, 
+            applicants: applicants, 
+            rejected: rejected
         })
         getProjects()
     }
@@ -376,6 +389,7 @@ function EditProject({ match, projects }) {
                     onChange={(event) => {
                         setEditedProjectName(event.target.value)
                     }}
+                    required
                 />
                 </div>
                 <FormControl inputRef={projDescRef}/>
@@ -393,6 +407,7 @@ function EditProject({ match, projects }) {
                     onChange={(event) => {
                         setEditedDesc(event.target.value)
                     }}
+                    required
                 />
                 </div>
                 <div className="project-status">
@@ -414,7 +429,7 @@ function EditProject({ match, projects }) {
                     </FormControl>
                 </div>
                 <div className="members-dropdown">
-                    <FormControl style={{ width: '55%' }}>
+                    <FormControl style={{ width: '55%' }} required>
                         <InputLabel>Number Of Members Needed</InputLabel>
                         <Select
                             value={editedMemberAmount}
@@ -432,7 +447,7 @@ function EditProject({ match, projects }) {
                     </FormControl>
                 </div>
                 <div className="preferred-majors-options">
-                    <FormControl style={{ width: '55%' }}>
+                    <FormControl style={{ width: '55%' }} required>
                         <InputLabel>Preferred Majors</InputLabel>
                         <Select
                             multiple

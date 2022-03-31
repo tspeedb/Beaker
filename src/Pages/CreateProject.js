@@ -15,7 +15,8 @@ import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
 import TextField from '@mui/material/TextField'
 
-function CreateProject({ setProjects }) {
+function CreateProject({  }) {
+    const [projects, setProjects] = useState([])
     const [projectName, setProjectName] = useState('')
     const [desc, setDesc] = useState('')
     const [memberAmount, setMemAmount] = useState('')
@@ -93,11 +94,10 @@ function CreateProject({ setProjects }) {
             incentives: incentives,
             image: imageAsUrl,
             creator: '',
-            members: [], 
+            groupMembers: [], 
             applicants: [], 
             rejected: []
         })
-
         getProjects()
     }
 
@@ -258,6 +258,7 @@ function CreateProject({ setProjects }) {
                         onChange={(event) => {
                             setProjectName(event.target.value)
                         }}
+                        required
                     />
                 </div>
                 <FormControl inputRef={projDescRef} />
@@ -272,10 +273,11 @@ function CreateProject({ setProjects }) {
                         onChange={(event) => {
                             setDesc(event.target.value)
                         }}
+                        required
                     />
                 </div>
                 <div className="members-dropdown">
-                    <FormControl style={{ width: '55%' }}>
+                    <FormControl style={{ width: '55%' }} required>
                         <InputLabel>Number Of Members Needed</InputLabel>
                         <Select
                             value={memberAmount}
@@ -289,13 +291,15 @@ function CreateProject({ setProjects }) {
                                     {memberAmtOption}
                                 </MenuItem>
                             ))}
+                            
                         </Select>
                     </FormControl>
                 </div>
                 <div className="preferred-majors-options">
-                    <FormControl style={{ width: '55%' }}>
+                    <FormControl style={{ width: '55%' }} required>
                         <InputLabel>Preferred Majors</InputLabel>
                         <Select
+                            
                             multiple
                             value={reqMajor}
                             onChange={handleChangeMajor}

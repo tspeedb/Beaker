@@ -1,16 +1,15 @@
 import React from 'react'
 import ManageDropdown from './ManageDropdown';
 
-export default function ManageMembers({ match }) {
-
+export default function ManageMembers({ project }) {
   return (
     <div style={{
         paddingLeft: 5, 
         paddingTop: 10
     }} className='memberslist' >
-        <ManageDropdown match={match} group="Members"/>
-        <ManageDropdown match={match} group="Applicants"/>
-        <ManageDropdown match={match} group="Past Applicants"/>
+        <ManageDropdown project={project} group="Members"/>
+        <ManageDropdown project={project} group="Applicants"/>
+        <ManageDropdown project={project} group="Past Applicants"/>
     </div>
   );
 }

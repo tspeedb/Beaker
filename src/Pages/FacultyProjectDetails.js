@@ -94,7 +94,7 @@ function ProjectDetails({ match, projects }) {
                                     textShadow: '2px 2px 5px',
                                 }}
                             />{' '}
-                            <ManageMembers/>
+                            <ManageMembers project={project}/>
                         </div>
                         <div className="column-right details">
                             <div style={{ fontSize: '50px' }}>
