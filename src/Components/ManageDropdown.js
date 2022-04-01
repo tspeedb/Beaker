@@ -17,32 +17,33 @@ import CloseIcon from '@mui/icons-material/Close';
 import IconButton from "@material-ui/core/IconButton";
 import SendIcon from '@mui/icons-material/Send';
 import Tooltip from '@mui/material/Tooltip';
-import Button from '@mui/material/Button'
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import ConfirmationDialog from './ConfirmationDialog'
+import { connectStorageEmulator } from 'firebase/storage';
 
 export default function ManageDropdown({ project, group }) {
-  const [open, setOpen] = useState(false);
-  const [dialogOpen, setDialogOpen] = useState(false)
   const [groupMembers, setGroupMembers] = useState([])
   const [applicants, setApplicants] = useState([])
   const [rejected, setRejected] = useState([])
   const [users, setUsers] = useState([])
-  // const [acceptDialog, setAcceptDialog] = useState(true)
+  const [open, setOpen] = useState(false)
+  const [dialogOpen, setDialogOpen] = useState(false)
+  const [acceptConfirmation, setAcceptConfirmation] = useState()
 
   const handleClick = () => {
     setOpen(!open);
   }
 
-  const handleClickOpen = (accept) => {
+  const handleClickOpenAccept = () => {
     setDialogOpen(true)
-    // setAcceptDialog(accept)
+    setAcceptConfirmation(true)
   }
 
-  const handleClose = () => {
+  const handleClickOpenReject = () => {
+    setDialogOpen(true)
+    setAcceptConfirmation(false)
+  }
+
+  const refreshDialogOpen = () => {
     setDialogOpen(false)
   }
 
@@ -72,6 +73,7 @@ export default function ManageDropdown({ project, group }) {
     console.log(groupMembers)
     setApplicants(project?.applicants)
     setRejected(project?.rejected)
+    // refreshDialogOpen()
     // editedGroupMembers = [...groupMembers,...[]]
     // editedApplicants = [...applicants]
     // editedRejected = [...rejected]
@@ -83,103 +85,50 @@ export default function ManageDropdown({ project, group }) {
     to.add(member)
   }
 
-  const title = (accept, member, project) => {
-    let action = (accept) ? 'accept' : 'reject'
-    return `Would you like to ${action} ${member} for the project ${project}?`
-  }
-
-  const text = (accept, member, project) => {
-    let action = (accept) ? 'Accepting' : 'Rejecting'
-    let consequence = (accept) ? 'add them to' : 'remove them from'
-    return `${action} ${member} will ${consequence} the project ${project}.`
-  }
-
-  const dialogConfirmation = (accept, member, project) => {
+  const sendIcon = () => {
     return (
-      <Dialog
-        open={dialogOpen}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          {title(accept, member, project)}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            {text(accept, member, project)}
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose} autoFocus>Accept</Button>
-        </DialogActions>
-      </Dialog>
+      <Tooltip title="Contact">
+        <IconButton onClick={(e) => sendEmail(e)}>
+            <SendIcon color='primary'/>
+        </IconButton>
+      </Tooltip>
     )
   }
 
-  const applicantOptions = (group) => {
-      if (group == "Applicants") {
-        return (
-            <ListItemSecondaryAction>
-              <Tooltip title="Contact">
-                  <IconButton>
-                    <Link onClick={(e) => sendEmail(e)}>
-                      <SendIcon color='primary'/>
-                    </Link>
-                  </IconButton>
-              </Tooltip>
-              <Tooltip title="Accept Applicant">
-                <IconButton onClick={handleClickOpen}>
-                  <CheckIcon color='success'/>
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="Reject Applicant">
-                <IconButton onClick={handleClickOpen}>
-                  <CloseIcon color='warning'/>
-                </IconButton>     
-              </Tooltip>
-              {dialogConfirmation(false, 'John',  project.title)}
-            </ListItemSecondaryAction>
-          )
-      }
-      if (group == "Past Applicants") {
-        return (
-            <ListItemSecondaryAction>
-              <Tooltip title="Contact">
-                  <IconButton>
-                    <Link onClick={(e) => sendEmail(e)}>
-                      <SendIcon color='primary'/>
-                    </Link>
-                  </IconButton>
-              </Tooltip>
-              <Tooltip title="Accept Applicant">
-                <IconButton onClick={handleClickOpen}>
-                  <CheckIcon color='success'/>
-                </IconButton>
-              </Tooltip>
-              {/* {dialogConfirmation(true, 'John',  project.title)} */}
-            </ListItemSecondaryAction>
+  const acceptIcon = () => {
+    return (
+      <Tooltip title="Accept Applicant">
+        <IconButton onClick={handleClickOpenAccept}>
+          <CheckIcon color='success'/>
+        </IconButton>
+      </Tooltip>
+    )
+  }
 
-          )
+  const rejectIcon = () => {
+    return (
+      <Tooltip title="Reject Applicant">
+        <IconButton onClick={handleClickOpenReject}>
+          <CloseIcon color='warning'/>
+        </IconButton>     
+      </Tooltip>
+    )
+  }
+
+  const conditionalIcons = (group) => {
+      if (group === 'Past Applicants') {
+        return (<div>{sendIcon()}{acceptIcon()}</div>)
       }
-      return (
-        <ListItemSecondaryAction>
-            <Tooltip title="Contact">
-                  <IconButton>
-                    <Link onClick={(e) => sendEmail(e)}>
-                      <SendIcon color='primary'/>
-                    </Link>
-                  </IconButton>
-            </Tooltip>
-        </ListItemSecondaryAction>
-      )
+      if (group === 'Applicants') {
+        return (<div>{sendIcon()}{acceptIcon()}{rejectIcon()}</div>)
+      }
+      return (<div>{sendIcon()}</div>)
   }
 
   const memberListItem = (member) => {
     return (
-    <ListItem alignItems='flex-start'>
-      <Tooltip title="Visit profile">    
+      <ListItem alignItems='flex-start'>
+        <Tooltip title="Visit profile">    
           <Link to={`/editproject/${member}`}>
             <ListItemAvatar>
               <Avatar src={`${process.env.PUBLIC_URL}/projectImages/user.png`} />
@@ -187,7 +136,7 @@ export default function ManageDropdown({ project, group }) {
           </Link>
         </Tooltip>
         <ListItemText primary={`${member.firstName} ${member.lastName}`} secondary={`Pronouns ${member.pronouns}`} style={{ marginTop: '30' }}/>
-        {applicantOptions(group)}
+        {conditionalIcons(group)}
       </ListItem>
     )
   }
@@ -211,10 +160,10 @@ export default function ManageDropdown({ project, group }) {
           return(
             <div key={value}>
               {memberListItem(value)}
-              {/* <MemberDropdown project={project} memberId={value.memberId} group={group}/> */}
             </div>
           )
         })}
+        <ConfirmationDialog onClickState={dialogOpen} accept={acceptConfirmation} member={'John'} project={project.tite}/>
         </List>
       </Collapse>
     </List>
