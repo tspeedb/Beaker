@@ -15,7 +15,7 @@ import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
 import TextField from '@mui/material/TextField'
 
-function CreateProject({  }) {
+function CreateProject({}) {
     const [projects, setProjects] = useState([])
     const [projectName, setProjectName] = useState('')
     const [desc, setDesc] = useState('')

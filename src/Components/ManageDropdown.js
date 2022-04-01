@@ -1,4 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
+import { db } from '../firebase'
+import { doc, getDoc, updateDoc, collection, getDocs } from 'firebase/firestore'
+import { Link } from 'react-router-dom'
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -13,36 +16,53 @@ import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from "@material-ui/core/IconButton";
 import SendIcon from '@mui/icons-material/Send';
-import { Link } from 'react-router-dom'
 import Tooltip from '@mui/material/Tooltip';
-import { db } from '../firebase'
-import { doc, getDoc, updateDoc } from 'firebase/firestore'
-
+import Button from '@mui/material/Button'
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 export default function ManageDropdown({ project, group }) {
   const [open, setOpen] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false)
   const [groupMembers, setGroupMembers] = useState([])
   const [applicants, setApplicants] = useState([])
   const [rejected, setRejected] = useState([])
+  const [users, setUsers] = useState([])
+  // const [acceptDialog, setAcceptDialog] = useState(true)
 
   const handleClick = () => {
     setOpen(!open);
-  };
+  }
+
+  const handleClickOpen = (accept) => {
+    setDialogOpen(true)
+    // setAcceptDialog(accept)
+  }
+
+  const handleClose = () => {
+    setDialogOpen(false)
+  }
 
   const sendEmail = (e, member) => {
-    // window.open("mailto:user@example.com?subject=Subject&body=message%20goes%20here");
-    // window.open("mailto:xyz@abc.com")
     e.preventDefault()
     window.location = 'mailto:example@example.com'
   }
 
-  // const memberCollectionRef = doc(db, 'students', memberId)
+  const usersCollectionRef = useMemo(() => collection(db, 'users'), [])
 
-  // const getMember = async () => {
-  //   const data = await getDoc(memberCollectionRef)
-  //   const selected = data.data()
-  //   setMember(selected)
-  // }
+  const getUsers = async () => {
+    const data = await getDocs(usersCollectionRef)
+    const selected = (data.docs.map((doc) => ({ ...doc.data(), key: doc.id })))
+    setUsers(selected)
+  }
+
+  const getUser = (id) => {
+    return users.filter((user) => user.key === id)[0]
+  }
+
   let editedGroupMembers = null, 
       editedApplicants = null, 
       editedRejected = null;
@@ -63,6 +83,41 @@ export default function ManageDropdown({ project, group }) {
     to.add(member)
   }
 
+  const title = (accept, member, project) => {
+    let action = (accept) ? 'accept' : 'reject'
+    return `Would you like to ${action} ${member} for the project ${project}?`
+  }
+
+  const text = (accept, member, project) => {
+    let action = (accept) ? 'Accepting' : 'Rejecting'
+    let consequence = (accept) ? 'add them to' : 'remove them from'
+    return `${action} ${member} will ${consequence} the project ${project}.`
+  }
+
+  const dialogConfirmation = (accept, member, project) => {
+    return (
+      <Dialog
+        open={dialogOpen}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {title(accept, member, project)}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            {text(accept, member, project)}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleClose} autoFocus>Accept</Button>
+        </DialogActions>
+      </Dialog>
+    )
+  }
+
   const applicantOptions = (group) => {
       if (group == "Applicants") {
         return (
@@ -75,17 +130,17 @@ export default function ManageDropdown({ project, group }) {
                   </IconButton>
               </Tooltip>
               <Tooltip title="Accept Applicant">
-                <IconButton>
+                <IconButton onClick={handleClickOpen}>
                   <CheckIcon color='success'/>
                 </IconButton>
               </Tooltip>
               <Tooltip title="Reject Applicant">
-              <IconButton>
-                <CloseIcon color='warning'/>
-              </IconButton>
+                <IconButton onClick={handleClickOpen}>
+                  <CloseIcon color='warning'/>
+                </IconButton>     
               </Tooltip>
+              {dialogConfirmation(false, 'John',  project.title)}
             </ListItemSecondaryAction>
-
           )
       }
       if (group == "Past Applicants") {
@@ -99,10 +154,11 @@ export default function ManageDropdown({ project, group }) {
                   </IconButton>
               </Tooltip>
               <Tooltip title="Accept Applicant">
-                <IconButton>
+                <IconButton onClick={handleClickOpen}>
                   <CheckIcon color='success'/>
                 </IconButton>
               </Tooltip>
+              {/* {dialogConfirmation(true, 'John',  project.title)} */}
             </ListItemSecondaryAction>
 
           )
