@@ -279,7 +279,7 @@ function StudentProfile({ setMembers }) {
 
     return (
         <div className="new-profile">
-            <div className="left-screen">
+            <div className="left-screen-student">
                 <h1 className="left-text-info" id="left-text">
                     Create <br></br> Your <br></br> Profile
                 </h1>

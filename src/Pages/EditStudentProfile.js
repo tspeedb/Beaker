@@ -363,7 +363,7 @@ function EditStudentProfile({ match, students }) {
 
     return (
         <div className="new-profile">
-            <div className="left-screen">
+            <div className="left-screen-student">
                 <h1 className="left-text-info" id="left-text">
                     Edit Your Profile
                 </h1>
@@ -540,16 +540,22 @@ function EditStudentProfile({ match, students }) {
                     />
                 </div>
                 <div className="edit-student-profile">
-                    <Link className="edit-cancel" to={`/aboutmember/${id}`}>
+                    <Link
+                        className="edit-student-cancel"
+                        to={`/aboutmember/${id}`}
+                    >
                         <Button
-                            className="cancel-edit"
+                            className="cancel-student-edit"
                             size="large"
                             color="warning"
                         >
                             Cancel
                         </Button>
                     </Link>
-                    <Link className="edit-done" to={`/aboutmember/${id}`}>
+                    <Link
+                        className="edit-student-done"
+                        to={`/aboutmember/${id}`}
+                    >
                         <Button
                             type="button"
                             className="edit-student"
