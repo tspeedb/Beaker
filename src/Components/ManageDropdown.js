@@ -11,7 +11,6 @@ import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import Avatar from '@mui/material/Avatar'
 import ListItemAvatar from '@mui/material/ListItemAvatar';
-import { ListItemSecondaryAction } from '@material-ui/core'
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from "@material-ui/core/IconButton";
@@ -20,6 +19,7 @@ import Tooltip from '@mui/material/Tooltip';
 import ConfirmationDialog from './ConfirmationDialog'
 
 export default function ManageDropdown({ project, group }) {
+  const [projectTitle, setProjectTitle] = useState('')
   const [groupMembers, setGroupMembers] = useState([])
   const [applicants, setApplicants] = useState([])
   const [rejected, setRejected] = useState([])
@@ -46,16 +46,12 @@ export default function ManageDropdown({ project, group }) {
     setDialogOpen(false)
   }
 
-  // const refreshDialogOpen = () => {
-  //   return true
-  // }
-
   const sendEmail = (e, member) => {
     e.preventDefault()
     window.location = 'mailto:example@example.com'
   }
 
-  const usersCollectionRef = useMemo(() => collection(db, 'users'), [])
+  const usersCollectionRef = useMemo(() => collection(db, 'students'), [])
 
   const getUsers = async () => {
     const data = await getDocs(usersCollectionRef)
@@ -73,14 +69,14 @@ export default function ManageDropdown({ project, group }) {
 
   useEffect(() => {
     setGroupMembers(project?.groupMembers)
-    console.log(groupMembers)
     setApplicants(project?.applicants)
     setRejected(project?.rejected)
-    // refreshDialogOpen()
+    setProjectTitle(project?.title)
+    // getUsers()
     // editedGroupMembers = [...groupMembers,...[]]
     // editedApplicants = [...applicants]
     // editedRejected = [...rejected]
-  })
+  }, [users])
   
   const moveMember = (member, from, to) => {
     if (!from.includes(member)) return
@@ -166,7 +162,7 @@ export default function ManageDropdown({ project, group }) {
             </div>
           )
         })}
-        <ConfirmationDialog onClickState={dialogOpen} onClose={handleClose} accept={acceptConfirmation} member={'John'} project={project.tite}/>
+        <ConfirmationDialog onClickState={dialogOpen} onClose={handleClose} accept={acceptConfirmation} member={'John'} project={projectTitle}/>
         </List>
       </Collapse>
     </List>

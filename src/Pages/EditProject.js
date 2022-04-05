@@ -343,9 +343,9 @@ function EditProject({ match, projects }) {
     return (
         <Layout>
         <div className="new-profile">
-            <div className="left-screen">
-                <h1 className="left-text-info edit" id="left-text">
-                        <br></br> Edit <br></br> Project!
+        <div className="left-screen-project">
+                <h1 className="left-text-info" id="left-text">
+                     Edit<br></br> Project!
                 </h1>
             </div>
             <div className="middle-screen">
