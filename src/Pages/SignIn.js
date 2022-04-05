@@ -11,6 +11,10 @@ import {
     Card,
     Input,
     FormControl,
+    FormLabel,
+    RadioGroup,
+    FormControlLabel,
+    Radio,
     CardContent,
     Alert,
     TextField,
@@ -33,7 +37,11 @@ export default function SignIn() {
         e.preventDefault()
         try {
             setLoading(true)
-            await signin(emailRef.current.value, passwordRef.current.value)
+            const signInResponse = await signin(
+                emailRef.current.value,
+                passwordRef.current.value
+            )
+            console.log(signInResponse)
             history.push('/dashboard')
         } catch {
             setError('Failed to Signin')
@@ -102,6 +110,27 @@ export default function SignIn() {
                 src={beaker}
             />
             <h2 className="sign-in">Sign In</h2>
+            <FormControl>
+                <FormLabel id="demo-radio-buttons-group-label">
+                    I am a
+                </FormLabel>
+                <RadioGroup
+                    aria-labelledby="demo-radio-buttons-group-label"
+                    defaultValue="female"
+                    name="radio-buttons-group"
+                >
+                    <FormControlLabel
+                        value="student"
+                        control={<Radio />}
+                        label="Student"
+                    />
+                    <FormControlLabel
+                        value="falculty/staff"
+                        control={<Radio />}
+                        label="Faculty/Staff"
+                    />
+                </RadioGroup>
+            </FormControl>
             {/* {JSON.stringify({ currentUser })} */}
             {error && <Alert variant="danger">{error}</Alert>}
             <form onSubmit={handleSubmit}>

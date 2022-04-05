@@ -8,7 +8,7 @@ function NewUserFacultyStaff() {
         <div className="sign-in">
             <div className="top-signin">
                 <img src={beaker} alt="logo" />
-                <h1>New User</h1>
+                <h1>New Falculty</h1>
                 <p className="signin">Login Information</p>
                 <div></div>
                 <input

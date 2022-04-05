@@ -6,6 +6,9 @@ import {
     Input,
     FormControl,
     FormLabel,
+    RadioGroup,
+    FormControlLabel,
+    Radio,
     CardContent,
     Box,
 } from '@mui/material'
@@ -30,6 +33,8 @@ function NewUserStudent() {
 
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
+
+    const [student, isStudent] = useState(false)
 
     async function handleSubmit(e) {
         console.log('getting here 1')
@@ -117,6 +122,27 @@ function NewUserStudent() {
                 src={beaker}
             />
             <h2 className="sign-up">Sign Up</h2>
+            <FormControl>
+                <FormLabel id="demo-radio-buttons-group-label">
+                    I am a
+                </FormLabel>
+                <RadioGroup
+                    aria-labelledby="demo-radio-buttons-group-label"
+                    defaultValue="female"
+                    name="radio-buttons-group"
+                >
+                    <FormControlLabel
+                        value="student"
+                        control={<Radio />}
+                        label="Student"
+                    />
+                    <FormControlLabel
+                        value="falculty/staff"
+                        control={<Radio />}
+                        label="Faculty/Staff"
+                    />
+                </RadioGroup>
+            </FormControl>
             {/* {JSON.stringify({ currentUser })} */}
             {error && <Alert variant="danger">{error}</Alert>}
             <form onSubmit={handleSubmit}>
