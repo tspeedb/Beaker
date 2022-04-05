@@ -1,137 +1,192 @@
-import React, { useState, useEffect, useMemo } from 'react'
-import { Dropdown, DropdownButton } from 'react-bootstrap'
-import { makeStyles } from '@material-ui/core/styles'
+import React, { useState, useEffect, useMemo, useRef } from 'react'
 import '../Styles/Profile.css'
 import Button from '@mui/material/Button'
 import beaker from '../Images/blackLinedBeakerBgRemoved.png'
 import { Link } from 'react-router-dom'
 import 'firebase/firestore'
 import { db, storage } from '../firebase'
-import { collection, getDocs, addDoc } from 'firebase/firestore'
+import { doc, collection, getDoc, getDocs, updateDoc } from 'firebase/firestore'
 import Uploadfile from '../Components/UploadFile'
-import '../Styles/Dropdown.css'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
-import TextField from '@mui/material/TextField'
+import { TextField } from '@mui/material'
 
-const useStyles = makeStyles((theme) => ({
-    yearDropdown: {
-        color: 'grey',
-        textTransform: 'lowercase',
-        fontSize: '18px',
-        justifyContent: 'end',
-    },
-    majorDropdown: {
-        color: 'grey',
-        textTransform: 'lowercase',
-        fontSize: '18px',
-        justifyContent: 'end',
-    },
-    minorDropdown: {
-        color: 'grey',
-        textTransform: 'lowercase',
-        fontSize: '18px',
-        justifyContent: 'end',
-    },
-}))
+function EditStudentProfile({ match, students }) {
+    const [student, setStudent] = useState({})
 
-function StudentProfile({ setMembers }) {
-    const [firstName, setFirstName] = useState('')
-    const [middleName, setMiddleName] = useState('')
-    const [lastName, setLastName] = useState('')
-    const [nickname, setNickname] = useState('')
-    const [major, setMajor] = useState([])
-    const [minor, setMinor] = useState([])
-    const [link, setPortfolioLink] = useState(6)
-    const [resume, setResume] = useState('')
-    const [softskills, setSoftskills] = useState('')
-    const [bio, setBio] = useState('')
-    const [year, setYear] = useState('')
-    const [pronouns, setPronouns] = useState('')
-    const [url, setURL] = useState('')
-    const [students, setStudents] = useState([])
-
-    const [imageAsFile, setImageAsFile] = useState(null)
-    const [imageAsUrl, setImageAsUrl] = useState(
-        `${process.env.PUBLIC_URL}/projectImages/user.png`
-    )
-
-    const handleChangeYear = (e) => {
-        setYear(e.target.value)
-    }
-    const handleChangeMajor = (e) => {
-        const {
-            target: { value },
-        } = e
-        setMajor(typeof value === 'string' ? value.split(',') : value)
-    }
-
-    const handleChangeMinor = (e) => {
-        const {
-            target: { value },
-        } = e
-        setMinor(typeof value === 'string' ? value.split(',') : value)
-    }
-
-    const handleUploads = (f) => {
-        setResume(f.target.files[0])
-    }
-
-    console.log(imageAsFile)
-    const handleImageAsFile = (e) => {
-        setImageAsFile(e.target.files[0])
-    }
-
-    function handleUpload(e) {
-        e.preventDefault()
-        const ref = storage.ref(`/Images/${imageAsFile.name}`)
-        const uploadTask = ref.put(imageAsFile)
-        uploadTask.on('state_changed', console.log, console.error, () => {
-            ref.getDownloadURL().then((url) => {
-                setImageAsFile(null)
-                setImageAsUrl(url)
-            })
-        })
-    }
     const studentsCollectionRef = useMemo(() => collection(db, 'students'), [])
+    const id = match.params.memberId
+    const studentCollectionRef = doc(db, 'students', id)
+    const [studentState, setStudentState] = useState({})
+
     const getStudents = async () => {
         const data = await getDocs(studentsCollectionRef)
-        //loop through documents in collection
-        setMembers(data.docs.map((doc) => ({ ...doc.data(), key: doc.id })))
+        students = data.docs.map((doc) => ({ ...doc.data(), key: doc.id }))
     }
-    const createStudent = async () => {
-        await addDoc(studentsCollectionRef, {
-            first: firstName,
-            middle: middleName,
-            last: lastName,
-            nickname: nickname,
-            year: year,
-            major: major,
-            minor: minor,
-            portfolioLink: link,
-            pronouns: pronouns,
-            resume: resume,
-            softskills: softskills,
-            bio: bio,
-            image: imageAsUrl,
-        })
 
+    const [editedFirstName, setEditedFirstName] = useState('')
+    const [editedMiddleName, setEditedMiddleName] = useState('')
+    const [editedLastName, setEditedLastName] = useState('')
+    const [editedNickname, setEditedNickname] = useState('')
+    const [editedMajor, setEditedMajor] = useState([])
+    const [editedMinor, setEditedMinor] = useState([])
+    const [editedPortfolioLink, setEditedPortfolioLink] = useState(6)
+    const [editedResume, setEditedResume] = useState('')
+    const [editedSoftskills, setEditedSoftskills] = useState('')
+    const [editedBio, setEditedBio] = useState('')
+    const [editedYear, setEditedYear] = useState('')
+    const [editedPronouns, setEditedPronouns] = useState('')
+    const [editedImageUrl, setEditedImageUrl] = useState('')
+
+    const getStudent = async () => {
+        const data = await getDoc(studentCollectionRef)
+        const selected = data.data()
+        setStudent(selected)
+        setStudentState(selected)
+        setEditedFirstName(selected?.first)
+        setEditedMiddleName(selected?.middle)
+        setEditedLastName(selected?.last)
+        setEditedNickname(selected?.nickname)
+        setEditedYear(selected?.year)
+        setEditedMajor(selected?.major)
+        setEditedMinor(selected?.minor)
+        setEditedPortfolioLink(selected?.portfolioLink)
+        setEditedPronouns(selected?.pronouns)
+        setEditedResume(selected?.resume)
+        setEditedSoftskills(selected?.softskills)
+        setEditedBio(selected?.bio)
+        setEditedImageUrl(selected?.image)
+    }
+
+    useEffect(() => {
+        getStudent()
+    }, [id, students])
+
+    const compareValues = () => {
+        let updatedFirstName =
+            studentState.first !== editedFirstName
+                ? editedFirstName
+                : studentState.first
+        setEditedFirstName(updatedFirstName)
+
+        let updatedMiddleName =
+            studentState.middle !== editedMiddleName
+                ? editedMiddleName
+                : studentState.middle
+        setEditedMiddleName(updatedMiddleName)
+
+        let updatedLastName =
+            studentState.last !== editedLastName
+                ? editedLastName
+                : studentState.last
+        setEditedLastName(updatedLastName)
+
+        let updatedNickname =
+            studentState.nickname !== editedNickname
+                ? editedNickname
+                : studentState.nickname
+        setEditedNickname(updatedNickname)
+
+        let updatedYear =
+            studentState.year !== editedYear ? editedYear : studentState.year
+        setEditedYear(updatedYear)
+
+        let updatedMajor = !checkArrEquality(studentState.major, editedMajor)
+            ? [...editedMajor]
+            : [...studentState.major]
+        setEditedMajor(updatedMajor)
+
+        let updatedMinor = !checkArrEquality(studentState.minor, editedMinor)
+            ? [...editedMinor]
+            : [...studentState.minor]
+        setEditedMinor(updatedMinor)
+
+        let updatedPortfolioLink =
+            studentState.portfolioLink !== editedPortfolioLink
+                ? editedPortfolioLink
+                : studentState.portfolioLink
+        setEditedPortfolioLink(updatedPortfolioLink)
+
+        let updatedPronouns =
+            studentState.pronouns !== editedPronouns
+                ? editedPronouns
+                : studentState.pronouns
+        setEditedPronouns(updatedPronouns)
+
+        let updatedResume =
+            studentState.resume !== editedResume
+                ? editedResume
+                : studentState.resume
+        setEditedResume(updatedResume)
+
+        let updatedSoftskills =
+            studentState.softskills !== editedSoftskills
+                ? editedSoftskills
+                : studentState.softskills
+        setEditedSoftskills(updatedSoftskills)
+
+        let updatedBio =
+            studentState.bio !== editedBio ? editedBio : studentState.bio
+        setEditedBio(updatedBio)
+
+        let updatedImageUrl =
+            studentState.image !== editedImageUrl
+                ? editedImageUrl
+                : studentState.image
+        setEditedImageUrl(updatedImageUrl)
+
+        return {
+            updatedFirstName,
+            updatedMiddleName,
+            updatedLastName,
+            updatedNickname,
+            updatedYear,
+            updatedMajor,
+            updatedMinor,
+            updatedPortfolioLink,
+            updatedPronouns,
+            updatedResume,
+            updatedSoftskills,
+            updatedBio,
+            updatedImageUrl,
+        }
+    }
+    const editStudentProfile = async () => {
+        let {
+            updatedFirstName,
+            updatedMiddleName,
+            updatedLastName,
+            updatedNickname,
+            updatedYear,
+            updatedMajor,
+            updatedMinor,
+            updatedPortfolioLink,
+            updatedPronouns,
+            updatedResume,
+            updatedSoftskills,
+            updatedBio,
+            updatedImageUrl,
+        } = compareValues()
+
+        await updateDoc(studentCollectionRef, {
+            first: updatedFirstName,
+            middle: updatedMiddleName,
+            last: updatedLastName,
+            nickname: updatedNickname,
+            year: updatedYear,
+            major: updatedMajor,
+            minor: updatedMinor,
+            portfolioLink: updatedPortfolioLink,
+            pronouns: updatedPronouns,
+            resume: updatedResume,
+            softskills: updatedSoftskills,
+            bio: updatedBio,
+            image: updatedImageUrl,
+        })
         getStudents()
     }
-
-    // useEffect(() => {
-    //     const getStudents = async () => {
-    //         const data = await getDocs(studentsCollectionRef)
-    //         //loop through documents in collection
-    //         setStudents(
-    //             data.docs.map((doc) => ({ ...doc.data(), key: doc.id }))
-    //         )
-    //     }
-    //     getStudents()
-    // }, [studentsCollectionRef])
-    const classes = useStyles()
 
     const widget = window.cloudinary.createUploadWidget(
         {
@@ -143,7 +198,7 @@ function StudentProfile({ setMembers }) {
             console.log('result:', result)
             if (!error && result && result.event === 'success') {
                 console.log('Done! Here is the image info: ', result.info)
-                setImageAsUrl(result.info.url)
+                setEditedImageUrl(result.info.url)
             }
         }
     )
@@ -153,6 +208,17 @@ function StudentProfile({ setMembers }) {
         widget.open()
     }
 
+    const checkArrEquality = (a, b) => {
+        if (a === b) return true
+        if (a == null || b == null) return false
+        if (a.length !== b.length) return false
+
+        for (let i = 0; i < a.length; i++) {
+            if (!a.includes(b[i]) || !b.includes(a[i])) return false
+        }
+        return true
+    }
+
     const yearOptionsSP = [
         'Freshman',
         'Sophomore',
@@ -160,6 +226,10 @@ function StudentProfile({ setMembers }) {
         'Senior',
         'Graduate',
     ]
+
+    const handleChangeYear = (event) => {
+        setEditedYear(event.target.value)
+    }
 
     const majorOptionsSP = [
         'Accounting (ACCT)',
@@ -219,6 +289,13 @@ function StudentProfile({ setMembers }) {
         'Womens and Gender Studies (WGST)',
     ]
 
+    const handleChangeMajor = (event) => {
+        const {
+            target: { value },
+        } = event
+        setEditedMajor(typeof value === 'string' ? value.split(',') : value)
+    }
+
     const minorOptions = [
         'Accounting (ACCT)',
         'African American Studies (AFAM)',
@@ -277,18 +354,23 @@ function StudentProfile({ setMembers }) {
         'Womens and Gender Studies (WGST)',
     ]
 
+    const handleChangeMinor = (event) => {
+        const {
+            target: { value },
+        } = event
+        setEditedMinor(typeof value === 'string' ? value.split(',') : value)
+    }
+
     return (
         <div className="new-profile">
             <div className="left-screen-student">
                 <h1 className="left-text-info" id="left-text">
-                    Create <br></br> Your <br></br> Profile
+                    Edit Your Profile
                 </h1>
             </div>
             <div className="right-screen">
                 <img className="profile-image" src={beaker} alt="logo" />
-                <h1 className="new-user">New User</h1>
-                <p className="profile">Profile</p>
-
+                <p className="profile">Profile Image</p>
                 <div>
                     <img
                         style={{
@@ -298,7 +380,7 @@ function StudentProfile({ setMembers }) {
                             paddingTop: 0,
                         }}
                         alt="profile"
-                        src={imageAsUrl}
+                        src={editedImageUrl}
                         onClick={(e) => openWidget(e, widget)}
                     />
                 </div>
@@ -308,9 +390,10 @@ function StudentProfile({ setMembers }) {
                         type="text"
                         label="First Name(s)"
                         placeholder="First Name(s)"
+                        value={editedFirstName}
                         style={{ width: '50%' }}
                         onChange={(event) => {
-                            setFirstName(event.target.value)
+                            setEditedFirstName(event.target.value)
                         }}
                     />
                 </div>
@@ -320,9 +403,10 @@ function StudentProfile({ setMembers }) {
                         type="text"
                         label="Middle Name(s)"
                         placeholder="Middle Name(s)"
+                        value={editedMiddleName}
                         style={{ width: '50%' }}
                         onChange={(event) => {
-                            setMiddleName(event.target.value)
+                            setEditedMiddleName(event.target.value)
                         }}
                     />
                 </div>
@@ -332,9 +416,10 @@ function StudentProfile({ setMembers }) {
                         type="text"
                         label="Last Name(s)"
                         placeholder="Last Name(s)"
+                        value={editedLastName}
                         style={{ width: '50%' }}
                         onChange={(event) => {
-                            setLastName(event.target.value)
+                            setEditedLastName(event.target.value)
                         }}
                     />
                 </div>
@@ -344,9 +429,10 @@ function StudentProfile({ setMembers }) {
                         type="text"
                         label="Nickname/Preferred Name"
                         placeholder="Nickname/Preferred Name"
+                        value={editedNickname}
                         style={{ width: '50%' }}
                         onChange={(event) => {
-                            setNickname(event.target.value)
+                            setEditedNickname(event.target.value)
                         }}
                     />
                 </div>
@@ -356,16 +442,17 @@ function StudentProfile({ setMembers }) {
                         type="text"
                         label="Pronouns (Ex: she/her)"
                         placeholder="Pronouns (Ex: she/her)"
+                        value={editedPronouns}
                         style={{ width: '50%' }}
                         onChange={(event) => {
-                            setPronouns(event.target.value)
+                            setEditedPronouns(event.target.value)
                         }}
                     />
                 </div>
                 <div className="year-dropdown">
                     <FormControl style={{ width: '55%' }}>
                         <InputLabel>Year</InputLabel>
-                        <Select value={year} onChange={handleChangeYear}>
+                        <Select value={editedYear} onChange={handleChangeYear}>
                             {yearOptionsSP.map((yearOption) => (
                                 <MenuItem key={yearOption} value={yearOption}>
                                     {yearOption}
@@ -379,7 +466,7 @@ function StudentProfile({ setMembers }) {
                         <InputLabel>Majors</InputLabel>
                         <Select
                             multiple
-                            value={major}
+                            value={editedMajor}
                             onChange={handleChangeMajor}
                         >
                             {majorOptionsSP.map((majorOption) => (
@@ -395,7 +482,7 @@ function StudentProfile({ setMembers }) {
                         <InputLabel>Minors</InputLabel>
                         <Select
                             multiple
-                            value={minor}
+                            value={editedMinor}
                             onChange={handleChangeMinor}
                         >
                             {minorOptions.map((minorOption) => (
@@ -412,9 +499,10 @@ function StudentProfile({ setMembers }) {
                         type="text"
                         label="Soft Skills (separate by commas)"
                         placeholder="Soft Skills (separate by commas)"
+                        value={editedSoftskills}
                         style={{ width: '50%' }}
                         onChange={(event) => {
-                            setSoftskills(event.target.value)
+                            setEditedSoftskills(event.target.value)
                         }}
                     />
                 </div>
@@ -425,9 +513,10 @@ function StudentProfile({ setMembers }) {
                         rows={6}
                         label="Tell us about yourself"
                         placeholder="Tell us about yourself"
+                        value={editedBio}
                         style={{ width: '50%' }}
                         onChange={(event) => {
-                            setBio(event.target.value)
+                            setEditedBio(event.target.value)
                         }}
                     />
                 </div>
@@ -443,22 +532,38 @@ function StudentProfile({ setMembers }) {
                         type="text"
                         label="Link to Portfolio/Website"
                         placeholder="Link to Portfolio/Website"
+                        value={editedPortfolioLink}
                         style={{ width: '50%' }}
                         onChange={(event) => {
-                            setPortfolioLink(event.target.value)
+                            setEditedPortfolioLink(event.target.value)
                         }}
                     />
                 </div>
-                <div className="done">
-                    <Link className="button-link" to="/projectspage">
+                <div className="edit-student-profile">
+                    <Link
+                        className="edit-student-cancel"
+                        to={`/aboutmember/${id}`}
+                    >
+                        <Button
+                            className="cancel-student-edit"
+                            size="large"
+                            color="warning"
+                        >
+                            Cancel
+                        </Button>
+                    </Link>
+                    <Link
+                        className="edit-student-done"
+                        to={`/aboutmember/${id}`}
+                    >
                         <Button
                             type="button"
-                            className="done-btn1"
+                            className="edit-student"
                             size="large"
                             variant="contained"
-                            onClick={createStudent}
+                            onClick={editStudentProfile}
                         >
-                            Done
+                            Save
                         </Button>
                     </Link>
                 </div>
@@ -467,4 +572,4 @@ function StudentProfile({ setMembers }) {
     )
 }
 
-export default StudentProfile
+export default EditStudentProfile

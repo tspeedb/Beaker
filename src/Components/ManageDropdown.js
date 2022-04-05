@@ -1,4 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
+import { db } from '../firebase'
+import { doc, getDoc, updateDoc, collection, getDocs } from 'firebase/firestore'
+import { Link } from 'react-router-dom'
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -13,36 +16,57 @@ import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from "@material-ui/core/IconButton";
 import SendIcon from '@mui/icons-material/Send';
-import { Link } from 'react-router-dom'
 import Tooltip from '@mui/material/Tooltip';
-import { db } from '../firebase'
-import { doc, getDoc, updateDoc } from 'firebase/firestore'
-
+import ConfirmationDialog from './ConfirmationDialog'
 
 export default function ManageDropdown({ project, group }) {
-  const [open, setOpen] = useState(false);
   const [groupMembers, setGroupMembers] = useState([])
   const [applicants, setApplicants] = useState([])
   const [rejected, setRejected] = useState([])
+  const [users, setUsers] = useState([])
+  const [open, setOpen] = useState(false)
+  const [dialogOpen, setDialogOpen] = useState(false)
+  const [acceptConfirmation, setAcceptConfirmation] = useState()
 
   const handleClick = () => {
     setOpen(!open);
-  };
+  }
+
+  const handleClickOpenAccept = () => {
+    setDialogOpen(true)
+    setAcceptConfirmation(true)
+  }
+
+  const handleClickOpenReject = () => {
+    setDialogOpen(true)
+    setAcceptConfirmation(false)
+  }
+
+  const handleClose = () => {
+    setDialogOpen(false)
+  }
+
+  // const refreshDialogOpen = () => {
+  //   return true
+  // }
 
   const sendEmail = (e, member) => {
-    // window.open("mailto:user@example.com?subject=Subject&body=message%20goes%20here");
-    // window.open("mailto:xyz@abc.com")
     e.preventDefault()
     window.location = 'mailto:example@example.com'
   }
 
-  // const memberCollectionRef = doc(db, 'students', memberId)
+  const usersCollectionRef = useMemo(() => collection(db, 'users'), [])
 
-  // const getMember = async () => {
-  //   const data = await getDoc(memberCollectionRef)
-  //   const selected = data.data()
-  //   setMember(selected)
-  // }
+  const getUsers = async () => {
+    const data = await getDocs(usersCollectionRef)
+    const selected = (data.docs.map((doc) => ({ ...doc.data(), key: doc.id })))
+    setUsers(selected)
+  }
+
+  const getUser = (id) => {
+    return users.filter((user) => user.key === id)[0]
+  }
+
   let editedGroupMembers = null, 
       editedApplicants = null, 
       editedRejected = null;
@@ -52,6 +76,7 @@ export default function ManageDropdown({ project, group }) {
     console.log(groupMembers)
     setApplicants(project?.applicants)
     setRejected(project?.rejected)
+    // refreshDialogOpen()
     // editedGroupMembers = [...groupMembers,...[]]
     // editedApplicants = [...applicants]
     // editedRejected = [...rejected]
@@ -63,67 +88,50 @@ export default function ManageDropdown({ project, group }) {
     to.add(member)
   }
 
-  const applicantOptions = (group) => {
-      if (group == "Applicants") {
-        return (
-            <ListItemSecondaryAction>
-              <Tooltip title="Contact">
-                  <IconButton>
-                    <Link onClick={(e) => sendEmail(e)}>
-                      <SendIcon color='primary'/>
-                    </Link>
-                  </IconButton>
-              </Tooltip>
-              <Tooltip title="Accept Applicant">
-                <IconButton>
-                  <CheckIcon color='success'/>
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="Reject Applicant">
-              <IconButton>
-                <CloseIcon color='warning'/>
-              </IconButton>
-              </Tooltip>
-            </ListItemSecondaryAction>
+  const sendIcon = () => {
+    return (
+      <Tooltip title="Contact">
+        <IconButton onClick={(e) => sendEmail(e)}>
+            <SendIcon color='primary'/>
+        </IconButton>
+      </Tooltip>
+    )
+  }
 
-          )
-      }
-      if (group == "Past Applicants") {
-        return (
-            <ListItemSecondaryAction>
-              <Tooltip title="Contact">
-                  <IconButton>
-                    <Link onClick={(e) => sendEmail(e)}>
-                      <SendIcon color='primary'/>
-                    </Link>
-                  </IconButton>
-              </Tooltip>
-              <Tooltip title="Accept Applicant">
-                <IconButton>
-                  <CheckIcon color='success'/>
-                </IconButton>
-              </Tooltip>
-            </ListItemSecondaryAction>
+  const acceptIcon = () => {
+    return (
+      <Tooltip title="Accept Applicant">
+        <IconButton onClick={handleClickOpenAccept}>
+          <CheckIcon color='success'/>
+        </IconButton>
+      </Tooltip>
+    )
+  }
 
-          )
+  const rejectIcon = () => {
+    return (
+      <Tooltip title="Reject Applicant">
+        <IconButton onClick={handleClickOpenReject}>
+          <CloseIcon color='warning'/>
+        </IconButton>     
+      </Tooltip>
+    )
+  }
+
+  const conditionalIcons = (group) => {
+      if (group === 'Past Applicants') {
+        return (<div>{sendIcon()}{acceptIcon()}</div>)
       }
-      return (
-        <ListItemSecondaryAction>
-            <Tooltip title="Contact">
-                  <IconButton>
-                    <Link onClick={(e) => sendEmail(e)}>
-                      <SendIcon color='primary'/>
-                    </Link>
-                  </IconButton>
-            </Tooltip>
-        </ListItemSecondaryAction>
-      )
+      if (group === 'Applicants') {
+        return (<div>{sendIcon()}{acceptIcon()}{rejectIcon()}</div>)
+      }
+      return (<div>{sendIcon()}</div>)
   }
 
   const memberListItem = (member) => {
     return (
-    <ListItem alignItems='flex-start'>
-      <Tooltip title="Visit profile">    
+      <ListItem alignItems='flex-start'>
+        <Tooltip title="Visit profile">    
           <Link to={`/editproject/${member}`}>
             <ListItemAvatar>
               <Avatar src={`${process.env.PUBLIC_URL}/projectImages/user.png`} />
@@ -131,7 +139,7 @@ export default function ManageDropdown({ project, group }) {
           </Link>
         </Tooltip>
         <ListItemText primary={`${member.firstName} ${member.lastName}`} secondary={`Pronouns ${member.pronouns}`} style={{ marginTop: '30' }}/>
-        {applicantOptions(group)}
+        {conditionalIcons(group)}
       </ListItem>
     )
   }
@@ -155,10 +163,10 @@ export default function ManageDropdown({ project, group }) {
           return(
             <div key={value}>
               {memberListItem(value)}
-              {/* <MemberDropdown project={project} memberId={value.memberId} group={group}/> */}
             </div>
           )
         })}
+        <ConfirmationDialog onClickState={dialogOpen} onClose={handleClose} accept={acceptConfirmation} member={'John'} project={project.tite}/>
         </List>
       </Collapse>
     </List>
