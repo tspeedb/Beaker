@@ -18,7 +18,6 @@ import IconButton from "@material-ui/core/IconButton";
 import SendIcon from '@mui/icons-material/Send';
 import Tooltip from '@mui/material/Tooltip';
 import ConfirmationDialog from './ConfirmationDialog'
-import { connectStorageEmulator } from 'firebase/storage';
 
 export default function ManageDropdown({ project, group }) {
   const [groupMembers, setGroupMembers] = useState([])
@@ -43,9 +42,13 @@ export default function ManageDropdown({ project, group }) {
     setAcceptConfirmation(false)
   }
 
-  const refreshDialogOpen = () => {
+  const handleClose = () => {
     setDialogOpen(false)
   }
+
+  // const refreshDialogOpen = () => {
+  //   return true
+  // }
 
   const sendEmail = (e, member) => {
     e.preventDefault()
@@ -163,7 +166,7 @@ export default function ManageDropdown({ project, group }) {
             </div>
           )
         })}
-        <ConfirmationDialog onClickState={dialogOpen} accept={acceptConfirmation} member={'John'} project={project.tite}/>
+        <ConfirmationDialog onClickState={dialogOpen} onClose={handleClose} accept={acceptConfirmation} member={'John'} project={project.tite}/>
         </List>
       </Collapse>
     </List>

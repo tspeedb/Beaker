@@ -6,14 +6,10 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-export default function ManageDropdown({ onClickState, accept, member, project }) {
-    const [state, setState] = useState()
-
-    useEffect(() => setState(onClickState), [onClickState])
+export default function ConfirmationDialog({ onClickState, onClose, accept, member, project }) {
 
     const handleClose = () => {
-        setState(false)
-        console.log('close ' + state)
+        onClose(false)
     }
 
     const title = (accept, member, project) => {
@@ -30,7 +26,7 @@ export default function ManageDropdown({ onClickState, accept, member, project }
     return (
         <div>
             <Dialog
-                open={state}
+                open={onClickState}
                 onClose={handleClose}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
