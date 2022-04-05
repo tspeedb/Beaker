@@ -94,9 +94,9 @@ function CreateProject({}) {
             incentives: incentives,
             image: imageAsUrl,
             creator: '',
-            groupMembers: [], 
-            applicants: [], 
-            rejected: []
+            groupMembers: [],
+            applicants: [],
+            rejected: [],
         })
         getProjects()
     }
@@ -224,7 +224,7 @@ function CreateProject({}) {
 
     return (
         <div className="new-profile">
-            <div className="left-screen">
+            <div className="left-screen-project">
                 <h1 className="left-text-info" id="left-text">
                     Create <br></br> A New <br></br> Project!
                 </h1>
@@ -291,7 +291,6 @@ function CreateProject({}) {
                                     {memberAmtOption}
                                 </MenuItem>
                             ))}
-                            
                         </Select>
                     </FormControl>
                 </div>
@@ -299,7 +298,6 @@ function CreateProject({}) {
                     <FormControl style={{ width: '55%' }} required>
                         <InputLabel>Preferred Majors</InputLabel>
                         <Select
-                            
                             multiple
                             value={reqMajor}
                             onChange={handleChangeMajor}

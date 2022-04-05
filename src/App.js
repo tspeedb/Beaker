@@ -15,7 +15,9 @@ import NewUserStudent from './Pages/NewUserStudent'
 import NewUserFacultyStaff from './Pages/NewUserFacultyStaff'
 import Welcomepage from './Pages/Welcomepage'
 import StudentProfile from './Pages/StudentProfile'
+import EditStudentProfile from './Pages/EditStudentProfile'
 import FacultyStaffProfile from './Pages/FacultyStaffProfile'
+// import EditFacultyStaffProfile from './Pages/EditFacultyStaffProfile'
 import BasedonProfile from './Pages/BasedonProfile'
 import Browse from './Pages/Browse'
 import Bookmarked from './Pages/Bookmarked'
@@ -184,6 +186,16 @@ function App() {
                                     <ProjectDetails
                                         {...props}
                                         projects={projects}
+                                    />
+                                )}
+                            />
+                            <Route
+                                path="/editstudentprofile/:memberId"
+                                exact
+                                render={(props) => (
+                                    <EditStudentProfile
+                                        {...props}
+                                        members={members}
                                     />
                                 )}
                             />

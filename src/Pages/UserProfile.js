@@ -134,7 +134,7 @@ function UserProfile() {
                         Update
                     </Button>
                 </div>
-                <div className="cancel">
+                <div className="cancel" size="small" color="warning">
                     <Link to="./dashboard">Cancel</Link>
                 </div>
             </form>

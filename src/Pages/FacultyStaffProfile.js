@@ -15,18 +15,17 @@ import TextField from '@mui/material/TextField'
 
 function FacultyStaffProfile({ setFSMembers }) {
     const [title, setTitle] = useState('')
-    const [firstName, setFirstName] = useState('')
-    const [middleName, setMiddleName] = useState('')
-    const [lastName, setLastName] = useState('')
-    const [nickname, setNickname] = useState('')
-    const [pronouns, setPronouns] = useState('')
+    const [facultyFirstName, setFacultyFirstName] = useState('')
+    const [facultyMiddleName, setFacultyMiddleName] = useState('')
+    const [facultyLastName, setFacultyLastName] = useState('')
+    const [facultyNickname, setFacultyNickname] = useState('')
+    const [facultyPronouns, setFacultyPronouns] = useState('')
     const [department, setDepartment] = useState('')
     const [labDesc, setLabDesc] = useState('')
-    const [link, setPortfolioLink] = useState(6)
+    const [facultyLink, setFacultyPortfolioLink] = useState(6)
     const [url, setURL] = useState('')
-    const [facultyStaff, setFacultyStaff] = useState([])
-    const [imageAsFile, setImageAsFile] = useState(null)
-    const [imageAsUrl, setImageAsUrl] = useState(
+    const [facultyImageAsFile, setFacultyImageAsFile] = useState(null)
+    const [facultyImageAsUrl, setFacultyImageAsUrl] = useState(
         `${process.env.PUBLIC_URL}/projectImages/user.png`
     )
 
@@ -39,19 +38,19 @@ function FacultyStaffProfile({ setFSMembers }) {
         setTitle(e)
     }
 
-    console.log(imageAsFile)
+    console.log(facultyImageAsFile)
     const handleImageAsFile = (e) => {
-        setImageAsFile(e.target.files[0])
+        setFacultyImageAsFile(e.target.files[0])
     }
 
     function handleUpload(e) {
         e.preventDefault()
-        const ref = storage.ref(`/Images/${imageAsFile.name}`)
-        const uploadTask = ref.put(imageAsFile)
+        const ref = storage.ref(`/Images/${facultyImageAsFile.name}`)
+        const uploadTask = ref.put(facultyImageAsFile)
         uploadTask.on('state_changed', console.log, console.error, () => {
             ref.getDownloadURL().then((url) => {
-                setImageAsFile(null)
-                setImageAsUrl(url)
+                setFacultyImageAsFile(null)
+                setFacultyImageAsUrl(url)
             })
         })
     }
@@ -68,15 +67,15 @@ function FacultyStaffProfile({ setFSMembers }) {
     const createFacultyStaff = async () => {
         await addDoc(facultystaffCollectionRef, {
             title: title,
-            first: firstName,
-            middle: middleName,
-            last: lastName,
-            nickname: nickname,
-            pronouns: pronouns,
+            facultyFirst: facultyFirstName,
+            facultyMiddle: facultyMiddleName,
+            facultyLast: facultyLastName,
+            facultyNickname: facultyNickname,
+            facultyPronouns: facultyPronouns,
             department: department,
             labDesc: labDesc,
-            portfolioLink: link,
-            image: imageAsUrl,
+            facultyPortfolioLink: facultyLink,
+            facultyImage: facultyImageAsUrl,
         })
 
         getFacultyStaff()
@@ -92,7 +91,7 @@ function FacultyStaffProfile({ setFSMembers }) {
             console.log('result:', result)
             if (!error && result && result.event === 'success') {
                 console.log('Done! Here is the image info: ', result.info)
-                setImageAsUrl(result.info.url)
+                setFacultyImageAsUrl(result.info.url)
             }
         }
     )
@@ -181,7 +180,7 @@ function FacultyStaffProfile({ setFSMembers }) {
                             paddingTop: 0,
                         }}
                         alt="profile"
-                        src={imageAsUrl}
+                        src={facultyImageAsUrl}
                         onClick={(e) => openWidget(e, widget)}
                     />
                 </div>
@@ -205,7 +204,7 @@ function FacultyStaffProfile({ setFSMembers }) {
                         placeholder="First Name(s)"
                         style={{ width: '50%' }}
                         onChange={(event) => {
-                            setFirstName(event.target.value)
+                            setFacultyFirstName(event.target.value)
                         }}
                     />
                 </div>
@@ -217,7 +216,7 @@ function FacultyStaffProfile({ setFSMembers }) {
                         placeholder="Middle Name(s)"
                         style={{ width: '50%' }}
                         onChange={(event) => {
-                            setMiddleName(event.target.value)
+                            setFacultyMiddleName(event.target.value)
                         }}
                     />
                 </div>
@@ -229,7 +228,7 @@ function FacultyStaffProfile({ setFSMembers }) {
                         placeholder="Last Name(s)"
                         style={{ width: '50%' }}
                         onChange={(event) => {
-                            setLastName(event.target.value)
+                            setFacultyLastName(event.target.value)
                         }}
                     />
                 </div>
@@ -241,7 +240,7 @@ function FacultyStaffProfile({ setFSMembers }) {
                         placeholder="Preferred way to be addressed"
                         style={{ width: '50%' }}
                         onChange={(event) => {
-                            setNickname(event.target.value)
+                            setFacultyNickname(event.target.value)
                         }}
                     />
                 </div>
@@ -253,7 +252,7 @@ function FacultyStaffProfile({ setFSMembers }) {
                         placeholder="Pronouns (Ex: she/her)"
                         style={{ width: '50%' }}
                         onChange={(event) => {
-                            setPronouns(event.target.value)
+                            setFacultyPronouns(event.target.value)
                         }}
                     />
                 </div>
@@ -297,7 +296,7 @@ function FacultyStaffProfile({ setFSMembers }) {
                         placeholder="Link to Portfolio/Website"
                         style={{ width: '50%' }}
                         onChange={(event) => {
-                            setPortfolioLink(event.target.value)
+                            setFacultyPortfolioLink(event.target.value)
                         }}
                     />
                 </div>

@@ -4,16 +4,6 @@
     flex-direction: row;
 }
 
-.left-screen {
-    background-color: #107fb7;
-    width: 40%;
-}
-
-.left-screen-fs {
-    background-color: #ac0c30;
-    width: 40%;
-}
-
 .middle-screen {
     width: 5%;
 }
@@ -84,6 +74,11 @@ h1 {
 }
 
 /* StudentProfile Tags */
+.left-screen-student {
+    background-color: #107fb7;
+    width: 40%;
+}
+
 .first-name {
     margin-bottom: 1%;
 }
@@ -176,6 +171,11 @@ h1 {
 }
 
 /* FacultyStaffProfile Tags */
+.left-screen-fs {
+    background-color: #ac0c30;
+    width: 40%;
+}
+
 .fs-title {
     margin-bottom: 1%;
 }
@@ -265,6 +265,11 @@ h1 {
 }
 
 /* CreateProject Tags */
+.left-screen-project {
+    background-color: gray;
+    width: 40%;
+}
+
 .post-proj-btn1 {
     height: 60px;
     width: 150px;
@@ -288,7 +293,8 @@ h1 {
     margin-right: 10px;
 }
 
-.members-dropdown, .project-status {
+.members-dropdown,
+.project-status {
     height: 50px;
     width: 100%;
     font-size: medium;
