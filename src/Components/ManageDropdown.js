@@ -27,6 +27,45 @@ export default function ManageDropdown({ project, group }) {
   const [open, setOpen] = useState(false)
   const [dialogOpen, setDialogOpen] = useState(false)
   const [acceptConfirmation, setAcceptConfirmation] = useState()
+  const [groupMode, setGroupMode] = useState()
+  const [editedGroupMembers, setEditedGroupMembers] = useState()
+  const [editedApplicants, setEditedApplicants] = useState()
+  const [editedRejected, setEditedRejected] = useState()
+  const [current, setCurrent] = useState()
+
+  class Sample {
+    constructor(key, first, last, pronouns, email){
+      this.id = key
+      this.firstname = first
+      this.lastname = last
+      this.pronouns = pronouns
+      this.email = email
+    }
+  }
+
+  const setUpGroups = (group) => {
+    if (group === 'Applicants') return sampleApplicants
+    if (group === 'Past Applicants') return sampleRejected
+    return sampleMembers
+  }
+
+  const sampleMembers = [
+    new Sample(1, "Capy", "Bara", "she/her", "capybara@jungle.com"), 
+    new Sample(2, "Croco", "Dile", "he/him", "crocodile@river.com"), 
+    new Sample(3, 'Ali', "Gator", 'she/her', 'alligator@river.com')
+  ]
+  
+  const sampleApplicants = [
+    new Sample(4, "Capy", "Bara", "she/her", "capybara@jungle.com"), 
+    new Sample(5, "Croco", "Dile", "he/him", "crocodile@river.com"), 
+    new Sample(6, 'Ali', "Gator", 'she/her', 'alligator@river.com')
+  ]
+
+  const sampleRejected = [
+    new Sample(7, "Capy", "Bara", "she/her", "capybara@jungle.com"), 
+    new Sample(8, "Croco", "Dile", "he/him", "crocodile@river.com"), 
+    new Sample(9, 'Ali', "Gator", 'she/her', 'alligator@river.com')
+  ]
 
   const handleClick = () => {
     setOpen(!open);
@@ -35,6 +74,7 @@ export default function ManageDropdown({ project, group }) {
   const handleClickOpenAccept = () => {
     setDialogOpen(true)
     setAcceptConfirmation(true)
+
   }
 
   const handleClickOpenReject = () => {
@@ -48,7 +88,7 @@ export default function ManageDropdown({ project, group }) {
 
   const sendEmail = (e, member) => {
     e.preventDefault()
-    window.location = 'mailto:example@example.com'
+    window.location = `mailto:${member.email}`
   }
 
   const usersCollectionRef = useMemo(() => collection(db, 'students'), [])
@@ -63,38 +103,36 @@ export default function ManageDropdown({ project, group }) {
     return users.filter((user) => user.key === id)[0]
   }
 
-  let editedGroupMembers = null, 
-      editedApplicants = null, 
-      editedRejected = null;
-
   useEffect(() => {
     setGroupMembers(project?.groupMembers)
     setApplicants(project?.applicants)
     setRejected(project?.rejected)
     setProjectTitle(project?.title)
+    setGroupMode(group)
+    // setEditedGroupMembers(sampleMembers)
+    // setEditedApplicants(sampleApplicants)
+    // setEditedRejected(sampleRejected)
     // getUsers()
-    // editedGroupMembers = [...groupMembers,...[]]
-    // editedApplicants = [...applicants]
-    // editedRejected = [...rejected]
   }, [users])
   
   const moveMember = (member, from, to) => {
     if (!from.includes(member)) return
     from = from.filter(m => m !== member)
     to.add(member)
+    console.log(to, from)
   }
 
-  const sendIcon = () => {
+  const sendIcon = (member) => {
     return (
       <Tooltip title="Contact">
-        <IconButton onClick={(e) => sendEmail(e)}>
+        <IconButton onClick={(e) => sendEmail(e, member)}>
             <SendIcon color='primary'/>
         </IconButton>
       </Tooltip>
     )
   }
 
-  const acceptIcon = () => {
+  const acceptIcon = (memv) => {
     return (
       <Tooltip title="Accept Applicant">
         <IconButton onClick={handleClickOpenAccept}>
@@ -114,30 +152,52 @@ export default function ManageDropdown({ project, group }) {
     )
   }
 
-  const conditionalIcons = (group) => {
+  const conditionalIcons = (member, group) => {
       if (group === 'Past Applicants') {
-        return (<div>{sendIcon()}{acceptIcon()}</div>)
+        return (<div>{sendIcon(member)}{acceptIcon()}</div>)
       }
       if (group === 'Applicants') {
-        return (<div>{sendIcon()}{acceptIcon()}{rejectIcon()}</div>)
+        return (<div>{sendIcon(member)}{acceptIcon()}{rejectIcon()}</div>)
       }
-      return (<div>{sendIcon()}</div>)
+      return (<div>{sendIcon(member)}</div>)
+  }
+
+  const confirmationComponent = (acceptConfirmation, member) => {
+    if (!acceptConfirmation) {
+      return (
+        <ConfirmationDialog onClickState={dialogOpen} onClose={handleClose} onAction={handleReject} accept={acceptConfirmation} member={member} group={group} project={projectTitle}/>
+      )
+    }
+    return (
+      <ConfirmationDialog onClickState={dialogOpen} onClose={handleClose} onAction={handleAccept} accept={acceptConfirmation} member={member} group={group} project={projectTitle}/>
+    )
   }
 
   const memberListItem = (member) => {
     return (
-      <ListItem alignItems='flex-start'>
-        <Tooltip title="Visit profile">    
-          <Link to={`/editproject/${member}`}>
-            <ListItemAvatar>
-              <Avatar src={`${process.env.PUBLIC_URL}/projectImages/user.png`} />
-            </ListItemAvatar>
-          </Link>
-        </Tooltip>
-        <ListItemText primary={`${member.firstName} ${member.lastName}`} secondary={`Pronouns ${member.pronouns}`} style={{ marginTop: '30' }}/>
-        {conditionalIcons(group)}
-      </ListItem>
+      <div>
+        <ListItem alignItems='flex-start'>
+          <Tooltip title="Visit profile">    
+            <Link to={`/editproject/${member.id}`}>
+              <ListItemAvatar>
+                <Avatar src={`${process.env.PUBLIC_URL}/projectImages/user.png`} />
+              </ListItemAvatar>
+            </Link>
+          </Tooltip>
+          <ListItemText primary={`${member.id} ${member.firstname} ${member.lastname}`} secondary={`Pronouns ${member.pronouns}`} style={{ marginTop: '30' }}/>
+          {conditionalIcons(member, group)}
+        </ListItem>
+      </div>
     )
+  }
+
+  const handleAccept = (id, group) => {
+    let arr = (group == 'Applicants') ? sampleApplicants : sampleRejected
+    moveMember(id, arr, sampleMembers)
+  }
+
+  const handleReject = (id, group) => {
+    moveMember(id, sampleApplicants, sampleRejected)
   }
 
   return (
@@ -155,16 +215,16 @@ export default function ManageDropdown({ project, group }) {
       </ListItemButton>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List dense sx={{ width: '100%', maxWidth: 400, bgcolor: 'background.paper' }}>
-        {[1,2,3].map((value) => {
+        {setUpGroups(groupMode).map((value) => {
           return(
-            <div key={value}>
+            <div key={value.id}>
               {memberListItem(value)}
             </div>
           )
         })}
-        <ConfirmationDialog onClickState={dialogOpen} onClose={handleClose} accept={acceptConfirmation} member={'John'} project={projectTitle}/>
         </List>
       </Collapse>
+      {confirmationComponent(acceptConfirmation, sampleMembers[0])}
     </List>
     </div>
   );
