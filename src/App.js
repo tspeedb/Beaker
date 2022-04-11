@@ -17,13 +17,15 @@ import Welcomepage from './Pages/Welcomepage'
 import StudentProfile from './Pages/StudentProfile'
 import EditStudentProfile from './Pages/EditStudentProfile'
 import FacultyStaffProfile from './Pages/FacultyStaffProfile'
-// import EditFacultyStaffProfile from './Pages/EditFacultyStaffProfile'
+import EditFacultyStaffProfile from './Pages/EditFacultyStaffProfile'
 import BasedonProfile from './Pages/BasedonProfile'
 import Browse from './Pages/Browse'
 import Bookmarked from './Pages/Bookmarked'
 import AllMembers from './Pages/AllMembers'
 import AboutProject from './Pages/AboutProject'
 import AboutMember from './Pages/AboutMember'
+import AboutStudentProfile from './Pages/AboutStudentProfile'
+import AboutFacultyStaffProfile from './Pages/AboutFacultyStaffProfile'
 import Dashboard from './Pages/Dashboard'
 import StudentDashboard from './Pages/StudentDashboard'
 import BookmarkedMembers from './Pages/BookmarkedMembers'
@@ -127,6 +129,12 @@ function App() {
                             <Route
                                 path="/facultystaffprofile"
                                 exact
+                                // render={(props) => (
+                                //     <FacultyStaffProfile
+                                //         {...props}
+                                //         setFSMembers={setFSMembers}
+                                //     />
+                                // )}
                                 component={FacultyStaffProfile}
                             />
                             <Route
@@ -288,6 +296,16 @@ function App() {
                                 exact
                                 render={(props) => (
                                     <AboutMember {...props} members={members} />
+                                )}
+                            />
+                            <Route
+                                path="/aboutstudentprofile/:memberId"
+                                exact
+                                render={(props) => (
+                                    <AboutStudentProfile
+                                        {...props}
+                                        members={members}
+                                    />
                                 )}
                             />
                             <Route

@@ -20,7 +20,7 @@ function AboutMember({ match, members }) {
     const id = match.params.memberId
 
     useEffect(() => {
-        //send the network request to retrieve data for this project
+        //send the network request to retrieve data for this member
         const selected = members.filter((member) => member.key === id)[0]
         setMember(selected)
     }, [id, members])

@@ -2,7 +2,8 @@ import React, { useState, useEffect, useMemo, useRef } from 'react'
 import '../Styles/Profile.css'
 import Button from '@mui/material/Button'
 import beaker from '../Images/blackLinedBeakerBgRemoved.png'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
+import { useAuth } from '../Contexts/authContext'
 import 'firebase/firestore'
 import { db, storage } from '../firebase'
 import { doc, collection, getDoc, getDocs, updateDoc } from 'firebase/firestore'
@@ -15,6 +16,43 @@ import { TextField } from '@mui/material'
 
 function EditStudentProfile({ match, students }) {
     const [student, setStudent] = useState({})
+
+    const emailRef = useRef()
+    const passwordRef = useRef()
+    const passwordConfirmRef = useRef()
+    const { currentUser, updatePassword, updateEmail } = useAuth()
+    const [error, setError] = useState('')
+    const [loading, setLoading] = useState(false)
+    const history = useHistory()
+
+    function handleSubmit(e) {
+        e.preventDefault()
+        if (passwordRef.current.value !== passwordConfirmRef.current.value) {
+            return setError('Passwords do not match')
+        }
+
+        const promises = []
+        setLoading(true)
+        setError('')
+
+        if (emailRef.current.value !== currentUser.email) {
+            promises.push(updateEmail(emailRef.current.value))
+        }
+        if (passwordRef.current.value) {
+            promises.push(updatePassword(passwordRef.current.value))
+        }
+
+        Promise.all(promises)
+            .then(() => {
+                history.push('/dashboard')
+            })
+            .catch(() => {
+                setError('Failed to update account')
+            })
+            .finally(() => {
+                setLoading(false)
+            })
+    }
 
     const studentsCollectionRef = useMemo(() => collection(db, 'students'), [])
     const id = match.params.memberId
