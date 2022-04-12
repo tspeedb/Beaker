@@ -31,6 +31,7 @@ export default function ManageDropdown({ project, groupUse }) {
   const [editedGroupMembers, setEditedGroupMembers] = useState()
   const [editedApplicants, setEditedApplicants] = useState()
   const [editedRejected, setEditedRejected] = useState()
+  const [currentMember, setCurrentMember] = useState(-1)
 
   class Sample {
     constructor(key, first, last, pronouns, email){
@@ -60,18 +61,35 @@ export default function ManageDropdown({ project, groupUse }) {
     new Sample(9, 'Ali', "Gator", 'she/her', 'alligator@river.com')
   ]
 
+  useEffect(() => {
+    setGroupMembers(project?.groupMembers)
+    setApplicants(project?.applicants)
+    setRejected(project?.rejected)
+    setProjectTitle(project?.title)
+    setGroupMode(groupUse)
+    setCurrentMember(getCurrent())
+    // setEditedGroupMembers(sampleMembers)
+    // setEditedApplicants(sampleApplicants)
+    // setEditedRejected(sampleRejected)
+    // getUsers()
+  }, [currentMember])
+
   const handleClick = () => {
     setOpen(!open);
   }
 
-  const handleClickOpenAccept = () => {
+  const handleClickOpenAccept = (id, e) => {
     setDialogOpen(true)
     setAcceptConfirmation(true)
+    e.currentTarget = id
+    setCurrentMember(id)
   }
 
-  const handleClickOpenReject = () => {
+  const handleClickOpenReject = (id, e) => {
     setDialogOpen(true)
     setAcceptConfirmation(false)
+    e.currentTarget = id
+    setCurrentMember(id)
   }
 
   const handleClose = () => {
@@ -95,17 +113,9 @@ export default function ManageDropdown({ project, groupUse }) {
     return group.filter((user) => user.id === id)[0]
   }
 
-  useEffect(() => {
-    setGroupMembers(project?.groupMembers)
-    setApplicants(project?.applicants)
-    setRejected(project?.rejected)
-    setProjectTitle(project?.title)
-    setGroupMode(groupUse)
-    // setEditedGroupMembers(sampleMembers)
-    // setEditedApplicants(sampleApplicants)
-    // setEditedRejected(sampleRejected)
-    // getUsers()
-  })
+  const getCurrent = () => {
+    return currentMember
+  }
 
   const setUpGroups = () => {
     if (groupMode === 'Applicants') return sampleApplicants
@@ -129,20 +139,20 @@ export default function ManageDropdown({ project, groupUse }) {
     )
   }
 
-  const acceptIcon = () => {
+  const acceptIcon = (member) => {
     return (
       <Tooltip title="Accept Applicant">
-        <IconButton onClick={handleClickOpenAccept}>
+        <IconButton onClick={(e) => handleClickOpenAccept(member.id, e)}>
           <CheckIcon color='success'/>
         </IconButton>
       </Tooltip>
     )
   }
 
-  const rejectIcon = () => {
+  const rejectIcon = (member) => {
     return (
       <Tooltip title="Reject Applicant">
-        <IconButton onClick={handleClickOpenReject}>
+        <IconButton onClick={(e) => handleClickOpenReject(member.id, e)}>
           <CloseIcon color='warning'/>
         </IconButton>     
       </Tooltip>
@@ -151,10 +161,10 @@ export default function ManageDropdown({ project, groupUse }) {
 
   const conditionalIcons = (member) => {
       if (groupMode === 'Past Applicants') {
-        return (<div>{sendIcon(member)}{acceptIcon()}</div>)
+        return (<div>{sendIcon(member)}{acceptIcon(member)}</div>)
       }
       if (groupMode === 'Applicants') {
-        return (<div>{sendIcon(member)}{acceptIcon()}{rejectIcon()}</div>)
+        return (<div>{sendIcon(member)}{acceptIcon(member)}{rejectIcon(member)}</div>)
       }
       return (<div>{sendIcon(member)}</div>)
   }
@@ -168,8 +178,8 @@ export default function ManageDropdown({ project, groupUse }) {
     moveMember(id, sampleApplicants, sampleRejected)
   }
 
-  const confirmationComponent = (group, id) => {  
-    const member = getUser(group, id)
+  const confirmationComponent = (group) => {  
+    const m = getUser(group, currentMember)
     if (!acceptConfirmation) {
       return (
         <ConfirmationDialog 
@@ -177,7 +187,7 @@ export default function ManageDropdown({ project, groupUse }) {
           onClose={handleClose} 
           onAction={handleReject} 
           accept={acceptConfirmation} 
-          member={{id: id, first: member.firstname, last: member.lastname}} 
+          member={{id: m?.id, first: m?.firstname, last: m?.lastname}} 
           group={group} 
           project={projectTitle}
         />
@@ -189,7 +199,7 @@ export default function ManageDropdown({ project, groupUse }) {
         onClose={handleClose} 
         onAction={handleAccept} 
         accept={acceptConfirmation} 
-        member={{id: id, first: member.firstname, last: member.lastname}} 
+        member={{id: m?.id, first: m?.firstname, last: m?.lastname}} 
         group={group} 
         project={projectTitle}
       />
@@ -218,13 +228,11 @@ export default function ManageDropdown({ project, groupUse }) {
 
   const memberList = () => {
     const group = setUpGroups(groupMode)
-    let current
     return (
       <div>
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List dense sx={{ width: '100%', maxWidth: 400, bgcolor: 'background.paper' }}>
           {group.map((value) => {
-            current = value
             return(
               <div key={value.id}>
                 {memberListItem(value.id)}
@@ -233,7 +241,7 @@ export default function ManageDropdown({ project, groupUse }) {
           })}
           </List>
         </Collapse>
-        {confirmationComponent(group, group[0].id)}
+        {confirmationComponent(group)}
       </div>
     )
   }
