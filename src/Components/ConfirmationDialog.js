@@ -6,7 +6,10 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-export default function ConfirmationDialog({ onClickState, onClose, onAction, accept, member, group, project }) {
+export default function ConfirmationDialog(props) {
+
+    const { onClickState, onClose, onAction, accept, member, group, project } = props
+
     const handleClose = () => {
         onClose(false)
     }
@@ -16,23 +19,23 @@ export default function ConfirmationDialog({ onClickState, onClose, onAction, ac
         console.log(member.id)
         console.log(group)
         console.log(member)
-        onAction(member.id, group)
+        onAction(member?.id, group)
     }
 
     const handleActionClose = () => {
-        handleConfirmAction(member.id, group)
+        handleConfirmAction(member?.id, group)
         onClose(false)
     }
 
     const title = (accept, member, project) => {
         let action = (accept) ? 'accept' : 'reject'
-        return `Would you like to ${action} ${member.id} ${member.firstname} ${member.lastname} for the project ${project}?`
+        return `Would you like to ${action} ${member?.id} ${member?.first} ${member?.last} for the project ${project}?`
     }
 
     const text = (accept, member, project) => {
         let action = (accept) ? 'Accepting' : 'Rejecting'
         let consequence = (accept) ? 'add them to' : 'remove them from'
-        return `${action} ${member.id} ${member.firstname}  ${member.lastname} will ${consequence} the project ${project}.`
+        return `${action} ${member?.id} ${member?.first}  ${member?.last} will ${consequence} the project ${project}.`
     }
 
     return (
