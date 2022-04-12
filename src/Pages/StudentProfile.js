@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-function StudentProfile({ setMembers }) {
+function StudentProfile({ setUser }) {
     const [firstName, setFirstName] = useState('')
     const [middleName, setMiddleName] = useState('')
     const [lastName, setLastName] = useState('')
@@ -51,7 +51,7 @@ function StudentProfile({ setMembers }) {
     const [year, setYear] = useState('')
     const [pronouns, setPronouns] = useState('')
     const [url, setURL] = useState('')
-    const [students, setStudents] = useState([])
+    const [students, setStudents] = useState(true)
 
     const [imageAsFile, setImageAsFile] = useState(null)
     const [imageAsUrl, setImageAsUrl] = useState(
@@ -95,14 +95,13 @@ function StudentProfile({ setMembers }) {
             })
         })
     }
-    const studentsCollectionRef = useMemo(() => collection(db, 'students'), [])
+    const allUsersCollectionRef = useMemo(() => collection(db, 'allusers'), [])
     const getStudents = async () => {
-        const data = await getDocs(studentsCollectionRef)
-        //loop through documents in collection
-        setMembers(data.docs.map((doc) => ({ ...doc.data(), key: doc.id })))
+        const data = await getDocs(allUsersCollectionRef)
+        setUser(data.docs.map((doc) => ({ ...doc.data(), key: doc.uid })))
     }
     const createStudent = async () => {
-        await addDoc(studentsCollectionRef, {
+        await addDoc(allUsersCollectionRef, {
             first: firstName,
             middle: middleName,
             last: lastName,
@@ -116,6 +115,7 @@ function StudentProfile({ setMembers }) {
             softskills: softskills,
             bio: bio,
             image: imageAsUrl,
+            students: students,
         })
 
         getStudents()

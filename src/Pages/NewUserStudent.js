@@ -16,7 +16,7 @@ import beaker from '../Images/blackLinedBeakerBgRemoved.png'
 import { Alert } from '@mui/material'
 import { useState, useEffect, useRef } from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import { auth } from '../firebase'
+import { db, auth } from '../firebase'
 // import { Form, Button, Card, Alert } from 'react-bootstrap'
 import 'firebase/compat/auth'
 import { getAuth } from 'firebase/auth'
@@ -54,7 +54,19 @@ function NewUserStudent() {
             setError('Failed to Create an Account')
         }
         setLoading(false)
+
+        console.log('im here')
+
+        auth.createUserWithEmailAndPassword(
+            emailRef,
+            passwordRef,
+            passwordConfirmRef
+        ).then((cred) => {
+            console.log('im here again')
+            return db.collection('allusers').doc(cred.user.uid)
+        })
     }
+
     return (
         // <form onSubmit={handleSubmit}>
         //     <div className="sign-in">

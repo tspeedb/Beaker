@@ -13,7 +13,7 @@ import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
 import TextField from '@mui/material/TextField'
 
-function FacultyStaffProfile({ setFSMembers }) {
+function FacultyStaffProfile({ setUser }) {
     const [title, setTitle] = useState('')
     const [facultyFirstName, setFacultyFirstName] = useState('')
     const [facultyMiddleName, setFacultyMiddleName] = useState('')
@@ -24,6 +24,7 @@ function FacultyStaffProfile({ setFSMembers }) {
     const [labDesc, setLabDesc] = useState('')
     const [facultyLink, setFacultyPortfolioLink] = useState(6)
     const [url, setURL] = useState('')
+    const [professor, setProfessor] = useState(true)
     const [facultyImageAsFile, setFacultyImageAsFile] = useState(null)
     const [facultyImageAsUrl, setFacultyImageAsUrl] = useState(
         `${process.env.PUBLIC_URL}/projectImages/user.png`
@@ -55,17 +56,22 @@ function FacultyStaffProfile({ setFSMembers }) {
         })
     }
 
-    const facultystaffCollectionRef = useMemo(
-        () => collection(db, 'facultystaff'),
-        []
-    )
+    // const facultystaffCollectionRef = useMemo(
+    //     () => collection(db, 'facultystaff'),
+    //     []
+    // )
+    const allUsersCollectionRef = useMemo(() => collection(db, 'allusers'), [])
     const getFacultyStaff = async () => {
-        const data = await getDocs(facultystaffCollectionRef)
-        //loop through documents in collection
-        setFSMembers(data.docs.map((doc) => ({ ...doc.data(), key: doc.id })))
+        const data = await getDocs(allUsersCollectionRef)
+        setUser(data.docs.map((doc) => ({ ...doc.data(), key: doc.id })))
     }
+    // const getFacultyStaff = async () => {
+    //     const data = await getDocs(allUsersCollectionRef)
+    //     //loop through documents in collection
+    //     setUser(data.docs.map((doc) => ({ ...doc.data(), key: doc.id })))
+    // }
     const createFacultyStaff = async () => {
-        await addDoc(facultystaffCollectionRef, {
+        await addDoc(allUsersCollectionRef, {
             title: title,
             facultyFirst: facultyFirstName,
             facultyMiddle: facultyMiddleName,
@@ -76,6 +82,7 @@ function FacultyStaffProfile({ setFSMembers }) {
             labDesc: labDesc,
             facultyPortfolioLink: facultyLink,
             facultyImage: facultyImageAsUrl,
+            professor: professor,
         })
 
         getFacultyStaff()
