@@ -194,6 +194,7 @@ function FacultyStaffProfile({ setUser }) {
                 <FormControl />
                 <div className="fs-title">
                     <TextField
+                        required
                         type="text"
                         label="Title (Ex: Professor)"
                         placeholder="Title (Ex: Professor)"
@@ -230,6 +231,7 @@ function FacultyStaffProfile({ setUser }) {
                 <FormControl />
                 <div className="fs-last-name">
                     <TextField
+                        required
                         type="text"
                         label="Last Name(s)"
                         placeholder="Last Name(s)"

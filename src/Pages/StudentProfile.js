@@ -305,6 +305,7 @@ function StudentProfile({ setUser }) {
                 <FormControl />
                 <div className="first-name">
                     <TextField
+                        required
                         type="text"
                         label="First Name(s)"
                         placeholder="First Name(s)"
@@ -329,6 +330,7 @@ function StudentProfile({ setUser }) {
                 <FormControl />
                 <div className="last-name">
                     <TextField
+                        required
                         type="text"
                         label="Last Name(s)"
                         placeholder="Last Name(s)"
@@ -363,7 +365,7 @@ function StudentProfile({ setUser }) {
                     />
                 </div>
                 <div className="year-dropdown">
-                    <FormControl style={{ width: '55%' }}>
+                    <FormControl required style={{ width: '55%' }}>
                         <InputLabel>Year</InputLabel>
                         <Select value={year} onChange={handleChangeYear}>
                             {yearOptionsSP.map((yearOption) => (
@@ -375,8 +377,8 @@ function StudentProfile({ setUser }) {
                     </FormControl>
                 </div>
                 <div className="major-dropdown">
-                    <FormControl style={{ width: '55%' }}>
-                        <InputLabel>Majors</InputLabel>
+                    <FormControl required style={{ width: '55%' }}>
+                        <InputLabel>Major(s)</InputLabel>
                         <Select
                             multiple
                             value={major}
@@ -392,7 +394,7 @@ function StudentProfile({ setUser }) {
                 </div>
                 <div className="minor-dropdown">
                     <FormControl style={{ width: '55%' }}>
-                        <InputLabel>Minors</InputLabel>
+                        <InputLabel>Minor(s)</InputLabel>
                         <Select
                             multiple
                             value={minor}

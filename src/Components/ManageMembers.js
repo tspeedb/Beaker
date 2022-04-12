@@ -7,9 +7,9 @@ export default function ManageMembers({ project }) {
         paddingLeft: 5, 
         paddingTop: 10
     }} className='memberslist' >
-        <ManageDropdown project={project} group="Members"/>
-        <ManageDropdown project={project} group="Applicants"/>
-        <ManageDropdown project={project} group="Past Applicants"/>
+        <ManageDropdown project={project} groupUse={"Members"}/>
+        <ManageDropdown project={project} groupUse={"Applicants"}/>
+        <ManageDropdown project={project} groupUse={"Past Applicants"}/>
     </div>
   );
 }

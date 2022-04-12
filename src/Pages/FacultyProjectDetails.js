@@ -36,7 +36,7 @@ function ProjectDetails({ match, projects }) {
                             {heading}
                     </div>
                     <div style={{ maxWidth: '600px', paddingTop: '5px', paddingBottom: '5%' }}>
-                        {project?.incentives?.map((major) => ( <Chip label={major} style={{margin: '1px', fontSize: '15px'}}/>))}
+                        {project?.incentives?.map((incentive) => ( <Chip key={incentive} label={incentive} style={{margin: '1px', fontSize: '15px'}}/>))}
                     </div>
                 </div>
             );
@@ -110,13 +110,13 @@ function ProjectDetails({ match, projects }) {
                                 Requested Major(s)
                             </div>
                             <div style={{ fontSize: '15px', maxWidth: '600px', paddingTop: '5px' }}>
-                                {project?.major?.map((major) => ( <Chip label={major} style={{margin: '1px', fontSize: '15px'}}/>))}
+                                {project?.major?.map((major) => ( <Chip key={major} label={major} style={{margin: '1px', fontSize: '15px'}}/>))}
                             </div>
                             <div style={{ fontSize: '40px', paddingTop: '5%' }}>
                                 Preferred Years
                             </div>
                             <div style={{ fontSize: '15px', maxWidth: '600px', paddingTop: '5px' }}>
-                            {project?.year?.map((major) => ( <Chip label={major} style={{margin: '1px', fontSize: '15px'}}/>))}
+                            {project?.year?.map((years) => ( <Chip key={years} label={years} style={{margin: '1px', fontSize: '15px'}}/>))}
                             </div>
                             <div style={{ fontSize: '40px', paddingTop: '5%' }}>
                                 Soft Skills
