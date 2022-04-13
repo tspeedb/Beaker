@@ -13,7 +13,9 @@ import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
 import TextField from '@mui/material/TextField'
 
-function FacultyStaffProfile({ setUser }) {
+// function FacultyStaffProfile({ setUser }) {
+function FacultyStaffProfile({}) {
+    const [fsMember, setMembers] = useState([])
     const [title, setTitle] = useState('')
     const [facultyFirstName, setFacultyFirstName] = useState('')
     const [facultyMiddleName, setFacultyMiddleName] = useState('')
@@ -56,14 +58,17 @@ function FacultyStaffProfile({ setUser }) {
         })
     }
 
-    // const facultystaffCollectionRef = useMemo(
-    //     () => collection(db, 'facultystaff'),
-    //     []
-    // )
-    const allUsersCollectionRef = useMemo(() => collection(db, 'allusers'), [])
+    const facultystaffCollectionRef = useMemo(
+        () => collection(db, 'facultystaff'),
+        []
+    )
+    // const allUsersCollectionRef = useMemo(() => collection(db, 'allusers'), [])
     const getFacultyStaff = async () => {
-        const data = await getDocs(allUsersCollectionRef)
-        setUser(data.docs.map((doc) => ({ ...doc.data(), key: doc.id })))
+        // const data = await getDocs(allUsersCollectionRef)
+        // setUser(data.docs.map((doc) => ({ ...doc.data(), key: doc.id })))
+        const data = await getDocs(facultystaffCollectionRef)
+        //loop through documents in collection
+        setMembers(data.docs.map((doc) => ({ ...doc.data(), key: doc.id })))
     }
     // const getFacultyStaff = async () => {
     //     const data = await getDocs(allUsersCollectionRef)
@@ -71,7 +76,8 @@ function FacultyStaffProfile({ setUser }) {
     //     setUser(data.docs.map((doc) => ({ ...doc.data(), key: doc.id })))
     // }
     const createFacultyStaff = async () => {
-        await addDoc(allUsersCollectionRef, {
+        await addDoc(facultystaffCollectionRef, {
+            // allUsersCollectionRef
             title: title,
             facultyFirst: facultyFirstName,
             facultyMiddle: facultyMiddleName,
@@ -207,6 +213,7 @@ function FacultyStaffProfile({ setUser }) {
                 <FormControl />
                 <div className="fs-first-name">
                     <TextField
+                        required
                         type="text"
                         label="First Name(s)"
                         placeholder="First Name(s)"
