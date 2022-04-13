@@ -51,6 +51,8 @@ export default function SignIn() {
         setLoading(false)
         console.log('currentUser logedin' + JSON.stringify({ currentUser }))
     }
+
+    //functionms for when the user is a proffesor or student
     function handleIsStudent(e) {
         e.preventDefault()
 

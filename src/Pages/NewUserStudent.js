@@ -57,6 +57,8 @@ function NewUserStudent() {
 
         console.log('im here')
 
+        //where im trying to push to the all users colleection??? not working
+
         auth.createUserWithEmailAndPassword(
             emailRef,
             passwordRef,
