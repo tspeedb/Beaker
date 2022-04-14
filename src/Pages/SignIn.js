@@ -32,6 +32,8 @@ export default function SignIn() {
 
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
+    const [student, isStudent] = useState(false)
+    const [clicked, isClicked] = useState(false)
 
     async function handleSubmit(e) {
         e.preventDefault()
@@ -48,6 +50,19 @@ export default function SignIn() {
         }
         setLoading(false)
         console.log('currentUser logedin' + JSON.stringify({ currentUser }))
+    }
+
+    //functionms for when the user is a proffesor or student
+    function handleIsStudent(e) {
+        e.preventDefault()
+
+        alert('you are a student')
+    }
+
+    function handleIsProfessor(e) {
+        e.preventDefault()
+        isStudent(false)
+        alert('you are not a student')
     }
 
     return (
@@ -110,27 +125,7 @@ export default function SignIn() {
                 src={beaker}
             />
             <h2 className="sign-in">Sign In</h2>
-            <FormControl>
-                <FormLabel id="demo-radio-buttons-group-label">
-                    I am a
-                </FormLabel>
-                <RadioGroup
-                    aria-labelledby="demo-radio-buttons-group-label"
-                    defaultValue="female"
-                    name="radio-buttons-group"
-                >
-                    <FormControlLabel
-                        value="student"
-                        control={<Radio />}
-                        label="Student"
-                    />
-                    <FormControlLabel
-                        value="falculty/staff"
-                        control={<Radio />}
-                        label="Faculty/Staff"
-                    />
-                </RadioGroup>
-            </FormControl>
+
             {/* {JSON.stringify({ currentUser })} */}
             {error && <Alert variant="danger">{error}</Alert>}
             <form onSubmit={handleSubmit}>
