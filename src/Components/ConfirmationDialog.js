@@ -15,6 +15,7 @@ export default function ConfirmationDialog(props) {
     }
     
     const handleConfirmAction = () => {
+        console.log(onAction)
         onAction(member.id, group)
     }
 

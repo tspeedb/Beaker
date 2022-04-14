@@ -19,19 +19,6 @@ import Tooltip from '@mui/material/Tooltip';
 import ConfirmationDialog from './ConfirmationDialog'
 
 export default function ManageDropdown({ project, groupUse }) {
-  const [projectTitle, setProjectTitle] = useState('')
-  const [groupMembers, setGroupMembers] = useState([])
-  const [applicants, setApplicants] = useState([])
-  const [rejected, setRejected] = useState([])
-  const [users, setUsers] = useState([])
-  const [open, setOpen] = useState(false)
-  const [dialogOpen, setDialogOpen] = useState(false)
-  const [acceptConfirmation, setAcceptConfirmation] = useState()
-  const [groupMode, setGroupMode] = useState()
-  const [editedGroupMembers, setEditedGroupMembers] = useState()
-  const [editedApplicants, setEditedApplicants] = useState()
-  const [editedRejected, setEditedRejected] = useState()
-  const [currentMember, setCurrentMember] = useState(-1)
 
   class Sample {
     constructor(key, first, last, pronouns, email){
@@ -61,21 +48,43 @@ export default function ManageDropdown({ project, groupUse }) {
     new Sample(9, 'Ali', "Gator", 'she/her', 'alligator@river.com')
   ]
 
+  const [projectTitle, setProjectTitle] = useState('')
+  const [groupMembers, setGroupMembers] = useState([])
+  const [applicants, setApplicants] = useState([])
+  const [rejected, setRejected] = useState([])
+  const [users, setUsers] = useState([])
+  const [open, setOpen] = useState(false)
+  const [dialogOpen, setDialogOpen] = useState(false)
+  const [acceptConfirmation, setAcceptConfirmation] = useState()
+  const [groupMode, setGroupMode] = useState()
+  const [editedGroupMembers, setEditedGroupMembers] = useState(sampleMembers)
+  const [editedApplicants, setEditedApplicants] = useState(sampleApplicants)
+  const [editedRejected, setEditedRejected] = useState(sampleRejected)
+  const [currentMember, setCurrentMember] = useState(-1)
+  const [accepted, setAccepted] = useState()
+
   useEffect(() => {
     setGroupMembers(project?.groupMembers)
     setApplicants(project?.applicants)
     setRejected(project?.rejected)
     setProjectTitle(project?.title)
     setGroupMode(groupUse)
-    setCurrentMember(getCurrent())
-    // setEditedGroupMembers(sampleMembers)
-    // setEditedApplicants(sampleApplicants)
-    // setEditedRejected(sampleRejected)
+    setCurrentMember(getCurrentMember())
+    setEditedGroupMembers(getCurrentMembers())
+    console.log("use members", editedGroupMembers)
+    setEditedApplicants(getCurrentApplicants())
+    console.log("use applicants",editedApplicants)
+    setEditedRejected(getCurrentRejected())
+    console.log("use rejected", editedRejected)
     // getUsers()
-  }, [currentMember])
+  }, [currentMember, editedApplicants, editedGroupMembers, editedRejected])
 
   const handleClick = () => {
     setOpen(!open);
+  }
+
+  const getCurrentActionState = () => {
+    return accepted
   }
 
   const handleClickOpenAccept = (id, e) => {
@@ -113,20 +122,42 @@ export default function ManageDropdown({ project, groupUse }) {
     return group.filter((user) => user.id === id)[0]
   }
 
-  const getCurrent = () => {
+  const getCurrentMember = () => {
     return currentMember
   }
 
+  const getCurrentMembers = () => {
+    return editedGroupMembers
+  }
+
+  const getCurrentApplicants = () => {
+    return editedApplicants
+  }
+
+  const getCurrentRejected = () => {
+    return editedRejected
+  }
+
   const setUpGroups = () => {
-    if (groupMode === 'Applicants') return sampleApplicants
-    if (groupMode === 'Past Applicants') return sampleRejected
-    return sampleMembers
+    if (groupMode === 'Applicants') return getCurrentApplicants()
+    if (groupMode === 'Past Applicants') return getCurrentRejected()
+    return getCurrentMembers()
+  }
+
+  const updateArrayStates = (groupMode, from, to) => {
+    if (groupMode === 'Applicants') {
+      // set
+    }
   }
   
   const moveMember = (member, from, to) => {
-    if (!from.includes(member)) return
-    from = from.filter(m => m !== member)
-    to.add(member)
+    // if (from.filter(m => m.id !== member).length === 0) return
+    const user = getUser(from, member)
+    let filtered = from.filter(m => m.id !== member)
+    setEditedApplicants(filtered)
+    let added = [...to]
+    added.push(user)
+    setEditedGroupMembers(added)
   }
 
   const sendIcon = (member) => {
@@ -170,12 +201,17 @@ export default function ManageDropdown({ project, groupUse }) {
   }
 
   const handleAccept = (id) => {
-    let arr = (groupMode == 'Applicants') ? sampleApplicants : sampleRejected
-    moveMember(id, arr, sampleMembers)
+    let arr = (groupMode === 'Applicants') ? editedApplicants : editedRejected
+    // console.log(id, arr, sampleMembers)
+    moveMember(id, arr, editedGroupMembers)
+    setAccepted(true)
+    console.log(accepted)
   }
 
   const handleReject = (id) => {
-    moveMember(id, sampleApplicants, sampleRejected)
+    moveMember(id, editedApplicants, editedRejected)
+    setAccepted(false)
+    console.log(accepted)
   }
 
   const confirmationComponent = (group) => {  
