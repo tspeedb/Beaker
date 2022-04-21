@@ -52,6 +52,7 @@ function StudentProfile({ setUser }) {
     const [pronouns, setPronouns] = useState('')
     const [url, setURL] = useState('')
     const [students, setStudents] = useState(true)
+    const [users, setUsers] = useState([])
 
     const [imageAsFile, setImageAsFile] = useState(null)
     const [imageAsUrl, setImageAsUrl] = useState(
@@ -95,6 +96,20 @@ function StudentProfile({ setUser }) {
             })
         })
     }
+    const usersCollectionRef = useMemo(() => collection(db, 'allusers'), [])
+    const getUsers = async () => {
+        const data = await getDocs(usersCollectionRef)
+        //loop through documents in collection
+        setUsers(data.docs.map((doc) => ({ ...doc.data(), key: doc.id })))
+    }
+    // const createUser = async () => {
+    //     await addDoc(usersCollectionRef, {
+    //         email: email,
+    //         uid: uid,
+    //     })
+    //     getUsers()
+    // }
+
     const allUsersCollectionRef = useMemo(() => collection(db, 'allusers'), [])
     const getStudents = async () => {
         const data = await getDocs(allUsersCollectionRef)

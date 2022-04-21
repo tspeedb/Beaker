@@ -1,6 +1,8 @@
 import React from 'react'
 import '../Styles/SignIn.css'
 import Button from '@mui/material/Button'
+import firebase from 'firebase/compat/app'
+
 import {
     Card,
     Input,
@@ -14,7 +16,7 @@ import {
 } from '@mui/material'
 import beaker from '../Images/blackLinedBeakerBgRemoved.png'
 import { Alert } from '@mui/material'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { db, auth } from '../firebase'
 // import { Form, Button, Card, Alert } from 'react-bootstrap'
@@ -23,22 +25,55 @@ import { getAuth } from 'firebase/auth'
 import { useAuth } from '../Contexts/authContext'
 import { TextField } from '@mui/material'
 import { connectStorageEmulator } from 'firebase/storage'
+import { RemoveDoneRounded } from '@mui/icons-material'
+import { collection, getDocs, addDoc } from 'firebase/firestore'
 
 function NewUserStudent() {
     const { signup, currentUser } = useAuth()
+    // const [users, setUsers] = useState([])
     const emailRef = useRef()
     const passwordRef = useRef()
     const passwordConfirmRef = useRef()
     const history = useHistory()
+
+    const [email, setEmail] = useState('')
+    const [uid, setUid] = useState('')
 
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
 
     const [student, isStudent] = useState(false)
 
+    const auth = firebase.auth()
+    const firestore = firebase.firestore()
+
+    //NOT WORKINGGGGGG
+    async function handleSignUp(newUser) {
+        return ({ getFirebase, getFirestore }) => {
+            const firebase = getFirebase()
+            const firestore = getFirestore()
+            console.log('hello')
+            firebase
+                .auth()
+                .createUserWithEmailPassword(
+                    newUser.emailRef,
+                    newUser.passwordRef
+                )
+                .then((resp) => {
+                    return firestore
+                        .collection('allusers')
+                        .doc(resp.user.uid)
+                        .set({
+                            firstName: newUser.firstName,
+                        })
+                })
+        }
+    }
+
     async function handleSubmit(e) {
         console.log('getting here 1')
         e.preventDefault()
+
         if (passwordRef.current.value !== passwordConfirmRef.current.value)
             return setError('Passwords do not Match')
         console.log('getting here maybe')
@@ -56,18 +91,20 @@ function NewUserStudent() {
         setLoading(false)
 
         console.log('im here')
-
-        //where im trying to push to the all users colleection??? not working
-
-        auth.createUserWithEmailAndPassword(
-            emailRef,
-            passwordRef,
-            passwordConfirmRef
-        ).then((cred) => {
-            console.log('im here again')
-            return db.collection('allusers').doc(cred.user.uid)
-        })
     }
+    // const usersCollectionRef = useMemo(() => collection(db, 'allusers'), [])
+    // const getUsers = async () => {
+    //     const data = await getDocs(usersCollectionRef)
+    //     //loop through documents in collection
+    //     setUsers(data.docs.map((doc) => ({ ...doc.data(), key: doc.id })))
+    // }
+    // const createUser = async () => {
+    //     await addDoc(usersCollectionRef, {
+    //         email: email,
+    //         uid: uid,
+    //     })
+    //     getUsers()
+    // }
 
     return (
         // <form onSubmit={handleSubmit}>
@@ -170,6 +207,9 @@ function NewUserStudent() {
                         className="email-address"
                         placeholder="Email (example@lion.lmu.edu)"
                         inputRef={emailRef}
+                        onChange={(event) => {
+                            setEmail(event.target.value)
+                        }}
                         required
                         style={{
                             width: '20em',
@@ -220,6 +260,7 @@ function NewUserStudent() {
                         size="large"
                         variant="contained"
                         color="primary"
+                        onClick={handleSignUp}
                     >
                         Continue to Profile
                     </Button>

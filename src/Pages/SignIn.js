@@ -7,6 +7,8 @@ import { Link, useHistory } from 'react-router-dom'
 import { collection, getDocs } from 'firebase/firestore'
 import { auth } from '../firebase'
 import 'firebase/compat/auth'
+import { connect } from 'react-redux'
+import { signIn } from '../authActions'
 import {
     Card,
     Input,
@@ -23,8 +25,11 @@ import { getAuth } from 'firebase/auth'
 import { useAuth } from '../Contexts/authContext'
 import { connectStorageEmulator } from 'firebase/storage'
 import { Box } from '@mui/system'
-
-export default function SignIn() {
+function SignIn() {
+    const state = {
+        emailRef: '',
+        passwordRef: '',
+    }
     const { signin, currentUser } = useAuth()
     const emailRef = useRef()
     const passwordRef = useRef()
@@ -37,6 +42,7 @@ export default function SignIn() {
 
     async function handleSubmit(e) {
         e.preventDefault()
+        signIn(state)
         try {
             setLoading(true)
             const signInResponse = await signin(
@@ -44,6 +50,7 @@ export default function SignIn() {
                 passwordRef.current.value
             )
             console.log(signInResponse)
+            console.log('user signed in')
             history.push('/dashboard')
         } catch {
             setError('Failed to Signin')
@@ -245,3 +252,10 @@ export default function SignIn() {
         // </>
     )
 }
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        signIn: (creds) => dispatch(signIn(creds)),
+    }
+}
+export default connect()(SignIn)
