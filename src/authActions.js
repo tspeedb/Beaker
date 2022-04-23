@@ -1,3 +1,23 @@
+import {
+    GoogleAuthProvider,
+    getAuth,
+    signInWithPopup,
+    signInWithEmailAndPassword,
+    createUserWithEmailAndPassword,
+    sendPasswordResetEmail,
+    signOut,
+} from 'firebase/auth'
+import {
+    getFirestore,
+    query,
+    getDocs,
+    collection,
+    where,
+    addDoc,
+} from 'firebase/firestore'
+
+import { db, auth } from './firebase'
+
 export const signIn = (credentials) => {
     return (dispatch, getState, { getFirebase }) => {
         const firebase = getFirebase()
@@ -17,9 +37,28 @@ export const signIn = (credentials) => {
     }
 }
 
-export const signUp = (newUser) => {
-    return (dispatch, getState, { getFirebase, getFirestore }) => {
-        const firbase = getFirebase()
-        const firestore = getFirestore
+export const registerWithEmailAndPassword = async (
+    firstName,
+
+    lastName,
+
+    email,
+    password
+) => {
+    try {
+        const res = await createUserWithEmailAndPassword(auth, email, password)
+        const user = res.user
+        await addDoc(collection(db, 'allusers'), {
+            uid: user.uid,
+            firstName,
+
+            lastName,
+
+            authProvider: 'local',
+            email,
+        })
+    } catch (err) {
+        console.error(err)
+        alert(err.message)
     }
 }

@@ -2,6 +2,7 @@ import React from 'react'
 import '../Styles/SignIn.css'
 import Button from '@mui/material/Button'
 import firebase from 'firebase/compat/app'
+import UserForm from '../Components/UserForm'
 
 import {
     Card,
@@ -19,16 +20,32 @@ import { Alert } from '@mui/material'
 import { useState, useEffect, useRef, useMemo } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { db, auth } from '../firebase'
-// import { Form, Button, Card, Alert } from 'react-bootstrap'
+import { Form } from 'react-bootstrap'
 import 'firebase/compat/auth'
-import { getAuth } from 'firebase/auth'
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
 import { useAuth } from '../Contexts/authContext'
 import { TextField } from '@mui/material'
 import { connectStorageEmulator } from 'firebase/storage'
 import { RemoveDoneRounded } from '@mui/icons-material'
 import { collection, getDocs, addDoc } from 'firebase/firestore'
 
+import { useAuthState } from 'react-firebase-hooks/auth'
+
+import { registerWithEmailAndPassword } from '../authActions'
+
 function NewUserStudent() {
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [firstName, setFirstName] = useState('')
+    const [lastName, setLastName] = useState('')
+    const [name, setName] = useState('')
+    const [user, loading, error] = useAuthState(auth)
+    const [activeStep, setActiveStep] = useState(0)
+
+    const handleNext = () => {
+        setActiveStep((nextStep) => nextStep + 1)
+    }
+
     const { signup, currentUser } = useAuth()
     // const [users, setUsers] = useState([])
     const emailRef = useRef()
@@ -36,74 +53,47 @@ function NewUserStudent() {
     const passwordConfirmRef = useRef()
     const history = useHistory()
 
-    const [email, setEmail] = useState('')
+    // const [email, setEmail] = useState('')
+    // const [password, setPassword] = useState('')
     const [uid, setUid] = useState('')
 
-    const [error, setError] = useState('')
-    const [loading, setLoading] = useState(false)
+    // const [error, setError] = useState('')
+    // const [loading, setLoading] = useState(false)
 
     const [student, isStudent] = useState(false)
 
-    const auth = firebase.auth()
+    // const auth = getAuth()
+    // const user = auth.currentUser
     const firestore = firebase.firestore()
 
-    //NOT WORKINGGGGGG
-    async function handleSignUp(newUser) {
-        return ({ getFirebase, getFirestore }) => {
-            const firebase = getFirebase()
-            const firestore = getFirestore()
-            console.log('hello')
-            firebase
-                .auth()
-                .createUserWithEmailPassword(
-                    newUser.emailRef,
-                    newUser.passwordRef
-                )
-                .then((resp) => {
-                    return firestore
-                        .collection('allusers')
-                        .doc(resp.user.uid)
-                        .set({
-                            firstName: newUser.firstName,
-                        })
-                })
-        }
+    const register = () => {
+        if (!email) alert('Please enter email')
+
+        registerWithEmailAndPassword(firstName, lastName, email, password)
     }
 
-    async function handleSubmit(e) {
-        console.log('getting here 1')
-        e.preventDefault()
+    // console.log(values, handleChange)
 
-        if (passwordRef.current.value !== passwordConfirmRef.current.value)
-            return setError('Passwords do not Match')
-        console.log('getting here maybe')
-        try {
-            setError('')
-            setLoading(true)
-            await signup(emailRef.current.value, passwordRef.current.value)
-            console.log('getting here 2')
-            console.log('currentUser is' + JSON.stringify({ currentUser }))
-            history.push('/studentprofile')
-        } catch {
-            console.log('getting here maybe')
-            setError('Failed to Create an Account')
-        }
-        setLoading(false)
+    // async function handleSubmit(e) {
+    //     console.log('getting here 1')
+    //     e.preventDefault()
+    //     // console.log(signUp)
 
-        console.log('im here')
-    }
-    // const usersCollectionRef = useMemo(() => collection(db, 'allusers'), [])
-    // const getUsers = async () => {
-    //     const data = await getDocs(usersCollectionRef)
-    //     //loop through documents in collection
-    //     setUsers(data.docs.map((doc) => ({ ...doc.data(), key: doc.id })))
-    // }
-    // const createUser = async () => {
-    //     await addDoc(usersCollectionRef, {
-    //         email: email,
-    //         uid: uid,
-    //     })
-    //     getUsers()
+    //     if (passwordRef.current.value !== passwordConfirmRef.current.value)
+    //         return setError('Passwords do not Match')
+    //     console.log('getting here maybe')
+    //     try {
+    //         setError('')
+    //         setLoading(true)
+    //         await signup(emailRef.current.value, passwordRef.current.value)
+    //         console.log('getting here 2')
+    //         console.log('currentUser is' + JSON.stringify({ currentUser }))
+    //         history.push('/studentprofile')
+    //     } catch {
+    //         console.log('getting here maybe')
+    //         setError('Failed to Create an Account')
+    //     }
+    //     setLoading(false)
     // }
 
     return (
@@ -162,54 +152,52 @@ function NewUserStudent() {
         //     </div>
         // </form>
 
-        <div className="top-signin">
-            <Box
-                component="img"
-                sx={{
-                    height: 60,
-                    width: 60,
-                }}
-                alt="logo"
-                src={beaker}
-            />
-            <h2 className="sign-up">Sign Up</h2>
-            <FormControl>
-                <FormLabel id="demo-radio-buttons-group-label">
-                    I am a
-                </FormLabel>
-                <RadioGroup
-                    aria-labelledby="demo-radio-buttons-group-label"
-                    defaultValue="female"
-                    name="radio-buttons-group"
-                >
-                    <FormControlLabel
-                        value="student"
-                        control={<Radio />}
-                        label="Student"
-                    />
-                    <FormControlLabel
-                        value="falculty/staff"
-                        control={<Radio />}
-                        label="Faculty/Staff"
-                    />
-                </RadioGroup>
-            </FormControl>
-            {/* {JSON.stringify({ currentUser })} */}
-            {error && <Alert variant="danger">{error}</Alert>}
-            <form onSubmit={handleSubmit}>
-                <FormControl
-                    type="email"
-                    // inputRef={emailRef}
+        <div>
+            <div className="top-signin">
+                <Box
+                    component="img"
+                    sx={{
+                        height: 60,
+                        width: 60,
+                    }}
+                    alt="logo"
+                    src={beaker}
                 />
+                <h1>New User</h1>
+                <h2 className="sign-up">Sign Up</h2>
+                <FormControl>
+                    <FormLabel id="demo-radio-buttons-group-label">
+                        I am a
+                    </FormLabel>
+                    <RadioGroup
+                        aria-labelledby="demo-radio-buttons-group-label"
+                        defaultValue="female"
+                        name="radio-buttons-group"
+                    >
+                        <FormControlLabel
+                            value="student"
+                            control={<Radio />}
+                            label="Student"
+                        />
+                        <FormControlLabel
+                            value="falculty/staff"
+                            control={<Radio />}
+                            label="Faculty/Staff"
+                        />
+                    </RadioGroup>
+                </FormControl>
+                <div></div>
+                <FormControl type="name" />
                 <div className="email-text-field">
                     <TextField
                         type="text"
                         className="email-address"
-                        placeholder="Email (example@lion.lmu.edu)"
-                        inputRef={emailRef}
-                        onChange={(event) => {
-                            setEmail(event.target.value)
+                        placeholder="First Name"
+                        defaultValue={firstName}
+                        onChange={(e) => {
+                            setFirstName(e.target.value)
                         }}
+                        // onChange={handleChange('firstName')}
                         required
                         style={{
                             width: '20em',
@@ -217,128 +205,365 @@ function NewUserStudent() {
                         }}
                     />
                 </div>
-                <FormControl
-                    type="password"
-                    // inputRef={passwordRef}
-                />
+                <FormControl type="name" />
+                <div className="email-text-field">
+                    <TextField
+                        type="text"
+                        className="email-address"
+                        placeholder="Last Name"
+                        defaultValue={lastName}
+                        onChange={(e) => {
+                            setLastName(e.target.value)
+                        }}
+                        // onChange={handleChange('lastName')}
+                        required
+                        style={{
+                            width: '20em',
+                            marginBottom: '1em',
+                        }}
+                    />
+                </div>
+
+                {/* <input
+                    type="text"
+                    id="name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Full Name"
+                /> */}
+
+                {/* {error && <Alert variant="danger">{error}</Alert>} */}
+                <FormControl type="email" />
+                <div className="email-text-field">
+                    <TextField
+                        type="text"
+                        className="email-address"
+                        placeholder="example@lion.lmu.edu"
+                        // inputRef={emailRef}
+                        defaultValue={email}
+                        onChange={(e) => {
+                            setEmail(e.target.value)
+                        }}
+                        // onChange={handleChange('email')}
+                        required
+                        style={{
+                            width: '20em',
+                            marginBottom: '1em',
+                        }}
+                    />
+                </div>
+                <FormControl type="password" />
                 <div className="password-text-field">
                     <TextField
                         type="password"
                         className="password"
-                        placeholder="Password"
-                        inputRef={passwordRef}
+                        placeholder="atleast 6 character password"
+                        // inputRef={passwordRef}
+                        defaultValue={password}
+                        onChange={(e) => {
+                            setPassword(e.target.value)
+                        }}
                         required
                         style={{
                             width: '20em',
                             marginBottom: '1em',
-                        }}
-                    />
-                </div>
-                <FormControl
-                    type="password"
-                    // ref={passwordConfirmRef}
-                />
-                <div className="confirm-password-text-field">
-                    <TextField
-                        type="password"
-                        className="password-confirm"
-                        placeholder="Confirm Password"
-                        inputRef={passwordConfirmRef}
-                        required
-                        style={{
-                            width: '20em',
-                            marginBottom: '3em',
                         }}
                     />
                 </div>
                 <div className="continue-to-profile-button">
                     {/* <Link to="/studentprofile"> */}
                     <Button
-                        disabled={loading}
-                        type="submit"
-                        className="continue-to-profile-btn"
-                        size="large"
-                        variant="contained"
-                        color="primary"
-                        onClick={handleSignUp}
+                        className="btn1"
+                        size="medium"
+                        variant="outlined"
+                        color="secondary"
+                        onClick={register}
                     >
-                        Continue to Profile
+                        Continue To Profile
                     </Button>
                     {/* </Link> */}
                 </div>
-            </form>
+
+                {/* <input
+                    type="text"
+                    className="email-address"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="example@lion.lmu.edu"
+                />
+                <input
+                    type="password"
+                    className="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Password"
+                /> */}
+                {/* <button className="register__btn" onClick={register}>
+                    Register
+                </button> */}
+                {/* <button
+                            className="register__btn register__google"
+                            onClick={signInWithGoogle}
+                        >
+                            Register with Google
+                        </button> */}
+
+                {/* <div>
+                    Already have an account? <Link to="/">Login</Link> now.
+                </div> */}
+            </div>
         </div>
-
-        // <>
-        //     <Card>
-        //         <CardContent>
-        //             <h2 className="text-center mb-4">Sign Up</h2>
-        //             {JSON.stringify({ currentUser })}
-        //             {error && <Alert variant="danger">{error}</Alert>}
-        //             <form onSubmit={handleSubmit}>
-        //                 <FormControl
-        //                     type="email"
-        //                     // inputRef={emailRef}
-        //                 />
-        //                 <TextField
-        //                     type="text"
-        //                     className="email-address"
-        //                     placeholder="example@lion.lmu.edu"
-        //                     inputRef={emailRef}
-        //                     required
-        //                 />
-        //                 <FormLabel>Password</FormLabel>
-        //                 <FormControl
-        //                     type="password"
-        //                     // inputRef={passwordRef}
-        //                 />
-        //                 <TextField
-        //                     type="text"
-        //                     className="password"
-        //                     placeholder="password"
-        //                     inputRef={passwordRef}
-        //                     required
-        //                 />
-
-        //                 <FormLabel>Password Confirmation</FormLabel>
-        //                 <FormControl
-        //                     type="password"
-        //                     // ref={passwordConfirmRef}
-        //                 />
-        //                 <TextField
-        //                     type="text"
-        //                     className="password-confirm"
-        //                     placeholder="confirm password"
-        //                     inputRef={passwordConfirmRef}
-        //                     required
-        //                 />
-
-        //                 {/* <div className="button1">
-        //                     <Link to="/studentprofile">
-        //                         Continue to Profile
-
-        //                 </div> */}
-
-        //                 <div className="button1">
-        //                     {/* <Link to="/studentprofile"> */}
-        //                     <Button
-        //                         disabled={loading}
-        //                         className="w-100"
-        //                         type="submit"
-        //                         className="btn1"
-        //                         size="medium"
-        //                         variant="outlined"
-        //                         color="secondary"
-        //                     >
-        //                         Continue to Profile
-        //                     </Button>
-        //                     {/* </Link> */}
-        //                 </div>
-        //             </form>
-        //         </CardContent>
-        //     </Card>
-        // </>
     )
 }
 
+// <div className="top-signin">
+//     <Box
+//         component="img"
+//         sx={{
+//             height: 60,
+//             width: 60,
+//         }}
+//         alt="logo"
+//         src={beaker}
+//     />
+//     <h2 className="sign-up">Sign Up</h2>
+//     <FormControl>
+//         <FormLabel id="demo-radio-buttons-group-label">
+//             I am a
+//         </FormLabel>
+//         <RadioGroup
+//             aria-labelledby="demo-radio-buttons-group-label"
+//             defaultValue="female"
+//             name="radio-buttons-group"
+//         >
+//             <FormControlLabel
+//                 value="student"
+//                 control={<Radio />}
+//                 label="Student"
+//             />
+//             <FormControlLabel
+//                 value="falculty/staff"
+//                 control={<Radio />}
+//                 label="Faculty/Staff"
+//             />
+//         </RadioGroup>
+//     </FormControl>
+//     {/* {JSON.stringify({ currentUser })} */}
+//     {error && <Alert variant="danger">{error}</Alert>}
+//     <form onSubmit={handleSubmit}>
+//         <FormControl
+//             type="email"
+//             // inputRef={emailRef}
+//         />
+//         <div className="email-text-field">
+//             <TextField
+//                 type="text"
+//                 className="email-address"
+//                 placeholder="Email (example@lion.lmu.edu)"
+//                 input={emailRef}
+//                 // onChange={(event) => {
+//                 //     setEmail(event.target.value)
+//                 // }}
+//                 required
+//                 style={{
+//                     width: '20em',
+//                     marginBottom: '1em',
+//                 }}
+//             />
+//         </div>
+//         <FormControl
+//             type="password"
+//             // inputRef={passwordRef}
+//         />
+//         <div className="password-text-field">
+//             <TextField
+//                 type="password"
+//                 className="password"
+//                 placeholder="Password"
+//                 inputRef={passwordRef}
+//                 // onChange={(event) => {
+//                 //     setPassword(event.target.value)
+//                 // }}
+//                 required
+//                 style={{
+//                     width: '20em',
+//                     marginBottom: '1em',
+//                 }}
+//             />
+//         </div>
+//         <FormControl
+//             type="password"
+//             // ref={passwordConfirmRef}
+//         />
+//         <div className="confirm-password-text-field">
+//             <TextField
+//                 type="password"
+//                 className="password-confirm"
+//                 placeholder="Confirm Password"
+//                 inputRef={passwordConfirmRef}
+//                 required
+//                 style={{
+//                     width: '20em',
+//                     marginBottom: '3em',
+//                 }}
+//             />
+//         </div>
+//         <div className="continue-to-profile-button">
+//             {/* <Link to="/studentprofile"> */}
+//             <Button
+//                 disabled={loading}
+//                 type="submit"
+//                 className="continue-to-profile-btn"
+//                 size="large"
+//                 variant="contained"
+//                 color="primary"
+//                 // onClick={register}
+//             >
+//                 Continue to Profile
+//             </Button>
+//             {/* </Link> */}
+//         </div>
+//     </form>
+// </div>
+
+// <>
+//     <Card>
+//         <CardContent>
+//             <h2 className="text-center mb-4">Sign Up</h2>
+//             {JSON.stringify({ currentUser })}
+//             {error && <Alert variant="danger">{error}</Alert>}
+//             <form onSubmit={handleSubmit}>
+//                 <FormControl
+//                     type="email"
+//                     // inputRef={emailRef}
+//                 />
+//                 <TextField
+//                     type="text"
+//                     className="email-address"
+//                     placeholder="example@lion.lmu.edu"
+//                     inputRef={emailRef}
+//                     required
+//                 />
+//                 <FormLabel>Password</FormLabel>
+//                 <FormControl
+//                     type="password"
+//                     // inputRef={passwordRef}
+//                 />
+//                 <TextField
+//                     type="text"
+//                     className="password"
+//                     placeholder="password"
+//                     inputRef={passwordRef}
+//                     required
+//                 />
+
+//                 <FormLabel>Password Confirmation</FormLabel>
+//                 <FormControl
+//                     type="password"
+//                     // ref={passwordConfirmRef}
+//                 />
+//                 <TextField
+//                     type="text"
+//                     className="password-confirm"
+//                     placeholder="confirm password"
+//                     inputRef={passwordConfirmRef}
+//                     required
+//                 />
+
+//                 {/* <div className="button1">
+//                     <Link to="/studentprofile">
+//                         Continue to Profile
+
+//                 </div> */}
+
+//                 <div className="button1">
+//                     {/* <Link to="/studentprofile"> */}
+//                     <Button
+//                         disabled={loading}
+//                         className="w-100"
+//                         type="submit"
+//                         className="btn1"
+//                         size="medium"
+//                         variant="outlined"
+//                         color="secondary"
+//                     >
+//                         Continue to Profile
+//                     </Button>
+//                     {/* </Link> */}
+//                 </div>
+//             </form>
+//         </CardContent>
+//     </Card>
+//         // </>
+//     )
+// }
+
+// const mapDispatchToProps = (dispatch) => {
+//     return {
+//         signUp: (currentUser) => dispatch(signUp(currentUser)),
+//     }
+// }
+
 export default NewUserStudent
+
+// import React, { useEffect, useState } from 'react'
+// import { useAuthState } from 'react-firebase-hooks/auth'
+// import { Link, useHistory } from 'react-router-dom'
+// import { registerWithEmailAndPassword } from '../authActions'
+// import { db, auth } from '../firebase'
+// // import './Register.css'
+// function NewUserStudent() {
+//     const [email, setEmail] = useState('')
+//     const [password, setPassword] = useState('')
+//     const [name, setName] = useState('')
+//     const [user, loading, error] = useAuthState(auth)
+//     const history = useHistory()
+//     const register = () => {
+//         if (!name) alert('Please enter name')
+//         registerWithEmailAndPassword(name, email, password)
+//     }
+//     // useEffect(() => {
+//     //     if (loading) return
+//     //     if (user) history.replace('/studentprofile')
+//     // }, [user, loading])
+//     return (
+//         <div className="register">
+//             <div className="register__container">
+//                 <input
+//                     type="text"
+//                     className="register__textBox"
+//                     value={name}
+//                     onChange={(e) => setName(e.target.value)}
+//                     placeholder="Full Name"
+//                 />
+//                 <input
+//                     type="text"
+//                     className="register__textBox"
+//                     value={email}
+//                     onChange={(e) => setEmail(e.target.value)}
+//                     placeholder="E-mail Address"
+//                 />
+//                 <input
+//                     type="password"
+//                     className="register__textBox"
+//                     value={password}
+//                     onChange={(e) => setPassword(e.target.value)}
+//                     placeholder="Password"
+//                 />
+//                 <button className="register__btn" onClick={register}>
+//                     Register
+//                 </button>
+//                 {/* <button
+//                     className="register__btn register__google"
+//                     onClick={signInWithGoogle}
+//                 >
+//                     Register with Google
+//                 </button> */}
+//                 <div>
+//                     Already have an account? <Link to="/">Login</Link> now.
+//                 </div>
+//             </div>
+//         </div>
+//     )
+// }
+// export default NewUserStudent

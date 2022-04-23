@@ -5,7 +5,6 @@ import 'firebase/compat/auth'
 import 'firebase/compat/firestore'
 import 'firebase/storage'
 import 'firebase/compat/storage'
-import { getAuth } from 'firebase/auth'
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
