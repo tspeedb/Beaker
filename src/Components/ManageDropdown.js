@@ -17,6 +17,7 @@ import IconButton from "@material-ui/core/IconButton";
 import SendIcon from '@mui/icons-material/Send';
 import Tooltip from '@mui/material/Tooltip';
 import ConfirmationDialog from './ConfirmationDialog'
+import { CollectionsBookmarkRounded } from '@material-ui/icons';
 
 export default function ManageDropdown({ project, id, groupUse }) {
 
@@ -167,40 +168,55 @@ export default function ManageDropdown({ project, id, groupUse }) {
     return getCurrentMembers()
   }
 
-  const updateArrayStates = (groupMode, from, to) => {
-    if (groupMode === 'Applicants') {
-      // set
+  const updateArrayStates = (from, to) => {
+    let updatedApplicants, updatedGroupMembers, updatedRejected
+    if (groupMode === 'Applicants' && accepted) {
+      setEditedApplicants(from)
+      setEditedGroupMembers(to)
+      updatedApplicants = [...from]
+      updatedGroupMembers = [...to]
+      updatedRejected = [...editedRejected]
+    } else if (groupMode === 'Past Applicants' && accepted) {
+      setEditedRejected(from)
+      setEditedGroupMembers(to)
+      updatedApplicants = [...editedApplicants]
+      updatedGroupMembers = [...to]
+      updatedRejected = [...from]
+    } else if (groupMode === 'Applicants' && !accepted) {
+      setEditedApplicants(from)
+      setEditedRejected(to)
+      updatedApplicants = [...from]
+      updatedGroupMembers = [...editedGroupMembers]
+      updatedRejected = [...to]
+    } else if (groupMode === 'Members' && !accepted) {
+      setEditedGroupMembers(from)
+      setEditedRejected(to)
+      updatedApplicants = [...editedApplicants]
+      updatedGroupMembers = [...from]
+      updatedRejected = [...to]
     }
+    console.log("--in update array states--")
+    console.log(groupMode)
+    console.log(accepted)
+    // console.log(updatedApplicants)
+    // console.log(updatedMembers)
+    // console.log(updatedRejected)
+    return { updatedApplicants, updatedGroupMembers, updatedRejected }
   }
-
-  // const checkArrEquality = (a, b) => {
-  //   if (a === b) return true
-  //   if (a == null || b == null) return false
-  //   if (a.length !== b.length) return false
-
-  //   for (let i = 0; i < a.length; i++) {
-  //       if (!a.includes(b[i]) || !b.includes(a[i])) return false
-  //   }
-  //   return true
-  // }
   
+  //moves members from and to in-component arrays
   const moveMember = (member, from, to) => {
-    // setState(state++)
-    // if (from.filter(m => m.id !== member).length === 0) return
     const user = getUser(from, member)
-    let updatedApplicants = from.filter(m => m.id !== member)
-    updatedApplicants.map(x => x = x.id)
-    setEditedApplicants(updatedApplicants)
-    let updatedGroupMembers = [...to, user]
-    updatedApplicants.map(x => x = x.id)
-    setEditedGroupMembers(updatedGroupMembers)
-    
-    // setRejected(selected.rejected)
-    return {updatedApplicants, updatedGroupMembers}
+    let updatedFrom = from.filter(m => m.id !== member)
+    updatedFrom.map(x => x = x.id)
+    let updatedTo = [...to, user]
+    updatedTo.map(x => x = x.id)
+    // console.log("updateArrayStates(from, to)")
+    // console.log(updateArrayStates(from, to))
+    return { updatedFrom, updatedTo }
   }
 
   const translate = (arr) => {
-    console.log("arr" + arr)
     let p = []
     for (let obj of arr) {
       p.push({id: obj.id, firstname: obj.firstname, lastname: obj.lastname, pronouns: obj.pronouns, email: obj.email})
@@ -208,9 +224,16 @@ export default function ManageDropdown({ project, id, groupUse }) {
     return p
   }
 
+  //updates the members and sets them to be in firebase
   const updateMembers = async (applicants, members, rejected) => {
+    console.log("~before translate~~")
+    console.log(applicants)
+    console.log(members)
+    console.log(rejected)
+    console.log("~~~")
     let updatedMembers = translate(members)
     let updatedApplicants = translate(applicants)
+    console.log(rejected)
     let updatedRejected = translate(rejected)
     await updateDoc(projectCollectionRef, {
       groupMembers: updatedMembers, 
@@ -223,9 +246,13 @@ export default function ManageDropdown({ project, id, groupUse }) {
     getProject()
   }
 
-  const updateDocMembers = async(member, from, to) => {
-    let {updatedApplicants, updatedGroupMembers} = moveMember(member, from, to)
-    updateMembers(updatedApplicants, updatedGroupMembers, rejected)
+  //moves members then updates firebase upon every action
+  const updateDocMembers = async (member, from, to) => {
+    let { updatedFrom, updatedTo } = moveMember(member, from, to)
+    console.log("in updateDocMembers")
+    console.log(updatedFrom, updatedTo)
+    let { updatedApplicants, updatedGroupMembers, updatedRejected } = updateArrayStates(updatedFrom, updatedTo)
+    updateMembers(updatedApplicants, updatedGroupMembers, updatedRejected)
   }
 
   const sendIcon = (member) => {
@@ -275,7 +302,8 @@ export default function ManageDropdown({ project, id, groupUse }) {
   }
 
   const handleReject = (id) => {
-    moveMember(id, editedApplicants, editedRejected)
+    let arr = (groupMode === 'Applicants') ? editedApplicants : editedGroupMembers
+    updateDocMembers(id, arr, editedRejected)
     setAccepted(false)
   }
 

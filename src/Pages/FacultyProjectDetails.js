@@ -24,7 +24,7 @@ function ProjectDetails({ match, projects }) {
 
     useEffect(() => {
         getProject() 
-    }, [id, projects])
+    }, [id, projects, project])
 
     const incentiveComp = (project) => {
         let heading = ""
