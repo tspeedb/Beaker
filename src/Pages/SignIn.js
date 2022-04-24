@@ -7,7 +7,7 @@ import { Link, useHistory } from 'react-router-dom'
 import { collection, getDocs } from 'firebase/firestore'
 import { auth } from '../firebase'
 import 'firebase/compat/auth'
-import { connect } from 'react-redux'
+// import { connect } from 'react-redux'
 import { signIn } from '../authActions'
 import {
     Card,
@@ -253,9 +253,9 @@ function SignIn() {
     )
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        signIn: (creds) => dispatch(signIn(creds)),
-    }
-}
-export default connect()(SignIn)
+// const mapDispatchToProps = (dispatch) => {
+//     return {
+//         signIn: (creds) => dispatch(signIn(creds)),
+//     }
+// }
+export default SignIn
