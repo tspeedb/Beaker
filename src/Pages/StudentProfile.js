@@ -15,6 +15,8 @@ import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
 import TextField from '@mui/material/TextField'
+import { registerWithEmailAndPassword } from '../authActions'
+import { Email, Password } from '@mui/icons-material'
 
 const useStyles = makeStyles((theme) => ({
     yearDropdown: {
@@ -37,7 +39,26 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-function StudentProfile({ setUser }) {
+const StudentProfile = () => {
+    // const {
+    //     firstName,
+    //     middleName,
+    //     lastName,
+    //     nickname,
+    //     year,
+    //     major,
+    //     minor,
+    //     link,
+    //     pronouns,
+    //     resume,
+    //     softskills,
+
+    //     bio,
+    //     imageAsUrl,
+    //     students,
+    //     email,
+    //     password,
+    // } = values
     const [firstName, setFirstName] = useState('')
     const [middleName, setMiddleName] = useState('')
     const [lastName, setLastName] = useState('')
@@ -52,6 +73,7 @@ function StudentProfile({ setUser }) {
     const [pronouns, setPronouns] = useState('')
     const [url, setURL] = useState('')
     const [students, setStudents] = useState(true)
+    const [users, setUsers] = useState([])
 
     const [imageAsFile, setImageAsFile] = useState(null)
     const [imageAsUrl, setImageAsUrl] = useState(
@@ -95,31 +117,49 @@ function StudentProfile({ setUser }) {
             })
         })
     }
-    const allUsersCollectionRef = useMemo(() => collection(db, 'allusers'), [])
-    const getStudents = async () => {
-        const data = await getDocs(allUsersCollectionRef)
-        setUser(data.docs.map((doc) => ({ ...doc.data(), key: doc.uid })))
-    }
-    const createStudent = async () => {
-        await addDoc(allUsersCollectionRef, {
-            first: firstName,
-            middle: middleName,
-            last: lastName,
-            nickname: nickname,
-            year: year,
-            major: major,
-            minor: minor,
-            portfolioLink: link,
-            pronouns: pronouns,
-            resume: resume,
-            softskills: softskills,
-            bio: bio,
-            image: imageAsUrl,
-            students: students,
-        })
+    // const register = () => {
+    //     registerWithEmailAndPassword(pronouns)
+    // }
 
-        getStudents()
-    }
+    // const usersCollectionRef = useMemo(() => collection(db, 'allusers'), [])
+    // const getUsers = async () => {
+    //     const data = await getDocs(usersCollectionRef)
+    //loop through documents in collection
+    //     setUsers(data.docs.map((doc) => ({ ...doc.data(), key: doc.id })))
+    // }
+    // const createUser = async () => {
+    //     await addDoc(usersCollectionRef, {
+    //         email: email,
+    //         uid: uid,
+    //     })
+    //     getUsers()
+    // }
+
+    // const allUsersCollectionRef = useMemo(() => collection(db, 'allusers'), [])
+    // const getStudents = async () => {
+    //     const data = await getDocs(allUsersCollectionRef)
+    //     setUser(data.docs.map((doc) => ({ ...doc.data(), key: doc.id })))
+    // }
+    // const createStudent = async () => {
+    //     await addDoc(allUsersCollectionRef, {
+    //         first: firstName,
+    //         middle: middleName,
+    //         last: lastName,
+    //         nickname: nickname,
+    //         year: year,
+    //         major: major,
+    //         minor: minor,
+    //         portfolioLink: link,
+    //         pronouns: pronouns,
+    //         resume: resume,
+    //         softskills: softskills,
+    //         bio: bio,
+    //         image: imageAsUrl,
+    //         students: students,
+    //     })
+
+    //     getStudents()
+    // }
 
     // useEffect(() => {
     //     const getStudents = async () => {
@@ -290,7 +330,7 @@ function StudentProfile({ setUser }) {
                 <p className="profile">Profile</p>
 
                 <div>
-                    <img
+                    {/* <img
                         style={{
                             width: 250,
                             height: 250,
@@ -300,9 +340,9 @@ function StudentProfile({ setUser }) {
                         alt="profile"
                         src={imageAsUrl}
                         onClick={(e) => openWidget(e, widget)}
-                    />
+                    /> */}
                 </div>
-                <FormControl />
+                {/* <FormControl />
                 <div className="first-name">
                     <TextField
                         required
@@ -339,17 +379,16 @@ function StudentProfile({ setUser }) {
                             setLastName(event.target.value)
                         }}
                     />
-                </div>
+                </div> */}
                 <FormControl />
                 <div className="preferred-name">
                     <TextField
                         type="text"
                         label="Nickname/Preferred Name"
                         placeholder="Nickname/Preferred Name"
+                        defaultValue={nickname}
                         style={{ width: '50%' }}
-                        onChange={(event) => {
-                            setNickname(event.target.value)
-                        }}
+                        // onChange={handleChange('nickname')}
                     />
                 </div>
                 <FormControl />
@@ -358,16 +397,18 @@ function StudentProfile({ setUser }) {
                         type="text"
                         label="Pronouns (Ex: she/her)"
                         placeholder="Pronouns (Ex: she/her)"
+                        defaultValue={pronouns}
                         style={{ width: '50%' }}
-                        onChange={(event) => {
-                            setPronouns(event.target.value)
-                        }}
+                        // onChange={handleChange('pronouns')}
                     />
                 </div>
                 <div className="year-dropdown">
                     <FormControl required style={{ width: '55%' }}>
                         <InputLabel>Year</InputLabel>
-                        <Select value={year} onChange={handleChangeYear}>
+                        <Select
+                            defaultValue={year}
+                            // onChange={handleChange('year')}
+                        >
                             {yearOptionsSP.map((yearOption) => (
                                 <MenuItem key={yearOption} value={yearOption}>
                                     {yearOption}
@@ -381,8 +422,8 @@ function StudentProfile({ setUser }) {
                         <InputLabel>Major(s)</InputLabel>
                         <Select
                             multiple
-                            value={major}
-                            onChange={handleChangeMajor}
+                            defaultValue={major}
+                            // onChange={handleChange(major)}
                         >
                             {majorOptionsSP.map((majorOption) => (
                                 <MenuItem key={majorOption} value={majorOption}>
@@ -414,6 +455,7 @@ function StudentProfile({ setUser }) {
                         type="text"
                         label="Soft Skills (separate by commas)"
                         placeholder="Soft Skills (separate by commas)"
+                        value={softskills}
                         style={{ width: '50%' }}
                         onChange={(event) => {
                             setSoftskills(event.target.value)
@@ -427,24 +469,26 @@ function StudentProfile({ setUser }) {
                         rows={6}
                         label="Tell us about yourself"
                         placeholder="Tell us about yourself"
+                        value={bio}
                         style={{ width: '50%' }}
                         onChange={(event) => {
                             setBio(event.target.value)
                         }}
                     />
                 </div>
-                {/* <label className="resume">Upload CV or Resume</label>
+                <label className="resume">Upload CV or Resume</label>
                 <div></div>
                 <br></br>
                 <Uploadfile> </Uploadfile>
                 <div></div>
-                <br></br> */}
+                <br></br>
                 <FormControl />
                 <div className="portfolio">
                     <TextField
                         type="text"
                         label="Link to Portfolio/Website"
                         placeholder="Link to Portfolio/Website"
+                        value={link}
                         style={{ width: '50%' }}
                         onChange={(event) => {
                             setPortfolioLink(event.target.value)
@@ -458,7 +502,7 @@ function StudentProfile({ setUser }) {
                             className="done-btn1"
                             size="large"
                             variant="contained"
-                            onClick={createStudent}
+                            // onClick={register}
                         >
                             Done
                         </Button>

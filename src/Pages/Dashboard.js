@@ -1,13 +1,16 @@
+import { StayCurrentLandscape } from '@mui/icons-material'
 import 'firebase/firestore'
 import React, { useState, useEffect } from 'react'
 import Layout from '../Components/Layout'
 import Side from '../Components/Side'
 import '../Styles/Sidebar.css'
+import { useAuth } from '../Contexts/authContext'
 
 // SM: If you are not using this commented out code,
 //     it would probably be best to get rid of it to keep the file cleaner
 function Dashboard({ sidebaritems, members }) {
     const [isStudent, setIsStudent] = useState(true)
+    const { signin, currentUser } = useAuth()
     // const [projects, setProjects] = useState([])
     // const projectsCollectionRef = collection(db, 'projects')
     // useEffect(() => {
@@ -37,7 +40,7 @@ function Dashboard({ sidebaritems, members }) {
                         }}
                     >
                         {' '}
-                        <b> John </b>, welcome to your dashboard{' '}
+                        <b> {currentUser.email} </b>, welcome to your dashboard{' '}
                     </h1>
                 </div>
             </Side>

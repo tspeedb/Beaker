@@ -40,6 +40,7 @@ import ForgotPassword from './Pages/ForgotPassword'
 import PrivateRoute from './Components/PrivateRoute'
 import { AuthProvider } from './Contexts/authContext'
 import AllOwnedProjects from './Pages/AllOwnedProjects'
+import UserForm from './Components/UserForm'
 
 function App() {
     // const ref = firebase.firestore().collection('students')
@@ -99,6 +100,7 @@ function App() {
                             />
 
                             <Route path="/signin" exact component={SignIn} />
+                            {/* <UserForm /> */}
 
                             <Route
                                 path="/newuserstudent"
