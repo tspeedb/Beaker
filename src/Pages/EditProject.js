@@ -15,6 +15,7 @@ import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
 import { TextField } from '@mui/material'
+import RequiredDialog from '../Components/RequiredDialog'
 
 function EditProject({ match, projects }) {
     const [project, setProject] = useState({})
@@ -35,10 +36,42 @@ function EditProject({ match, projects }) {
     const [groupMembers, setGroupMembers] = useState([])
     const [applicants, setApplicants] = useState([])
     const [rejected, setRejected] = useState([])
+    const [successfulEdit, setSuccessfulEdit] = useState()
+
+    const [open, setOpen] = useState(false)
 
     const projNameRef = useRef()
     const projDescRef = useRef()
     const projPrefSoftSkillsRef = useRef()
+
+    const handleOpen = () => {
+        setOpen(true)
+    }
+    
+    const handleClose = () => {
+        setOpen(false)
+    }
+
+    const handleSuccessfulEdit = () => {
+        setSuccessfulEdit(true)
+    }
+
+    const updateLink = () => {
+        let link = successfulEdit ? `/projectdetails/${id}` : `#`
+        console.log(successfulEdit)
+        return (
+            <Link className="button-link" to={link}>
+                    <Button
+                        className="post-proj-btn1"
+                        size="large"
+                        color="primary"
+                        onClick={editProject}
+                    >
+                        Save
+                    </Button>
+            </Link>     
+        )
+    }
 
     const projectsCollectionRef = useMemo(() => collection(db, 'projects'), [])
     const id = match.params.projectId
@@ -76,7 +109,7 @@ function EditProject({ match, projects }) {
         setEditedTimeline(selected?.timeline)
         setEditedIncentives(selected?.incentives)
         setEditedImageAsUrl(selected?.image)
-        setCreator(selected?.creator)
+        // setCreator(selected?.creator)
         setGroupMembers(selected?.groupMembers)
         setApplicants(selected?.applicants)
         setRejected(selected?.rejected)
@@ -85,6 +118,15 @@ function EditProject({ match, projects }) {
     useEffect(() => {
         getProject()
     }, [id, projects])
+
+    const checkAllRequiredValid = (reqValues) => {
+        let invalid = reqValues.filter((x) => x.length === 0 || x === undefined)
+        if (invalid.length >= 1) {
+            setOpen(true)
+            return false
+        }
+        return true
+    }
 
     const compareValues = () => {
         let updatedProjectName = (projectState.title !== editedProjectName) ? editedProjectName : projectState.title
@@ -145,23 +187,30 @@ function EditProject({ match, projects }) {
             updatedImageAsUrl
         } = compareValues()
 
-        await updateDoc(projectCollectionRef, {
-            title: updatedProjectName,
-            status: updatedStatus,
-            description: updatedDesc,
-            members: updatedMemAmount,
-            major: updatedReqMajor,
-            year: updatedReqYear,
-            softskills: updatedSoftSkills,
-            timeline: updatedTimeline,
-            incentives: updatedIncentives,
-            image: updatedImageAsUrl,
-            creator: creator,
-            groupMembers: groupMembers, 
-            applicants: applicants, 
-            rejected: rejected
-        })
-        getProjects()
+        let valid = checkAllRequiredValid([updatedProjectName, updatedDesc, updatedReqMajor, updatedMemAmount])
+        console.log(valid)
+        if(!valid) return 
+        else {
+            handleSuccessfulEdit()
+            await updateDoc(projectCollectionRef, {
+                title: updatedProjectName,
+                status: updatedStatus,
+                description: updatedDesc,
+                members: updatedMemAmount,
+                major: updatedReqMajor,
+                year: updatedReqYear,
+                softskills: updatedSoftSkills,
+                timeline: updatedTimeline,
+                incentives: updatedIncentives,
+                image: updatedImageAsUrl,
+                // creator: creator,
+                groupMembers: groupMembers, 
+                applicants: applicants, 
+                rejected: rejected
+            })
+            getProjects()
+            
+        }
     }
 
     const handleImageAsFile = (e) => {
@@ -542,7 +591,8 @@ function EditProject({ match, projects }) {
                             Cancel
                         </Button>
                     </Link>
-                    <Link className="button-link" to={`/projectdetails/${id}`}>
+                    {updateLink()}
+                    {/* <Link className="button-link" to={updateLink()}>
                         <Button
                             className="post-proj-btn1"
                             size="large"
@@ -551,7 +601,8 @@ function EditProject({ match, projects }) {
                         >
                             Save
                         </Button>
-                    </Link>   
+                    </Link>    */}
+                    <RequiredDialog onClickState={open} onClose={handleClose} fields={['Project Name, Project Description, Number of Members, Preferred Majors']}/>
                 </div>
             </div>
             )}

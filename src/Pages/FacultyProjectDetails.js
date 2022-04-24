@@ -13,7 +13,7 @@ import { Typography } from '@mui/material';
 
 function ProjectDetails({ match, projects }) {
     const [project, setProject] = useState({})
-    const id = match.params.projectId
+    const [id, setId] = useState(match.params.projectId)
     const projectCollectionRef = doc(db, 'projects', id)
 
     const getProject = async () => {
@@ -94,7 +94,7 @@ function ProjectDetails({ match, projects }) {
                                     textShadow: '2px 2px 5px',
                                 }}
                             />{' '}
-                            <ManageMembers project={project}/>
+                            <ManageMembers project={project} id={id}/>
                         </div>
                         <div className="column-right details">
                             <div style={{ fontSize: '50px' }}>
