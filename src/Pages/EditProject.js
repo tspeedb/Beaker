@@ -36,7 +36,6 @@ function EditProject({ match, projects }) {
     const [groupMembers, setGroupMembers] = useState([])
     const [applicants, setApplicants] = useState([])
     const [rejected, setRejected] = useState([])
-    const [successfulEdit, setSuccessfulEdit] = useState()
 
     const [open, setOpen] = useState(false)
 
@@ -50,29 +49,6 @@ function EditProject({ match, projects }) {
     
     const handleClose = () => {
         setOpen(false)
-    }
-
-    const handleSuccessfulEdit = () => {
-        setSuccessfulEdit(true)
-    }
-
-    const updateLink = () => {
-        // <Link className="button-link" to={link}>
-        let link = successfulEdit ? `/projectdetails/${id}` : `#`
-        console.log(successfulEdit)
-        return (
-
-                    <Button
-                        className="post-proj-btn1"
-                        size="large"
-                        color="primary"
-                        onClick={editProject}
-                        component={Link}
-                        to={link}
-                    >
-                        Save
-                    </Button>
-        )
     }
 
     const projectsCollectionRef = useMemo(() => collection(db, 'projects'), [])
@@ -111,7 +87,7 @@ function EditProject({ match, projects }) {
         setEditedTimeline(selected?.timeline)
         setEditedIncentives(selected?.incentives)
         setEditedImageAsUrl(selected?.image)
-        // setCreator(selected?.creator)
+        setCreator(selected?.creator)
         setGroupMembers(selected?.groupMembers)
         setApplicants(selected?.applicants)
         setRejected(selected?.rejected)
@@ -119,7 +95,7 @@ function EditProject({ match, projects }) {
 
     useEffect(() => {
         getProject()
-    }, [id, projects])
+    }, [])
 
     const checkAllRequiredValid = (reqValues) => {
         let invalid = reqValues.filter((x) => x.length === 0 || x === undefined)
@@ -190,9 +166,7 @@ function EditProject({ match, projects }) {
         } = compareValues()
 
         let valid = checkAllRequiredValid([updatedProjectName, updatedDesc, updatedReqMajor, updatedMemAmount])
-        console.log(valid)
         if(!valid) return 
-        handleSuccessfulEdit()
         await updateDoc(projectCollectionRef, {
             title: updatedProjectName,
             status: updatedStatus,
@@ -204,12 +178,13 @@ function EditProject({ match, projects }) {
             timeline: updatedTimeline,
             incentives: updatedIncentives,
             image: updatedImageAsUrl,
-            // creator: creator,
+            creator: creator,
             groupMembers: groupMembers, 
             applicants: applicants, 
             rejected: rejected
         })
         getProjects()
+        window.location = `/projectdetails/${id}`
     }
 
     const handleImageAsFile = (e) => {
@@ -421,7 +396,7 @@ function EditProject({ match, projects }) {
                         }}
                         alt="profile"
                         src={editedImageAsUrl}
-                        onClick={(e) => openWidget(e, widget)}
+                        // onClick={(e) => openWidget(e, widget)}
                     />
                 </div>
                 <FormControl inputRef={projNameRef} />
@@ -581,26 +556,23 @@ function EditProject({ match, projects }) {
                 <div></div>
                 <br></br>
                 <div className="create-proj">
-                    <Link className="button-link" to={`/projectdetails/${id}`}>
-                        <Button
-                            className="post-proj-btn1"
-                            size="large"
-                            color='warning'
-                        >
-                            Cancel
-                        </Button>
-                    </Link>
-                    {updateLink()}
-                    {/* <Link className="button-link" to={updateLink()}>
-                        <Button
-                            className="post-proj-btn1"
-                            size="large"
-                            color="primary"
-                            onClick={editProject}
-                        >
-                            Save
-                        </Button>
-                    </Link>    */}
+                    <Button
+                        className="post-proj-btn1"
+                        size="large"
+                        color='warning'
+                        component={Link}
+                        to={`/projectdetails/${id}`}
+                    >
+                        Cancel
+                    </Button>
+                    <Button
+                        className="post-proj-btn1"
+                        size="large"
+                        color="primary"
+                        onClick={editProject}
+                    >
+                        Save
+                    </Button>  
                     <RequiredDialog onClickState={open} onClose={handleClose} fields={['Project Name, Project Description, Number of Members, Preferred Majors']}/>
                 </div>
             </div>

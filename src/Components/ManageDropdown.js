@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect } from 'react'
 import { db } from '../firebase'
-import { doc, collection, getDoc, getDocs, updateDoc } from 'firebase/firestore'
+import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import { Link } from 'react-router-dom'
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -17,7 +17,6 @@ import IconButton from "@material-ui/core/IconButton";
 import SendIcon from '@mui/icons-material/Send';
 import Tooltip from '@mui/material/Tooltip';
 import ConfirmationDialog from './ConfirmationDialog'
-import { CollectionsBookmarkRounded } from '@material-ui/icons';
 
 export default function ManageDropdown({ project, id, groupUse }) {
 
@@ -70,7 +69,6 @@ export default function ManageDropdown({ project, id, groupUse }) {
     const data = await getDoc(projectCollectionRef)
     const selected = data.data()
     setProject({...selected})
-    console.log(selected)
     setGroupMembers(selected.groupMembers)
     setApplicants(selected.applicants)
     setRejected(selected.rejected)
@@ -153,9 +151,6 @@ export default function ManageDropdown({ project, id, groupUse }) {
 
   const updateArrayStates = (from, to, accepted) => {
     let updatedApplicants, updatedGroupMembers, updatedRejected
-    console.log("in update array")
-    console.log(groupMode)
-    console.log(accepted)
     if (groupMode === 'Applicants' && accepted) {
       setEditedApplicants(from)
       setEditedGroupMembers(to)
@@ -204,11 +199,6 @@ export default function ManageDropdown({ project, id, groupUse }) {
 
   //updates the members and sets them to be in firebase
   const updateMembers = async (applicants, members, rejected) => {
-    console.log("~before translate~~")
-    console.log(applicants)
-    console.log(members)
-    console.log(rejected)
-    console.log("~~~")
     let updatedMembers = translate(members)
     let updatedApplicants = translate(applicants)
     let updatedRejected = translate(rejected)
@@ -226,9 +216,6 @@ export default function ManageDropdown({ project, id, groupUse }) {
   //moves members then updates firebase upon every action
   const updateDocMembers = async (member, from, to, accepted) => {
     let { updatedFrom, updatedTo } = moveMember(member, from, to)
-    console.log("in updateDocMembers")
-    console.log(updatedFrom)
-    console.log(updatedTo)
     let { updatedApplicants, updatedGroupMembers, updatedRejected } = updateArrayStates(updatedFrom, updatedTo, accepted)
     updateMembers(updatedApplicants, updatedGroupMembers, updatedRejected)
   }

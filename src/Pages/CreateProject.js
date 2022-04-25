@@ -14,6 +14,7 @@ import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
 import TextField from '@mui/material/TextField'
+import RequiredDialog from '../Components/RequiredDialog'
 
 function CreateProject({}) {
     const [projects, setProjects] = useState([])
@@ -32,6 +33,25 @@ function CreateProject({}) {
     const projNameRef = useRef()
     const projDescRef = useRef()
     const projPrefSoftSkillsRef = useRef()
+
+    const [open, setOpen] = useState(false)
+
+    const handleOpen = () => {
+        setOpen(true)
+    }
+    
+    const handleClose = () => {
+        setOpen(false)
+    }
+
+    const checkAllRequiredValid = (reqValues) => {
+        let invalid = reqValues.filter((x) => x.length === 0 || x === undefined)
+        if (invalid.length >= 1) {
+            setOpen(true)
+            return false
+        }
+        return true
+    }
 
     const handleChangeMemAmt = (event) => {
         setMemAmount(event.target.value)
@@ -82,6 +102,8 @@ function CreateProject({}) {
         setProjects(data.docs.map((doc) => ({ ...doc.data(), key: doc.id })))
     }
     const createProject = async () => {
+        let valid = checkAllRequiredValid([projectName, desc, memberAmount, reqMajor])
+        if(!valid) return 
         await addDoc(projectsCollectionRef, {
             title: projectName,
             status: 'Open',
@@ -99,6 +121,7 @@ function CreateProject({}) {
             rejected: [],
         })
         getProjects()
+        window.location = `/projectspage`
     }
 
     // useEffect(() => {
@@ -378,17 +401,16 @@ function CreateProject({}) {
                     </FormControl>
                 </div>
                 <div className="create-proj">
-                    <Link className="button-link" to="/projectspage">
-                        <Button
-                            className="post-proj-btn1"
-                            variant="contained"
-                            size="large"
-                            onClick={createProject}
-                        >
-                            Post
-                        </Button>
-                    </Link>
+                    <Button
+                        className="post-proj-btn1"
+                        variant="contained"
+                        size="large"
+                        onClick={createProject}
+                    >
+                        Post
+                    </Button>
                 </div>
+                <RequiredDialog onClickState={open} onClose={handleClose} fields={['Project Name, Project Description, Number of Members, Preferred Majors']}/>
             </div>
             <div className="right-most-screen"></div>
         </div>
