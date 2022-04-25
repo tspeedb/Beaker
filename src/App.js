@@ -7,7 +7,6 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import studsidebaritems from './studsidebaritems'
 import sidebaritems from './sidebaritems'
 
-import Homepage from './Pages/Homepage'
 import { AnimatePresence } from 'framer-motion/dist/framer-motion'
 import Projectspage from './Pages/Projectspage'
 import SignIn from './Pages/SignIn'

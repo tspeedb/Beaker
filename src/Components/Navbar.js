@@ -251,7 +251,7 @@ const Navbar = () => {
                 </MenuList>
                 <MenuList onClick={handleMenuClose}>
                     {' '}
-                    <Link to="./homepage"> logout </Link>{' '}
+                    <Link to="./signin"> logout </Link>{' '}
                 </MenuList>
             </Menu>
         </>
