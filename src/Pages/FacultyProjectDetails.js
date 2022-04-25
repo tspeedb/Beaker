@@ -19,12 +19,16 @@ function ProjectDetails({ match, projects }) {
     const getProject = async () => {
         const data = await getDoc(projectCollectionRef)
         const selected = data.data()
-        setProject(selected)
+        setProject({...selected})
+    }
+
+    const getProjectState = () => {
+        return project
     }
 
     useEffect(() => {
         getProject() 
-    }, [id, projects, project])
+    }, [])
 
     const incentiveComp = (project) => {
         let heading = ""
@@ -94,7 +98,7 @@ function ProjectDetails({ match, projects }) {
                                     textShadow: '2px 2px 5px',
                                 }}
                             />{' '}
-                            <ManageMembers project={project} id={id}/>
+                            <ManageMembers project={getProjectState()} id={id}/>
                         </div>
                         <div className="column-right details">
                             <div style={{ fontSize: '50px' }}>

@@ -57,19 +57,21 @@ function EditProject({ match, projects }) {
     }
 
     const updateLink = () => {
+        // <Link className="button-link" to={link}>
         let link = successfulEdit ? `/projectdetails/${id}` : `#`
         console.log(successfulEdit)
         return (
-            <Link className="button-link" to={link}>
+
                     <Button
                         className="post-proj-btn1"
                         size="large"
                         color="primary"
                         onClick={editProject}
+                        component={Link}
+                        to={link}
                     >
                         Save
                     </Button>
-            </Link>     
         )
     }
 
@@ -190,27 +192,24 @@ function EditProject({ match, projects }) {
         let valid = checkAllRequiredValid([updatedProjectName, updatedDesc, updatedReqMajor, updatedMemAmount])
         console.log(valid)
         if(!valid) return 
-        else {
-            handleSuccessfulEdit()
-            await updateDoc(projectCollectionRef, {
-                title: updatedProjectName,
-                status: updatedStatus,
-                description: updatedDesc,
-                members: updatedMemAmount,
-                major: updatedReqMajor,
-                year: updatedReqYear,
-                softskills: updatedSoftSkills,
-                timeline: updatedTimeline,
-                incentives: updatedIncentives,
-                image: updatedImageAsUrl,
-                // creator: creator,
-                groupMembers: groupMembers, 
-                applicants: applicants, 
-                rejected: rejected
-            })
-            getProjects()
-            
-        }
+        handleSuccessfulEdit()
+        await updateDoc(projectCollectionRef, {
+            title: updatedProjectName,
+            status: updatedStatus,
+            description: updatedDesc,
+            members: updatedMemAmount,
+            major: updatedReqMajor,
+            year: updatedReqYear,
+            softskills: updatedSoftSkills,
+            timeline: updatedTimeline,
+            incentives: updatedIncentives,
+            image: updatedImageAsUrl,
+            // creator: creator,
+            groupMembers: groupMembers, 
+            applicants: applicants, 
+            rejected: rejected
+        })
+        getProjects()
     }
 
     const handleImageAsFile = (e) => {

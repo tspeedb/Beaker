@@ -40,13 +40,14 @@ export default function ManageDropdown({ project, id, groupUse }) {
   const sampleApplicants = [
     new Sample(4, "Capy", "Bara", "she/her", "capybara@jungle.com"), 
     new Sample(5, "Croco", "Dile", "he/him", "crocodile@river.com"), 
-    new Sample(6, 'Ali', "Gator", 'she/her', 'alligator@river.com')
+    new Sample(6, 'Ali', "Gator", 'she/her', 'alligator@river.com'),
+    new Sample(7, 'Ding', "O", 'he/him', 'dingo@outback.com')
   ]
 
   const sampleRejected = [
-    new Sample(7, "Capy", "Bara", "she/her", "capybara@jungle.com"), 
-    new Sample(8, "Croco", "Dile", "he/him", "crocodile@river.com"), 
-    new Sample(9, 'Ali', "Gator", 'she/her', 'alligator@river.com')
+    new Sample(8, "Capy", "Bara", "she/her", "capybara@jungle.com"), 
+    new Sample(9, "Croco", "Dile", "he/him", "crocodile@river.com"), 
+    new Sample(10, 'Ali', "Gator", 'she/her', 'alligator@river.com')
   ]
 
   const [projectState, setProject] = useState({})
@@ -54,30 +55,25 @@ export default function ManageDropdown({ project, id, groupUse }) {
   const [groupMembers, setGroupMembers] = useState([])
   const [applicants, setApplicants] = useState([])
   const [rejected, setRejected] = useState([])
-  // const [users, setUsers] = useState([])
   const [open, setOpen] = useState(false)
   const [dialogOpen, setDialogOpen] = useState(false)
   const [acceptConfirmation, setAcceptConfirmation] = useState()
   const [groupMode, setGroupMode] = useState()
-  const [editedGroupMembers, setEditedGroupMembers] = useState(sampleMembers)
-  const [editedApplicants, setEditedApplicants] = useState(sampleApplicants)
-  const [editedRejected, setEditedRejected] = useState(sampleRejected)
+  const [editedGroupMembers, setEditedGroupMembers] = useState([])
+  const [editedApplicants, setEditedApplicants] = useState([])
+  const [editedRejected, setEditedRejected] = useState([])
   const [currentMember, setCurrentMember] = useState(-1)
-  const [accepted, setAccepted] = useState()
 
   const projectCollectionRef = doc(db, 'projects', id)
 
   const getProject = async () => {
     const data = await getDoc(projectCollectionRef)
     const selected = data.data()
-    setProject(selected)
+    setProject({...selected})
     console.log(selected)
     setGroupMembers(selected.groupMembers)
     setApplicants(selected.applicants)
     setRejected(selected.rejected)
-    // setGroupMembers(sampleMembers)
-    // setApplicants(sampleApplicants)
-    // setRejected(sampleRejected)
     setProjectTitle(selected.title)
     setEditedGroupMembers(groupMembers)
     setEditedApplicants(applicants)
@@ -89,14 +85,8 @@ export default function ManageDropdown({ project, id, groupUse }) {
     setGroupMode(groupUse)
     setCurrentMember(getCurrentMember())
     setEditedGroupMembers(getCurrentMembers())
-    console.log("-------", groupMode, "-------")
-    console.log("use members", editedGroupMembers)
     setEditedApplicants(getCurrentApplicants())
-    console.log("use applicants", editedApplicants)
     setEditedRejected(getCurrentRejected())
-    console.log("use rejected", editedRejected)
-    console.log("--------------")
-    // getUsers()
   }, [
       currentMember,  
       applicants.length, 
@@ -105,6 +95,7 @@ export default function ManageDropdown({ project, id, groupUse }) {
       editedGroupMembers.length, 
       rejected.length, 
       editedRejected.length, 
+      project
     ])
 
   const handleClick = () => {
@@ -134,14 +125,6 @@ export default function ManageDropdown({ project, id, groupUse }) {
     window.location = `mailto:${member.email}`
   }
 
-  // const usersCollectionRef = useMemo(() => collection(db, 'students'), [])
-
-  // const getUsers = async () => {
-  //   const data = await getDocs(usersCollectionRef)
-  //   const selected = (data.docs.map((doc) => ({ ...doc.data(), key: doc.id })))
-  //   setUsers(selected)
-  // }
-
   const getUser = (group, id) => {
     return group.filter((user) => user.id === id)[0]
   }
@@ -168,8 +151,11 @@ export default function ManageDropdown({ project, id, groupUse }) {
     return getCurrentMembers()
   }
 
-  const updateArrayStates = (from, to) => {
+  const updateArrayStates = (from, to, accepted) => {
     let updatedApplicants, updatedGroupMembers, updatedRejected
+    console.log("in update array")
+    console.log(groupMode)
+    console.log(accepted)
     if (groupMode === 'Applicants' && accepted) {
       setEditedApplicants(from)
       setEditedGroupMembers(to)
@@ -195,12 +181,6 @@ export default function ManageDropdown({ project, id, groupUse }) {
       updatedGroupMembers = [...from]
       updatedRejected = [...to]
     }
-    console.log("--in update array states--")
-    console.log(groupMode)
-    console.log(accepted)
-    // console.log(updatedApplicants)
-    // console.log(updatedMembers)
-    // console.log(updatedRejected)
     return { updatedApplicants, updatedGroupMembers, updatedRejected }
   }
   
@@ -211,8 +191,6 @@ export default function ManageDropdown({ project, id, groupUse }) {
     updatedFrom.map(x => x = x.id)
     let updatedTo = [...to, user]
     updatedTo.map(x => x = x.id)
-    // console.log("updateArrayStates(from, to)")
-    // console.log(updateArrayStates(from, to))
     return { updatedFrom, updatedTo }
   }
 
@@ -233,7 +211,6 @@ export default function ManageDropdown({ project, id, groupUse }) {
     console.log("~~~")
     let updatedMembers = translate(members)
     let updatedApplicants = translate(applicants)
-    console.log(rejected)
     let updatedRejected = translate(rejected)
     await updateDoc(projectCollectionRef, {
       groupMembers: updatedMembers, 
@@ -247,11 +224,12 @@ export default function ManageDropdown({ project, id, groupUse }) {
   }
 
   //moves members then updates firebase upon every action
-  const updateDocMembers = async (member, from, to) => {
+  const updateDocMembers = async (member, from, to, accepted) => {
     let { updatedFrom, updatedTo } = moveMember(member, from, to)
     console.log("in updateDocMembers")
-    console.log(updatedFrom, updatedTo)
-    let { updatedApplicants, updatedGroupMembers, updatedRejected } = updateArrayStates(updatedFrom, updatedTo)
+    console.log(updatedFrom)
+    console.log(updatedTo)
+    let { updatedApplicants, updatedGroupMembers, updatedRejected } = updateArrayStates(updatedFrom, updatedTo, accepted)
     updateMembers(updatedApplicants, updatedGroupMembers, updatedRejected)
   }
 
@@ -295,16 +273,14 @@ export default function ManageDropdown({ project, id, groupUse }) {
       return (<div>{sendIcon(member)}{rejectIcon(member)}</div>)
   }
 
-  const handleAccept = (id) => {
+  const handleAccept = async (id) => {
     let arr = (groupMode === 'Applicants') ? editedApplicants : editedRejected
-    updateDocMembers(id, arr, editedGroupMembers)
-    setAccepted(true)
+    updateDocMembers(id, arr, editedGroupMembers, true) 
   }
 
-  const handleReject = (id) => {
+  const handleReject = async (id) => {
     let arr = (groupMode === 'Applicants') ? editedApplicants : editedGroupMembers
-    updateDocMembers(id, arr, editedRejected)
-    setAccepted(false)
+    updateDocMembers(id, arr, editedRejected, false)
   }
 
   const confirmationComponent = (group) => {  

@@ -84,11 +84,6 @@ function App() {
                                 component={Welcomepage}
                             />
                             <Route
-                                path="/homepage"
-                                exact
-                                component={Homepage}
-                            />
-                            <Route
                                 path="/projectspage"
                                 exact
                                 render={(props) => (

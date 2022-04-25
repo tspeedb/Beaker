@@ -89,7 +89,7 @@ function Welcomepage() {
                     </Box>
                 </div>
                 <div className="getstarted">
-                    <Link className="button-link" to="/homepage">
+                    <Link className="button-link" to="/signin">
                         <Button
                             className="getstarted-btn1"
                             size="large"
