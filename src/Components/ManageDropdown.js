@@ -18,37 +18,7 @@ import SendIcon from '@mui/icons-material/Send';
 import Tooltip from '@mui/material/Tooltip';
 import ConfirmationDialog from './ConfirmationDialog'
 
-export default function ManageDropdown({ project, id, groupUse }) {
-
-  class Sample {
-    constructor(id, first, last, pronouns, email){
-      this.id = id
-      this.firstname = first
-      this.lastname = last
-      this.pronouns = pronouns
-      this.email = email
-    }
-  }
-
-  const sampleMembers = [
-    new Sample(1, "Capy", "Bara", "she/her", "capybara@jungle.com"), 
-    new Sample(2, "Croco", "Dile", "he/him", "crocodile@river.com"), 
-    new Sample(3, 'Ali', "Gator", 'she/her', 'alligator@river.com')
-  ]
-  
-  const sampleApplicants = [
-    new Sample(4, "Capy", "Bara", "she/her", "capybara@jungle.com"), 
-    new Sample(5, "Croco", "Dile", "he/him", "crocodile@river.com"), 
-    new Sample(6, 'Ali', "Gator", 'she/her', 'alligator@river.com'),
-    new Sample(7, 'Ding', "O", 'he/him', 'dingo@outback.com')
-  ]
-
-  const sampleRejected = [
-    new Sample(8, "Capy", "Bara", "she/her", "capybara@jungle.com"), 
-    new Sample(9, "Croco", "Dile", "he/him", "crocodile@river.com"), 
-    new Sample(10, 'Ali', "Gator", 'she/her', 'alligator@river.com')
-  ]
-
+export default function ManageDropdown({ project, id, groupUse }) {  
   const [projectState, setProject] = useState({})
   const [projectTitle, setProjectTitle] = useState('')
   const [groupMembers, setGroupMembers] = useState([])
@@ -62,8 +32,35 @@ export default function ManageDropdown({ project, id, groupUse }) {
   const [editedApplicants, setEditedApplicants] = useState([])
   const [editedRejected, setEditedRejected] = useState([])
   const [currentMember, setCurrentMember] = useState(-1)
+  const [users, setUsers] = useState([])
 
   const projectCollectionRef = doc(db, 'projects', id)
+
+  class Sample {
+    constructor(id, first, last, pronouns, email, photo, uid){
+      this.id = id
+      this.firstname = first
+      this.lastname = last
+      this.pronouns = pronouns
+      this.email = email
+      this.photo = photo
+      this.uid = uid
+    }
+  }
+
+  const sampleMembers = [
+    new Sample(1, "Mina", "Michaels", "she/her", "mina@example.com", "https://content.gallup.com/origin/gallupinc/GallupSpaces/Production/Cms/EDUCMS/tz7n-7vqceaq86dprdnzag.jpg", "124"), 
+    new Sample(2, "Camden", "Dile", "he/him", "camden@example.com", "https://www.jmwsons.com/wp-content/uploads/sites/29/2018/08/student-3500990_640.jpg", "125"), 
+  ]
+  
+  const sampleApplicants = [
+    new Sample(4, "James", "Dove", "he/him", "james@example.com", "https://www.usnews.com/dims4/USNEWS/e52d968/2147483647/thumbnail/640x420/quality/85/?url=http%3A%2F%2Fmedia.beam.usnews.com%2F44%2F94%2Ff9f5465143a28aac341409bb8d7b%2F200113-studyingman-stock.jpg", "125"), 
+    new Sample(5, "Helen", "Bara", "she/her", "helen@example.com", "https://s3-us-east-2.amazonaws.com/maryville/wp-content/uploads/2019/01/20092424/nutrition.jpg", "126"), 
+  ]
+
+  const sampleRejected = [
+    new Sample(8, "Isaac", "Ali", "him/they", "ali@example.com", "https://www.mayoclinichealthsystem.org/-/media/national-files/images/hometown-health/2021/college-student-glasses-backpack.jpg", "127") 
+  ]
 
   const getProject = async () => {
     const data = await getDoc(projectCollectionRef)
@@ -72,6 +69,9 @@ export default function ManageDropdown({ project, id, groupUse }) {
     setGroupMembers(selected.groupMembers)
     setApplicants(selected.applicants)
     setRejected(selected.rejected)
+    // setGroupMembers(sampleMembers)
+    // setApplicants(sampleApplicants)
+    // setRejected(sampleRejected)
     setProjectTitle(selected.title)
     setEditedGroupMembers(groupMembers)
     setEditedApplicants(applicants)
@@ -95,6 +95,7 @@ export default function ManageDropdown({ project, id, groupUse }) {
       editedRejected.length, 
       project
     ])
+
 
   const handleClick = () => {
     setOpen(!open);
@@ -126,6 +127,14 @@ export default function ManageDropdown({ project, id, groupUse }) {
   const getUser = (group, id) => {
     return group.filter((user) => user.id === id)[0]
   }
+
+  const getUserInfo = async(id) => {
+    const projectCollectionRef = doc(db, 'allusers', id)
+    const data = await getDoc(projectCollectionRef)
+    const selected = data.data()
+    let result = Promise.resolve(selected)
+    result.then(r => { return r })
+  } 
 
   const getCurrentMember = () => {
     return currentMember
@@ -192,7 +201,7 @@ export default function ManageDropdown({ project, id, groupUse }) {
   const translate = (arr) => {
     let p = []
     for (let obj of arr) {
-      p.push({id: obj.id, firstname: obj.firstname, lastname: obj.lastname, pronouns: obj.pronouns, email: obj.email})
+      p.push({id: obj.id, firstname: obj.firstname, lastname: obj.lastname, pronouns: obj.pronouns, email: obj.email, photo: obj.photo})
     }
     return p
   }
@@ -307,11 +316,11 @@ export default function ManageDropdown({ project, id, groupUse }) {
           <Tooltip title="Visit profile">    
             <Link to={`/createproject`}>
               <ListItemAvatar>
-                <Avatar src={`${process.env.PUBLIC_URL}/projectImages/user.png`} />
+                <Avatar src={member.photo}/>
               </ListItemAvatar>
             </Link>
           </Tooltip>
-          <ListItemText primary={`${member.id} ${member.firstname} ${member.lastname}`} secondary={`Pronouns ${member.pronouns}`} style={{ marginTop: '30' }}/>
+          <ListItemText primary={`${member.firstname} ${member.lastname}`} secondary={`Pronouns ${member.pronouns}`} style={{ marginTop: '30' }}/>
           {conditionalIcons(member)}
         </ListItem>
       </div>

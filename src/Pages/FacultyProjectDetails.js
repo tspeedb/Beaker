@@ -85,7 +85,6 @@ function ProjectDetails({ match, projects }) {
                 {project && (
                     <div className="about-container">
                         <div className="column-left details">
-                        
                             {' '}
                             <img
                                 src={project.image}
@@ -94,6 +93,7 @@ function ProjectDetails({ match, projects }) {
                                     width: 400,
                                     height: 400,
                                     paddingTop: '0%',
+                                    marginLeft: '15%',
                                     borderRadius: '5px',
                                     textShadow: '2px 2px 5px',
                                 }}
