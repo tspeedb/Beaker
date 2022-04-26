@@ -13,7 +13,7 @@ h1 {
 
 .welcome-image {
     display: block;
-    padding-top: 10%;
+   
     margin-left: auto;
     margin-right: auto;
 }
@@ -21,6 +21,7 @@ h1 {
 .message {
     color: white;
     text-align: center;
+    padding-bottom: 5%;
 }
 
 .welcome-info {
