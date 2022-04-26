@@ -13,12 +13,8 @@ function Dashboard({ sidebaritems, members }) {
     const [isStudent, setIsStudent] = useState(true)
     const { signin, currentUser } = useAuth()
     const [users, setUsers] = useState([])
-
-    console.log('sure')
-    useEffect(() => {
-        console.log('here')
-        getUsers()
-    })
+    const [user, setUser] = useState({})
+    const [name, setName] = useState('')
 
     const usersCollectionRef = useMemo(() => collection(db, 'allusers'), [])
 
@@ -29,12 +25,19 @@ function Dashboard({ sidebaritems, members }) {
     }
 
     const getUser = (id) => {
-        return users.filter((x) => x.uid === id)[0]
+        setUser(users.filter((x) => x.uid === id)[0])
     }
+
+    useEffect(() => {
+        getUsers()
+        getUser(currentUser.uid)
+        setName(user.firstName)
+    }, [])
 
     return (
         <Layout>
             <Side sidebaritems={sidebaritems}>
+            {users && (
                 <div>
                     <h1
                         id="dash-title"
@@ -47,10 +50,11 @@ function Dashboard({ sidebaritems, members }) {
                         }}
                     >
                         {' '}
-                        <b> {getUser(currentUser.uid).displayName} </b>, welcome
+                        <b> {name} </b>, welcome
                         to your dashboard{' '}
                     </h1>
                 </div>
+            )}
             </Side>
         </Layout>
     )

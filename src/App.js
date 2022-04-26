@@ -26,7 +26,6 @@ import AboutMember from './Pages/AboutMember'
 import AboutStudentProfile from './Pages/AboutStudentProfile'
 import AboutFacultyStaffProfile from './Pages/AboutFacultyStaffProfile'
 import Dashboard from './Pages/Dashboard'
-import StudentDashboard from './Pages/StudentDashboard'
 import BookmarkedMembers from './Pages/BookmarkedMembers'
 import BookmarkedProjects from './Pages/BookmarkedProjects'
 import InvitedMembers from './Pages/InvitedMembers'
@@ -223,7 +222,7 @@ function App() {
                                     />
                                 )}
                             />
-                            <Route
+                            {/* <Route
                                 path="/studentdashboard"
                                 exact
                                 render={(props) => (
@@ -235,7 +234,7 @@ function App() {
                                         }
                                     />
                                 )}
-                            />
+                            /> */}
                             <Route
                                 path="/bookmarkedmembers"
                                 exact
