@@ -3,6 +3,7 @@ import '../Styles/SignIn.css'
 import Button from '@mui/material/Button'
 import firebase from 'firebase/compat/app'
 import UserForm from '../Components/UserForm'
+import RequiredDialog from '../Components/RequiredDialog'
 
 import {
     Card,
@@ -36,14 +37,32 @@ import { registerWithEmailAndPassword } from '../authActions'
 function NewUserStudent() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [firstName, setFirstName] = useState('')
+    const [displayName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [name, setName] = useState('')
     const [user, loading, error] = useAuthState(auth)
     const [activeStep, setActiveStep] = useState(0)
+    const [open, setOpen] = useState(false)
+
+    const handleOpen = () => {
+        setOpen(true)
+    }
+
+    const handleClose = () => {
+        setOpen(false)
+    }
 
     const handleNext = () => {
         setActiveStep((nextStep) => nextStep + 1)
+    }
+
+    const checkAllRequiredValid = (reqValues) => {
+        let invalid = reqValues.filter((x) => x.length === 0 || x === undefined)
+        if (invalid.length >= 1) {
+            setOpen(true)
+            return false
+        }
+        return true
     }
 
     const { signup, currentUser } = useAuth()
@@ -67,9 +86,19 @@ function NewUserStudent() {
     const firestore = firebase.firestore()
 
     const register = () => {
-        if (!email) alert('Please enter email')
+        // if (!email) alert('Please enter email')
 
-        registerWithEmailAndPassword(firstName, lastName, email, password)
+        let valid = checkAllRequiredValid([
+            displayName,
+            lastName,
+            email,
+            password,
+        ])
+        if (!valid) return
+        registerWithEmailAndPassword(displayName, lastName, email, password)
+        history.push('/studentprofile')
+        console.log(currentUser)
+        console.log('currentUser is' + JSON.stringify({ currentUser }))
     }
 
     // console.log(values, handleChange)
@@ -165,27 +194,7 @@ function NewUserStudent() {
                 />
                 <h1>New User</h1>
                 <h2 className="sign-up">Sign Up</h2>
-                <FormControl>
-                    <FormLabel id="demo-radio-buttons-group-label">
-                        I am a
-                    </FormLabel>
-                    <RadioGroup
-                        aria-labelledby="demo-radio-buttons-group-label"
-                        defaultValue="female"
-                        name="radio-buttons-group"
-                    >
-                        <FormControlLabel
-                            value="student"
-                            control={<Radio />}
-                            label="Student"
-                        />
-                        <FormControlLabel
-                            value="falculty/staff"
-                            control={<Radio />}
-                            label="Faculty/Staff"
-                        />
-                    </RadioGroup>
-                </FormControl>
+
                 <div></div>
                 <FormControl type="name" />
                 <div className="email-text-field">
@@ -193,7 +202,8 @@ function NewUserStudent() {
                         type="text"
                         className="email-address"
                         placeholder="First Name"
-                        defaultValue={firstName}
+                        defaultValue={displayName}
+                        label="First Name"
                         onChange={(e) => {
                             setFirstName(e.target.value)
                         }}
@@ -211,6 +221,7 @@ function NewUserStudent() {
                         type="text"
                         className="email-address"
                         placeholder="Last Name"
+                        label="Last Name"
                         defaultValue={lastName}
                         onChange={(e) => {
                             setLastName(e.target.value)
@@ -239,6 +250,7 @@ function NewUserStudent() {
                         type="text"
                         className="email-address"
                         placeholder="example@lion.lmu.edu"
+                        label="Email"
                         // inputRef={emailRef}
                         defaultValue={email}
                         onChange={(e) => {
@@ -257,17 +269,18 @@ function NewUserStudent() {
                     <TextField
                         type="password"
                         className="password"
-                        placeholder="atleast 6 character password"
+                        placeholder="at least 6 character password"
+                        label="Password"
                         // inputRef={passwordRef}
                         defaultValue={password}
                         onChange={(e) => {
                             setPassword(e.target.value)
                         }}
-                        required
                         style={{
                             width: '20em',
                             marginBottom: '1em',
                         }}
+                        required
                     />
                 </div>
                 <div className="continue-to-profile-button">
@@ -312,6 +325,11 @@ function NewUserStudent() {
                     Already have an account? <Link to="/">Login</Link> now.
                 </div> */}
             </div>
+            <RequiredDialog
+                onClickState={open}
+                onClose={handleClose}
+                fields={['First Name, Last Name, Email, Password']}
+            />
         </div>
     )
 }
