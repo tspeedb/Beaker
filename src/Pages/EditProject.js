@@ -32,7 +32,7 @@ function EditProject({ match, projects }) {
     const [imageAsUrl, setImageAsUrl] = useState(
         `${process.env.PUBLIC_URL}/projectImages/user.png`
     )
-    const [creator, setCreator] = useState('')
+    // const [creator, setCreator] = useState('')
     const [groupMembers, setGroupMembers] = useState([])
     const [applicants, setApplicants] = useState([])
     const [rejected, setRejected] = useState([])
@@ -87,7 +87,7 @@ function EditProject({ match, projects }) {
         setEditedTimeline(selected?.timeline)
         setEditedIncentives(selected?.incentives)
         setEditedImageAsUrl(selected?.image)
-        setCreator(selected?.creator)
+        // setCreator(selected?.creator)
         setGroupMembers(selected?.groupMembers)
         setApplicants(selected?.applicants)
         setRejected(selected?.rejected)
@@ -178,7 +178,7 @@ function EditProject({ match, projects }) {
             timeline: updatedTimeline,
             incentives: updatedIncentives,
             image: updatedImageAsUrl,
-            creator: creator,
+            // creator: creator,
             groupMembers: groupMembers, 
             applicants: applicants, 
             rejected: rejected
