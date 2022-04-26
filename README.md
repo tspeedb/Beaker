@@ -7,8 +7,7 @@ Beaker is a web-app board for posting projects of all types whether it be resear
 
 
 ## Project Status
-This project has been deployed but in a pre-alpha state. 
-It can be accessed by the following link: 
+This project has been deployed but in a pre-alpha state. Website can be accessed <a href="beaker.vercel.app">here</a>
 
 
 
