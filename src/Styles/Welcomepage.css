@@ -34,6 +34,8 @@ h1 {
     height: 50px;
     width: 60px;
     padding-top: 2.5%;
+    padding-left: 40%;
+   
 }
 
 .lightbulb {
@@ -41,6 +43,7 @@ h1 {
     height: 60px;
     width: 70px;
     padding: 0%;
+    padding-left: 40%;
 }
 
 .connection {
@@ -48,6 +51,7 @@ h1 {
     height: 60px;
     width: 70px;
     padding: 0%;
+    padding-left: 40%;
 }
 
 .title {
