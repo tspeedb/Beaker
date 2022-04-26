@@ -38,7 +38,7 @@ export const signIn = (credentials) => {
 }
 
 export const registerWithEmailAndPassword = async (
-    firstName,
+    displayName,
 
     lastName,
 
@@ -47,10 +47,10 @@ export const registerWithEmailAndPassword = async (
 ) => {
     try {
         const res = await createUserWithEmailAndPassword(auth, email, password)
-        const user = res.user
+        const currentUser = res.user
         await addDoc(collection(db, 'allusers'), {
-            uid: user.uid,
-            firstName,
+            uid: currentUser.uid,
+            displayName,
 
             lastName,
 

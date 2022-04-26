@@ -8,7 +8,7 @@ import { db, storage } from '../firebase'
 import { doc, collection, getDoc, getDocs, updateDoc } from 'firebase/firestore'
 import Layout from '../Components/Layout'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
-import Box from '@material-ui/core/Box';
+import Box from '@material-ui/core/Box'
 import Uploadfile from '../Components/UploadFile'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
@@ -46,7 +46,7 @@ function EditProject({ match, projects }) {
     const handleOpen = () => {
         setOpen(true)
     }
-    
+
     const handleClose = () => {
         setOpen(false)
     }
@@ -58,7 +58,7 @@ function EditProject({ match, projects }) {
 
     const getProjects = async () => {
         const data = await getDocs(projectsCollectionRef)
-        projects = (data.docs.map((doc) => ({ ...doc.data(), key: doc.id })))
+        projects = data.docs.map((doc) => ({ ...doc.data(), key: doc.id }))
     }
 
     const [editedProjectName, setEditedProjectName] = useState('')
@@ -107,66 +107,104 @@ function EditProject({ match, projects }) {
     }
 
     const compareValues = () => {
-        let updatedProjectName = (projectState.title !== editedProjectName) ? editedProjectName : projectState.title
-        setProjectName(updatedProjectName) 
+        let updatedProjectName =
+            projectState.title !== editedProjectName
+                ? editedProjectName
+                : projectState.title
+        setProjectName(updatedProjectName)
 
-        let updatedStatus = (projectState.status !== editedProjectStatus) ? editedProjectStatus : projectState.status
+        let updatedStatus =
+            projectState.status !== editedProjectStatus
+                ? editedProjectStatus
+                : projectState.status
         setStatus(updatedStatus)
 
-        let updatedDesc = (projectState.description !== editedDesc) ? editedDesc : projectState.description
-        setDesc(updatedDesc) 
+        let updatedDesc =
+            projectState.description !== editedDesc
+                ? editedDesc
+                : projectState.description
+        setDesc(updatedDesc)
 
-        let updatedMemAmount = (projectState.members !== editedMemberAmount) ? editedMemberAmount : projectState.members
+        let updatedMemAmount =
+            projectState.members !== editedMemberAmount
+                ? editedMemberAmount
+                : projectState.members
         setMemAmount(updatedMemAmount)
 
-        let updatedReqMajor = (!checkArrEquality(projectState.major, editedReqMajor)) ? [...editedReqMajor] : [...projectState.major]
+        let updatedReqMajor = !checkArrEquality(
+            projectState.major,
+            editedReqMajor
+        )
+            ? [...editedReqMajor]
+            : [...projectState.major]
         setReqMajor(updatedReqMajor)
 
-        let updatedReqYear = (!checkArrEquality(projectState.year, editedReqYear)) ? [...editedReqYear] : [...projectState.year]
+        let updatedReqYear = !checkArrEquality(projectState.year, editedReqYear)
+            ? [...editedReqYear]
+            : [...projectState.year]
         setReqYear(updatedReqYear)
 
-        let updatedSoftSkills = (projectState.softskills !== editedSoftSkills) ? editedSoftSkills : projectState.softskills
-        setSoftSkills(updatedSoftSkills) 
+        let updatedSoftSkills =
+            projectState.softskills !== editedSoftSkills
+                ? editedSoftSkills
+                : projectState.softskills
+        setSoftSkills(updatedSoftSkills)
 
-        let updatedTimeline = (projectState.timeline !== editedTimeline) ? editedTimeline : projectState.timeline
+        let updatedTimeline =
+            projectState.timeline !== editedTimeline
+                ? editedTimeline
+                : projectState.timeline
         setTimeline(updatedTimeline)
 
-        let updatedIncentives = (!checkArrEquality(projectState.incentives, editedIncentives)) ? [...editedIncentives] : [...projectState.incentives]
+        let updatedIncentives = !checkArrEquality(
+            projectState.incentives,
+            editedIncentives
+        )
+            ? [...editedIncentives]
+            : [...projectState.incentives]
         setIncentives(updatedIncentives)
 
-        let updatedImageAsUrl = (projectState.image !== editedImageAsUrl) ? editedImageAsUrl : projectState.image
+        let updatedImageAsUrl =
+            projectState.image !== editedImageAsUrl
+                ? editedImageAsUrl
+                : projectState.image
         setImageAsUrl(updatedTimeline)
 
-        return { 
-            updatedProjectName, 
-            updatedStatus, 
-            updatedDesc, 
+        return {
+            updatedProjectName,
+            updatedStatus,
+            updatedDesc,
             updatedMemAmount,
-            updatedReqMajor, 
-            updatedReqYear, 
-            updatedSoftSkills,  
+            updatedReqMajor,
+            updatedReqYear,
+            updatedSoftSkills,
             updatedTimeline,
             updatedIncentives,
-            updatedImageAsUrl
+            updatedImageAsUrl,
         }
     }
 
     const editProject = async () => {
-        let { 
-            updatedProjectName, 
-            updatedStatus, 
-            updatedDesc, 
+        let {
+            updatedProjectName,
+            updatedStatus,
+            updatedDesc,
             updatedMemAmount,
-            updatedReqMajor, 
-            updatedReqYear, 
-            updatedSoftSkills,  
+            updatedReqMajor,
+            updatedReqYear,
+            updatedSoftSkills,
             updatedTimeline,
             updatedIncentives,
-            updatedImageAsUrl
+            updatedImageAsUrl,
         } = compareValues()
 
-        let valid = checkAllRequiredValid([updatedProjectName, updatedDesc, updatedReqMajor, updatedMemAmount])
-        if(!valid) return 
+        let valid = checkAllRequiredValid([
+            updatedProjectName,
+            updatedDesc,
+            updatedReqMajor,
+            updatedMemAmount,
+        ])
+        if (!valid) return
         await updateDoc(projectCollectionRef, {
             title: updatedProjectName,
             status: updatedStatus,
@@ -202,7 +240,7 @@ function EditProject({ match, projects }) {
             })
         })
     }
-    
+
     const widget = window.cloudinary.createUploadWidget(
         {
             cloudName: process.env.REACT_APP_CLOUD_NAME,
@@ -343,21 +381,13 @@ function EditProject({ match, projects }) {
         setEditedTimeline(event.target.value)
     }
 
-    const status = [
-        'Open', 
-        'Closed', 
-        'Completed'
-    ]
+    const status = ['Open', 'Closed', 'Completed']
 
     const handleChangeStatus = (event) => {
         setEditedProjectStatus(event.target.value)
     }
 
-    const incentiveOptions = [
-        'Paid', 
-        'Funding Available', 
-        'Internship Credit'
-    ]
+    const incentiveOptions = ['Paid', 'Funding Available', 'Internship Credit']
 
     const handleChangeIncentives = (event) => {
         setEditedIncentives(event.target.value)
@@ -365,220 +395,243 @@ function EditProject({ match, projects }) {
 
     return (
         <Layout>
-        <div className="new-profile">
-        <div className="left-screen-project">
-                <h1 className="left-text-info" id="left-text">
-                     Edit<br></br> Project!
-                </h1>
-            </div>
-            <div className="middle-screen">
-            <Box display='flex' flexGrow={1} >
-                <Link to={`/projectdetails/${id}`}>
-                    <ArrowBackIosIcon style={{ color: 'black', paddingTop: '10', paddingLeft: '10' }}></ArrowBackIosIcon>
-                </Link>
-                </Box>
-            </div>
+            <div className="new-profile">
+                <div className="left-screen-project">
+                    <h1 className="left-text-info" id="left-text">
+                        Edit<br></br> Project!
+                    </h1>
+                </div>
+                <div className="middle-screen">
+                    <Box display="flex" flexGrow={1}>
+                        <Link to={`/projectdetails/${id}`}>
+                            <ArrowBackIosIcon
+                                style={{
+                                    color: 'black',
+                                    paddingTop: '10',
+                                    paddingLeft: '10',
+                                }}
+                            ></ArrowBackIosIcon>
+                        </Link>
+                    </Box>
+                </div>
 
-            {project && (
-            <div className="right-screen-proj">
-                <img className="profile-image" src={beaker} alt="logo" />
-                <h1 className="new-user">Edit {project.title} Project</h1>
-                <p className="profile">Project Image</p>
-                <div>
-                    <img
-                        style={{
-                            width: 250,
-                            height: 250,
-                            paddingTop: 0,
-                            paddingTop: '0%',
-                            borderRadius: '5px',
-                            textShadow: '2px 2px 5px',
-                        }}
-                        alt="profile"
-                        src={editedImageAsUrl}
-                        // onClick={(e) => openWidget(e, widget)}
-                    />
-                </div>
-                <FormControl inputRef={projNameRef} />
-                <div className='proj-name'>
-                <TextField
-                    type="text"
-                    className="project-name"
-                    placeholder="Project Name"
-                    label="Project Name"
-                    inputRef={projNameRef}
-                    value={editedProjectName}
-                    style={{ width: '55%' }}
-                    onChange={(event) => {
-                        setEditedProjectName(event.target.value)
-                    }}
-                    required
-                />
-                </div>
-                <FormControl inputRef={projDescRef}/>
-                <div className='project-desc'>
-                <TextField
-                    multiline
-                    rows={6}
-                    type="text"
-                    label="Project Description"
-                    className="project-desc"
-                    placeholder="Project Description"
-                    inputRef={projDescRef}
-                    value={editedDesc}
-                    style={{ width: '55%' }}
-                    onChange={(event) => {
-                        setEditedDesc(event.target.value)
-                    }}
-                    required
-                />
-                </div>
-                <div className="project-status">
-                    <FormControl style={{ width: '55%' }}>
-                        <InputLabel>Project Status</InputLabel>
-                        <Select
-                            value={editedProjectStatus}
-                            onChange={handleChangeStatus}
-                        >
-                            {status.map((s) => (
-                                <MenuItem
-                                    key={s}
-                                    value={s}
+                {project && (
+                    <div className="right-screen-proj">
+                        <img
+                            className="profile-image"
+                            src={beaker}
+                            alt="logo"
+                        />
+                        <h1 className="new-user">
+                            Edit {project.title} Project
+                        </h1>
+                        <p className="profile">Project Image</p>
+                        <div>
+                            <img
+                                style={{
+                                    width: 250,
+                                    height: 250,
+                                    paddingTop: 0,
+                                    paddingTop: '0%',
+                                    borderRadius: '5px',
+                                    textShadow: '2px 2px 5px',
+                                }}
+                                alt="profile"
+                                src={editedImageAsUrl}
+                                // onClick={(e) => openWidget(e, widget)}
+                            />
+                        </div>
+                        <FormControl inputRef={projNameRef} />
+                        <div className="proj-name">
+                            <TextField
+                                type="text"
+                                className="project-name"
+                                placeholder="Project Name"
+                                label="Project Name"
+                                inputRef={projNameRef}
+                                value={editedProjectName}
+                                style={{ width: '55%' }}
+                                onChange={(event) => {
+                                    setEditedProjectName(event.target.value)
+                                }}
+                                required
+                            />
+                        </div>
+                        <FormControl inputRef={projDescRef} />
+                        <div className="project-desc">
+                            <TextField
+                                multiline
+                                rows={6}
+                                type="text"
+                                label="Project Description"
+                                className="project-desc"
+                                placeholder="Project Description"
+                                inputRef={projDescRef}
+                                value={editedDesc}
+                                style={{ width: '55%' }}
+                                onChange={(event) => {
+                                    setEditedDesc(event.target.value)
+                                }}
+                                required
+                            />
+                        </div>
+                        <div className="project-status">
+                            <FormControl style={{ width: '55%' }}>
+                                <InputLabel>Project Status</InputLabel>
+                                <Select
+                                    value={editedProjectStatus}
+                                    onChange={handleChangeStatus}
                                 >
-                                    {s}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                </div>
-                <div className="members-dropdown">
-                    <FormControl style={{ width: '55%' }} required>
-                        <InputLabel>Number Of Members Needed</InputLabel>
-                        <Select
-                            value={editedMemberAmount}
-                            onChange={handleChangeMemAmt}
-                        >
-                            {memberAmtOptions.map((memberAmtOption) => (
-                                <MenuItem
-                                    key={memberAmtOption}
-                                    value={memberAmtOption}
+                                    {status.map((s) => (
+                                        <MenuItem key={s} value={s}>
+                                            {s}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </div>
+                        <div className="members-dropdown">
+                            <FormControl style={{ width: '55%' }} required>
+                                <InputLabel>
+                                    Number Of Members Needed
+                                </InputLabel>
+                                <Select
+                                    value={editedMemberAmount}
+                                    onChange={handleChangeMemAmt}
                                 >
-                                    {memberAmtOption}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                </div>
-                <div className="preferred-majors-options">
-                    <FormControl style={{ width: '55%' }} required>
-                        <InputLabel>Preferred Majors</InputLabel>
-                        <Select
-                            multiple
-                            value={editedReqMajor}
-                            onChange={handleChangeMajor}
-                        >
-                            {majorOptions.map((majorOption) => (
-                                <MenuItem key={majorOption} value={majorOption}>
-                                    {majorOption}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                </div>
-                <div className="preferred-years-options">
-                    <FormControl style={{ width: '55%' }}>
-                        <InputLabel>Preferred Years</InputLabel>
-                        <Select
-                            multiple
-                            value={editedReqYear}
-                            onChange={handleChangeYear}
-                        >
-                            {yearOptions.map((yearOption) => (
-                                <MenuItem key={yearOption} value={yearOption}>
-                                    {yearOption}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                </div>
-                <FormControl inputRef={projPrefSoftSkillsRef}/>
-                <div className='preferred-soft-skill'>
-                <TextField
-                    type="text"
-                    className="preferred-soft-skill"
-                    label="Preferred Soft Skill(s)"
-                    placeholder="Preferred Soft Skill(s)"
-                    inputRef={projPrefSoftSkillsRef}
-                    value={editedSoftSkills}
-                    style={{ width: '55%' }}
-                    onChange={(event) => {
-                        setEditedSoftSkills(event.target.value)
-                    }}
-                />
-                </div>
-                <div className="timeline-dropdown">
-                    <FormControl style={{ width: '55%' }}>
-                        <InputLabel>Project Timeline</InputLabel>
-                        <Select
-                            value={editedTimeline}
-                            onChange={handleChangeTimeline}
-                        >
-                            {timelineOptions.map((timelineOption) => (
-                                <MenuItem
-                                    key={timelineOption}
-                                    value={timelineOption}
+                                    {memberAmtOptions.map((memberAmtOption) => (
+                                        <MenuItem
+                                            key={memberAmtOption}
+                                            value={memberAmtOption}
+                                        >
+                                            {memberAmtOption}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </div>
+                        <div className="preferred-majors-options">
+                            <FormControl style={{ width: '55%' }} required>
+                                <InputLabel>Preferred Majors</InputLabel>
+                                <Select
+                                    multiple
+                                    value={editedReqMajor}
+                                    onChange={handleChangeMajor}
                                 >
-                                    {timelineOption}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                </div>
-                <div className="incentive-options">
-                    <FormControl style={{ width: '55%' }}>
-                        <InputLabel>Incentives</InputLabel>
-                        <Select
-                            multiple
-                            value={editedIncentives}
-                            onChange={handleChangeIncentives}
-                        >
-                            {incentiveOptions.map((incentiveOption) => (
-                                <MenuItem
-                                    key={incentiveOption}
-                                    value={incentiveOption}
+                                    {majorOptions.map((majorOption) => (
+                                        <MenuItem
+                                            key={majorOption}
+                                            value={majorOption}
+                                        >
+                                            {majorOption}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </div>
+                        <div className="preferred-years-options">
+                            <FormControl style={{ width: '55%' }}>
+                                <InputLabel>Preferred Years</InputLabel>
+                                <Select
+                                    multiple
+                                    value={editedReqYear}
+                                    onChange={handleChangeYear}
                                 >
-                                    {incentiveOption}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                </div>
-                <div></div>
-                <br></br>
-                <div className="create-proj">
-                    <Button
-                        className="post-proj-btn1"
-                        size="large"
-                        color='warning'
-                        component={Link}
-                        to={`/projectdetails/${id}`}
-                    >
-                        Cancel
-                    </Button>
-                    <Button
-                        className="post-proj-btn1"
-                        size="large"
-                        color="primary"
-                        onClick={editProject}
-                    >
-                        Save
-                    </Button>  
-                    <RequiredDialog onClickState={open} onClose={handleClose} fields={['Project Name, Project Description, Number of Members, Preferred Majors']}/>
-                </div>
+                                    {yearOptions.map((yearOption) => (
+                                        <MenuItem
+                                            key={yearOption}
+                                            value={yearOption}
+                                        >
+                                            {yearOption}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </div>
+                        <FormControl inputRef={projPrefSoftSkillsRef} />
+                        <div className="preferred-soft-skill">
+                            <TextField
+                                type="text"
+                                className="preferred-soft-skill"
+                                label="Preferred Soft Skill(s)"
+                                placeholder="Preferred Soft Skill(s)"
+                                inputRef={projPrefSoftSkillsRef}
+                                value={editedSoftSkills}
+                                style={{ width: '55%' }}
+                                onChange={(event) => {
+                                    setEditedSoftSkills(event.target.value)
+                                }}
+                            />
+                        </div>
+                        <div className="timeline-dropdown">
+                            <FormControl style={{ width: '55%' }}>
+                                <InputLabel>Project Timeline</InputLabel>
+                                <Select
+                                    value={editedTimeline}
+                                    onChange={handleChangeTimeline}
+                                >
+                                    {timelineOptions.map((timelineOption) => (
+                                        <MenuItem
+                                            key={timelineOption}
+                                            value={timelineOption}
+                                        >
+                                            {timelineOption}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </div>
+                        <div className="incentive-options">
+                            <FormControl style={{ width: '55%' }}>
+                                <InputLabel>Incentives</InputLabel>
+                                <Select
+                                    multiple
+                                    value={editedIncentives}
+                                    onChange={handleChangeIncentives}
+                                >
+                                    {incentiveOptions.map((incentiveOption) => (
+                                        <MenuItem
+                                            key={incentiveOption}
+                                            value={incentiveOption}
+                                        >
+                                            {incentiveOption}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </div>
+                        <div></div>
+                        <br></br>
+                        <div className="create-proj">
+                            <Button
+                                className="post-proj-btn1"
+                                size="large"
+                                color="warning"
+                                component={Link}
+                                to={`/projectdetails/${id}`}
+                            >
+                                Cancel
+                            </Button>
+                            <Button
+                                className="post-proj-btn1"
+                                size="large"
+                                color="primary"
+                                onClick={editProject}
+                            >
+                                Save
+                            </Button>
+                            <RequiredDialog
+                                onClickState={open}
+                                onClose={handleClose}
+                                fields={[
+                                    'Project Name, Project Description, Number of Members, Preferred Majors',
+                                ]}
+                            />
+                        </div>
+                    </div>
+                )}
+                <div className="right-most-screen"></div>
             </div>
-            )}
-            <div className="right-most-screen"></div>
-        </div>
         </Layout>
     )
 }

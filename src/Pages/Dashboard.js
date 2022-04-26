@@ -1,29 +1,36 @@
-import { StayCurrentLandscape } from '@mui/icons-material'
 import 'firebase/firestore'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import Layout from '../Components/Layout'
 import Side from '../Components/Side'
 import '../Styles/Sidebar.css'
 import { useAuth } from '../Contexts/authContext'
+import { db } from '../firebase'
+import { collection, getDocs } from 'firebase/firestore'
 
 // SM: If you are not using this commented out code,
 //     it would probably be best to get rid of it to keep the file cleaner
 function Dashboard({ sidebaritems, members }) {
     const [isStudent, setIsStudent] = useState(true)
     const { signin, currentUser } = useAuth()
-    // const [projects, setProjects] = useState([])
-    // const projectsCollectionRef = collection(db, 'projects')
-    // useEffect(() => {
-    //     const getProjects = async () => {
-    //         const data = await getDocs(projectsCollectionRef)
-    //         //loop through documents in collection
-    //         console.log(data)
-    //         setProjects(
-    //             data.docs.map((doc) => ({ ...doc.data(), key: doc.id }))
-    //         )
-    //     }
-    //     getProjects()
-    // }, [])
+    const [users, setUsers] = useState([])
+
+    console.log('sure')
+    useEffect(() => {
+        console.log('here')
+        getUsers()
+    })
+
+    const usersCollectionRef = useMemo(() => collection(db, 'allusers'), [])
+
+    const getUsers = async () => {
+        const data = await getDocs(usersCollectionRef)
+        let selected = data.docs.map((doc) => ({ ...doc.data(), key: doc.id }))
+        setUsers(selected)
+    }
+
+    const getUser = (id) => {
+        return users.filter((x) => x.uid === id)[0]
+    }
 
     return (
         <Layout>
@@ -40,7 +47,8 @@ function Dashboard({ sidebaritems, members }) {
                         }}
                     >
                         {' '}
-                        <b> {currentUser.email} </b>, welcome to your dashboard{' '}
+                        <b> {getUser(currentUser.uid).displayName} </b>, welcome
+                        to your dashboard{' '}
                     </h1>
                 </div>
             </Side>
